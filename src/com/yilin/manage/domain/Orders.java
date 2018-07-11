@@ -1,6 +1,9 @@
 package com.yilin.manage.domain;
 
+import java.util.Date;
+
 /**
+ * 订单
  * Created by Administrator on 2018/7/9.
  */
 public class Orders {
@@ -17,8 +20,10 @@ public class Orders {
     int num;
     //购买单价
     float price;
-    //订单状态 0代表未付款 1代表已付款  2代表已发货 3代表订单已完成 4代表订单已关闭
+    //订单状态 0代表未付款 1代表已付款  2代表已发货 3代表订单已完成 4代表退款中 5代表退货中 6代表退款成功 7代表订单已关闭
     byte status;
+    //下单实际
+    Date time;
 
     public int getId() {
         return id;
@@ -74,5 +79,13 @@ public class Orders {
 
     public void setStatus(byte status) {
         this.status = status;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 }

@@ -3,7 +3,7 @@ package com.yilin.manage.domain;
 import java.util.Date;
 
 /**
- * Created by Administrator on 2018/7/11.
+ * Created by cc on 2018/7/11.
  */
 public class Commodity {
 
