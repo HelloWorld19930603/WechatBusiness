@@ -8,7 +8,7 @@
     </settings>
 	<typeAliases>
 
-		<typeAlias type="com.yilin.manage.domain.Order" alias="order"/>
+		<typeAlias type="com.yilin.manage.domain.Orders" alias="order"/>
 	</typeAliases>
 
 	<mappers>

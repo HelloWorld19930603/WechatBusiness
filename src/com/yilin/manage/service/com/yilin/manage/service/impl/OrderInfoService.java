@@ -1,6 +1,6 @@
 package com.yilin.manage.service.com.yilin.manage.service.impl;
 
-import com.yilin.manage.domain.Order;
+import com.yilin.manage.domain.Orders;
 import com.yilin.manage.mapper.IOrderMapper;
 import com.yilin.manage.service.IOrderInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class OrderInfoService implements IOrderInfoService{
     IOrderMapper orderMapper;
 
     @Override
-    public List<Order> selectAll() {
+    public List<Orders> selectAll() {
         return orderMapper.selectAll();
     }
 }

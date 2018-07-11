@@ -1,6 +1,6 @@
 package com.yilin.manage.service;
 
-import com.yilin.manage.domain.Order;
+import com.yilin.manage.domain.Orders;
 
 import java.util.List;
 
@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface IOrderInfoService {
 
-    public List<Order> selectAll();
+    public List<Orders> selectAll();
 }

@@ -1,6 +1,6 @@
 package com.yilin.manage.controller;
 
-import com.yilin.manage.domain.Order;
+import com.yilin.manage.domain.Orders;
 import com.yilin.manage.service.IOrderInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ public class OrderContorller {
 
     @RequestMapping("/getOrders")
     @ResponseBody
-    public List<Order> getOrders(){
+    public List<Orders> getOrders(){
         return orderInfoService.selectAll();
     }
 }
