@@ -26,6 +26,10 @@ public class Commodity {
     String quality;
     //生产日期
     Date start;
+    //商品图片
+    String img;
+    //规格
+    String specifications;
 
     public int getId() {
         return id;
