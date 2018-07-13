@@ -1,35 +1,37 @@
 package com.yilin.app.common;
 
-public class Json implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
+/**
+ * 操作结果实体类
+ *
+ */
+public class ResultJson implements java.io.Serializable {
+
 	private static final long serialVersionUID = 6493265179641167222L;
 
-	private boolean success = false;
+	private boolean status = false;
 
-	private String msg = "";
+	private String msg;
 
 	private Object obj = null;
 	
-	public Json() {}
+	public ResultJson() {}
 	
-	public Json(boolean success) {
-		this.success = success;
+	public ResultJson(boolean status) {
+		this.status = status;
 	}
 	
-	public Json(boolean success, String msg) {
-		this.success = success;
+	public ResultJson(boolean status, String msg) {
+		this.status = status;
 		this.msg = msg;
 	}
 
-	public boolean isSuccess() {
-		return success;
+	public boolean getStatus() {
+		return status;
 	}
 
-	public void setSuccess(boolean success) {
-		this.success = success;
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 	
 	public String getMsg() {

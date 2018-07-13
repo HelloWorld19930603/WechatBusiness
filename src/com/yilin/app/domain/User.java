@@ -21,9 +21,9 @@ public class User {
     //手机号码
     int phone;
     //微信号
-    int wx_num;
+    String wx_num;
     //身份证号
-    int id_num;
+    String id_num;
     //头像
     String head_img;
 
@@ -91,19 +91,19 @@ public class User {
         this.phone = phone;
     }
 
-    public int getWx_num() {
+    public String getWx_num() {
         return wx_num;
     }
 
-    public void setWx_num(int wx_num) {
+    public void setWx_num(String wx_num) {
         this.wx_num = wx_num;
     }
 
-    public int getId_num() {
+    public String getId_num() {
         return id_num;
     }
 
-    public void setId_num(int id_num) {
+    public void setId_num(String id_num) {
         this.id_num = id_num;
     }
 

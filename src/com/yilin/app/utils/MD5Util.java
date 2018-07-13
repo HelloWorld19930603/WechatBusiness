@@ -13,8 +13,7 @@ public class MD5Util {
         StringBuilder Digest = new StringBuilder("");
         MessageDigest currentAlgorithm = MessageDigest.getInstance("md5");
         currentAlgorithm.reset();
-        byte[] mess = pwd.getBytes();
-        byte[] hash = currentAlgorithm.digest(mess);
+        byte[] hash = currentAlgorithm.digest(pwd.getBytes());
         for (int i = 0; i < hash.length; i++) {
             int v = hash[i];
             if (v < 0)
