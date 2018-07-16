@@ -1,16 +1,33 @@
 package com.yilin.app.domain;
 
-/**
- * Created by Administrator on 2018/7/11.
- */
 public class Role {
+    private Integer id;
 
-    int id;
-    //角色级别
-    int level;
-    //角色名称
-    String name;
+    private Byte level;
 
+    private String name;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Byte getLevel() {
+        return level;
+    }
+
+    public void setLevel(Byte level) {
+        this.level = level;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
 }
-
-

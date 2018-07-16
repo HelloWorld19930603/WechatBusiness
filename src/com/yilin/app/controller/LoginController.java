@@ -23,7 +23,7 @@ public class LoginController {
         ResultJson j = new ResultJson();
         String login ;//= userService.login(user.getLoginname(), user.getPassword(), string, null);
         if ("success".equals("")) {
-            j.setSuccess(true);
+            j.setStatus(true);
             j.setMsg("登陆成功！");
         } else {
             j.setMsg("");
@@ -36,7 +36,7 @@ public class LoginController {
     public ResultJson logout() {
         ResultJson j = new ResultJson();
         //SecurityUtils.getSubject().logout();
-        j.setSuccess(true);
+        j.setStatus(true);
         j.setMsg("注销成功！");
         return j;
     }

@@ -2,56 +2,52 @@ package com.yilin.app.domain;
 
 import java.util.Date;
 
-/**
- * Created by cc on 2018/7/11.
- */
 public class Commodity {
+    private Integer id;
 
-    int id;
-    //系列
-    int series;
-    //库存
-    int stock;
-    //商品名
-    String name;
-    //商品描述
-    String descript;
-    //商品类别
-    String type;
-    //商品重量
-    float scale;
-    //商品二维码
-    String qr_code;
-    //保质期
-    String quality;
-    //生产日期
-    Date start;
-    //商品图片
-    String img;
-    //规格
-    String specifications;
+    private Byte series;
 
-    public int getId() {
+    private Integer stock;
+
+    private String name;
+
+    private String descript;
+
+    private String type;
+
+    private Float scale;
+
+    private String qrCode;
+
+    private String quality;
+
+    private Date start;
+
+    private String img;
+
+    private String specifications;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getSeries() {
+    public Byte getSeries() {
         return series;
     }
 
-    public void setSeries(int series) {
+    public void setSeries(Byte series) {
         this.series = series;
     }
 
-    public int getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 
@@ -60,7 +56,7 @@ public class Commodity {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public String getDescript() {
@@ -68,7 +64,7 @@ public class Commodity {
     }
 
     public void setDescript(String descript) {
-        this.descript = descript;
+        this.descript = descript == null ? null : descript.trim();
     }
 
     public String getType() {
@@ -76,23 +72,23 @@ public class Commodity {
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.type = type == null ? null : type.trim();
     }
 
-    public float getScale() {
+    public Float getScale() {
         return scale;
     }
 
-    public void setScale(float scale) {
+    public void setScale(Float scale) {
         this.scale = scale;
     }
 
-    public String getQr_code() {
-        return qr_code;
+    public String getQrCode() {
+        return qrCode;
     }
 
-    public void setQr_code(String qr_code) {
-        this.qr_code = qr_code;
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode == null ? null : qrCode.trim();
     }
 
     public String getQuality() {
@@ -100,7 +96,7 @@ public class Commodity {
     }
 
     public void setQuality(String quality) {
-        this.quality = quality;
+        this.quality = quality == null ? null : quality.trim();
     }
 
     public Date getStart() {
@@ -110,6 +106,20 @@ public class Commodity {
     public void setStart(Date start) {
         this.start = start;
     }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img == null ? null : img.trim();
+    }
+
+    public String getSpecifications() {
+        return specifications;
+    }
+
+    public void setSpecifications(String specifications) {
+        this.specifications = specifications == null ? null : specifications.trim();
+    }
 }
-
-

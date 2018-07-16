@@ -1,56 +1,54 @@
 package com.yilin.app.domain;
 
-/**
- * Created by cc on 2018/7/11.
- */
 public class AgentUpgrade {
+    private Integer id;
 
-    int id;
-    //用户id
-    int user_id;
-    //当前级别
-    int current_level;
-    //申请代理级别
-    int apply_level;
-    //申请人姓名
-    String name;
-    //上传凭证
-    String voucher;
-    //描述
-    String descript;
-    //申请状态 0表示待审核  1表示正在审核  2表示审核成功 3表示审核失败
-    byte status;
+    private Integer userId;
 
-    public int getId() {
+    private Integer currentLevel;
+
+    private Integer applyLevel;
+
+    private String name;
+
+    private String voucher;
+
+    private String descript;
+
+    private Byte status;
+
+    private Byte serise;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public int getCurrent_level() {
-        return current_level;
+    public Integer getCurrentLevel() {
+        return currentLevel;
     }
 
-    public void setCurrent_level(int current_level) {
-        this.current_level = current_level;
+    public void setCurrentLevel(Integer currentLevel) {
+        this.currentLevel = currentLevel;
     }
 
-    public int getApply_level() {
-        return apply_level;
+    public Integer getApplyLevel() {
+        return applyLevel;
     }
 
-    public void setApply_level(int apply_level) {
-        this.apply_level = apply_level;
+    public void setApplyLevel(Integer applyLevel) {
+        this.applyLevel = applyLevel;
     }
 
     public String getName() {
@@ -58,7 +56,7 @@ public class AgentUpgrade {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public String getVoucher() {
@@ -66,7 +64,7 @@ public class AgentUpgrade {
     }
 
     public void setVoucher(String voucher) {
-        this.voucher = voucher;
+        this.voucher = voucher == null ? null : voucher.trim();
     }
 
     public String getDescript() {
@@ -74,14 +72,22 @@ public class AgentUpgrade {
     }
 
     public void setDescript(String descript) {
-        this.descript = descript;
+        this.descript = descript == null ? null : descript.trim();
     }
 
-    public byte getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(Byte status) {
         this.status = status;
+    }
+
+    public Byte getSerise() {
+        return serise;
+    }
+
+    public void setSerise(Byte serise) {
+        this.serise = serise;
     }
 }

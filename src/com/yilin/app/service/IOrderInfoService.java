@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface IOrderInfoService {
 
-    public List<Orders> selectAll();
+    public List<Orders> selectAll() throws Exception;
 }

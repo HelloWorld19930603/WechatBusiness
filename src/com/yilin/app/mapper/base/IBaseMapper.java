@@ -1,5 +1,7 @@
 package com.yilin.app.mapper.base;
 
+import com.yilin.app.domain.Orders;
+
 import java.util.List;
 import java.util.Map;
 
@@ -11,41 +13,50 @@ import java.util.Map;
 public interface IBaseMapper<T> {
 	/**
 	 * 新增
-	 * @param param 数据对象
+	 * @param record 数据对象
 	 */
-	public void insert(T param) throws Exception;
+    int insert(T record)throws Exception;
+
+    int insertSelective(T record) throws Exception;
 	/**
 	 * 修改
-	 * @param param 数据对象
+	 * @param record 数据对象
 	 */
-	public void modify(T param) throws Exception;
+    int updateByPrimaryKey(Orders record) throws Exception;
+
+    int updateByPrimaryKeySelective(Orders record) throws Exception;
+
 	/**
 	 * 删除
-	 * @param param 数据对象
+	 * @param id
 	 */
-	public void delete(int param) throws Exception;
+    int deleteByPrimaryKey(Integer id) throws Exception;
+
 	/**
-	 * 查询所有数据
-	 * @param param 数据对象
+	 * 根据id查询详情
+	 * @param id 数据对象
 	 */
-	public List<T> selectAll(Map<String, Object> param) throws Exception;
+    T selectByPrimaryKey(Integer id) throws Exception;
+
 	/**
 	 * 分页查询
 	 * @param param 数据对象
 	 */
-	public List<T> selectPage(Map<String, Object> param) throws Exception;
-	/**
-	 * 查询详情
-	 * @param param 数据对象
-	 */
-	public T selectOne(Map<String, Object> param) throws Exception;
-	
+	 List<T> selectPage(Map<String, Object> param) throws Exception;
+
+    /**
+     * 查询全部
+     * @param param 数据对象
+     */
+    List<T> selectAll(Map<String, Object> param) throws Exception;
+
 	/**
 	 * 查询记录数
 	 * @param param
 	 * @return
 	 */
-	public int count(Map<String, Object> param) throws Exception;
+	 int count(Map<String, Object> param) throws Exception;
+
 
 	
 }

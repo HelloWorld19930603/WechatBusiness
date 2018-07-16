@@ -1,39 +1,34 @@
 package com.yilin.app.domain;
 
-/**
- *
- * Created by cc on 2018/7/11.
- */
 public class Address {
+    private Integer id;
 
-    int id;
-    //关联用户id
-    int user_id;
-    //收货人姓名
-    String name;
-    //收货人手机号码
-    int phone;
-    //省市区
-    String ssq;
-    //地址详情
-    String addr;
-    //是否默认   1表示是默认地址
-    byte status;
+    private Integer userId;
 
-    public int getId() {
+    private String name;
+
+    private Integer phone;
+
+    private String ssq;
+
+    private String addr;
+
+    private Boolean status;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -41,14 +36,14 @@ public class Address {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
-    public int getPhone() {
+    public Integer getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(Integer phone) {
         this.phone = phone;
     }
 
@@ -57,7 +52,7 @@ public class Address {
     }
 
     public void setSsq(String ssq) {
-        this.ssq = ssq;
+        this.ssq = ssq == null ? null : ssq.trim();
     }
 
     public String getAddr() {
@@ -65,14 +60,14 @@ public class Address {
     }
 
     public void setAddr(String addr) {
-        this.addr = addr;
+        this.addr = addr == null ? null : addr.trim();
     }
 
-    public byte getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 }

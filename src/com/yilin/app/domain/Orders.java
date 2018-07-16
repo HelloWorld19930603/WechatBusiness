@@ -2,82 +2,76 @@ package com.yilin.app.domain;
 
 import java.util.Date;
 
-/**
- * 订单
- * Created by Administrator on 2018/7/9.
- */
 public class Orders {
+    private Integer id;
 
+    private Integer userId;
 
-    int id;
-    //关联用户id
-    int user_id;
-    //订单编号
-    long  identifier;
-    //关联商品id
-    int comm_id;
-    //购买数量
-    int num;
-    //购买单价
-    float price;
-    //订单状态 0代表未付款 1代表已付款  2代表已发货 3代表订单已完成 4代表退款中 5代表退货中 6代表退款成功 7代表订单已关闭
-    byte status;
-    //下单实际
-    Date time;
+    private Long identifier;
 
-    public int getId() {
+    private Integer commId;
+
+    private Integer num;
+
+    private Float price;
+
+    private Byte status;
+
+    private Date time;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public long getIdentifier() {
+    public Long getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(long identifier) {
+    public void setIdentifier(Long identifier) {
         this.identifier = identifier;
     }
 
-    public int getComm_id() {
-        return comm_id;
+    public Integer getCommId() {
+        return commId;
     }
 
-    public void setComm_id(int comm_id) {
-        this.comm_id = comm_id;
+    public void setCommId(Integer commId) {
+        this.commId = commId;
     }
 
-    public int getNum() {
+    public Integer getNum() {
         return num;
     }
 
-    public void setNum(int num) {
+    public void setNum(Integer num) {
         this.num = num;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
-    public byte getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
