@@ -8,4 +8,6 @@ import com.yilin.app.domain.User;
 public interface IUserInfoService {
 
     void register(User user) throws Exception;
+
+    User selectForLogin(String loginName, String loginPwd) throws Exception;
 }

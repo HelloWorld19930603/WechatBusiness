@@ -30,7 +30,7 @@ public class LoginFilter implements Filter{
         String para=config.getInitParameter("nofilterpath");
         System.out.println(para);
 
-        if(request.getRequestURI().indexOf("login")!=-1||request.getRequestURI().indexOf("Home/userLogin")!=-1)
+        if(request.getRequestURI().indexOf("login")!=-1||request.getRequestURI().indexOf("home/userLogin")!=-1)
         {
             arg2.doFilter(arg0, arg1);
             return;
@@ -39,7 +39,7 @@ public class LoginFilter implements Filter{
         if(request.getSession().getAttribute("username")==null)
         {
 
-            response.sendRedirect(request.getContextPath()+"/Home/login.action");
+            response.sendRedirect(request.getContextPath()+"/home/login.action");
         }
         else
         {

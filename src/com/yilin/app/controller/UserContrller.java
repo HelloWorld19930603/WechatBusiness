@@ -27,7 +27,7 @@ public class UserContrller {
             userInfoService.register(user);
             result = new ResultJson(true,"注册成功");
         } catch (Exception e) {
-            result = new ResultJson(true,"注册失败");
+            result = new ResultJson(false,"注册失败");
             e.printStackTrace();
         }
         return result;
