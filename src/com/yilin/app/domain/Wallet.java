@@ -1,13 +1,43 @@
 package com.yilin.app.domain;
 
-/**
- * Created by Administrator on 2018/7/11.
- */
 public class Wallet {
+    private Integer id;
 
-    int id;
-    int user_id;
-    float money_1;
-    float money_2;
-    float money_3;
+    private Integer userId;
+
+    private Float money;
+
+    private Byte serise;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Float getMoney() {
+        return money;
+    }
+
+    public void setMoney(Float money) {
+        this.money = money;
+    }
+
+    public Byte getSerise() {
+        return serise;
+    }
+
+    public void setSerise(Byte serise) {
+        this.serise = serise;
+    }
 }

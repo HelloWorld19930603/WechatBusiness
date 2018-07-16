@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yilin.app.mapper.AgentUpgradeMapper">
+  <resultMap id="BaseResultMap" type="com.yilin.app.domain.AgentUpgrade">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="current_level" jdbcType="INTEGER" property="currentLevel" />
+    <result column="apply_level" jdbcType="INTEGER" property="applyLevel" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="voucher" jdbcType="VARCHAR" property="voucher" />
+    <result column="descript" jdbcType="VARCHAR" property="descript" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="serise" jdbcType="TINYINT" property="serise" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, current_level, apply_level, name, voucher, descript, status, serise
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from agentupgrade
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from agentupgrade
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilin.app.domain.AgentUpgrade">
+    insert into agentupgrade (id, user_id, current_level, 
+      apply_level, name, voucher, 
+      descript, status, serise
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{currentLevel,jdbcType=INTEGER}, 
+      #{applyLevel,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{voucher,jdbcType=VARCHAR}, 
+      #{descript,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{serise,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilin.app.domain.AgentUpgrade">
+    insert into agentupgrade
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="currentLevel != null">
+        current_level,
+      </if>
+      <if test="applyLevel != null">
+        apply_level,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="voucher != null">
+        voucher,
+      </if>
+      <if test="descript != null">
+        descript,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="serise != null">
+        serise,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="currentLevel != null">
+        #{currentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="applyLevel != null">
+        #{applyLevel,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="voucher != null">
+        #{voucher,jdbcType=VARCHAR},
+      </if>
+      <if test="descript != null">
+        #{descript,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="serise != null">
+        #{serise,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.AgentUpgrade">
+    update agentupgrade
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="currentLevel != null">
+        current_level = #{currentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="applyLevel != null">
+        apply_level = #{applyLevel,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="voucher != null">
+        voucher = #{voucher,jdbcType=VARCHAR},
+      </if>
+      <if test="descript != null">
+        descript = #{descript,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="serise != null">
+        serise = #{serise,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.AgentUpgrade">
+    update agentupgrade
+    set user_id = #{userId,jdbcType=INTEGER},
+      current_level = #{currentLevel,jdbcType=INTEGER},
+      apply_level = #{applyLevel,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      voucher = #{voucher,jdbcType=VARCHAR},
+      descript = #{descript,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      serise = #{serise,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

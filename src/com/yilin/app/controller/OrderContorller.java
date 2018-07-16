@@ -21,7 +21,7 @@ public class OrderContorller {
 
     @RequestMapping("/getOrders")
     @ResponseBody
-    public List<Orders> getOrders(){
+    public List<Orders> getOrders() throws Exception {
         return orderInfoService.selectAll();
     }
 

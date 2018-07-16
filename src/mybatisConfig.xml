@@ -8,11 +8,16 @@
     </settings>
 	<typeAliases>
 
-		<typeAlias type="com.yilin.app.domain.Orders" alias="order"/>
 	</typeAliases>
 
 	<mappers>
-
-		<mapper resource="com/yilin/manage/mapper/OrderMapper.xml"/>
+		<mapper resource="com/yilin/app/mapper/xml/AddressMapper.xml"/>
+		<mapper resource="com/yilin/app/mapper/xml/AgentUpgradeMapper.xml"/>
+		<mapper resource="com/yilin/app/mapper/xml/CommodityMapper.xml"/>
+		<mapper resource="com/yilin/app/mapper/xml/PriceMapper.xml"/>
+		<mapper resource="com/yilin/app/mapper/xml/RechargeMapper.xml"/>
+		<mapper resource="com/yilin/app/mapper/xml/RoleMapper.xml"/>
+		<mapper resource="com/yilin/app/mapper/xml/UserMapper.xml"/>
+		<mapper resource="com/yilin/app/mapper/xml/WalletMapper.xml"/>
 	</mappers>
 </configuration>

@@ -1,37 +1,39 @@
 package com.yilin.app.domain;
 
-/**
- * Created by Administrator on 2018/7/11.
- */
+import java.util.Date;
+
 public class User {
+    private Integer id;
 
-    int id;
-    //用户姓名
-    String name;
-    //用户登录名
-    String login_name;
-    //用户密码
-    String login_pwd;
-    //用户支付密码
-    String pay_pwd;
-    //用户性别
-    String sex;
-    //用户角色
-    int roles_id;
-    //手机号码
-    int phone;
-    //微信号
-    int wx_num;
-    //身份证号
-    int id_num;
-    //头像
-    String head_img;
+    private String name;
 
-    public int getId() {
+    private String loginName;
+
+    private String loginPwd;
+
+    private String payPwd;
+
+    private String sex;
+
+    private Integer roleId;
+
+    private Integer supId;
+
+    private Integer phone;
+
+    private String wxNum;
+
+    private String idNum;
+
+    private String headImg;
+
+    private Date loginTime;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -40,31 +42,31 @@ public class User {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
-    public String getLogin_name() {
-        return login_name;
+    public String getLoginName() {
+        return loginName;
     }
 
-    public void setLogin_name(String login_name) {
-        this.login_name = login_name;
+    public void setLoginName(String loginName) {
+        this.loginName = loginName == null ? null : loginName.trim();
     }
 
-    public String getLogin_pwd() {
-        return login_pwd;
+    public String getLoginPwd() {
+        return loginPwd;
     }
 
-    public void setLogin_pwd(String login_pwd) {
-        this.login_pwd = login_pwd;
+    public void setLoginPwd(String loginPwd) {
+        this.loginPwd = loginPwd == null ? null : loginPwd.trim();
     }
 
-    public String getPay_pwd() {
-        return pay_pwd;
+    public String getPayPwd() {
+        return payPwd;
     }
 
-    public void setPay_pwd(String pay_pwd) {
-        this.pay_pwd = pay_pwd;
+    public void setPayPwd(String payPwd) {
+        this.payPwd = payPwd == null ? null : payPwd.trim();
     }
 
     public String getSex() {
@@ -72,46 +74,62 @@ public class User {
     }
 
     public void setSex(String sex) {
-        this.sex = sex;
+        this.sex = sex == null ? null : sex.trim();
     }
 
-    public int getRoles_id() {
-        return roles_id;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRoles_id(int roles_id) {
-        this.roles_id = roles_id;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public int getPhone() {
+    public Integer getSupId() {
+        return supId;
+    }
+
+    public void setSupId(Integer supId) {
+        this.supId = supId;
+    }
+
+    public Integer getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(Integer phone) {
         this.phone = phone;
     }
 
-    public int getWx_num() {
-        return wx_num;
+    public String getWxNum() {
+        return wxNum;
     }
 
-    public void setWx_num(int wx_num) {
-        this.wx_num = wx_num;
+    public void setWxNum(String wxNum) {
+        this.wxNum = wxNum == null ? null : wxNum.trim();
     }
 
-    public int getId_num() {
-        return id_num;
+    public String getIdNum() {
+        return idNum;
     }
 
-    public void setId_num(int id_num) {
-        this.id_num = id_num;
+    public void setIdNum(String idNum) {
+        this.idNum = idNum == null ? null : idNum.trim();
     }
 
-    public String getHead_img() {
-        return head_img;
+    public String getHeadImg() {
+        return headImg;
     }
 
-    public void setHead_img(String head_img) {
-        this.head_img = head_img;
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg == null ? null : headImg.trim();
+    }
+
+    public Date getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(Date loginTime) {
+        this.loginTime = loginTime;
     }
 }

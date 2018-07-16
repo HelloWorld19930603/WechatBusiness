@@ -46,7 +46,7 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<!-- 通过扫描的模式，扫描目录在com/hoo/mapper目录下，所有的mapper都继承SqlMapper接口的接口， 这样一个bean就可以了 -->
+	<!-- 通过扫描的模式，扫描目录在com/*/mapper目录下，所有的mapper都继承SqlMapper接口的接口， 这样一个bean就可以了 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!--basePackage指定要扫描的包，在此包之下的映射器都会被搜索到。可指定多个包，包与包之间用逗号或分号分隔 -->
 		<property name="basePackage" value="com.yilin.*.mapper" />
@@ -58,6 +58,4 @@
 	</bean>
 
 
-
-	
 </beans> 

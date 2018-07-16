@@ -2,50 +2,46 @@ package com.yilin.app.domain;
 
 import java.util.Date;
 
-/**
- * Created by cc on 2018/7/11.
- */
 public class Recharge {
+    private Integer id;
 
-    int id;
-    //用户id
-    int user_id;
-    //充值的所属系列
-    int serise;
-    //充值金额
-    float money;
-    //充值日期
-    Date time;
+    private Integer userId;
 
-    public int getId() {
+    private Byte serise;
+
+    private Float money;
+
+    private Date time;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public int getSerise() {
+    public Byte getSerise() {
         return serise;
     }
 
-    public void setSerise(int serise) {
+    public void setSerise(Byte serise) {
         this.serise = serise;
     }
 
-    public float getMoney() {
+    public Float getMoney() {
         return money;
     }
 
-    public void setMoney(float money) {
+    public void setMoney(Float money) {
         this.money = money;
     }
 

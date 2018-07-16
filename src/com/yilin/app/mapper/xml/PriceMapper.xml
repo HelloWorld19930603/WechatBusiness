@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yilin.app.mapper.PriceMapper">
+  <resultMap id="BaseResultMap" type="com.yilin.app.domain.Price">
+    <id column="comm_id" jdbcType="INTEGER" property="commId" />
+    <id column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="price" jdbcType="REAL" property="price" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    comm_id, role_id, price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.yilin.app.domain.PriceKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from price
+    where comm_id = #{commId,jdbcType=INTEGER}
+      and role_id = #{roleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.yilin.app.domain.PriceKey">
+    delete from price
+    where comm_id = #{commId,jdbcType=INTEGER}
+      and role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilin.app.domain.Price">
+    insert into price (comm_id, role_id, price
+      )
+    values (#{commId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{price,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilin.app.domain.Price">
+    insert into price
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commId != null">
+        comm_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commId != null">
+        #{commId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.Price">
+    update price
+    <set>
+      <if test="price != null">
+        price = #{price,jdbcType=REAL},
+      </if>
+    </set>
+    where comm_id = #{commId,jdbcType=INTEGER}
+      and role_id = #{roleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.Price">
+    update price
+    set price = #{price,jdbcType=REAL}
+    where comm_id = #{commId,jdbcType=INTEGER}
+      and role_id = #{roleId,jdbcType=INTEGER}
+  </update>
+</mapper>
