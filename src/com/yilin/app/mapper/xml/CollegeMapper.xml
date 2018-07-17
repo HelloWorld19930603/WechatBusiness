@@ -9,12 +9,20 @@
     <result column="forward" jdbcType="INTEGER" property="forward" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
   </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yilin.app.domain.College">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
   <sql id="Base_Column_List">
     id, title, url, read, forward, time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from college
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -24,11 +32,11 @@
   </delete>
   <insert id="insert" parameterType="com.yilin.app.domain.College">
     insert into college (id, title, url, 
-      read, forward, time
-      )
+      read, forward, time, 
+      content)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{read,jdbcType=INTEGER}, #{forward,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}
-      )
+      #{read,jdbcType=INTEGER}, #{forward,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yilin.app.domain.College">
     insert into college
@@ -51,6 +59,9 @@
       <if test="time != null">
         time,
       </if>
+      <if test="content != null">
+        content,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -70,6 +81,9 @@
       </if>
       <if test="time != null">
         #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -91,7 +105,20 @@
       <if test="time != null">
         time = #{time,jdbcType=TIMESTAMP},
       </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yilin.app.domain.College">
+    update college
+    set title = #{title,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      read = #{read,jdbcType=INTEGER},
+      forward = #{forward,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.College">

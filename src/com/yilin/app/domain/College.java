@@ -15,6 +15,8 @@ public class College {
 
     private Date time;
 
+    private String content;
+
     public Integer getId() {
         return id;
     }
@@ -61,5 +63,13 @@ public class College {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 }
