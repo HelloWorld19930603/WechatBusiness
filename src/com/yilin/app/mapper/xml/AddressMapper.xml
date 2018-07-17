@@ -123,7 +123,7 @@
     </update>
 
 
-    <select id="selectAll" parameterType="map" resultType="BaseResultMap">
+    <select id="selectAll" parameterType="map" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List" />
         from address
@@ -133,7 +133,7 @@
         </if>
     </select>
 
-    <select id="selectDefault" parameterType="map" resultType="BaseResultMap">
+    <select id="selectDefault" parameterType="map" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List" />
         from address

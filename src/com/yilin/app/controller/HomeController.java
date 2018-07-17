@@ -33,7 +33,7 @@ public class HomeController {
 
     @RequestMapping(value="userLogin")
     @ResponseBody
-    public ResultJson UserLogin(String loginName, String loginPwd) throws IOException {
+    public ResultJson userLogin(String loginName, String loginPwd) {
         ResultJson result;
         User user;
         try {

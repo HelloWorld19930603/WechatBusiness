@@ -34,7 +34,7 @@ public class AddressService implements IAddressService {
 
     @Override
     public void updateDefault(int id, int userId) throws Exception{
-        addressMapper.updateByUserId(id);
+        addressMapper.updateByUserId(userId);
         Address address = new Address();
         address.setId(id);
         address.setStatus(true);

@@ -64,9 +64,9 @@ public class AddressController {
         return result;
     }
 
-    @RequestMapping("updatetAddress")
+    @RequestMapping("updateAddress")
     @ResponseBody
-    public ResultJson updatetAddress(Address address){
+    public ResultJson updateAddress(Address address){
         ResultJson result;
         try {
             addressService.updateAddress(address);
