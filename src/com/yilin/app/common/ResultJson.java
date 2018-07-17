@@ -26,6 +26,12 @@ public class ResultJson implements java.io.Serializable {
 		this.msg = msg;
 	}
 
+	public ResultJson(boolean status, String msg,Object obj) {
+		this.status = status;
+		this.msg = msg;
+		this.obj = obj;
+	}
+
 	public boolean getStatus() {
 		return status;
 	}

@@ -1,7 +1,5 @@
 package com.yilin.app.mapper.base;
 
-import com.yilin.app.domain.Orders;
-
 import java.util.List;
 import java.util.Map;
 
@@ -22,9 +20,9 @@ public interface IBaseMapper<T> {
 	 * 修改
 	 * @param record 数据对象
 	 */
-    int updateByPrimaryKey(Orders record) throws Exception;
+    int updateByPrimaryKey(T record) throws Exception;
 
-    int updateByPrimaryKeySelective(Orders record) throws Exception;
+    int updateByPrimaryKeySelective(T record) throws Exception;
 
 	/**
 	 * 删除
@@ -38,6 +36,7 @@ public interface IBaseMapper<T> {
 	 */
     T selectByPrimaryKey(Integer id) throws Exception;
 
+    T selectOne(Map<String,Object> param) throws Exception;
 	/**
 	 * 分页查询
 	 * @param param 数据对象

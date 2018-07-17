@@ -115,10 +115,29 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectByUserId" resultType="BaseResultMap">
-    SELECT
-    <include refid="Base_Column_List" />
-    from address
-    where user_id = #{user_id}
-  </select>
+    <update id="updateByUserId" parameterType="com.yilin.app.domain.Address">
+        update address
+        set
+        status = 0
+        where user_id = #{user_id,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="selectAll" parameterType="map" resultType="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        from address
+        where 1=1
+        <if test="user_id != null">
+           and user_id = #{user_id}
+        </if>
+    </select>
+
+    <select id="selectDefault" parameterType="map" resultType="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        from address
+        where  user_id = #{user_id}
+            and status = 1
+    </select>
 </mapper>

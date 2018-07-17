@@ -4,9 +4,10 @@ import com.yilin.app.domain.Address;
 import com.yilin.app.mapper.base.IBaseMapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
 public interface AddressMapper extends IBaseMapper<Address>{
 
-    List<Address> selectByUserId(@Param("user_id")String userId);
+    Address selectDefault(@Param("user_id")int user_id);
+
+    void updateByUserId(@Param("user_id")int user_id);
+
 }
