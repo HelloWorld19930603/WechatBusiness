@@ -3,23 +3,20 @@ package com.yilin.app.controller;
 import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
 import com.yilin.app.domain.User;
-import com.yilin.app.service.IUserInfoService;
-import com.yilin.app.utils.MD5Util;
+import com.yilin.app.service.IUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/home")
 public class HomeController {
 
     @Resource
-    IUserInfoService userInfoService;
+    IUserService userService;
 
     @RequestMapping(value="index")
     public String Index() {
@@ -40,7 +37,7 @@ public class HomeController {
         ResultJson result;
         User user;
         try {
-            user = userInfoService.selectForLogin(loginName,loginPwd);
+            user = userService.selectForLogin(loginName,loginPwd);
             result = new ResultJson(true,"登陆成功!"+"--"+loginName);
             result.setObj(Permission.keepUser(user));
         } catch (Exception e) {

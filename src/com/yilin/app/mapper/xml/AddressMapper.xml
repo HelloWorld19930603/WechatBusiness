@@ -114,4 +114,11 @@
       status = #{status,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByUserId" resultType="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from address
+    where user_id = #{user_id}
+  </select>
 </mapper>

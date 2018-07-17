@@ -1,7 +1,7 @@
 package com.yilin.app.controller;
 
 import com.yilin.app.domain.Orders;
-import com.yilin.app.service.IOrderInfoService;
+import com.yilin.app.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,18 +13,17 @@ import java.util.List;
  * Created by cc on 2018/7/9.
  */
 @Controller
+@RequestMapping("order")
 public class OrderContorller {
 
     @Autowired
-    IOrderInfoService orderInfoService;
+    IOrderService orderService;
 
 
-    @RequestMapping("/getOrders")
+    @RequestMapping("findList")
     @ResponseBody
-    public List<Orders> getOrders() throws Exception {
-        return orderInfoService.selectAll();
+    public List<Orders> findList() throws Exception {
+        return orderService.selectAll();
     }
-
-
 
 }
