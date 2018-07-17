@@ -39,6 +39,20 @@ public class AddressService implements IAddressService {
         address.setId(id);
         address.setStatus(true);
         addressMapper.updateByPrimaryKeySelective(address);
+    }
 
+    @Override
+    public void updateAddress(Address address) throws Exception{
+        addressMapper.updateByPrimaryKey(address);
+    }
+
+    @Override
+    public void addAddress(Address address) throws Exception{
+        addressMapper.insertSelective(address);
+    }
+
+    @Override
+    public void removeAddress(int id) throws Exception{
+        addressMapper.deleteByPrimaryKey(id);
     }
 }

@@ -63,4 +63,46 @@ public class AddressController {
         }
         return result;
     }
+
+    @RequestMapping("updatetAddress")
+    @ResponseBody
+    public ResultJson updatetAddress(Address address){
+        ResultJson result;
+        try {
+            addressService.updateAddress(address);
+            result = new ResultJson(true,"更新成功");
+        } catch (Exception e) {
+            result = new ResultJson(false,"更新失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @RequestMapping("addAddress")
+    @ResponseBody
+    public ResultJson addAddress(Address address){
+        ResultJson result;
+        try {
+            addressService.addAddress(address);
+            result = new ResultJson(true,"添加成功");
+        } catch (Exception e) {
+            result = new ResultJson(false,"添加失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @RequestMapping("removeAddress")
+    @ResponseBody
+    public ResultJson removeAddress(int id){
+        ResultJson result;
+        try {
+            addressService.removeAddress(id);
+            result = new ResultJson(true,"添加成功");
+        } catch (Exception e) {
+            result = new ResultJson(false,"添加失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

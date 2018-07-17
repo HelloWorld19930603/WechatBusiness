@@ -15,4 +15,10 @@ public interface IAddressService {
     Address findDefault(int userId) throws Exception;
 
     void updateDefault(int id, int userId) throws Exception;
+
+    void updateAddress(Address address) throws Exception;
+
+    void addAddress(Address address) throws Exception;
+
+    void removeAddress(int id) throws Exception;
 }
