@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yilin.app.mapper.AuthorityMapper">
+  <resultMap id="BaseResultMap" type="com.yilin.app.domain.Authority">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="res_name" jdbcType="VARCHAR" property="resName" />
+    <result column="res_url" jdbcType="VARCHAR" property="resUrl" />
+    <result column="level" jdbcType="TINYINT" property="level" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, res_name, res_url, level
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from authority
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from authority
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilin.app.domain.Authority">
+    insert into authority (id, res_name, res_url, 
+      level)
+    values (#{id,jdbcType=INTEGER}, #{resName,jdbcType=VARCHAR}, #{resUrl,jdbcType=VARCHAR}, 
+      #{level,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilin.app.domain.Authority">
+    insert into authority
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="resName != null">
+        res_name,
+      </if>
+      <if test="resUrl != null">
+        res_url,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="resName != null">
+        #{resName,jdbcType=VARCHAR},
+      </if>
+      <if test="resUrl != null">
+        #{resUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.Authority">
+    update authority
+    <set>
+      <if test="resName != null">
+        res_name = #{resName,jdbcType=VARCHAR},
+      </if>
+      <if test="resUrl != null">
+        res_url = #{resUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.Authority">
+    update authority
+    set res_name = #{resName,jdbcType=VARCHAR},
+      res_url = #{resUrl,jdbcType=VARCHAR},
+      level = #{level,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
