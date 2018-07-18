@@ -5,7 +5,7 @@ import java.util.List;
 
 
 
-public class Pager implements Serializable {
+public class Page implements Serializable {
 
     private static final long serialVersionUID = -1517114146113942561L;
 
@@ -24,7 +24,7 @@ public class Pager implements Serializable {
     /**
      * 无参数构造器
      */
-    public Pager() {
+    public Page() {
 
     }
 
@@ -38,7 +38,7 @@ public class Pager implements Serializable {
      * @param item
      *            数据对象
      */
-    public Pager(int pageSize, int pageIndex, int recordCount, @SuppressWarnings("rawtypes") List item) {
+    public Page(int pageSize, int pageIndex, int recordCount, @SuppressWarnings("rawtypes") List item) {
         this.pageSize = pageSize;
         this.pageIndex = pageIndex;
         this.recordCount = recordCount;

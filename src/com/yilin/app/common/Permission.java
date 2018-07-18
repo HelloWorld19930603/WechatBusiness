@@ -3,7 +3,6 @@ package com.yilin.app.common;
 import com.yilin.app.domain.User;
 import com.yilin.app.utils.MD5Util;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,13 +20,20 @@ public class Permission {
         return false;
     }
 
-    public static String keepUser(User user) throws Exception {
+    public static String createToken(User user) throws Exception {
         if(user == null){
             throw new Exception("user不能为null");
         }
         String token = MD5Util.encrypt(user.getLoginName()+user.getLoginPwd()+System.currentTimeMillis());
         userLoginMap.put(token,user);
         return token;
+    }
+
+    public static void cancel(String token) throws Exception{
+        if(token == null || "".equals(token)){
+            throw new Exception("token不能为null");
+        }
+        userLoginMap.remove(token);
     }
 
 }

@@ -10,4 +10,8 @@ public interface IUserService {
     void register(User user) throws Exception;
 
     User selectForLogin(String loginName, String loginPwd) throws Exception;
+
+    void updateUser(User user) throws Exception;
+
+    User findUser(int userId) throws Exception;
 }

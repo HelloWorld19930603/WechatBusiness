@@ -56,9 +56,23 @@ public class AddressController {
         ResultJson result;
         try {
             Address address = addressService.findDefault(userId);
-            result = new ResultJson(true,"设置成功",address);
+            result = new ResultJson(true,"获取默认地址成功",address);
         } catch (Exception e) {
-            result = new ResultJson(false,"设置失败");
+            result = new ResultJson(false,"获取默认地址失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @RequestMapping("getDefaultAddress")
+    @ResponseBody
+    public ResultJson getAddress(int id){
+        ResultJson result;
+        try {
+            Address address = addressService.findDefault(id);
+            result = new ResultJson(true,"获取地址成功",address);
+        } catch (Exception e) {
+            result = new ResultJson(false,"获取地址失败");
             e.printStackTrace();
         }
         return result;
@@ -70,9 +84,9 @@ public class AddressController {
         ResultJson result;
         try {
             addressService.updateAddress(address);
-            result = new ResultJson(true,"更新成功");
+            result = new ResultJson(true,"设置默认地址成功");
         } catch (Exception e) {
-            result = new ResultJson(false,"更新失败");
+            result = new ResultJson(false,"设置默认地址失败");
             e.printStackTrace();
         }
         return result;
@@ -84,9 +98,9 @@ public class AddressController {
         ResultJson result;
         try {
             addressService.addAddress(address);
-            result = new ResultJson(true,"添加成功");
+            result = new ResultJson(true,"添加地址成功");
         } catch (Exception e) {
-            result = new ResultJson(false,"添加失败");
+            result = new ResultJson(false,"添加地址失败");
             e.printStackTrace();
         }
         return result;
@@ -98,9 +112,9 @@ public class AddressController {
         ResultJson result;
         try {
             addressService.removeAddress(id);
-            result = new ResultJson(true,"添加成功");
+            result = new ResultJson(true,"删除地址成功");
         } catch (Exception e) {
-            result = new ResultJson(false,"添加失败");
+            result = new ResultJson(false,"删除地址失败");
             e.printStackTrace();
         }
         return result;

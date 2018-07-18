@@ -33,14 +33,29 @@ public class UserContrller {
         return result;
     }
 
-    @RequestMapping("payment")
+    @RequestMapping("updateUser")
     @ResponseBody
-    public ResultJson payment(User user){
+    public ResultJson updateUser(User user){
         ResultJson result;
         try {
-            result = new ResultJson(true,"支付成功");
+            userService.updateUser(user);
+            result = new ResultJson(true,"修改成功");
         } catch (Exception e) {
-            result = new ResultJson(false,"支付失败");
+            result = new ResultJson(false,"修改失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @RequestMapping("findUser")
+    @ResponseBody
+    public ResultJson updateUser(int userId){
+        ResultJson result;
+        try {
+            User user = userService.findUser(userId);
+            result = new ResultJson(true,"查询成功",user);
+        } catch (Exception e) {
+            result = new ResultJson(false,"查询失败");
             e.printStackTrace();
         }
         return result;

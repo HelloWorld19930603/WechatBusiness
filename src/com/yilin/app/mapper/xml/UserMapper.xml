@@ -22,7 +22,8 @@
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
-    <include refid="Base_Column_List" />
+        id, name, login_name, sex, role_id, sup_id, phone, wx_num, id_num,
+    head_img, login_time
     from user
     where id = #{id,jdbcType=INTEGER}
   </select>

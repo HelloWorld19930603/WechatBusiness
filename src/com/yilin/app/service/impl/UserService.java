@@ -7,6 +7,7 @@ import com.yilin.app.utils.MD5Util;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * Created by cc on 2018/7/16.
@@ -27,6 +28,21 @@ public class UserService implements IUserService {
     @Override
     public User selectForLogin(String loginName, String loginPwd) throws Exception {
         String pwd = MD5Util.encrypt(loginName);
-        return userMapper.selectForLogin(loginName,pwd);
+        User user =  userMapper.selectForLogin(loginName,pwd);
+        if(user != null){
+            user.setLoginTime(new Date());
+            userMapper.updateByPrimaryKey(user);
+        }
+        return user;
+    }
+
+    @Override
+    public void updateUser(User user) throws Exception {
+        userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public User findUser(int userId) throws Exception {
+        return userMapper.selectByPrimaryKey(userId);
     }
 }

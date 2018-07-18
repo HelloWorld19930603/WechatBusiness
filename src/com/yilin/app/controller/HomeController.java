@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 
 @Controller
 @RequestMapping("/home")
@@ -35,14 +34,31 @@ public class HomeController {
     @ResponseBody
     public ResultJson userLogin(String loginName, String loginPwd) {
         ResultJson result;
-        User user;
         try {
-            user = userService.selectForLogin(loginName,loginPwd);
-            result = new ResultJson(true,"登陆成功!"+"--"+loginName);
-            result.setObj(Permission.keepUser(user));
+            User user = userService.selectForLogin(loginName,loginPwd);
+            if(user != null) {
+                result = new ResultJson(true, "登陆成功!" + "--" + loginName);
+                result.setObj(Permission.createToken(user));
+            }else {
+                result = new ResultJson(false, "账号或密码错误!" );
+            }
         } catch (Exception e) {
             e.printStackTrace();
             result = new ResultJson(false,"登陆失败!"+"--"+loginName);
+        }
+        return result;
+    }
+
+    @RequestMapping(value="loginout")
+    @ResponseBody
+    public ResultJson loginout(String token) {
+        ResultJson result;
+        try {
+            Permission.cancel(token);
+            result = new ResultJson(true,"注销成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = new ResultJson(false,"注销失败!");
         }
         return result;
     }

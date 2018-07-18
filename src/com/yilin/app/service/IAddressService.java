@@ -14,6 +14,8 @@ public interface IAddressService {
 
     Address findDefault(int userId) throws Exception;
 
+    Address findAddress(int id) throws Exception;
+
     void updateDefault(int id, int userId) throws Exception;
 
     void updateAddress(Address address) throws Exception;

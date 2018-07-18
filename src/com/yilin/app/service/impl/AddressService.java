@@ -33,6 +33,12 @@ public class AddressService implements IAddressService {
     }
 
     @Override
+    public Address findAddress(int id) throws Exception {
+
+        return addressMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     public void updateDefault(int id, int userId) throws Exception{
         addressMapper.updateByUserId(userId);
         Address address = new Address();

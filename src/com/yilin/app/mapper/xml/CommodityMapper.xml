@@ -24,6 +24,33 @@
     from commodity
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectPage" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from commodity
+    where 1=1
+    <if test="series != null">
+      and series = #{serise}
+    </if>
+    <if test="type != null">
+      and type = #{type}
+    </if>
+  </select>
+
+    <select id="count" parameterType="map" resultType="java.lang.Integer">
+        select
+        count(id)
+        from commodity
+        where 1=1
+        <if test="series != null">
+            and series = #{serise}
+        </if>
+        <if test="type != null">
+            and type = #{type}
+        </if>
+    </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from commodity
     where id = #{id,jdbcType=INTEGER}

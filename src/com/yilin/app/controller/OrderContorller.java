@@ -1,5 +1,6 @@
 package com.yilin.app.controller;
 
+import com.yilin.app.common.ResultJson;
 import com.yilin.app.domain.Orders;
 import com.yilin.app.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,18 @@ public class OrderContorller {
     IOrderService orderService;
 
 
-    @RequestMapping("findList")
+    @RequestMapping("findPage")
     @ResponseBody
-    public List<Orders> findList() throws Exception {
-        return orderService.selectAll();
+    public ResultJson findPage()  {
+        ResultJson result;
+        try {
+            List<Orders> list = orderService.selectAll();
+            result = new ResultJson(true,"查询成功",list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = new ResultJson(false,"查询失败");
+        }
+        return result;
     }
 
 }
