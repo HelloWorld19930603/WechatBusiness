@@ -13,7 +13,7 @@ public class ResultJson implements java.io.Serializable {
 
 	private String msg;
 
-	private Object obj = null;
+	private Object obj;
 	
 	public ResultJson() {}
 	

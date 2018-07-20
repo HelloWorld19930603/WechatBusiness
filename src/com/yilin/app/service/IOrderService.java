@@ -8,7 +8,7 @@ import com.yilin.app.domain.Orders;
  */
 public interface IOrderService {
 
-     Page selectAll(int userId,int index,int pageSize) throws Exception;
+     Page selectPage(Integer userId,int index,int pageSize) throws Exception;
 
      void updateStatus(int id,int status) throws Exception;
 

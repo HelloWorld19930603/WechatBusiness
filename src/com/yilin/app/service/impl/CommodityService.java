@@ -33,6 +33,11 @@ public class CommodityService implements ICommodityService {
     }
 
     @Override
+    public List<Commodity> selectALl(Integer type, Integer serise) throws Exception {
+        return null;
+    }
+
+    @Override
     public Commodity selectById(int id) throws Exception {
 
         return commodityMapper.selectByPrimaryKey(id);

@@ -1,5 +1,7 @@
 package com.yilin.app.filter;
 
+
+import com.alibaba.fastjson.JSONObject;
 import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
 
@@ -25,7 +27,7 @@ public class LoginFilter implements Filter {
         System.out.println("doFilter");
         HttpServletRequest request = (HttpServletRequest) arg0;
         HttpServletResponse response = (HttpServletResponse) arg1;
-
+        response.setCharacterEncoding("utf-8");
         ResultJson result;
         String url = request.getRequestURI();
         if (url.indexOf("register") != -1 || url.indexOf("home/userLogin") != -1) {
@@ -37,12 +39,17 @@ public class LoginFilter implements Filter {
             token = request.getParameter("token");
         }
         if (token == null) {
-            result = new ResultJson(false, "token不能为null！");
-            response.getWriter().print(result);
+            result = new ResultJson(false, "token不能为空！");
+            String jsonString = JSONObject.toJSONString(result);
+            response.setContentType("application/json; charset=utf-8");
+            response.getWriter().print(jsonString);
             return;
         } else {
             if (!Permission.checkToken(token)) {
                 result = new ResultJson(false, "token校验失败！");
+                String jsonString = JSONObject.toJSONString(result);
+                response.setContentType("application/json; charset=utf-8");
+                response.getWriter().print(jsonString);
                 return;
             }
             arg2.doFilter(arg0, arg1);

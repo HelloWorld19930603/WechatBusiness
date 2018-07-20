@@ -21,7 +21,7 @@ public class OrderService implements IOrderService {
     OrdersMapper ordersMapper;
 
     @Override
-    public Page selectAll(int userId, int pageIndex, int pageSize) throws Exception {
+    public Page selectPage(Integer userId, int pageIndex, int pageSize) throws Exception {
         Map<String,Object> map = new HashMap<>();
         map.put("user_id",userId);
         map.put("index",(pageIndex-1)*pageSize);
