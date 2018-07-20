@@ -27,7 +27,7 @@ public class UserService implements IUserService {
 
     @Override
     public User selectForLogin(String loginName, String loginPwd) throws Exception {
-        String pwd = MD5Util.encrypt(loginName);
+        String pwd = MD5Util.encrypt(loginPwd);
         User user =  userMapper.selectForLogin(loginName,pwd);
         if(user != null){
             user.setLoginTime(new Date());

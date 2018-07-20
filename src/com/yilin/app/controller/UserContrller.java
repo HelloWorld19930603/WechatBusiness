@@ -1,5 +1,6 @@
 package com.yilin.app.controller;
 
+import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
 import com.yilin.app.domain.User;
 import com.yilin.app.service.impl.UserService;
@@ -49,10 +50,24 @@ public class UserContrller {
 
     @RequestMapping("findUser")
     @ResponseBody
-    public ResultJson updateUser(int userId){
+    public ResultJson findUser(int id){
         ResultJson result;
         try {
-            User user = userService.findUser(userId);
+            User user = userService.findUser(id);
+            result = new ResultJson(true,"查询成功",user);
+        } catch (Exception e) {
+            result = new ResultJson(false,"查询失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @RequestMapping("getUser")
+    @ResponseBody
+    public ResultJson getUser(String token){
+        ResultJson result;
+        try {
+            User user = Permission.get(token);
             result = new ResultJson(true,"查询成功",user);
         } catch (Exception e) {
             result = new ResultJson(false,"查询失败");

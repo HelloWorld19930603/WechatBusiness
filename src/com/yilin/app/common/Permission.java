@@ -25,6 +25,8 @@ public class Permission {
             throw new Exception("user不能为null");
         }
         String token = MD5Util.encrypt(user.getLoginName()+user.getLoginPwd()+System.currentTimeMillis());
+        user.setLoginPwd("");
+        user.setPayPwd("");
         userLoginMap.put(token,user);
         return token;
     }
@@ -34,6 +36,10 @@ public class Permission {
             throw new Exception("token不能为null");
         }
         userLoginMap.remove(token);
+    }
+
+    public static User get(String token){
+        return userLoginMap.get(token);
     }
 
 }
