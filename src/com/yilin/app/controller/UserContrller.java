@@ -50,10 +50,10 @@ public class UserContrller {
 
     @RequestMapping("findUser")
     @ResponseBody
-    public ResultJson findUser(int id){
+    public ResultJson findUser(int userId){
         ResultJson result;
         try {
-            User user = userService.findUser(id);
+            User user = userService.findUser(userId);
             result = new ResultJson(true,"查询成功",user);
         } catch (Exception e) {
             result = new ResultJson(false,"查询失败");
@@ -67,10 +67,49 @@ public class UserContrller {
     public ResultJson getUser(String token){
         ResultJson result;
         try {
-            User user = Permission.get(token);
+            User user = Permission.getToken(token);
             result = new ResultJson(true,"查询成功",user);
         } catch (Exception e) {
             result = new ResultJson(false,"查询失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @RequestMapping("loginPwd")
+    @ResponseBody
+    public ResultJson loginPwd(int userId,String oldPwd,String newPwd){
+        ResultJson result;
+        try {
+            result = new ResultJson(true,"修改成功");
+        } catch (Exception e) {
+            result = new ResultJson(false,"修改失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @RequestMapping("payPwd")
+    @ResponseBody
+    public ResultJson payPwd(int userId,String oldPwd,String newPwd){
+        ResultJson result;
+        try {
+            result = new ResultJson(true,"修改成功");
+        } catch (Exception e) {
+            result = new ResultJson(false,"修改失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @RequestMapping("updateHead")
+    @ResponseBody
+    public ResultJson updateHead(int userId,String headImg){
+        ResultJson result;
+        try {
+            result = new ResultJson(true,"修改成功");
+        } catch (Exception e) {
+            result = new ResultJson(false,"修改失败");
             e.printStackTrace();
         }
         return result;

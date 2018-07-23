@@ -113,48 +113,19 @@ public class SqlUtils {
 	    try {
 	    	conn=getConnection();
 	        ps = conn.prepareStatement(sql);
-	        if(params!=null){
-	        	Object param=null;
-	        	for(int i=0;i<params.size();i++){
-					param=params.get(i);
-					if (param instanceof Integer) {
-						ps.setInt(i + 1, ((Integer) param).intValue());
-					} else if (param instanceof String) {
-						ps.setString(i + 1, (String) param);
-					} else if (param instanceof Double) {
-						ps.setDouble(i + 1, ((Double) param).doubleValue());
-					} else if (param instanceof Float) {
-						ps.setFloat(i + 1, ((Float) param).floatValue());
-					} else if (param instanceof Long) {
-						ps.setLong(i + 1,((Long) param).longValue());
-					} else if (param instanceof Boolean) {
-						ps.setBoolean(i + 1, ((Boolean) param).booleanValue());
-					} else if (param instanceof Date) {
-						ps.setDate(i + 1, (Date) param);
-					} else if (param instanceof BigDecimal) {
-						ps.setBigDecimal(i + 1, (BigDecimal) param);
-					} else if (param instanceof Timestamp) {
-						ps.setTimestamp(i + 1, (Timestamp) param);
-					} 
-				}
-	        }
-	        result = ps.executeUpdate();
+			setParams(params, ps);
+			result = ps.executeUpdate();
 	    } catch (SQLException e) {
 	    	System.out.println("SQL异常："+sql);
 	        e.printStackTrace();
 	        return result ;
 	    } finally{
-	    	try {
-				if(ps!=null){
-					ps.close();
-				}
-				closeCon(conn);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close(ps, null,conn);
 		}
 		return result ;
 	}
+
+
 	public int insert(String tableName,Map<String,Object> params)
 	{
 		int result=0;
@@ -202,14 +173,7 @@ public class SqlUtils {
 			System.out.println("insert "+tableName+" failed！");
 			e.printStackTrace();
 		} finally{
-			try {
-				if(ps!=null){
-					ps.close();
-				}
-				closeCon(conn);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close(ps, null,conn);
 		}
 		return result;
 	}
@@ -283,14 +247,7 @@ public class SqlUtils {
 			e.printStackTrace();
 			throw e;
 		}finally{
-			try {
-				if(ps!=null){
-					ps.close();
-				}
-				closeCon(conn);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} 
+			close(ps, null,conn);
 		}
 		return result;
 	}
@@ -316,32 +273,8 @@ public class SqlUtils {
 					conn=getConnection2(dbType);
 				}
 		        ps = (PreparedStatement)conn.prepareStatement(sql);
-		        if(params!=null){
-		        	Object param=null;
-		        	for(int i=0;i<params.size();i++){
-						param=params.get(i);
-						if (param instanceof Integer) {
-							ps.setInt(i + 1, ((Integer) param).intValue());
-						} else if (param instanceof String) {
-							ps.setString(i + 1, (String) param);
-						} else if (param instanceof Double) {
-							ps.setDouble(i + 1, ((Double) param).doubleValue());
-						} else if (param instanceof Float) {
-							ps.setFloat(i + 1, ((Float) param).floatValue());
-						} else if (param instanceof Long) {
-							ps.setLong(i + 1,((Long) param).longValue());
-						} else if (param instanceof Boolean) {
-							ps.setBoolean(i + 1, ((Boolean) param).booleanValue());
-						} else if (param instanceof Date) {
-							ps.setDate(i + 1, (Date) param);
-						} else if (param instanceof BigDecimal) {
-							ps.setBigDecimal(i + 1, (BigDecimal) param);
-						} else if (param instanceof Timestamp) {
-							ps.setTimestamp(i + 1, (Timestamp) param);
-						} 
-					}
-		        }
-		        rs = ps.executeQuery();
+				setParams(params, ps);
+				rs = ps.executeQuery();
 		        ResultSetMetaData   md   =   rs.getMetaData();   
 		        List<String> columns=new ArrayList<String>();
 		        for(int i=1;i<=md.getColumnCount();i++){    
@@ -358,20 +291,39 @@ public class SqlUtils {
 		    	System.out.println("SQL异常："+sql);
 		        e.printStackTrace();
 		    } finally{
-		    	try {
-					if(rs!=null){
-						rs.close();
-					}
-					if(ps!=null){
-						ps.close();
-					}
-					closeCon(conn);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+				close(ps, rs, conn);
 			}
 			return result;
 	}
+
+	private void setParams(List params, PreparedStatement ps) throws SQLException {
+		if(params!=null){
+            Object param=null;
+            for(int i=0;i<params.size();i++){
+                param=params.get(i);
+                if (param instanceof Integer) {
+                    ps.setInt(i + 1, ((Integer) param).intValue());
+                } else if (param instanceof String) {
+                    ps.setString(i + 1, (String) param);
+                } else if (param instanceof Double) {
+                    ps.setDouble(i + 1, ((Double) param).doubleValue());
+                } else if (param instanceof Float) {
+                    ps.setFloat(i + 1, ((Float) param).floatValue());
+                } else if (param instanceof Long) {
+                    ps.setLong(i + 1,((Long) param).longValue());
+                } else if (param instanceof Boolean) {
+                    ps.setBoolean(i + 1, ((Boolean) param).booleanValue());
+                } else if (param instanceof Date) {
+                    ps.setDate(i + 1, (Date) param);
+                } else if (param instanceof BigDecimal) {
+                    ps.setBigDecimal(i + 1, (BigDecimal) param);
+                } else if (param instanceof Timestamp) {
+                    ps.setTimestamp(i + 1, (Timestamp) param);
+                }
+            }
+        }
+	}
+
 	public List search(String sql,List params, Class cls) {
 		return search(null,sql,params,cls);
 	}
@@ -387,32 +339,8 @@ public class SqlUtils {
 				conn=getConnection2(dbType);
 			}
 	        ps = (PreparedStatement)conn.prepareStatement(sql);
-	        if(params!=null){
-	        	Object param=null;
-	        	for(int i=0;i<params.size();i++){
-					param=params.get(i);
-					if (param instanceof Integer) {
-						ps.setInt(i + 1, ((Integer) param).intValue());
-					} else if (param instanceof String) {
-						ps.setString(i + 1, (String) param);
-					} else if (param instanceof Double) {
-						ps.setDouble(i + 1, ((Double) param).doubleValue());
-					} else if (param instanceof Float) {
-						ps.setFloat(i + 1, ((Float) param).floatValue());
-					} else if (param instanceof Long) {
-						ps.setLong(i + 1,((Long) param).longValue());
-					} else if (param instanceof Boolean) {
-						ps.setBoolean(i + 1, ((Boolean) param).booleanValue());
-					} else if (param instanceof Date) {
-						ps.setDate(i + 1, (Date) param);
-					} else if (param instanceof BigDecimal) {
-						ps.setBigDecimal(i + 1, (BigDecimal) param);
-					} else if (param instanceof Timestamp) {
-						ps.setTimestamp(i + 1, (Timestamp) param);
-					} 
-				}
-	        }
-	        rs = ps.executeQuery();
+			setParams(params, ps);
+			rs = ps.executeQuery();
         	try {
 				result=resultSetToList(rs,cls);
 			} catch (Exception e) {
@@ -423,20 +351,25 @@ public class SqlUtils {
 	    	System.out.println("SQL异常："+sql);
 	        e.printStackTrace();
 	    } finally{
-	    	try {
-				if(rs!=null){
-					rs.close();
-				}
-				if(ps!=null){
-					ps.close();
-				}
-				closeCon(conn);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close(ps, rs, conn);
 		}
 		return result;
 	}
+
+	private void close(PreparedStatement ps, ResultSet rs, Connection conn) {
+		try {
+            if(rs!=null){
+                rs.close();
+            }
+            if(ps!=null){
+                ps.close();
+            }
+            closeCon(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
+
 	public String getSearchTableColumnsSql(String tableName){
 		String sql="SELECT cast(a.name as varchar) AS columnName,cast(isnull(g.value,cast(a.name as varchar)) as varchar) AS columnTitle "+
 				"	FROM sys.tables t "+

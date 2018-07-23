@@ -22,12 +22,12 @@ public class OrderService implements IOrderService {
 
     @Override
     public Page selectPage(Integer userId, int pageIndex, int pageSize) throws Exception {
-        Map<String,Object> map = new HashMap<>();
-        map.put("user_id",userId);
-        map.put("index",(pageIndex-1)*pageSize);
-        map.put("pageSize",pageSize);
+        Map<String, Object> map = new HashMap<>();
+        map.put("user_id", userId);
+        map.put("index", (pageIndex - 1) * pageSize);
+        map.put("pageSize", pageSize);
         List<Orders> list = ordersMapper.selectAll(map);
-        Page page = new Page(pageSize,pageIndex,list.size(),list);
+        Page page = new Page(pageSize, pageIndex, list.size(), list);
         return page;
     }
 
@@ -47,7 +47,17 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public int getCount(int userId) throws Exception {
+    public int getCount(int userId, Integer status) throws Exception {
         return 0;
+    }
+
+    @Override
+    public void payOrder(int id, int userId) throws Exception {
+
+    }
+
+    @Override
+    public void removeOrder(int id, int userId) throws Exception {
+
     }
 }

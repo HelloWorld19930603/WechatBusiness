@@ -35,12 +35,13 @@ public class AddressController {
         return result;
     }
 
-    @RequestMapping("setDefaultAddress")
+
+    @RequestMapping("setDeafult")
     @ResponseBody
-    public ResultJson setDefaultAddress(int id,int userId){
+    public ResultJson setDeafult(int addrId,int userId){
         ResultJson result;
         try {
-            addressService.updateDefault(id,userId);
+            addressService.updateDefault(addrId,userId);
             result = new ResultJson(true,"设置成功");
         } catch (Exception e) {
             result = new ResultJson(false,"设置失败");
@@ -50,9 +51,9 @@ public class AddressController {
     }
 
 
-    @RequestMapping("getDefaultAddress")
+    @RequestMapping("getDeafult")
     @ResponseBody
-    public ResultJson getDefaultAddress(int userId){
+    public ResultJson getDeafult(int userId){
         ResultJson result;
         try {
             Address address = addressService.findDefault(userId);
@@ -64,12 +65,12 @@ public class AddressController {
         return result;
     }
 
-    @RequestMapping("getDefaultAddress")
+    @RequestMapping("getDefault")
     @ResponseBody
-    public ResultJson getAddress(int id){
+    public ResultJson getAddress(int userId){
         ResultJson result;
         try {
-            Address address = addressService.findDefault(id);
+            Address address = addressService.findDefault(userId);
             result = new ResultJson(true,"获取地址成功",address);
         } catch (Exception e) {
             result = new ResultJson(false,"获取地址失败");
@@ -78,9 +79,9 @@ public class AddressController {
         return result;
     }
 
-    @RequestMapping("updateAddress")
+    @RequestMapping("updateOne")
     @ResponseBody
-    public ResultJson updateAddress(Address address){
+    public ResultJson updateOne(Address address){
         ResultJson result;
         try {
             addressService.updateAddress(address);
@@ -92,9 +93,9 @@ public class AddressController {
         return result;
     }
 
-    @RequestMapping("addAddress")
+    @RequestMapping("addOne")
     @ResponseBody
-    public ResultJson addAddress(Address address){
+    public ResultJson addOne(Address address){
         ResultJson result;
         try {
             addressService.addAddress(address);
@@ -106,12 +107,12 @@ public class AddressController {
         return result;
     }
 
-    @RequestMapping("removeAddress")
+    @RequestMapping("removeOne")
     @ResponseBody
-    public ResultJson removeAddress(int id){
+    public ResultJson removeAddr(int addrId){
         ResultJson result;
         try {
-            addressService.removeAddress(id);
+            addressService.removeAddress(addrId);
             result = new ResultJson(true,"删除地址成功");
         } catch (Exception e) {
             result = new ResultJson(false,"删除地址失败");

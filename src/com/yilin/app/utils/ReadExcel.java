@@ -36,41 +36,44 @@ public class ReadExcel {
         sql.append("yc_mj = ").append(l.get(2)).append(",");
         sql.append("yc_zcl = ").append(l.get(3)).append(",");
         sql.append("yc_cz = ").append(l.get(4)).append(",");
-        l = excelList.get(4);
+        l = excelList.get(5);
         sql.append("hbj_mj = ").append(l.get(2)).append(",");
         sql.append("hbj_cl = ").append(l.get(3)).append(",");
-        l = excelList.get(5);
+        l = excelList.get(6);
         sql.append("zbm_mj = ").append(l.get(2)).append(",");
         sql.append("zbm_cl = ").append(l.get(3)).append(",");
-        l = excelList.get(6);
+        l = excelList.get(7);
         sql.append("bs_mj = ").append(l.get(2)).append(",");
         sql.append("bs_cl = ").append(l.get(3)).append(",");
-        l = excelList.get(7);
+        l = excelList.get(8);
         sql.append("yh_mj = ").append(l.get(2)).append(",");
         sql.append("yh_cl = ").append(l.get(3)).append(",");
-        l = excelList.get(8);
+        l = excelList.get(9);
 
         //	yc_mj,yc_zcl,yc_cz,hbj_mj,zbm_mj, bs_mj,yh_mj,xs_mj,wyj_mj,hbs_mj,mzd_mj,tpsh_mj,xhh_mj,lz_mj,qtzyc_mj,
         // hbj_cl,zbm_cl,bs_cl,yh_cl,xs_cl,wyj_cl,hbs_cl,mzd_cl,tpsh_cl,xhh_cl,lz_cl,qtzyc_cl
         sql.append("xs_mj = ").append(l.get(2)).append(",");
         sql.append("xs_cl = ").append(l.get(3)).append(",");
-        l = excelList.get(9);
+        l = excelList.get(10);
         sql.append("wyj_mj = ").append(l.get(2)).append(",");
         sql.append("wyj_cl = ").append(l.get(3)).append(",");
-        l = excelList.get(10);
+        l = excelList.get(11);
+        sql.append("hbs_mj = ").append(l.get(2)).append(",");
+        sql.append("hbs_cl = ").append(l.get(3)).append(",");
+        l = excelList.get(12);
         sql.append("mzd_mj = ").append(l.get(2)).append(",");
         sql.append("mzd_cl = ").append(l.get(3)).append(",");
-        l = excelList.get(11);
+        l = excelList.get(13);
         sql.append("tpsh_mj = ").append(l.get(2)).append(",");
         sql.append("tpsh_cl = ").append(l.get(3)).append(",");
 
-        l = excelList.get(12);
+        l = excelList.get(14);
         sql.append("xhh_mj = ").append(l.get(2)).append(",");
         sql.append("xhh_cl = ").append(l.get(3)).append(",");
-        l = excelList.get(13);
+        l = excelList.get(15);
         sql.append("lz_mj = ").append(l.get(2)).append(",");
         sql.append("lz_cl = ").append(l.get(3)).append(",");
-        l = excelList.get(17);
+        l = excelList.get(19);
         sql.append("qtzyc_mj = ").append(l.get(2)).append(",");
         sql.append("qtzyc_cl = ").append(l.get(3));
         sql.append(" where areacode = '330183' and year = ").append(year);

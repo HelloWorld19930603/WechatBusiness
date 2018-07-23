@@ -23,10 +23,10 @@ public class CommodityController {
 
     @RequestMapping("findPage")
     @ResponseBody
-    public ResultJson findPage(Integer type,Integer serise,int index,int pageSize){
+    public ResultJson findPage(Integer type,Integer serise,int start,int pageSize){
         ResultJson result;
         try {
-            Page page = commodityService.selectPage(type,serise,index,pageSize);
+            Page page = commodityService.selectPage(type,serise,start,pageSize);
             result = new ResultJson(true,"查询商品分页成功",page);
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,16 +36,16 @@ public class CommodityController {
     }
 
 
-    @RequestMapping("findCommodity")
+    @RequestMapping("findOne")
     @ResponseBody
-    public ResultJson findCommodity(int id){
+    public ResultJson findOne(int commId){
         ResultJson result;
         try {
-            Commodity commodity = commodityService.selectById(id);
-            result = new ResultJson(true,"查询商品分页成功",commodity);
+            Commodity commodity = commodityService.selectById(commId);
+            result = new ResultJson(true,"查询商品详情成功",commodity);
         } catch (Exception e) {
             e.printStackTrace();
-            result = new ResultJson(false,"查询商品分页失败");
+            result = new ResultJson(false,"查询商品详情失败");
         }
         return result;
     }
@@ -56,10 +56,10 @@ public class CommodityController {
         ResultJson result;
         try {
             int total = commodityService.getCount(type,serise);
-            result = new ResultJson(true,"查询商品分页成功",total);
+            result = new ResultJson(true,"查询商品数量成功",total);
         } catch (Exception e) {
             e.printStackTrace();
-            result = new ResultJson(false,"查询商品分页失败");
+            result = new ResultJson(false,"查询商品数量失败");
         }
         return result;
     }

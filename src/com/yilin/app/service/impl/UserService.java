@@ -45,4 +45,24 @@ public class UserService implements IUserService {
     public User findUser(int userId) throws Exception {
         return userMapper.selectByPrimaryKey(userId);
     }
+
+    @Override
+    public void updatePwd(int userId, String oldPwd, String newPwd) {
+
+    }
+
+    @Override
+    public void updateHead(int userId, String headImg) throws Exception {
+
+    }
+
+    @Override
+    public boolean checkLoginPwd(int userId, String loginPwd) throws Exception {
+        return false;
+    }
+
+    @Override
+    public boolean checkPayPwd(int userId, String payPwd) throws Exception {
+        return false;
+    }
 }

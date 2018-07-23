@@ -8,13 +8,17 @@ import com.yilin.app.domain.Orders;
  */
 public interface IOrderService {
 
-     Page selectPage(Integer userId,int index,int pageSize) throws Exception;
+    Page selectPage(Integer userId, int index, int pageSize) throws Exception;
 
-     void updateStatus(int id,int status) throws Exception;
+    void updateStatus(int id, int status) throws Exception;
 
-     Orders findOrder(int id) throws Exception;
+    Orders findOrder(int id) throws Exception;
 
-     void createOrder(Orders orders) throws Exception;
+    void createOrder(Orders orders) throws Exception;
 
-     int getCount(int userId) throws Exception;
+    int getCount(int userId, Integer status) throws Exception;
+
+    void payOrder(int id, int userId) throws Exception;
+
+    void removeOrder(int id, int userId) throws Exception;
 }

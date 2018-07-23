@@ -1,61 +1,31 @@
 package com.yilin.app.controller;
 
 import com.yilin.app.common.ResultJson;
-import com.yilin.app.domain.User;
+import org.apache.log4j.jmx.Agent;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Created by cc on 2018/7/18.
+ * Created by cc on 2018/7/17.
  */
 @Controller
-@RequestMapping("wallet")
-public class WalletController {
+@RequestMapping("agent")
+public class AgentController {
 
-    @RequestMapping("payment")
-    @ResponseBody
-    public ResultJson payment(User user){
-        ResultJson result;
-        try {
-            result = new ResultJson(true,"支付成功");
-        } catch (Exception e) {
-            result = new ResultJson(false,"支付失败");
-            e.printStackTrace();
-        }
-        return result;
-    }
 
     /**
-     *查询某系列账户余额
-     * @param userId
-     * @param serise
-     * @return
-     */
-    @RequestMapping("findMoney")
-    @ResponseBody
-    public ResultJson findMoney(int userId,int serise){
-        ResultJson result;
-        try {
-            result = new ResultJson(true,"支付成功");
-        } catch (Exception e) {
-            result = new ResultJson(false,"支付失败");
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    /**
-     * 钱包充值
-     * @param userId
-     * @param serise
-     * @param money
+     * 代理升级
+     * @param currentLev
+     * @param applyLev
+     * @param name
      * @param voucher
+     * @param text
      * @return
      */
-    @RequestMapping("addMoney")
+    @RequestMapping("upgrade")
     @ResponseBody
-    public ResultJson addMoney(int userId,int serise,float money,String voucher){
+    public ResultJson upgrade(Agent agent){
         ResultJson result;
         try {
             result = new ResultJson(true,"支付成功");
@@ -66,9 +36,15 @@ public class WalletController {
         return result;
     }
 
-    @RequestMapping("findRebate")
+    /**
+     * 获取当前用户级别
+     * @param userId
+     * @param serise
+     * @return
+     */
+    @RequestMapping("findLevel")
     @ResponseBody
-    public ResultJson findRebate(int userId,int start,int pageSize){
+    public ResultJson findLevel(int userId,int serise){
         ResultJson result;
         try {
             result = new ResultJson(true,"支付成功");
@@ -80,5 +56,23 @@ public class WalletController {
     }
 
 
-
+    /**
+     * 查询订货价
+     * @param userId
+     * @param start
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping("findPrice")
+    @ResponseBody
+    public ResultJson findPrice(int userId,int start,int pageSize){
+        ResultJson result;
+        try {
+            result = new ResultJson(true,"支付成功");
+        } catch (Exception e) {
+            result = new ResultJson(false,"支付失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
