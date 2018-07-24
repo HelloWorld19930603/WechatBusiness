@@ -1,6 +1,7 @@
 package com.yilin.app.controller;
 
 import com.yilin.app.common.ResultJson;
+import com.yilin.app.domain.Cart;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,7 +29,20 @@ public class CartController {
 
     @RequestMapping("addOne")
     @ResponseBody
-    public ResultJson addOne(int userId, int commId,int num){
+    public ResultJson addOne(Cart cart){
+        ResultJson result;
+        try {
+            result = new ResultJson(true,"修改成功");
+        } catch (Exception e) {
+            result = new ResultJson(false,"修改失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @RequestMapping("updateOne")
+    @ResponseBody
+    public ResultJson updateOne(Cart cart){
         ResultJson result;
         try {
             result = new ResultJson(true,"修改成功");

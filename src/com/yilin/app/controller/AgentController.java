@@ -1,6 +1,7 @@
 package com.yilin.app.controller;
 
 import com.yilin.app.common.ResultJson;
+import com.yilin.app.domain.AgentUpgrade;
 import org.apache.log4j.jmx.Agent;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,16 +17,12 @@ public class AgentController {
 
     /**
      * 代理升级
-     * @param currentLev
-     * @param applyLev
-     * @param name
-     * @param voucher
-     * @param text
+     * @param agentUpgrade
      * @return
      */
     @RequestMapping("upgrade")
     @ResponseBody
-    public ResultJson upgrade(Agent agent){
+    public ResultJson upgrade(AgentUpgrade agentUpgrade){
         ResultJson result;
         try {
             result = new ResultJson(true,"支付成功");

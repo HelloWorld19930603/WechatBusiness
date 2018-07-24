@@ -66,6 +66,13 @@ public class WalletController {
         return result;
     }
 
+    /**
+     * 获取返利
+     * @param userId
+     * @param start
+     * @param pageSize
+     * @return
+     */
     @RequestMapping("findRebate")
     @ResponseBody
     public ResultJson findRebate(int userId,int start,int pageSize){
