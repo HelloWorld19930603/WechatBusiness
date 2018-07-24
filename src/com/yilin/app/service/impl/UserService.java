@@ -47,22 +47,45 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void updatePwd(int userId, String oldPwd, String newPwd) {
+    public void updateLoginPwd(int userId, String newPwd) throws Exception{
+        User user = new User();
+        user.setId(userId);
+        user.setLoginPwd(newPwd);
+        userMapper.updateByPrimaryKeySelective(user);
+    }
 
+    @Override
+    public void updatePayPwd(int userId, String newPwd) throws Exception{
+        User user = new User();
+        user.setId(userId);
+        user.setPayPwd(newPwd);
+        userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Override
     public void updateHead(int userId, String headImg) throws Exception {
-
+        User user = new User();
+        user.setId(userId);
+        user.setHeadImg(headImg);
+        userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Override
     public boolean checkLoginPwd(int userId, String loginPwd) throws Exception {
+
+        User user = userMapper.selectByPrimaryKey(userId);
+        if(MD5Util.encrypt(loginPwd).equals(user.getLoginPwd())){
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean checkPayPwd(int userId, String payPwd) throws Exception {
+        User user = userMapper.selectByPrimaryKey(userId);
+        if(MD5Util.encrypt(payPwd).equals(user.getPayPwd())){
+            return true;
+        }
         return false;
     }
 }

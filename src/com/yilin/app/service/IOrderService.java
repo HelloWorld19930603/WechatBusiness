@@ -10,13 +10,13 @@ public interface IOrderService {
 
     Page selectPage(Integer userId, int index, int pageSize) throws Exception;
 
-    void updateStatus(int id, int status) throws Exception;
+    void updateStatus(int id, int userId, int status) throws Exception;
 
     Orders findOrder(int id) throws Exception;
 
     void createOrder(Orders orders) throws Exception;
 
-    int getCount(int userId, Integer status) throws Exception;
+    int getCount(Integer userId, Integer status) throws Exception;
 
     void payOrder(int id, int userId) throws Exception;
 

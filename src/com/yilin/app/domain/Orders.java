@@ -7,7 +7,7 @@ public class Orders {
 
     private Integer userId;
 
-    private Long identifier;
+    private String identifier;
 
     private Integer commId;
 
@@ -35,11 +35,11 @@ public class Orders {
         this.userId = userId;
     }
 
-    public Long getIdentifier() {
+    public String getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(Long identifier) {
+    public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
 

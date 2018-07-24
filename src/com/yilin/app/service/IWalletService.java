@@ -11,7 +11,7 @@ public interface IWalletService {
 
         void addRecharge(Recharge recharge) throws Exception;
 
-        void addMoney() throws Exception;
+        void addMoney(byte serise,int userId,float money) throws Exception;
 
         float getMoney(int userId,byte serise) throws Exception;
 

@@ -36,6 +36,10 @@
     <if test="type != null">
       and type = #{type}
     </if>
+    limit #{start}
+    <if test="pageSize != null and pageSize != 0">
+      ,#{pageSize}
+    </if>
   </select>
 
     <select id="count" parameterType="map" resultType="java.lang.Integer">

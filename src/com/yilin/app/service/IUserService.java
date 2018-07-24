@@ -15,12 +15,14 @@ public interface IUserService {
 
     User findUser(int userId) throws Exception;
 
-    void updatePwd(int userId,String oldPwd,String newPwd) throws Exception;
 
+    void updateLoginPwd(int userId, String newPwd) throws Exception;
 
-    void updateHead(int userId,String headImg) throws Exception;
+    void updatePayPwd(int userId, String newPwd) throws Exception;
 
-    boolean checkLoginPwd(int userId,String loginPwd) throws Exception;
+    void updateHead(int userId, String headImg) throws Exception;
 
-    boolean checkPayPwd(int userId,String payPwd) throws Exception;
+    boolean checkLoginPwd(int userId, String loginPwd) throws Exception;
+
+    boolean checkPayPwd(int userId, String payPwd) throws Exception;
 }

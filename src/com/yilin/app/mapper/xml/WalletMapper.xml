@@ -79,4 +79,16 @@
       serise = #{serise,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="addMoney" parameterMap="map">
+    update wallet
+    set
+    money = money + #{money,jdbcType=REAL}
+    where user_id = #{userId} and serise = #{serise}
+  </update>
+
+    <select id="getMoney" parameterMap="map" resultType="float">
+        select money from wallet where user_id = #{userId} and serise = #{serise}
+    </select>
+
 </mapper>

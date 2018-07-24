@@ -125,4 +125,34 @@
       time = #{time,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectPage" parameterMap="map" resultType="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from orders
+    where 1=1
+    and user_id = #{userId}
+    limit #{start},#{pageSize}
+  </select>
+
+  <select id="count" parameterMap="map" resultType="int">
+    select
+    count(*)
+    from orders
+    where 1=1
+    <if test="userId != null">
+    and user_id = #{userId}
+    </if>
+    <if test="status != null">
+    and status = #{status}
+    </if>
+  </select>
+
+  <update id="updateStatus" parameterMap="map" >
+    update orders set status= #{status} where user_id = #{userId} and id = #{id}
+  </update>
+
+  <delete id="deleteById" parameterMap="map" >
+    delete from orders  where user_id = #{userId} and id = #{id}
+  </delete>
 </mapper>

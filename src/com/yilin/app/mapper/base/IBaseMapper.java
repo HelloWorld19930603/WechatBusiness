@@ -57,5 +57,5 @@ public interface IBaseMapper<T> {
 	 int count(Map<String, Object> param) throws Exception;
 
 
-	
+
 }

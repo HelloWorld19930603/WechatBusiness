@@ -2,7 +2,6 @@ package com.yilin.app.controller;
 
 import com.yilin.app.common.ResultJson;
 import com.yilin.app.domain.AgentUpgrade;
-import org.apache.log4j.jmx.Agent;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,17 +16,18 @@ public class AgentController {
 
     /**
      * 代理升级
+     *
      * @param agentUpgrade
      * @return
      */
     @RequestMapping("upgrade")
     @ResponseBody
-    public ResultJson upgrade(AgentUpgrade agentUpgrade){
+    public ResultJson upgrade(AgentUpgrade agentUpgrade) {
         ResultJson result;
         try {
-            result = new ResultJson(true,"支付成功");
+            result = new ResultJson(true, "支付成功");
         } catch (Exception e) {
-            result = new ResultJson(false,"支付失败");
+            result = new ResultJson(false, "支付失败");
             e.printStackTrace();
         }
         return result;
@@ -35,18 +35,19 @@ public class AgentController {
 
     /**
      * 获取当前用户级别
+     *
      * @param userId
      * @param serise
      * @return
      */
     @RequestMapping("findLevel")
     @ResponseBody
-    public ResultJson findLevel(int userId,int serise){
+    public ResultJson findLevel(int userId, int serise) {
         ResultJson result;
         try {
-            result = new ResultJson(true,"支付成功");
+            result = new ResultJson(true, "支付成功");
         } catch (Exception e) {
-            result = new ResultJson(false,"支付失败");
+            result = new ResultJson(false, "支付失败");
             e.printStackTrace();
         }
         return result;
@@ -55,6 +56,7 @@ public class AgentController {
 
     /**
      * 查询订货价
+     *
      * @param userId
      * @param start
      * @param pageSize
@@ -62,12 +64,12 @@ public class AgentController {
      */
     @RequestMapping("findPrice")
     @ResponseBody
-    public ResultJson findPrice(int userId,int start,int pageSize){
+    public ResultJson findPrice(int userId, int start, int pageSize) {
         ResultJson result;
         try {
-            result = new ResultJson(true,"支付成功");
+            result = new ResultJson(true, "支付成功");
         } catch (Exception e) {
-            result = new ResultJson(false,"支付失败");
+            result = new ResultJson(false, "支付失败");
             e.printStackTrace();
         }
         return result;
