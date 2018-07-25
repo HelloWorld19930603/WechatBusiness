@@ -3,11 +3,9 @@ package com.yilin.app.domain;
 import java.util.Date;
 
 public class Orders {
-    private Integer id;
+    private String id;
 
     private Integer userId;
-
-    private String identifier;
 
     private Integer commId;
 
@@ -19,12 +17,12 @@ public class Orders {
 
     private Date time;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public Integer getUserId() {
@@ -33,14 +31,6 @@ public class Orders {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
     }
 
     public Integer getCommId() {
