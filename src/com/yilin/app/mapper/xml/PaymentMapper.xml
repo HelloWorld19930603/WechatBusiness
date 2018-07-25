@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.yilin.app.domain.Payment">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
     <result column="money" jdbcType="REAL" property="money" />
     <result column="discount" jdbcType="REAL" property="discount" />
     <result column="type" jdbcType="VARCHAR" property="type" />
@@ -27,7 +27,7 @@
     insert into payment (id, user_id, order_id, 
       money, discount, type, time
       )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, 
       #{money,jdbcType=REAL}, #{discount,jdbcType=REAL}, #{type,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -64,7 +64,7 @@
         #{userId,jdbcType=INTEGER},
       </if>
       <if test="orderId != null">
-        #{orderId,jdbcType=INTEGER},
+        #{orderId,jdbcType=VARCHAR},
       </if>
       <if test="money != null">
         #{money,jdbcType=REAL},
@@ -87,7 +87,7 @@
         user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="orderId != null">
-        order_id = #{orderId,jdbcType=INTEGER},
+        order_id = #{orderId,jdbcType=VARCHAR},
       </if>
       <if test="money != null">
         money = #{money,jdbcType=REAL},
@@ -107,7 +107,7 @@
   <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.Payment">
     update payment
     set user_id = #{userId,jdbcType=INTEGER},
-      order_id = #{orderId,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=VARCHAR},
       money = #{money,jdbcType=REAL},
       discount = #{discount,jdbcType=REAL},
       type = #{type,jdbcType=VARCHAR},

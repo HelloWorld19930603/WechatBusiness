@@ -87,6 +87,13 @@
     where user_id = #{userId} and serise = #{serise}
   </update>
 
+  <update id="takeMoney" parameterMap="map">
+    update wallet
+    set
+    money = money - #{money,jdbcType=REAL}
+    where user_id = #{userId} and serise = #{serise} and money >= #{money}
+  </update>
+
     <select id="getMoney" parameterMap="map" resultType="float">
         select money from wallet where user_id = #{userId} and serise = #{serise}
     </select>

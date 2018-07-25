@@ -3,6 +3,7 @@ package com.yilin.app.service.impl;
 import com.yilin.app.common.Page;
 import com.yilin.app.mapper.CollegeMapper;
 import com.yilin.app.service.ICollegeService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.Map;
 /**
  * Created by cc on 2018/7/24.
  */
+@Service
 public class CollegeService implements ICollegeService{
 
     @Resource

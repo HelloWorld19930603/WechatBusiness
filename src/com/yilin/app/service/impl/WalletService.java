@@ -7,7 +7,8 @@ import com.yilin.app.mapper.RebateMapper;
 import com.yilin.app.mapper.RechargeMapper;
 import com.yilin.app.mapper.WalletMapper;
 import com.yilin.app.service.IWalletService;
-import org.apache.regexp.RE;
+import com.yilin.app.utils.AccountException;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import java.util.Map;
 /**
  * Created by cc on 2018/7/23.
  */
+@Service
 public class WalletService implements IWalletService {
 
     @Resource
@@ -41,6 +43,19 @@ public class WalletService implements IWalletService {
         map.put("userId", userId);
         map.put("money", money);
         walletMapper.addMoney(map);
+    }
+
+    @Override
+    public void takeMoney(byte serise, int userId, float money) throws AccountException {
+        try {
+            Map<String, Object> map = new HashMap<>();
+            map.put("serise", serise);
+            map.put("userId", userId);
+            map.put("money", money);
+            walletMapper.takeMoney(map);
+        } catch (Exception e) {
+            throw new AccountException("钱包扣款异常!");
+        }
     }
 
     @Override

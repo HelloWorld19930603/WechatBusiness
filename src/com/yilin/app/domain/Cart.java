@@ -5,7 +5,7 @@ import java.util.Date;
 public class Cart {
     private Integer id;
 
-    private Integer orderId;
+    private Integer commId;
 
     private Integer userId;
 
@@ -21,12 +21,12 @@ public class Cart {
         this.id = id;
     }
 
-    public Integer getOrderId() {
-        return orderId;
+    public Integer getCommId() {
+        return commId;
     }
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
+    public void setCommId(Integer commId) {
+        this.commId = commId;
     }
 
     public Integer getUserId() {

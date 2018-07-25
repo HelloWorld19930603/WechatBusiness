@@ -2,12 +2,16 @@ package com.yilin.app.service.impl;
 
 import com.yilin.app.common.Page;
 import com.yilin.app.domain.Orders;
+import com.yilin.app.domain.Payment;
 import com.yilin.app.mapper.OrdersMapper;
+import com.yilin.app.mapper.PaymentMapper;
 import com.yilin.app.service.IOrderService;
+import com.yilin.app.utils.AccountException;
 import com.yilin.app.utils.OrderNumberBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +25,8 @@ public class OrderService implements IOrderService {
 
     @Autowired
     OrdersMapper ordersMapper;
+    @Resource
+    PaymentMapper paymentMapper;
 
     @Override
     public Page selectPage(Integer userId, int start, int pageSize) throws Exception {
@@ -34,23 +40,28 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public void updateStatus(int id, int userId, int status) throws Exception {
-        Map<String, Object> map = new HashMap<>();
-        map.put("user_id", userId);
-        map.put("status", status);
-        map.put("id", id);
-        ordersMapper.updateStatus(map);
+    public void updateStatus(String id, int userId, int status) throws AccountException {
+        try {
+            Map<String, Object> map = new HashMap<>();
+            map.put("user_id", userId);
+            map.put("status", status);
+            map.put("id", id);
+            ordersMapper.updateStatus(map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new AccountException("扣款成功，但修改订单状态异常！如有疑问请联系管理员！");
+        }
     }
 
     @Override
-    public Orders findOrder(int id) throws Exception {
-        return ordersMapper.selectByPrimaryKey(id);
+    public Orders findOrder(String id) throws Exception {
+        return ordersMapper.selectById(id);
     }
 
     @Override
     public void createOrder(Orders orders) throws Exception {
         orders.setTime(new Date());
-        orders.setIdentifier(OrderNumberBuilder.getOrderIdByUUId());
+        orders.setId(OrderNumberBuilder.getOrderIdByUUId());
         ordersMapper.insert(orders);
     }
 
@@ -63,12 +74,23 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public void payOrder(int id, int userId) throws Exception {
-
+    public void payOrder(String orderId,int userId,float money,String type) throws AccountException {
+        try {
+            Payment payment = new Payment();
+            payment.setTime(new Date());
+            payment.setOrderId(orderId);
+            payment.setType(type);
+            payment.setMoney(money);
+            payment.setUserId(userId);
+            paymentMapper.insert(payment);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new AccountException("扣款成功，生成支付凭证异常！如有疑问请联系管理员！");
+        }
     }
 
     @Override
-    public void removeOrder(int id, int userId) throws Exception {
+    public void removeOrder(String id, int userId) throws Exception {
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", userId);
         map.put("id", id);

@@ -2,6 +2,7 @@ package com.yilin.app.service;
 
 import com.yilin.app.common.Page;
 import com.yilin.app.domain.Orders;
+import com.yilin.app.utils.AccountException;
 
 /**
  * Created by Administrator on 2018/7/9.
@@ -10,15 +11,15 @@ public interface IOrderService {
 
     Page selectPage(Integer userId, int index, int pageSize) throws Exception;
 
-    void updateStatus(int id, int userId, int status) throws Exception;
+    void updateStatus(String id, int userId, int status) throws AccountException;
 
-    Orders findOrder(int id) throws Exception;
+    Orders findOrder(String id) throws Exception;
 
     void createOrder(Orders orders) throws Exception;
 
     int getCount(Integer userId, Integer status) throws Exception;
 
-    void payOrder(int id, int userId) throws Exception;
+    void payOrder(String id,int userId,float money,String type) throws AccountException;
 
-    void removeOrder(int id, int userId) throws Exception;
+    void removeOrder(String id, int userId) throws Exception;
 }

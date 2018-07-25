@@ -7,7 +7,7 @@ public class Payment {
 
     private Integer userId;
 
-    private Integer orderId;
+    private String orderId;
 
     private Float money;
 
@@ -33,12 +33,12 @@ public class Payment {
         this.userId = userId;
     }
 
-    public Integer getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId == null ? null : orderId.trim();
     }
 
     public Float getMoney() {

@@ -10,5 +10,8 @@ public interface CartMapper extends IBaseMapper<Cart>{
 
     void deleteById(Map<String,Object> map) throws Exception;
 
-    void updateById(Cart cart) throws Exception;
+    void updateNum(Cart cart) throws Exception;
+
+
+    Cart selectNum(Cart cart) throws Exception;
 }

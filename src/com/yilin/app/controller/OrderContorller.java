@@ -4,10 +4,15 @@ import com.yilin.app.common.Page;
 import com.yilin.app.common.ResultJson;
 import com.yilin.app.domain.Orders;
 import com.yilin.app.service.IOrderService;
+import com.yilin.app.service.IUserService;
+import com.yilin.app.service.IWalletService;
+import com.yilin.app.utils.AccountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
 
 /**
  * Created by cc on 2018/7/9.
@@ -18,6 +23,10 @@ public class OrderContorller {
 
     @Autowired
     IOrderService orderService;
+    @Resource
+    IWalletService walletService;
+    @Resource
+    IUserService userService;
 
 
     @RequestMapping("findPage")
@@ -40,7 +49,7 @@ public class OrderContorller {
 
     @RequestMapping("findOne")
     @ResponseBody
-    public ResultJson findPage(int id) {
+    public ResultJson findPage(String id) {
         ResultJson result;
         try {
             Orders order = orderService.findOrder(id);
@@ -98,20 +107,31 @@ public class OrderContorller {
      * 支付订单
      *
      * @param orderId
+     * @param serise
      * @param userId
      * @param type
+     * @param money
+     * @param payPwd
      * @return
      */
     @RequestMapping("payOrder")
     @ResponseBody
-    public ResultJson payOrder(int orderId, int userId, int type) {
+    public ResultJson payOrder(String orderId, byte serise, int userId, String type, float money, String payPwd) {
         ResultJson result;
         try {
-
-            result = new ResultJson(true, "支付成功");
-        } catch (Exception e) {
+            if(userService.checkPayPwd(userId,payPwd)) {
+                walletService.takeMoney(serise, userId, money);
+                orderService.payOrder(orderId, userId, money, type);
+                orderService.updateStatus(orderId, userId, 2);
+                result = new ResultJson(true, "支付成功");
+            }else{
+                result = new ResultJson(false,"支付密码错误");
+            }
+        } catch (AccountException e) {
+            result = new ResultJson(false, e.getMsg());
+        }catch (Exception e){
             e.printStackTrace();
-            result = new ResultJson(false, "支付失败");
+            result = new ResultJson(false, "密码校验异常");
         }
         return result;
     }
@@ -119,7 +139,7 @@ public class OrderContorller {
 
     @RequestMapping("removeOne")
     @ResponseBody
-    public ResultJson removeOne(int orderId, int userId) {
+    public ResultJson removeOne(String orderId, int userId) {
         ResultJson result;
         try {
             orderService.removeOrder(orderId, userId);

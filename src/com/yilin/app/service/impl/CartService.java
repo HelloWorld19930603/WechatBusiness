@@ -24,30 +24,36 @@ public class CartService implements ICartService {
 
     @Override
     public Page getCarts(int userId, int start, int pageSize) throws Exception {
-        Map<String,Object> map = new HashMap<>();
-        map.put("userId",userId);
-        map.put("start",(start - 1) * pageSize);
-        map.put("pageSize",pageSize);
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("start", (start - 1) * pageSize);
+        map.put("pageSize", pageSize);
         List list = cartMapper.selectPage(map);
-        Page page = new Page(pageSize,start,list.size(),list);
+        Page page = new Page(pageSize, start, list.size(), list);
         return page;
     }
 
     @Override
     public void addCart(Cart cart) throws Exception {
-        cartMapper.insert(cart);
+        Cart dikCart = cartMapper.selectNum(cart);
+        if (dikCart != null) {
+            dikCart.setNum(dikCart.getNum() + 1);
+            cartMapper.updateNum(dikCart);
+        } else {
+            cartMapper.insert(cart);
+        }
     }
 
     @Override
     public void deleteCart(int id, int userId) throws Exception {
-        Map<String,Object> map = new HashedMap();
-        map.put("id",id);
-        map.put("userId",userId);
+        Map<String, Object> map = new HashedMap();
+        map.put("id", id);
+        map.put("userId", userId);
         cartMapper.deleteById(map);
     }
 
     @Override
     public void updateCart(Cart cart) throws Exception {
-        cartMapper.updateById(cart);
+        cartMapper.updateNum(cart);
     }
 }
