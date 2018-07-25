@@ -80,21 +80,21 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <update id="addMoney" parameterMap="map">
+  <update id="addMoney" parameterType="map">
     update wallet
     set
     money = money + #{money,jdbcType=REAL}
     where user_id = #{userId} and serise = #{serise}
   </update>
 
-  <update id="takeMoney" parameterMap="map">
+  <update id="takeMoney" parameterType="map">
     update wallet
     set
     money = money - #{money,jdbcType=REAL}
     where user_id = #{userId} and serise = #{serise} and money >= #{money}
   </update>
 
-    <select id="getMoney" parameterMap="map" resultType="float">
+    <select id="getMoney" parameterType="map" resultType="float">
         select money from wallet where user_id = #{userId} and serise = #{serise}
     </select>
 

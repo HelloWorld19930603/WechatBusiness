@@ -106,7 +106,7 @@
         where user_id = #{userId} and comm_id = #{commId}
     </select>
 
-  <select id="selectPage" parameterMap="map" resultMap ="BaseResultMap">
+  <select id="selectPage" parameterType="map" resultMap ="BaseResultMap">
     SELECT
       <include refid="Base_Column_List" />
       from cart
@@ -116,7 +116,7 @@
     </if>
   </select>
 
-  <delete id="deleteById" parameterMap="map">
+  <delete id="deleteById" parameterType="map">
     delete from cart where id = #{id} and user_id = #{userId}
   </delete>
 </mapper>

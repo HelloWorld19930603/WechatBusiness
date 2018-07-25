@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration  PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"  "http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+<!DOCTYPE configuration  PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
 <configuration>
-<settings>
-        <setting name="cacheEnabled" value="true" />
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
         <!-- 打印sql日志 -->
-        <setting name="logImpl" value="STDOUT_LOGGING" />
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
-	<typeAliases>
-	</typeAliases>
+    <typeAliases>
+    </typeAliases>
 
-	<mappers>
-		<mapper resource="com/yilin/app/mapper/xml/AddressMapper.xml"/>
-		<mapper resource="com/yilin/app/mapper/xml/AgentUpgradeMapper.xml"/>
-		<mapper resource="com/yilin/app/mapper/xml/CommodityMapper.xml"/>
-		<mapper resource="com/yilin/app/mapper/xml/PriceMapper.xml"/>
-		<mapper resource="com/yilin/app/mapper/xml/RechargeMapper.xml"/>
-		<mapper resource="com/yilin/app/mapper/xml/RoleMapper.xml"/>
-		<mapper resource="com/yilin/app/mapper/xml/UserMapper.xml"/>
-         <mapper resource="com/yilin/app/mapper/xml/WalletMapper.xml"/>
-		<mapper resource="com/yilin/app/mapper/xml/CartMapper.xml"/>
+    <mappers>
+        <mapper resource="com/yilin/app/mapper/xml/AddressMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/AgentUpgradeMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/CommodityMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/PriceMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/RechargeMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/RoleMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/UserMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/OrdersMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/WalletMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/CartMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/CollegeMapper.xml"/>
-          <mapper resource="com/yilin/app/mapper/xml/RebateMapper.xml"/>
-          <mapper resource="com/yilin/app/mapper/xml/AuthorityMapper.xml"/>
-          <mapper resource="com/yilin/app/mapper/xml/PaymentMapper.xml"/>
-	</mappers>
+        <mapper resource="com/yilin/app/mapper/xml/RebateMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/AuthorityMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/PaymentMapper.xml"/>
+    </mappers>
 </configuration>

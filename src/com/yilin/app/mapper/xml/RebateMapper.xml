@@ -91,7 +91,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-    <select id="selectPage" parameterMap="map" resultType="com.yilin.app.domain.Rebate">
+    <select id="selectPage" parameterType="map" resultType="com.yilin.app.domain.Rebate">
         SELECT
         <include refid="Base_Column_List"/>
         from rebate
