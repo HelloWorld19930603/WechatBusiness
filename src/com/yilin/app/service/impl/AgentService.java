@@ -28,6 +28,6 @@ public class AgentService implements IAgentService{
 
     @Override
     public int findLevel(int userId,byte serise) throws Exception {
-        return roleMapper.findLevel(userId);
+        return roleMapper.findRole(userId);
     }
 }

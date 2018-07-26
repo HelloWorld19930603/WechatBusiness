@@ -21,9 +21,10 @@ public class CommodityService implements ICommodityService {
     CommodityMapper commodityMapper;
 
     @Override
-    public Page selectPage(Integer type, Integer serise, int index, int pageSize) throws Exception {
+    public Page selectPage(Integer type,int userId, Integer serise, int index, int pageSize) throws Exception {
         Map<String,Object> map = new HashMap<>();
         map.put("type",type);
+        map.put("userId",userId);
         map.put("serise",serise);
         map.put("start",(index-1)*pageSize);
         map.put("pageSize",pageSize);
@@ -38,9 +39,11 @@ public class CommodityService implements ICommodityService {
     }
 
     @Override
-    public Commodity selectById(int id) throws Exception {
-
-        return commodityMapper.selectByPrimaryKey(id);
+    public Commodity selectById(int id,int userId) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        map.put("userId",userId);
+        return commodityMapper.selectOne(map);
     }
 
 

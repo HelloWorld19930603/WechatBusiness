@@ -37,14 +37,14 @@ public class HomeController {
         try {
             User user = userService.selectForLogin(loginName,loginPwd);
             if(user != null) {
-                result = new ResultJson(true, "登陆成功!" + "--" + loginName);
+                result = new ResultJson(true, "登陆成功!");
                 result.setObj(Permission.createToken(user));
             }else {
                 result = new ResultJson(false, "账号或密码错误!" );
             }
         } catch (Exception e) {
             e.printStackTrace();
-            result = new ResultJson(false,"登陆失败!"+"--"+loginName);
+            result = new ResultJson(false,"登陆失败!");
         }
         return result;
     }

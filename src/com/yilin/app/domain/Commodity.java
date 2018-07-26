@@ -11,11 +11,13 @@ public class Commodity {
 
     private String name;
 
+    private String eName;
+
     private String descript;
 
     private String type;
 
-    private Float scale;
+    private String scale;
 
     private String qrCode;
 
@@ -25,7 +27,13 @@ public class Commodity {
 
     private String img;
 
-    private String specifications;
+    private String color;
+
+    private String size;
+
+    private Float mPrice;
+
+    private Float aPrice;
 
     public Integer getId() {
         return id;
@@ -59,6 +67,14 @@ public class Commodity {
         this.name = name == null ? null : name.trim();
     }
 
+    public String geteName() {
+        return eName;
+    }
+
+    public void seteName(String eName) {
+        this.eName = eName == null ? null : eName.trim();
+    }
+
     public String getDescript() {
         return descript;
     }
@@ -75,12 +91,12 @@ public class Commodity {
         this.type = type == null ? null : type.trim();
     }
 
-    public Float getScale() {
+    public String getScale() {
         return scale;
     }
 
-    public void setScale(Float scale) {
-        this.scale = scale;
+    public void setScale(String scale) {
+        this.scale = scale == null ? null : scale.trim();
     }
 
     public String getQrCode() {
@@ -115,11 +131,35 @@ public class Commodity {
         this.img = img == null ? null : img.trim();
     }
 
-    public String getSpecifications() {
-        return specifications;
+    public String getColor() {
+        return color;
     }
 
-    public void setSpecifications(String specifications) {
-        this.specifications = specifications == null ? null : specifications.trim();
+    public void setColor(String color) {
+        this.color = color == null ? null : color.trim();
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size == null ? null : size.trim();
+    }
+
+    public Float getmPrice() {
+        return mPrice;
+    }
+
+    public void setmPrice(Float mPrice) {
+        this.mPrice = mPrice;
+    }
+
+    public Float getaPrice() {
+        return aPrice;
+    }
+
+    public void setaPrice(Float aPrice) {
+        this.aPrice = aPrice;
     }
 }

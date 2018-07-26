@@ -23,10 +23,10 @@ public class CommodityController {
 
     @RequestMapping("findPage")
     @ResponseBody
-    public ResultJson findPage(Integer type,Integer serise,int start,int pageSize){
+    public ResultJson findPage(Integer type,int userId,Integer serise,int start,int pageSize){
         ResultJson result;
         try {
-            Page page = commodityService.selectPage(type,serise,start,pageSize);
+            Page page = commodityService.selectPage(type,userId,serise,start,pageSize);
             result = new ResultJson(true,"查询商品分页成功",page);
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,10 +38,10 @@ public class CommodityController {
 
     @RequestMapping("findOne")
     @ResponseBody
-    public ResultJson findOne(int commId){
+    public ResultJson findOne(int commId,int userId){
         ResultJson result;
         try {
-            Commodity commodity = commodityService.selectById(commId);
+            Commodity commodity = commodityService.selectById(commId,userId);
             result = new ResultJson(true,"查询商品详情成功",commodity);
         } catch (Exception e) {
             e.printStackTrace();

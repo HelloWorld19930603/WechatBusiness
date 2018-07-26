@@ -14,7 +14,7 @@ public class Page implements Serializable {
     /** 页号 */
     private int pageIndex;
     /** 总页数 */
-    private int pageCount;
+    //private int pageCount;
     /** 记录数 */
     private int recordCount;
     /** 数据对象 */
@@ -43,14 +43,14 @@ public class Page implements Serializable {
         this.pageIndex = pageIndex;
         this.recordCount = recordCount;
         this.item = item;
-        if (recordCount > 0) {
+/*        if (recordCount > 0) {
             this.pageCount = recordCount/pageSize;
             if (recordCount%pageSize != 0) {
                 this.pageCount++;
             }
         } else {
             this.pageCount = 0;
-        }
+        }*/
     }
 
     /**
@@ -81,19 +81,15 @@ public class Page implements Serializable {
         this.pageIndex = pageIndex;
     }
 
-    /**
-     * 获取总页数
-     */
-    public int getPageCount() {
+
+
+/*    public int getPageCount() {
         return pageCount;
     }
 
-    /**
-     * 设置总页数
-     */
     public void setPageCount(int pageCount) {
         this.pageCount = pageCount;
-    }
+    }*/
 
     /**
      * 获取数据对象

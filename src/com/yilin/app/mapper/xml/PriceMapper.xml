@@ -68,4 +68,20 @@
     where comm_id = #{commId,jdbcType=INTEGER}
       and role_id = #{roleId,jdbcType=INTEGER}
   </update>
+
+  <select id="selectPrice" parameterType="com.yilin.app.domain.PriceKey" resultMap="BaseResultMap">
+    select
+    price
+    from price
+    where comm_id = #{commId,jdbcType=INTEGER}
+    and role_id = #{roleId,jdbcType=INTEGER}
+  </select>
+
+    <select id="selectDefault" parameterType="string" resultMap="BaseResultMap">
+        select
+        price
+        from price
+        where comm_id = #{commId,jdbcType=INTEGER}
+        and role_id = 9
+    </select>
 </mapper>

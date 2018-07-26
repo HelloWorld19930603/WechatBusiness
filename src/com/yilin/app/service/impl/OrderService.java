@@ -31,10 +31,10 @@ public class OrderService implements IOrderService {
     @Override
     public Page selectPage(Integer userId, int start, int pageSize) throws Exception {
         Map<String, Object> map = new HashMap<>();
-        map.put("user_id", userId);
-        map.put("index", (start - 1) * pageSize);
+        map.put("userId", userId);
+        map.put("start", (start - 1) * pageSize);
         map.put("pageSize", pageSize);
-        List<Orders> list = ordersMapper.selectAll(map);
+        List<Orders> list = ordersMapper.selectPage(map);
         Page page = new Page(pageSize, start, list.size(), list);
         return page;
     }
@@ -54,15 +54,17 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public Orders findOrder(String id) throws Exception {
-        return ordersMapper.selectById(id);
+    public Orders findOrder(String orderId) throws Exception {
+        return ordersMapper.selectById(orderId);
     }
 
     @Override
-    public void createOrder(Orders orders) throws Exception {
+    public String createOrder(Orders orders) throws Exception {
         orders.setTime(new Date());
-        orders.setId(OrderNumberBuilder.getOrderIdByUUId());
+        String orderId = OrderNumberBuilder.getOrderIdByUUId();
+        orders.setId(orderId);
         ordersMapper.insert(orders);
+        return orderId;
     }
 
     @Override

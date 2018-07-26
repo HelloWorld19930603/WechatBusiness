@@ -2,7 +2,9 @@ package com.yilin.app.controller;
 
 import com.yilin.app.common.Page;
 import com.yilin.app.common.ResultJson;
+import com.yilin.app.domain.Commodity;
 import com.yilin.app.domain.Orders;
+import com.yilin.app.service.ICommodityService;
 import com.yilin.app.service.IOrderService;
 import com.yilin.app.service.IUserService;
 import com.yilin.app.service.IWalletService;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by cc on 2018/7/9.
@@ -27,15 +31,17 @@ public class OrderContorller {
     IWalletService walletService;
     @Resource
     IUserService userService;
+    @Resource
+    ICommodityService commodityService;
 
 
     @RequestMapping("findPage")
     @ResponseBody
-    public ResultJson findPage(Integer userId, int index, int pageSize) {
+    public ResultJson findPage(Integer userId, int start, int pageSize) {
         ResultJson result;
         try {
             if (userId != null) {
-                Page page = orderService.selectPage(userId, index, pageSize);
+                Page page = orderService.selectPage(userId, start, pageSize);
                 result = new ResultJson(true, "查询成功", page);
             } else {
                 result = new ResultJson(false, "userId不能为空");
@@ -49,11 +55,15 @@ public class OrderContorller {
 
     @RequestMapping("findOne")
     @ResponseBody
-    public ResultJson findPage(String id) {
+    public ResultJson findOne (String orderId) {
         ResultJson result;
         try {
-            Orders order = orderService.findOrder(id);
-            result = new ResultJson(true, "查询成功", order);
+            Orders order = orderService.findOrder(orderId);
+            Commodity commodity = commodityService.selectById(order.getCommId(),order.getUserId());
+            Map<String,Object> map = new HashMap<>();
+            map.put("order",order);
+            map.put("commodity",commodity);
+            result = new ResultJson(true, "查询成功", map);
         } catch (Exception e) {
             e.printStackTrace();
             result = new ResultJson(false, "查询失败");
@@ -74,6 +84,7 @@ public class OrderContorller {
     public ResultJson findCount(int userId, Integer status) {
         ResultJson result;
         try {
+
             int num = orderService.getCount(userId, status);
             result = new ResultJson(true, "查询成功", num);
         } catch (Exception e) {
@@ -91,11 +102,11 @@ public class OrderContorller {
      */
     @RequestMapping("createOne")
     @ResponseBody
-    public ResultJson createOne(Orders order) {
+    public ResultJson createOne(Orders order,byte serise) {
         ResultJson result;
         try {
-            orderService.createOrder(order);
-            result = new ResultJson(true, "创建成功");
+            String orderId = orderService.createOrder(order);
+            result = new ResultJson(true, "创建成功",orderId);
         } catch (Exception e) {
             e.printStackTrace();
             result = new ResultJson(false, "创建失败");

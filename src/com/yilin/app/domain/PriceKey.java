@@ -20,4 +20,11 @@ public class PriceKey {
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
+
+    public PriceKey(Integer commId, Integer roleId) {
+        this.commId = commId;
+        this.roleId = roleId;
+    }
+
+    public PriceKey(){}
 }

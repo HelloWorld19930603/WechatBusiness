@@ -15,7 +15,7 @@ public interface IOrderService {
 
     Orders findOrder(String id) throws Exception;
 
-    void createOrder(Orders orders) throws Exception;
+    String createOrder(Orders orders) throws Exception;
 
     int getCount(Integer userId, Integer status) throws Exception;
 

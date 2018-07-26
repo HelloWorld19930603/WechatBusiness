@@ -1,46 +1,227 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yilin.app.mapper.CommodityMapper">
-  <resultMap id="BaseResultMap" type="com.yilin.app.domain.Commodity">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="series" jdbcType="TINYINT" property="series" />
-    <result column="stock" jdbcType="INTEGER" property="stock" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="descript" jdbcType="VARCHAR" property="descript" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="scale" jdbcType="REAL" property="scale" />
-    <result column="qr_code" jdbcType="VARCHAR" property="qrCode" />
-    <result column="quality" jdbcType="VARCHAR" property="quality" />
-    <result column="start" jdbcType="DATE" property="start" />
-    <result column="img" jdbcType="VARCHAR" property="img" />
-    <result column="specifications" jdbcType="VARCHAR" property="specifications" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, series, stock, name, descript, type, scale, qr_code, quality, start, img, specifications
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from commodity
+    <resultMap id="BaseResultMap" type="com.yilin.app.domain.Commodity">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="series" jdbcType="TINYINT" property="series" />
+        <result column="stock" jdbcType="INTEGER" property="stock" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="e_name" jdbcType="VARCHAR" property="eName" />
+        <result column="descript" jdbcType="VARCHAR" property="descript" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="scale" jdbcType="VARCHAR" property="scale" />
+        <result column="qr_code" jdbcType="VARCHAR" property="qrCode" />
+        <result column="quality" jdbcType="VARCHAR" property="quality" />
+        <result column="start" jdbcType="DATE" property="start" />
+        <result column="img" jdbcType="VARCHAR" property="img" />
+        <result column="color" jdbcType="VARCHAR" property="color" />
+        <result column="size" jdbcType="VARCHAR" property="size" />
+        <result column="m_price" jdbcType="REAL" property="mPrice" />
+        <result column="a_price" jdbcType="REAL" property="aPrice" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, series, stock, name, e_name, descript, type, scale, qr_code, quality, start,
+        img, color, size
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        ,p.price m_price
+        from commodity c
+        left join price p on c.id = p.comm_id and role_id = 9
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from commodity
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.yilin.app.domain.Commodity">
+        insert into commodity (id, series, stock,
+        name, e_name, descript,
+        type, scale, qr_code,
+        quality, start, img, color,
+        size)
+        values (#{id,jdbcType=INTEGER}, #{series,jdbcType=TINYINT}, #{stock,jdbcType=INTEGER},
+        #{name,jdbcType=VARCHAR}, #{eName,jdbcType=VARCHAR}, #{descript,jdbcType=VARCHAR},
+        #{type,jdbcType=VARCHAR}, #{scale,jdbcType=VARCHAR}, #{qrCode,jdbcType=VARCHAR},
+        #{quality,jdbcType=VARCHAR}, #{start,jdbcType=DATE}, #{img,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR},
+        #{size,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.yilin.app.domain.Commodity">
+        insert into commodity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="series != null">
+                series,
+            </if>
+            <if test="stock != null">
+                stock,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="eName != null">
+                e_name,
+            </if>
+            <if test="descript != null">
+                descript,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="scale != null">
+                scale,
+            </if>
+            <if test="qrCode != null">
+                qr_code,
+            </if>
+            <if test="quality != null">
+                quality,
+            </if>
+            <if test="start != null">
+                start,
+            </if>
+            <if test="img != null">
+                img,
+            </if>
+            <if test="color != null">
+                color,
+            </if>
+            <if test="size != null">
+                size,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="series != null">
+                #{series,jdbcType=TINYINT},
+            </if>
+            <if test="stock != null">
+                #{stock,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="eName != null">
+                #{eName,jdbcType=VARCHAR},
+            </if>
+            <if test="descript != null">
+                #{descript,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="scale != null">
+                #{scale,jdbcType=VARCHAR},
+            </if>
+            <if test="qrCode != null">
+                #{qrCode,jdbcType=VARCHAR},
+            </if>
+            <if test="quality != null">
+                #{quality,jdbcType=VARCHAR},
+            </if>
+            <if test="start != null">
+                #{start,jdbcType=DATE},
+            </if>
+            <if test="img != null">
+                #{img,jdbcType=VARCHAR},
+            </if>
+            <if test="color != null">
+                #{color,jdbcType=VARCHAR},
+            </if>
+            <if test="size != null">
+                #{size,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.Commodity">
+        update commodity
+        <set>
+            <if test="series != null">
+                series = #{series,jdbcType=TINYINT},
+            </if>
+            <if test="stock != null">
+                stock = #{stock,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="eName != null">
+                e_name = #{eName,jdbcType=VARCHAR},
+            </if>
+            <if test="descript != null">
+                descript = #{descript,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="scale != null">
+                scale = #{scale,jdbcType=VARCHAR},
+            </if>
+            <if test="qrCode != null">
+                qr_code = #{qrCode,jdbcType=VARCHAR},
+            </if>
+            <if test="quality != null">
+                quality = #{quality,jdbcType=VARCHAR},
+            </if>
+            <if test="start != null">
+                start = #{start,jdbcType=DATE},
+            </if>
+            <if test="img != null">
+                img = #{img,jdbcType=VARCHAR},
+            </if>
+            <if test="color != null">
+                color = #{color,jdbcType=VARCHAR},
+            </if>
+            <if test="size != null">
+                size = #{size,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.Commodity">
+    update commodity
+    set series = #{series,jdbcType=TINYINT},
+      stock = #{stock,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      e_name = #{eName,jdbcType=VARCHAR},
+      descript = #{descript,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      scale = #{scale,jdbcType=VARCHAR},
+      qr_code = #{qrCode,jdbcType=VARCHAR},
+      quality = #{quality,jdbcType=VARCHAR},
+      start = #{start,jdbcType=DATE},
+      img = #{img,jdbcType=VARCHAR},
+      color = #{color,jdbcType=VARCHAR},
+      size = #{size,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
-  </select>
+  </update>
 
-  <select id="selectPage" parameterType="map" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from commodity
-    where 1=1
-    <if test="series != null">
-      and series = #{serise}
-    </if>
-    <if test="type != null">
-      and type = #{type}
-    </if>
-    limit #{start}
-    <if test="pageSize != null and pageSize != 0">
-      ,#{pageSize}
-    </if>
-  </select>
+
+    <select id="selectPage" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        ,m.price m_price,
+        a.price a_price
+        from commodity c
+        left join price m on c.id = m.comm_id and m.role_id = 9
+        left join price a on c.id = a.comm_id and a.role_id = (SELECT role_id from user where id = #{userId})
+        where 1=1
+        <if test="series != null">
+            and series = #{serise}
+        </if>
+        <if test="type != null">
+            and type = #{type}
+        </if>
+        limit #{start}
+        <if test="pageSize != null and pageSize != 0">
+            ,#{pageSize}
+        </if>
+    </select>
 
     <select id="count" parameterType="map" resultType="java.lang.Integer">
         select
@@ -55,153 +236,14 @@
         </if>
     </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from commodity
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.yilin.app.domain.Commodity">
-    insert into commodity (id, series, stock, 
-      name, descript, type, 
-      scale, qr_code, quality, 
-      start, img, specifications
-      )
-    values (#{id,jdbcType=INTEGER}, #{series,jdbcType=TINYINT}, #{stock,jdbcType=INTEGER}, 
-      #{name,jdbcType=VARCHAR}, #{descript,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{scale,jdbcType=REAL}, #{qrCode,jdbcType=VARCHAR}, #{quality,jdbcType=VARCHAR}, 
-      #{start,jdbcType=DATE}, #{img,jdbcType=VARCHAR}, #{specifications,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.yilin.app.domain.Commodity">
-    insert into commodity
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="series != null">
-        series,
-      </if>
-      <if test="stock != null">
-        stock,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="descript != null">
-        descript,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="scale != null">
-        scale,
-      </if>
-      <if test="qrCode != null">
-        qr_code,
-      </if>
-      <if test="quality != null">
-        quality,
-      </if>
-      <if test="start != null">
-        start,
-      </if>
-      <if test="img != null">
-        img,
-      </if>
-      <if test="specifications != null">
-        specifications,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="series != null">
-        #{series,jdbcType=TINYINT},
-      </if>
-      <if test="stock != null">
-        #{stock,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="descript != null">
-        #{descript,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="scale != null">
-        #{scale,jdbcType=REAL},
-      </if>
-      <if test="qrCode != null">
-        #{qrCode,jdbcType=VARCHAR},
-      </if>
-      <if test="quality != null">
-        #{quality,jdbcType=VARCHAR},
-      </if>
-      <if test="start != null">
-        #{start,jdbcType=DATE},
-      </if>
-      <if test="img != null">
-        #{img,jdbcType=VARCHAR},
-      </if>
-      <if test="specifications != null">
-        #{specifications,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.Commodity">
-    update commodity
-    <set>
-      <if test="series != null">
-        series = #{series,jdbcType=TINYINT},
-      </if>
-      <if test="stock != null">
-        stock = #{stock,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="descript != null">
-        descript = #{descript,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="scale != null">
-        scale = #{scale,jdbcType=REAL},
-      </if>
-      <if test="qrCode != null">
-        qr_code = #{qrCode,jdbcType=VARCHAR},
-      </if>
-      <if test="quality != null">
-        quality = #{quality,jdbcType=VARCHAR},
-      </if>
-      <if test="start != null">
-        start = #{start,jdbcType=DATE},
-      </if>
-      <if test="img != null">
-        img = #{img,jdbcType=VARCHAR},
-      </if>
-      <if test="specifications != null">
-        specifications = #{specifications,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.Commodity">
-    update commodity
-    set series = #{series,jdbcType=TINYINT},
-      stock = #{stock,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      descript = #{descript,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      scale = #{scale,jdbcType=REAL},
-      qr_code = #{qrCode,jdbcType=VARCHAR},
-      quality = #{quality,jdbcType=VARCHAR},
-      start = #{start,jdbcType=DATE},
-      img = #{img,jdbcType=VARCHAR},
-      specifications = #{specifications,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+    <select id="selectOne" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        ,m.price m_price,
+        a.price a_price
+        from commodity c
+        left join price m on c.id = m.comm_id and m.role_id = 9
+        left join price a on c.id = a.comm_id and a.role_id = (SELECT role_id from user where id = #{userId})
+        where id = #{id,jdbcType=INTEGER}
+    </select>
 </mapper>
