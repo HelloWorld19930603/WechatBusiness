@@ -112,7 +112,7 @@ public class ReadExcel {
 
 
     public static void domain(String fileName) {
-        ReadExcel2 obj = new ReadExcel2();
+        ReadExcel obj = new ReadExcel();
         // 此处为我创建Excel路径：E:/zhanhj/studysrc/jxl下
         File file = new File(fileName);
         List<List<List>> excelAllList = obj.readExcel(file);

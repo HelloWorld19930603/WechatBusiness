@@ -36,9 +36,9 @@ public class AddressController {
     }
 
 
-    @RequestMapping("setDeafult")
+    @RequestMapping("setDefault")
     @ResponseBody
-    public ResultJson setDeafult(int addrId,int userId){
+    public ResultJson setDefault(int addrId,int userId){
         ResultJson result;
         try {
             addressService.updateDefault(addrId,userId);
@@ -51,9 +51,9 @@ public class AddressController {
     }
 
 
-    @RequestMapping("getDeafult")
+    @RequestMapping("getDefault")
     @ResponseBody
-    public ResultJson getDeafult(int userId){
+    public ResultJson getDefault(int userId){
         ResultJson result;
         try {
             Address address = addressService.findDefault(userId);
@@ -65,7 +65,7 @@ public class AddressController {
         return result;
     }
 
-    @RequestMapping("getDefault")
+    @RequestMapping("getAddress")
     @ResponseBody
     public ResultJson getAddress(int userId){
         ResultJson result;
@@ -85,9 +85,9 @@ public class AddressController {
         ResultJson result;
         try {
             addressService.updateAddress(address);
-            result = new ResultJson(true,"设置默认地址成功");
+            result = new ResultJson(true,"更新地址成功");
         } catch (Exception e) {
-            result = new ResultJson(false,"设置默认地址失败");
+            result = new ResultJson(false,"更新地址失败");
             e.printStackTrace();
         }
         return result;
