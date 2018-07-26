@@ -15,8 +15,6 @@ public class User {
 
     private String sex;
 
-    private Integer roleId;
-
     private Integer supId;
 
     private Integer phone;
@@ -75,14 +73,6 @@ public class User {
 
     public void setSex(String sex) {
         this.sex = sex == null ? null : sex.trim();
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
     }
 
     public Integer getSupId() {

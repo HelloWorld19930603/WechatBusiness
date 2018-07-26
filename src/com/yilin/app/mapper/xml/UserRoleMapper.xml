@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yilin.app.mapper.UserRoleMapper">
+  <resultMap id="BaseResultMap" type="com.yilin.app.domain.UserRole">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <id column="serise" jdbcType="INTEGER" property="serise" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, serise, role_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.yilin.app.domain.UserRoleKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_role
+    where user_id = #{userId,jdbcType=INTEGER}
+      and serise = #{serise,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.yilin.app.domain.UserRoleKey">
+    delete from user_role
+    where user_id = #{userId,jdbcType=INTEGER}
+      and serise = #{serise,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilin.app.domain.UserRole">
+    insert into user_role (user_id, serise, role_id
+      )
+    values (#{userId,jdbcType=INTEGER}, #{serise,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilin.app.domain.UserRole">
+    insert into user_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="serise != null">
+        serise,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="serise != null">
+        #{serise,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.UserRole">
+    update user_role
+    <set>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+      and serise = #{serise,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.UserRole">
+    update user_role
+    set role_id = #{roleId,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
+      and serise = #{serise,jdbcType=INTEGER}
+  </update>
+</mapper>
