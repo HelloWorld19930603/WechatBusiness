@@ -7,6 +7,8 @@ import com.yilin.app.service.IAgentService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by cc on 2018/7/23.
@@ -28,6 +30,9 @@ public class AgentService implements IAgentService{
 
     @Override
     public int findLevel(int userId,byte serise) throws Exception {
-        return roleMapper.findRole(userId);
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("serise", serise);
+        return roleMapper.findRole(map);
     }
 }

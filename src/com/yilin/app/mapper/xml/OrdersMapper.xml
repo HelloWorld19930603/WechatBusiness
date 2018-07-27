@@ -1,113 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yilin.app.mapper.OrdersMapper">
-  <resultMap id="BaseResultMap" type="com.yilin.app.domain.Orders">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="comm_id" jdbcType="INTEGER" property="commId" />
-    <result column="num" jdbcType="INTEGER" property="num" />
-    <result column="price" jdbcType="REAL" property="price" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="time" jdbcType="TIMESTAMP" property="time" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, user_id, comm_id, num, price, status, time
+    <resultMap id="BaseResultMap" type="com.yilin.app.domain.Orders">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="comm_id" jdbcType="INTEGER" property="commId"/>
+        <result column="addr_id" jdbcType="INTEGER" property="addrId"/>
+        <result column="num" jdbcType="INTEGER" property="num"/>
+        <result column="price" jdbcType="REAL" property="price"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="time" jdbcType="TIMESTAMP" property="time"/>
+    </resultMap>
+    <resultMap id="PageMap" type="HashMap">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="comm_id" jdbcType="INTEGER" property="commId"/>
+        <result column="addr_id" jdbcType="INTEGER" property="addrId"/>
+        <result column="num" jdbcType="INTEGER" property="num"/>
+        <result column="price" jdbcType="REAL" property="price"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="time" jdbcType="TIMESTAMP" property="time"/>
+        <result column="comm_name" jdbcType="VARCHAR" property="commName"/>
+        <result column="addr_name" jdbcType="VARCHAR" property="addrName"/>
+        <result column="serise" jdbcType="INTEGER" property="serise"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="ssq" jdbcType="VARCHAR" property="ssq"/>
+        <result column="addr" jdbcType="VARCHAR" property="addr"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, user_id, comm_id,addr_id, num, price, status, time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from orders
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from orders
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from orders
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.yilin.app.domain.Orders">
-    insert into orders (id, user_id, comm_id,
+    <insert id="insert" parameterType="com.yilin.app.domain.Orders">
+    insert into orders (user_id, comm_id,addr_id,
     num, price, status, time
     )
-    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{commId,jdbcType=INTEGER},
+    values ( #{userId,jdbcType=INTEGER}, #{commId,jdbcType=INTEGER}, #{addrId,jdbcType=INTEGER},
     #{num,jdbcType=INTEGER}, #{price,jdbcType=REAL}, #{status,jdbcType=TINYINT}, #{time,jdbcType=TIMESTAMP}
     )
   </insert>
-  <insert id="insertSelective" parameterType="com.yilin.app.domain.Orders">
-    insert into orders
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="commId != null">
-        comm_id,
-      </if>
-      <if test="num != null">
-        num,
-      </if>
-      <if test="price != null">
-        price,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="time != null">
-        time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="commId != null">
-        #{commId,jdbcType=INTEGER},
-      </if>
-      <if test="num != null">
-        #{num,jdbcType=INTEGER},
-      </if>
-      <if test="price != null">
-        #{price,jdbcType=REAL},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
-      </if>
-      <if test="time != null">
-        #{time,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.Orders">
-    update orders
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="commId != null">
-        comm_id = #{commId,jdbcType=INTEGER},
-      </if>
-      <if test="num != null">
-        num = #{num,jdbcType=INTEGER},
-      </if>
-      <if test="price != null">
-        price = #{price,jdbcType=REAL},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
-      </if>
-      <if test="time != null">
-        time = #{time,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.Orders">
+    <insert id="insertSelective" parameterType="com.yilin.app.domain.Orders">
+        insert into orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="commId != null">
+                comm_id,
+            </if>
+            <if test="addrId != null">
+                addr_id,
+            </if>
+            <if test="num != null">
+                num,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="commId != null">
+                #{commId,jdbcType=INTEGER},
+            </if>
+            <if test="addrId != null">
+                #{addr_id,jdbcType=INTEGER},
+            </if>
+            <if test="num != null">
+                #{num,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=REAL},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.Orders">
+        update orders
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="commId != null">
+                comm_id = #{commId,jdbcType=INTEGER},
+            </if>
+            <if test="addrId != null">
+                #{addr_id,jdbcType=INTEGER},
+            </if>
+            <if test="num != null">
+                num = #{num,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=REAL},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.Orders">
     update orders
     set user_id = #{userId,jdbcType=INTEGER},
       comm_id = #{commId,jdbcType=INTEGER},
+      addr_id = #{addrId,jdbcType=INTEGER},
       num = #{num,jdbcType=INTEGER},
       price = #{price,jdbcType=REAL},
       status = #{status,jdbcType=TINYINT},
@@ -115,40 +136,43 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
 
-  <select id="selectPage" parameterType="map" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from orders
-    where 1=1
-    and user_id = #{userId}
-    limit #{start},#{pageSize}
-  </select>
+    <select id="selectPage2" parameterType="map" resultMap="PageMap">
+        select
+        o.id, o.user_id, comm_id,addr_id, num, price,o.status, time
+        ,c.name comm_name,c.serise,a.name addr_name,
+        a.phone,a.ssq,a.addr
+        from orders o
+        LEFT join commodity c on o.comm_id = c.id
+        LEFT join address a on o.addr_id = a.id
+        where  o.user_id = #{userId}
+        limit #{start},#{pageSize}
+    </select>
 
-  <select id="count" parameterType="map" resultType="int">
-    select
-    count(*)
-    from orders
-    where 1=1
-    <if test="userId != null">
-    and user_id = #{userId}
-    </if>
-    <if test="status != null">
-    and status = #{status}
-    </if>
-  </select>
+    <select id="count" parameterType="map" resultType="int">
+        select
+        count(*)
+        from orders
+        where 1=1
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+    </select>
 
-  <update id="updateStatus" parameterType="map" >
+    <update id="updateStatus" parameterType="map">
     update orders set status= #{status} where user_id = #{userId} and id = #{id}
   </update>
 
-  <delete id="deleteById" parameterType="map" >
+    <delete id="deleteById" parameterType="map">
     delete from orders  where user_id = #{userId} and id = #{id}
   </delete>
 
-  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from orders
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from orders
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
 </mapper>

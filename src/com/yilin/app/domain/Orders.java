@@ -9,6 +9,8 @@ public class Orders {
 
     private Integer commId;
 
+    private Integer addrId;
+
     private Integer num;
 
     private Float price;
@@ -71,5 +73,13 @@ public class Orders {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public Integer getAddrId() {
+        return addrId;
+    }
+
+    public void setAddrId(Integer addrId) {
+        this.addrId = addrId;
     }
 }

@@ -3,11 +3,12 @@ package com.yilin.app.service.impl;
 import com.yilin.app.common.Page;
 import com.yilin.app.domain.Rebate;
 import com.yilin.app.domain.Recharge;
+import com.yilin.app.mapper.PaymentMapper;
 import com.yilin.app.mapper.RebateMapper;
 import com.yilin.app.mapper.RechargeMapper;
 import com.yilin.app.mapper.WalletMapper;
 import com.yilin.app.service.IWalletService;
-import com.yilin.app.utils.AccountException;
+import com.yilin.app.exception.AccountException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,10 +31,25 @@ public class WalletService implements IWalletService {
     @Resource
     RebateMapper rebateMapper;
 
+    @Resource
+    PaymentMapper paymentMapper;
+
 
     @Override
     public void addRecharge(Recharge recharge) throws Exception {
         rechargeMapper.insert(recharge);
+    }
+
+    @Override
+    public Page findRechargePage(int userId, byte serise, int start, int pageSize) throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put("serise", serise);
+        map.put("userId", userId);
+        map.put("start", start);
+        map.put("pageSize", pageSize);
+        List<Recharge> list = rechargeMapper.selectPage(map);
+        Page page = new Page(pageSize,start,list.size(),list);
+        return page;
     }
 
     @Override
@@ -47,15 +63,17 @@ public class WalletService implements IWalletService {
 
     @Override
     public void takeMoney(byte serise, int userId, float money) throws AccountException {
-        try {
-            Map<String, Object> map = new HashMap<>();
-            map.put("serise", serise);
-            map.put("userId", userId);
-            map.put("money", money);
-            walletMapper.takeMoney(map);
-        } catch (Exception e) {
-            throw new AccountException("钱包扣款异常!");
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("serise", serise);
+        map.put("userId", userId);
+        Float wallet = walletMapper.getMoney(map);
+        if (wallet == null || money > wallet) {
+            throw new AccountException("您的余额不足，请充值！");
         }
+        map.put("money", money);
+        walletMapper.takeMoney(map);
+
     }
 
     @Override
@@ -63,8 +81,9 @@ public class WalletService implements IWalletService {
         Map<String, Object> map = new HashMap<>();
         map.put("serise", serise);
         map.put("userId", userId);
+        Float money = walletMapper.getMoney(map);
 
-        return walletMapper.getMoney(map);
+        return money == null ? 0 : money;
     }
 
     @Override
@@ -74,6 +93,6 @@ public class WalletService implements IWalletService {
         map.put("userId", userId);
         map.put("pageSize", pageSize);
         List<Rebate> list = rebateMapper.selectPage(map);
-        return new Page(pageSize,start,list.size(),list);
+        return new Page(pageSize, start, list.size(), list);
     }
 }

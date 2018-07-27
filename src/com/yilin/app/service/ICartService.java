@@ -15,4 +15,5 @@ public interface ICartService {
     void deleteCart(int id,int userId) throws Exception;
 
     void updateCart(Cart cart) throws Exception;
+
 }

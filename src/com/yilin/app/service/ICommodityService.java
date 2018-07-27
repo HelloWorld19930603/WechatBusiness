@@ -16,4 +16,6 @@ public interface ICommodityService {
     Commodity selectById(int id,int userId) throws Exception;
 
     int getCount(Integer type, Integer serise) throws Exception;
+
+    Float getPrice(int commId,int userId)throws Exception;
 }

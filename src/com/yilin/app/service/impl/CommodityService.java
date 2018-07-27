@@ -54,4 +54,13 @@ public class CommodityService implements ICommodityService {
         map.put("serise",serise);
         return commodityMapper.count(map);
     }
+
+    @Override
+    public Float getPrice(int commId, int userId) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        map.put("commId",commId);
+        map.put("userId",userId);
+        Float price = commodityMapper.selectPrice(map);
+        return null;
+    }
 }

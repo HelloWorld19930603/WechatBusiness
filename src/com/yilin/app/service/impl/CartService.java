@@ -8,6 +8,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,9 +38,10 @@ public class CartService implements ICartService {
     public void addCart(Cart cart) throws Exception {
         Cart dikCart = cartMapper.selectNum(cart);
         if (dikCart != null) {
-            dikCart.setNum(dikCart.getNum() + 1);
+            dikCart.setNum(dikCart.getNum() + cart.getNum());
             cartMapper.updateNum(dikCart);
         } else {
+            cart.setTime(new Date());
             cartMapper.insert(cart);
         }
     }

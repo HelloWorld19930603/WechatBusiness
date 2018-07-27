@@ -6,7 +6,7 @@ import com.yilin.app.domain.Payment;
 import com.yilin.app.mapper.OrdersMapper;
 import com.yilin.app.mapper.PaymentMapper;
 import com.yilin.app.service.IOrderService;
-import com.yilin.app.utils.AccountException;
+import com.yilin.app.exception.AccountException;
 import com.yilin.app.utils.OrderNumberBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class OrderService implements IOrderService {
         map.put("userId", userId);
         map.put("start", (start - 1) * pageSize);
         map.put("pageSize", pageSize);
-        List<Orders> list = ordersMapper.selectPage(map);
+        List<Map<String, Object>> list = ordersMapper.selectPage2(map);
         Page page = new Page(pageSize, start, list.size(), list);
         return page;
     }
@@ -49,7 +49,7 @@ public class OrderService implements IOrderService {
             ordersMapper.updateStatus(map);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new AccountException("扣款成功，但修改订单状态异常！如有疑问请联系管理员！");
+            throw new AccountException("修改订单状态异常！如有疑问请联系管理员！");
         }
     }
 

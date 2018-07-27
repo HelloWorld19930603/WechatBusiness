@@ -50,6 +50,20 @@ public class CommodityController {
         return result;
     }
 
+    @RequestMapping("findPrice")
+    @ResponseBody
+    public ResultJson findPrice(int commId,int userId){
+        ResultJson result;
+        try {
+            Commodity commodity = commodityService.selectById(commId,userId);
+            result = new ResultJson(true,"查询商品详情成功",commodity);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = new ResultJson(false,"查询商品详情失败");
+        }
+        return result;
+    }
+
     @RequestMapping("findCount")
     @ResponseBody
     public ResultJson findCount(Integer type,Integer serise){
