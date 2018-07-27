@@ -21,6 +21,7 @@ public class CommodityController {
     @Resource
     ICommodityService commodityService;
 
+
     @RequestMapping("findPage")
     @ResponseBody
     public ResultJson findPage(Integer type,int userId,Integer serise,int start,int pageSize){
@@ -55,11 +56,11 @@ public class CommodityController {
     public ResultJson findPrice(int commId,int userId){
         ResultJson result;
         try {
-            Commodity commodity = commodityService.selectById(commId,userId);
-            result = new ResultJson(true,"查询商品详情成功",commodity);
+            Float price= commodityService.getPrice(commId,userId);
+            result = new ResultJson(true,"查询订货价成功",price);
         } catch (Exception e) {
             e.printStackTrace();
-            result = new ResultJson(false,"查询商品详情失败");
+            result = new ResultJson(false,"查询订货价失败");
         }
         return result;
     }

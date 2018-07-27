@@ -5,7 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="read" jdbcType="INTEGER" property="read" />
+    <result column="readNum" jdbcType="INTEGER" property="readNum" />
     <result column="forward" jdbcType="INTEGER" property="forward" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
   </resultMap>
@@ -13,7 +13,7 @@
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, title, url, read, forward, time
+    id, title, url, readNum, forward, time
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -32,10 +32,10 @@
   </delete>
   <insert id="insert" parameterType="com.yilin.app.domain.College">
     insert into college (id, title, url, 
-      read, forward, time, 
+      readNum, forward, time,
       content)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{read,jdbcType=INTEGER}, #{forward,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, 
+      #{readNum,jdbcType=INTEGER}, #{forward,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP},
       #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yilin.app.domain.College">
@@ -51,7 +51,7 @@
         url,
       </if>
       <if test="read != null">
-        read,
+          readNum,
       </if>
       <if test="forward != null">
         forward,
@@ -74,7 +74,7 @@
         #{url,jdbcType=VARCHAR},
       </if>
       <if test="read != null">
-        #{read,jdbcType=INTEGER},
+        #{readNum,jdbcType=INTEGER},
       </if>
       <if test="forward != null">
         #{forward,jdbcType=INTEGER},
@@ -96,8 +96,8 @@
       <if test="url != null">
         url = #{url,jdbcType=VARCHAR},
       </if>
-      <if test="read != null">
-        read = #{read,jdbcType=INTEGER},
+      <if test="readNum != null">
+        readNum = #{readNum,jdbcType=INTEGER},
       </if>
       <if test="forward != null">
         forward = #{forward,jdbcType=INTEGER},
@@ -115,7 +115,7 @@
     update college
     set title = #{title,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
-      read = #{read,jdbcType=INTEGER},
+      readNum = #{readNum,jdbcType=INTEGER},
       forward = #{forward,jdbcType=INTEGER},
       time = #{time,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=LONGVARCHAR}
@@ -125,9 +125,15 @@
     update college
     set title = #{title,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
-      read = #{read,jdbcType=INTEGER},
+      readNum = #{readNum,jdbcType=INTEGER},
       forward = #{forward,jdbcType=INTEGER},
       time = #{time,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectPage" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from college limit #{start},#{pageSize}
+  </select>
 </mapper>

@@ -60,7 +60,6 @@ public class CommodityService implements ICommodityService {
         Map<String,Object> map = new HashMap<>();
         map.put("commId",commId);
         map.put("userId",userId);
-        Float price = commodityMapper.selectPrice(map);
-        return null;
+        return commodityMapper.selectPrice(map);
     }
 }

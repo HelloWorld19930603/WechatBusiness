@@ -1,5 +1,6 @@
 package com.yilin.app.controller;
 
+import com.yilin.app.common.Page;
 import com.yilin.app.common.ResultJson;
 import com.yilin.app.service.ICollegeService;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,8 @@ public class CollegeController {
     public ResultJson findPage(int start, int pageSize){
         ResultJson result;
         try {
-            result = new ResultJson(true,"查询学院详情成功");
+            Page page = collegeService.findPage(start,pageSize);
+            result = new ResultJson(true,"查询学院详情成功",page);
         } catch (Exception e) {
             e.printStackTrace();
             result = new ResultJson(false,"查询学院详情失败");

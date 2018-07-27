@@ -31,7 +31,7 @@ public class PhotoUtil {
                     // 自定义的文件名称
                     String trueFileName=fileName;
                     // 设置存放图片文件的路径
-                    path=realPath+"/"+dic+"/"+trueFileName;
+                    path=realPath+"/voucher/"+dic+"/"+trueFileName;
                     System.out.println("存放图片文件的路径:"+path);
                     // 转存文件到指定的路径
                     file.transferTo(new File(path));
