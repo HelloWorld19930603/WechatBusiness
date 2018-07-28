@@ -62,5 +62,18 @@ public class HomeController {
         }
         return result;
     }
+
+    @RequestMapping(value="messageCode")
+    @ResponseBody
+    public ResultJson messageCode() {
+        ResultJson result;
+        try {
+            result = new ResultJson(true,"发送成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = new ResultJson(false,"发送失败!");
+        }
+        return result;
+    }
 }
 
