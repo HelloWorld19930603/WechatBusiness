@@ -72,7 +72,7 @@ public class WalletController {
                                HttpServletRequest req){
         ResultJson result;
         try {
-            PhotoUtil.photoUpload(voucher,String.valueOf(userId),req);
+            PhotoUtil.photoUpload(voucher,"/voucher/"+userId,req);
             result = new ResultJson(true,"充值成功");
         } catch (Exception e) {
             result = new ResultJson(false,"充值失败");

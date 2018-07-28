@@ -3,12 +3,17 @@ package com.yilin.app.controller;
 import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
 import com.yilin.app.domain.User;
+import com.yilin.app.exception.FileException;
 import com.yilin.app.service.impl.UserService;
+import com.yilin.app.utils.PhotoUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by cc on 2018/7/13.
@@ -81,7 +86,12 @@ public class UserContrller {
     public ResultJson loginPwd(int userId,String oldPwd,String newPwd){
         ResultJson result;
         try {
-            result = new ResultJson(true,"修改成功");
+            if(userService.checkLoginPwd(userId,oldPwd)) {
+                userService.updateLoginPwd(userId, newPwd);
+                result = new ResultJson(true, "修改成功");
+            }else{
+                result = new ResultJson(true, "密码错误");
+            }
         } catch (Exception e) {
             result = new ResultJson(false,"修改失败");
             e.printStackTrace();
@@ -94,7 +104,12 @@ public class UserContrller {
     public ResultJson payPwd(int userId,String oldPwd,String newPwd){
         ResultJson result;
         try {
-            result = new ResultJson(true,"修改成功");
+            if(userService.checkPayPwd(userId,oldPwd)) {
+                userService.updatePayPwd(userId, newPwd);
+                result = new ResultJson(true,"修改成功");
+            }else{
+                result = new ResultJson(false,"密码错误");
+            }
         } catch (Exception e) {
             result = new ResultJson(false,"修改失败");
             e.printStackTrace();
@@ -104,10 +119,15 @@ public class UserContrller {
 
     @RequestMapping("updateHead")
     @ResponseBody
-    public ResultJson updateHead(int userId,String headImg){
+    public ResultJson updateHead(int userId, @RequestParam MultipartFile headImg,
+                                 HttpServletRequest req){
         ResultJson result;
         try {
-            result = new ResultJson(true,"修改成功");
+            PhotoUtil.photoUpload(headImg,"/head/"+userId,req);
+            result = new ResultJson(true,"上传成功");
+        }catch (FileException e) {
+            result = new ResultJson(false,"修改失败");
+            e.printStackTrace();
         } catch (Exception e) {
             result = new ResultJson(false,"修改失败");
             e.printStackTrace();
