@@ -8,7 +8,7 @@ import com.yilin.app.service.ICommodityService;
 import com.yilin.app.service.IOrderService;
 import com.yilin.app.service.IUserService;
 import com.yilin.app.service.IWalletService;
-import com.yilin.app.utils.AccountException;
+import com.yilin.app.exception.AccountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -102,9 +102,10 @@ public class OrderContorller {
      */
     @RequestMapping("createOne")
     @ResponseBody
-    public ResultJson createOne(Orders order,byte serise) {
+    public ResultJson createOne(Orders order) {
         ResultJson result;
         try {
+            order.setStatus((byte)1);
             String orderId = orderService.createOrder(order);
             result = new ResultJson(true, "创建成功",orderId);
         } catch (Exception e) {
@@ -134,15 +135,15 @@ public class OrderContorller {
                 walletService.takeMoney(serise, userId, money);
                 orderService.payOrder(orderId, userId, money, type);
                 orderService.updateStatus(orderId, userId, 2);
-                result = new ResultJson(true, "支付成功");
+                result = new ResultJson(true, "支付成功",orderId);
             }else{
-                result = new ResultJson(false,"支付密码错误");
+                result = new ResultJson(false,"支付密码错误",orderId);
             }
         } catch (AccountException e) {
-            result = new ResultJson(false, e.getMsg());
+            result = new ResultJson(false, e.getMsg(),orderId);
         }catch (Exception e){
             e.printStackTrace();
-            result = new ResultJson(false, "密码校验异常");
+            result = new ResultJson(false, "支付密码校验异常",orderId);
         }
         return result;
     }

@@ -3,7 +3,7 @@
 <mapper namespace="com.yilin.app.mapper.CommodityMapper">
     <resultMap id="BaseResultMap" type="com.yilin.app.domain.Commodity">
         <id column="id" jdbcType="INTEGER" property="id" />
-        <result column="series" jdbcType="TINYINT" property="series" />
+        <result column="serise" jdbcType="TINYINT" property="serise" />
         <result column="stock" jdbcType="INTEGER" property="stock" />
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="e_name" jdbcType="VARCHAR" property="eName" />
@@ -20,7 +20,7 @@
         <result column="a_price" jdbcType="REAL" property="aPrice" />
     </resultMap>
     <sql id="Base_Column_List">
-        id, series, stock, name, e_name, descript, type, scale, qr_code, quality, start,
+        id, serise, stock, name, e_name, descript, type, scale, qr_code, quality, start,
         img, color, size
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -36,12 +36,12 @@
         where id = #{id,jdbcType=INTEGER}
     </delete>
     <insert id="insert" parameterType="com.yilin.app.domain.Commodity">
-        insert into commodity (id, series, stock,
+        insert into commodity (id, serise, stock,
         name, e_name, descript,
         type, scale, qr_code,
         quality, start, img, color,
         size)
-        values (#{id,jdbcType=INTEGER}, #{series,jdbcType=TINYINT}, #{stock,jdbcType=INTEGER},
+        values (#{id,jdbcType=INTEGER}, #{serise,jdbcType=TINYINT}, #{stock,jdbcType=INTEGER},
         #{name,jdbcType=VARCHAR}, #{eName,jdbcType=VARCHAR}, #{descript,jdbcType=VARCHAR},
         #{type,jdbcType=VARCHAR}, #{scale,jdbcType=VARCHAR}, #{qrCode,jdbcType=VARCHAR},
         #{quality,jdbcType=VARCHAR}, #{start,jdbcType=DATE}, #{img,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR},
@@ -53,8 +53,8 @@
             <if test="id != null">
                 id,
             </if>
-            <if test="series != null">
-                series,
+            <if test="serise != null">
+                serise,
             </if>
             <if test="stock != null">
                 stock,
@@ -97,8 +97,8 @@
             <if test="id != null">
                 #{id,jdbcType=INTEGER},
             </if>
-            <if test="series != null">
-                #{series,jdbcType=TINYINT},
+            <if test="serise != null">
+                #{serise,jdbcType=TINYINT},
             </if>
             <if test="stock != null">
                 #{stock,jdbcType=INTEGER},
@@ -141,8 +141,8 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.Commodity">
         update commodity
         <set>
-            <if test="series != null">
-                series = #{series,jdbcType=TINYINT},
+            <if test="serise != null">
+                serise = #{serise,jdbcType=TINYINT},
             </if>
             <if test="stock != null">
                 stock = #{stock,jdbcType=INTEGER},
@@ -185,7 +185,7 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.Commodity">
     update commodity
-    set series = #{series,jdbcType=TINYINT},
+    set serise = #{serise,jdbcType=TINYINT},
       stock = #{stock,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       e_name = #{eName,jdbcType=VARCHAR},
@@ -209,10 +209,10 @@
         a.price a_price
         from commodity c
         left join price m on c.id = m.comm_id and m.role_id = 9
-        left join price a on c.id = a.comm_id and a.role_id = (SELECT role_id from user where id = #{userId})
+        left join price a on c.id = a.comm_id and a.role_id = (SELECT role_id from user_role where user_id = #{userId})
         where 1=1
-        <if test="series != null">
-            and series = #{serise}
+        <if test="serise != null">
+            and serise = #{serise}
         </if>
         <if test="type != null">
             and type = #{type}
@@ -228,8 +228,8 @@
         count(id)
         from commodity
         where 1=1
-        <if test="series != null">
-            and series = #{serise}
+        <if test="serise != null">
+            and serise = #{serise}
         </if>
         <if test="type != null">
             and type = #{type}
@@ -243,7 +243,17 @@
         a.price a_price
         from commodity c
         left join price m on c.id = m.comm_id and m.role_id = 9
-        left join price a on c.id = a.comm_id and a.role_id = (SELECT role_id from user where id = #{userId})
+        left join price a on c.id = a.comm_id and a.role_id = (SELECT role_id from user_role where user_id = #{userId})
         where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectPrice" parameterType="map" resultType="float">
+        select
+        price
+        from price p
+        where comm_id = #{commId} and role_id = (SELECT role_id from user_role
+        where user_id = #{userId}
+        and serise = (select serise from commodity where id = #{commId}))
+
     </select>
 </mapper>

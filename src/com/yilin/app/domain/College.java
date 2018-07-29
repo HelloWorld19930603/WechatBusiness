@@ -9,7 +9,7 @@ public class College {
 
     private String url;
 
-    private Integer read;
+    private Integer readNum;
 
     private Integer forward;
 
@@ -41,12 +41,12 @@ public class College {
         this.url = url == null ? null : url.trim();
     }
 
-    public Integer getRead() {
-        return read;
+    public Integer getreadNum() {
+        return readNum;
     }
 
-    public void setRead(Integer read) {
-        this.read = read;
+    public void setreadNum(Integer readNum) {
+        this.readNum = readNum;
     }
 
     public Integer getForward() {

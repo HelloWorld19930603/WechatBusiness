@@ -5,7 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="phone" jdbcType="INTEGER" property="phone" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="ssq" jdbcType="VARCHAR" property="ssq" />
     <result column="addr" jdbcType="VARCHAR" property="addr" />
     <result column="status" jdbcType="BIT" property="status" />
@@ -28,7 +28,7 @@
       phone, ssq, addr, status
       )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=INTEGER}, #{ssq,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{status,jdbcType=BIT}
+      #{phone,jdbcType=VARCHAR}, #{ssq,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{status,jdbcType=BIT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.yilin.app.domain.Address">
@@ -67,7 +67,7 @@
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
-        #{phone,jdbcType=INTEGER},
+        #{phone,jdbcType=VARCHAR},
       </if>
       <if test="ssq != null">
         #{ssq,jdbcType=VARCHAR},
@@ -90,7 +90,7 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
-        phone = #{phone,jdbcType=INTEGER},
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="ssq != null">
         ssq = #{ssq,jdbcType=VARCHAR},
@@ -108,7 +108,7 @@
     update address
     set user_id = #{userId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
       ssq = #{ssq,jdbcType=VARCHAR},
       addr = #{addr,jdbcType=VARCHAR},
       status = #{status,jdbcType=BIT}

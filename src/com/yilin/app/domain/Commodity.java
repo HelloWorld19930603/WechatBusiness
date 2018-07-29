@@ -5,7 +5,7 @@ import java.util.Date;
 public class Commodity {
     private Integer id;
 
-    private Byte series;
+    private Byte serise;
 
     private Integer stock;
 
@@ -43,12 +43,12 @@ public class Commodity {
         this.id = id;
     }
 
-    public Byte getSeries() {
-        return series;
+    public Byte getSerise() {
+        return serise;
     }
 
-    public void setSeries(Byte series) {
-        this.series = series;
+    public void setSerise(Byte serise) {
+        this.serise = serise;
     }
 
     public Integer getStock() {

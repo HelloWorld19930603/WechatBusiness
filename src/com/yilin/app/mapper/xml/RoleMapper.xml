@@ -69,7 +69,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-    <select id="findRole" parameterType="int" resultType="int">
-    select level from role where id = (select role_id from user where id = #{userId})
+    <select id="findRole" parameterType="map" resultType="int">
+    select role_id from user_role where user_id = #{userId} and serise = #{serise}
   </select>
 </mapper>

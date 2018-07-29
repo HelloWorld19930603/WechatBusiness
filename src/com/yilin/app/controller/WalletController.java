@@ -1,10 +1,18 @@
 package com.yilin.app.controller;
 
+import com.yilin.app.common.Page;
 import com.yilin.app.common.ResultJson;
 import com.yilin.app.domain.User;
+import com.yilin.app.service.IWalletService;
+import com.yilin.app.utils.PhotoUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by cc on 2018/7/18.
@@ -12,6 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("wallet")
 public class WalletController {
+
+    @Resource
+    IWalletService walletService;
+
 
     @RequestMapping("payment")
     @ResponseBody
@@ -34,12 +46,13 @@ public class WalletController {
      */
     @RequestMapping("findMoney")
     @ResponseBody
-    public ResultJson findMoney(int userId,int serise){
+    public ResultJson findMoney(int userId,byte serise){
         ResultJson result;
         try {
-            result = new ResultJson(true,"支付成功");
+            float money = walletService.getMoney(userId,serise);
+            result = new ResultJson(true,"查询成功",money);
         } catch (Exception e) {
-            result = new ResultJson(false,"支付失败");
+            result = new ResultJson(false,"查询失败");
             e.printStackTrace();
         }
         return result;
@@ -55,12 +68,14 @@ public class WalletController {
      */
     @RequestMapping("addMoney")
     @ResponseBody
-    public ResultJson addMoney(int userId,int serise,float money,String voucher){
+    public ResultJson addMoney(int userId, int serise, float money, @RequestParam MultipartFile voucher,
+                               HttpServletRequest req){
         ResultJson result;
         try {
-            result = new ResultJson(true,"支付成功");
+            PhotoUtil.photoUpload(voucher,"/voucher/"+userId,req);
+            result = new ResultJson(true,"充值成功");
         } catch (Exception e) {
-            result = new ResultJson(false,"支付失败");
+            result = new ResultJson(false,"充值失败");
             e.printStackTrace();
         }
         return result;
@@ -78,9 +93,24 @@ public class WalletController {
     public ResultJson findRebate(int userId,int start,int pageSize){
         ResultJson result;
         try {
-            result = new ResultJson(true,"支付成功");
+            Page page = walletService.getRebate(userId,start,pageSize);
+            result = new ResultJson(true,"查询成功",page);
         } catch (Exception e) {
-            result = new ResultJson(false,"支付失败");
+            result = new ResultJson(false,"查询失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @RequestMapping("findRecharge")
+    @ResponseBody
+    public ResultJson findRecharge(int userId,byte serise,int start,int pageSize){
+        ResultJson result;
+        try {
+            Page page = walletService.findRechargePage(userId,serise,start,pageSize);
+            result = new ResultJson(true,"查询成功",page);
+        } catch (Exception e) {
+            result = new ResultJson(false,"查询失败");
             e.printStackTrace();
         }
         return result;

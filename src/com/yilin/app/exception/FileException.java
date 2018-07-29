@@ -1,9 +1,9 @@
-package com.yilin.app.utils;
+package com.yilin.app.exception;
 
 /**
- * Created by cc on 2018/7/25.
+ * Created by cc on 2018/7/27.
  */
-public class AccountException extends  Exception {
+public class FileException extends Exception{
 
     String msg;
 
@@ -15,9 +15,8 @@ public class AccountException extends  Exception {
         this.msg = msg;
     }
 
-    public AccountException(String msg){
+    public FileException(String msg){
         super(msg);
         setMsg(msg);
     }
-
 }

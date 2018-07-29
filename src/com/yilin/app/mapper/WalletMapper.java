@@ -9,7 +9,7 @@ public interface WalletMapper extends IBaseMapper<Wallet> {
 
     void addMoney(Map<String, Object> map) throws Exception;
 
-    float getMoney(Map<String, Object> map);
+    Float getMoney(Map<String, Object> map);
 
     void takeMoney(Map<String, Object> map);
 }
