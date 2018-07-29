@@ -2,6 +2,7 @@ package com.yilin.app.controller;
 
 import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
+import com.yilin.app.common.UserInfo;
 import com.yilin.app.domain.User;
 import com.yilin.app.exception.FileException;
 import com.yilin.app.service.impl.UserService;
@@ -72,8 +73,8 @@ public class UserContrller {
     public ResultJson getUser(String token){
         ResultJson result;
         try {
-            User user = Permission.getToken(token);
-            result = new ResultJson(true,"查询成功",user);
+            UserInfo userInfo = Permission.getToken(token);
+            result = new ResultJson(true,"查询成功",userInfo);
         } catch (Exception e) {
             result = new ResultJson(false,"查询失败");
             e.printStackTrace();
@@ -123,7 +124,8 @@ public class UserContrller {
                                  HttpServletRequest req){
         ResultJson result;
         try {
-            PhotoUtil.photoUpload(headImg,"/head/"+userId,req);
+            String haedUrl = PhotoUtil.photoUpload(headImg,"/head/"+userId,req);
+            userService.updateHead(userId,haedUrl);
             result = new ResultJson(true,"上传成功");
         }catch (FileException e) {
             result = new ResultJson(false,"修改失败");
