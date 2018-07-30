@@ -4,6 +4,7 @@ import com.yilin.app.domain.User;
 import com.yilin.app.utils.MD5Util;
 import com.yilin.app.utils.StringUtil;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +13,7 @@ import java.util.Map;
  */
 public class Permission {
 
-    public static Map<String,User> userLoginMap = new HashMap<>();
+    public static Map<String,UserInfo> userLoginMap = new HashMap<>();
 
     public static boolean checkToken(String token){
         if(userLoginMap.get(token) != null){
@@ -26,10 +27,26 @@ public class Permission {
             throw new Exception("user不能为null");
         }
         String token = MD5Util.encrypt(user.getLoginName()+user.getLoginPwd());
-        user.setLoginPwd("");
-        user.setPayPwd("");
-        userLoginMap.put(token,user);
+
+        userLoginMap.put(token,createUserInfo(user));
         return token;
+    }
+
+    public static UserInfo createUserInfo(User user){
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(user.getId());
+        userInfo.setHeadImg(user.getHeadImg());
+        userInfo.setName(user.getName());
+        userInfo.setSex(user.getSex());
+        userInfo.setCurr_time(new Date());
+        userInfo.setLast_time(user.getLoginTime());
+        return userInfo;
+    }
+
+    public static boolean checkLevel(int level,int serise) {
+
+
+        return false;
     }
 
     public static void cancel(String token) throws Exception{
@@ -39,7 +56,7 @@ public class Permission {
         userLoginMap.remove(token);
     }
 
-    public static User getToken(String token){
+    public static UserInfo getToken(String token){
         return userLoginMap.get(token);
     }
 

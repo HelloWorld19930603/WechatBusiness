@@ -15,7 +15,7 @@ public class PhotoUtil {
     /**
      * 图片文件上传
      */
-    public static void photoUpload(MultipartFile file,String dic, HttpServletRequest request) throws IllegalStateException, IOException ,FileException{
+    public static String photoUpload(MultipartFile file,String dic, HttpServletRequest request) throws IllegalStateException, IOException ,FileException{
 
         if (file!=null) {// 判断上传的文件是否为空
             String path=null;// 文件路径
@@ -36,6 +36,7 @@ public class PhotoUtil {
                     // 转存文件到指定的路径
                     file.transferTo(new File(path));
                     System.out.println("文件成功上传到指定目录下");
+                    return trueFileName;
                 }else {
                     System.out.println("不是我们想要的文件类型,请按要求重新上传");
                     throw new FileException("不是我们想要的文件类型,请按要求重新上传");

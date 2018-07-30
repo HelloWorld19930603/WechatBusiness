@@ -1,5 +1,7 @@
 package com.yilin.app.controller;
 
+import com.yilin.app.common.JuHeMessage;
+import com.yilin.app.common.JuHelogistics;
 import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
 import com.yilin.app.domain.User;
@@ -65,9 +67,24 @@ public class HomeController {
 
     @RequestMapping(value="messageCode")
     @ResponseBody
-    public ResultJson messageCode() {
+    public ResultJson messageCode(String phone) {
         ResultJson result;
         try {
+            JuHeMessage.getRequest2(phone);
+            result = new ResultJson(true,"发送成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = new ResultJson(false,"发送失败!");
+        }
+        return result;
+    }
+
+    @RequestMapping(value="logistics")
+    @ResponseBody
+    public ResultJson logistics(String phone) {
+        ResultJson result;
+        try {
+            JuHelogistics.getRequest2();
             result = new ResultJson(true,"发送成功!");
         } catch (Exception e) {
             e.printStackTrace();

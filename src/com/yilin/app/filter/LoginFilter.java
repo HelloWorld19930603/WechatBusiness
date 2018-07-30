@@ -2,6 +2,7 @@ package com.yilin.app.filter;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.yilin.app.common.Configuration;
 import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
 
@@ -30,29 +31,43 @@ public class LoginFilter implements Filter {
         response.setCharacterEncoding("utf-8");
         ResultJson result;
         String url = request.getRequestURI();
-        if (url.indexOf("register") != -1 || url.indexOf("home/userLogin") != -1) {
-            arg2.doFilter(arg0, arg1);
-            return;
-        }
-        String token = (String) request.getSession().getAttribute("token");
-        if(token == null){
-            token = request.getParameter("token");
-        }
-        if (token == null) {
-            result = new ResultJson(false, "token不能为空！");
-            String jsonString = JSONObject.toJSONString(result);
-            response.setContentType("application/json; charset=utf-8");
-            response.getWriter().print(jsonString);
-            return;
-        } else {
-            if (!Permission.checkToken(token)) {
-                result = new ResultJson(false, "token校验失败！");
+        Integer level = Configuration.urls.get(url);
+        if (level != null) {
+            String token = (String) request.getSession().getAttribute("token");
+            if (token == null) {
+                token = request.getParameter("token");
+            }
+            if (token == null) {
+                result = new ResultJson(false, "token不能为空！");
                 String jsonString = JSONObject.toJSONString(result);
                 response.setContentType("application/json; charset=utf-8");
                 response.getWriter().print(jsonString);
                 return;
+            } else {
+
+                Byte serise = (Byte) request.getSession().getAttribute("serise");
+                if (serise == null) {
+                    serise = Byte.valueOf(request.getParameter("token"));
+                    if (serise == null) {
+
+                    }
+                }
+                if (!Permission.checkLevel(level, serise)) {
+                    if (!Permission.checkToken(token)) {
+                        result = new ResultJson(false, "token校验失败！");
+                        String jsonString = JSONObject.toJSONString(result);
+                        response.setContentType("application/json; charset=utf-8");
+                        response.getWriter().print(jsonString);
+                        return;
+                    }
+                    result = new ResultJson(false, "该用户无此系列访问权限！");
+                    String jsonString = JSONObject.toJSONString(result);
+                    response.setContentType("application/json; charset=utf-8");
+                    response.getWriter().print(jsonString);
+                    return;
+                }
+                arg2.doFilter(arg0, arg1);
             }
-            arg2.doFilter(arg0, arg1);
         }
 
     }
