@@ -90,4 +90,12 @@
       time = #{time,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectPage" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from recharge
+    where user_id = #{userId} and serise = #{serise}
+    limit #{start},#{pageSize}
+  </select>
 </mapper>

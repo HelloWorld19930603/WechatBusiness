@@ -45,7 +45,7 @@ public class WalletService implements IWalletService {
         Map<String, Object> map = new HashMap<>();
         map.put("serise", serise);
         map.put("userId", userId);
-        map.put("start", start);
+        map.put("start", (start-1)*pageSize);
         map.put("pageSize", pageSize);
         List<Recharge> list = rechargeMapper.selectPage(map);
         Page page = new Page(pageSize,start,list.size(),list);
