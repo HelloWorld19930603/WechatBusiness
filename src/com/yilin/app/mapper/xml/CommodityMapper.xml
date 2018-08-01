@@ -209,11 +209,10 @@
         a.price a_price
         from commodity c
         left join price m on c.id = m.comm_id and m.role_id = 9
-        left join price a on c.id = a.comm_id and a.role_id = (SELECT role_id from user_role where user_id = #{userId})
+        left join price a on c.id = a.comm_id
+        and a.role_id = (SELECT role_id from user_role where user_id = #{userId} and serise = #{serise})
         where 1=1
-        <if test="serise != null">
-            and serise = #{serise}
-        </if>
+        and serise = #{serise}
         <if test="type != null">
             and type = #{type}
         </if>
@@ -243,7 +242,8 @@
         a.price a_price
         from commodity c
         left join price m on c.id = m.comm_id and m.role_id = 9
-        left join price a on c.id = a.comm_id and a.role_id = (SELECT role_id from user_role where user_id = #{userId})
+        left join price a on c.id = a.comm_id
+        and a.role_id = (SELECT role_id from user_role where user_id = #{userId} and serise = #{serise})
         where id = #{id,jdbcType=INTEGER}
     </select>
 

@@ -71,8 +71,8 @@ public class ReadExcel {
         if (n != 0) {
             return;
         }
-        for (int i = 0; i < 24; i++) {
-            StringBuilder sql = new StringBuilder(" insert into commodity (name,e_name, series,scale, stock ) values(  ");
+        for (int i = 1 ; i < 24; i++) {
+            StringBuilder sql = new StringBuilder(" insert into commodity (name,e_name, serise,scale, stock ) values(  ");
             List l = excelList.get(i);
             sql.append("'").append(l.get(0)).append("'").append(",");
             sql.append("'").append(l.get(1)).append("'").append(",");
@@ -117,8 +117,8 @@ public class ReadExcel {
         File file = new File(fileName);
         List<List<List>> excelAllList = obj.readExcel(file);
         for (int n = 0; n < excelAllList.size(); n++) {
-            // commodity(excelAllList.get(n), n);
-            price(excelAllList.get(n), n);
+            commodity(excelAllList.get(n), n);
+            // price(excelAllList.get(n), n);
         }
 
     }

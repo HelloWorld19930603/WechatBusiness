@@ -44,7 +44,6 @@ public class LoginFilter implements Filter {
                 response.getWriter().print(jsonString);
                 return;
             } else {
-
                 Byte serise = (Byte) request.getSession().getAttribute("serise");
                 if (serise == null) {
                     serise = Byte.valueOf(request.getParameter("token"));
@@ -68,6 +67,8 @@ public class LoginFilter implements Filter {
                 }
                 arg2.doFilter(arg0, arg1);
             }
+        }else{
+            arg2.doFilter(arg0, arg1);
         }
 
     }
