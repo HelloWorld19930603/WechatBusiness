@@ -205,12 +205,16 @@
     <select id="selectPage" parameterType="map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        ,m.price m_price,
-        a.price a_price
+        ,m.price m_price
+        <if test="userId != null">
+          ,a.price a_price
+        </if>
         from commodity c
         left join price m on c.id = m.comm_id and m.role_id = 9
-        left join price a on c.id = a.comm_id
-        and a.role_id = (SELECT role_id from user_role where user_id = #{userId} and serise = #{serise})
+        <if test="userId != null">
+            left join price a on c.id = a.comm_id
+            and a.role_id = (SELECT role_id from user_role where user_id = #{userId} and serise = #{serise})
+        </if>
         where 1=1
         and serise = #{serise}
         <if test="type != null">
@@ -238,12 +242,16 @@
     <select id="selectOne" parameterType="map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        ,m.price m_price,
-        a.price a_price
+        ,m.price m_price
+        <if test="userId != null">
+           ,a.price a_price
+        </if>
         from commodity c
         left join price m on c.id = m.comm_id and m.role_id = 9
-        left join price a on c.id = a.comm_id
-        and a.role_id = (SELECT role_id from user_role where user_id = #{userId} and serise = #{serise})
+        <if test="userId != null">
+          left join price a on c.id = a.comm_id
+          and a.role_id = (SELECT role_id from user_role where user_id = #{userId} and serise = #{serise})
+        </if>
         where id = #{id,jdbcType=INTEGER}
     </select>
 

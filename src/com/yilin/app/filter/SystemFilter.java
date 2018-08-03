@@ -28,6 +28,7 @@ public class SystemFilter implements Filter {
         ResultJson result;
         String url = request.getRequestURI();
         System.out.println(url);
+        arg2.doFilter(arg0, arg1);
     }
 
     public void init(FilterConfig arg0) throws ServletException {

@@ -20,14 +20,14 @@ public class HomeController {
     IUserService userService;
 
     @RequestMapping(value="index")
-    public String Index() {
+    public String index() {
 
         return "index";
     }
 
 
     @RequestMapping(value="login")
-    public String Login() {
+    public String login() {
 
         return "login";
     }

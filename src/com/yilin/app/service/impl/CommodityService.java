@@ -21,7 +21,7 @@ public class CommodityService implements ICommodityService {
     CommodityMapper commodityMapper;
 
     @Override
-    public Page selectPage(Integer type,int userId, Integer serise, int index, int pageSize) throws Exception {
+    public Page selectPage(Integer type,Integer userId, Integer serise, int index, int pageSize) throws Exception {
         Map<String,Object> map = new HashMap<>();
         map.put("type",type);
         map.put("userId",userId);
@@ -39,7 +39,7 @@ public class CommodityService implements ICommodityService {
     }
 
     @Override
-    public Commodity selectById(int id,int userId) throws Exception {
+    public Commodity selectById(int id,Integer userId) throws Exception {
         Map<String,Object> map = new HashMap<>();
         map.put("id",id);
         map.put("userId",userId);
@@ -56,7 +56,7 @@ public class CommodityService implements ICommodityService {
     }
 
     @Override
-    public Float getPrice(int commId, int userId) throws Exception {
+    public Float getPrice(int commId, Integer userId) throws Exception {
         Map<String,Object> map = new HashMap<>();
         map.put("commId",commId);
         map.put("userId",userId);

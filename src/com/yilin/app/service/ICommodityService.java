@@ -9,13 +9,13 @@ import java.util.List;
  * Created by cc on 2018/7/17.
  */
 public interface ICommodityService {
-    Page selectPage(Integer type,int userId, Integer serise, int index, int pageSize) throws Exception;
+    Page selectPage(Integer type,Integer userId, Integer serise, int index, int pageSize) throws Exception;
 
     List<Commodity> selectALl(Integer type,Integer serise) throws  Exception;
 
-    Commodity selectById(int id,int userId) throws Exception;
+    Commodity selectById(int id,Integer userId) throws Exception;
 
     int getCount(Integer type, Integer serise) throws Exception;
 
-    Float getPrice(int commId,int userId)throws Exception;
+    Float getPrice(int commId,Integer userId)throws Exception;
 }

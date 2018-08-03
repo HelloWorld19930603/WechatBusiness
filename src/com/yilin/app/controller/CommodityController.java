@@ -24,7 +24,7 @@ public class CommodityController {
 
     @RequestMapping("findPage")
     @ResponseBody
-    public ResultJson findPage(Integer type,int userId,Integer serise,int start,int pageSize){
+    public ResultJson findPage(Integer type,Integer userId,Integer serise,int start,int pageSize){
         ResultJson result;
         try {
             Page page = commodityService.selectPage(type,userId,serise,start,pageSize);
@@ -53,7 +53,7 @@ public class CommodityController {
 
     @RequestMapping("findPrice")
     @ResponseBody
-    public ResultJson findPrice(int commId,int userId){
+    public ResultJson findPrice(int commId,Integer userId){
         ResultJson result;
         try {
             Float price= commodityService.getPrice(commId,userId);

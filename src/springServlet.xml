@@ -14,6 +14,9 @@
 	<!-- @controler等mvc注解驱动 -->
 	<mvc:annotation-driven />
 
+	<mvc:resources location="/images/" mapping="/images/**"/>
+	<mvc:resources location="/jsp/" mapping="/jsp/**"/>
+
 	<!-- 扫描controller -->
 	<context:component-scan base-package="com.*" >
 
@@ -22,7 +25,7 @@
 	<!-- jsp视图处理 -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
-		<beans:property name="prefix" value="/" />
+		<beans:property name="prefix" value="/jsp/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 

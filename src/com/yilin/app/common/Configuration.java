@@ -1,6 +1,5 @@
 package com.yilin.app.common;
 
-import com.yilin.app.utils.LoggerUtil;
 import org.apache.commons.collections.map.HashedMap;
 
 import java.io.IOException;
@@ -15,7 +14,7 @@ import java.util.Set;
  */
 public class Configuration {
 
-    private static LoggerUtil log =  new LoggerUtil(Configuration.class);
+    //private static LoggerUtil log =  new LoggerUtil(Configuration.class);
 
     public static String MESSAGE_KEY;
     public static String LOGISTICS_KEY;
@@ -44,7 +43,7 @@ public class Configuration {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            log.e("permission.properties 加载失败");
+           // log.e("permission.properties 加载失败");
         }
     }
 
@@ -61,7 +60,7 @@ public class Configuration {
             System.out.println(LOGISTICS_KEY);
         } catch (IOException e) {
             e.printStackTrace();
-            log.e("appkey.properties 加载失败");
+            //log.e("appkey.properties 加载失败");
         }
     }
 
