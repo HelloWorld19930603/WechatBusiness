@@ -12,13 +12,14 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-<!--    <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.js</url-pattern>
         <url-pattern>*.css</url-pattern>
-        <url-pattern>/jsp/*</url-pattern>
+        <url-pattern>/html/*</url-pattern>
+        <url-pattern>/system/*</url-pattern>
         <url-pattern>/images/*</url-pattern>
-    </servlet-mapping>-->
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>spring3</servlet-name>
