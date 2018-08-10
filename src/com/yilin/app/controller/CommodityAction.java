@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping("commodity")
-public class CommodityController {
+public class CommodityAction {
 
 
     @Resource

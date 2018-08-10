@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("wallet")
-public class WalletController {
+public class WalletAction {
 
     @Resource
     IWalletService walletService;

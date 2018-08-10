@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping("agent")
-public class AgentController {
+public class AgentAction {
 
     @Resource
     IAgentService agentService;

@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping("cart")
-public class CartController {
+public class CartAction {
 
     @Resource
     ICartService cartService;

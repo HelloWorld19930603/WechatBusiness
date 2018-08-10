@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 
 @Controller
 @RequestMapping("/home")
-public class HomeController {
+public class HomeAction {
 
     @Resource
     IUserService userService;

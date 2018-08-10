@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("order")
-public class OrderContorller {
+public class OrderAction {
 
     @Autowired
     IOrderService orderService;

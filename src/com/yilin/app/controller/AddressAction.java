@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("address")
-public class AddressController {
+public class AddressAction {
 
     @Resource
     AddressService addressService;

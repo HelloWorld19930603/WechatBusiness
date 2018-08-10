@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping("college")
-public class CollegeController {
+public class CollegeAction {
 
     @Resource
     ICollegeService collegeService;
