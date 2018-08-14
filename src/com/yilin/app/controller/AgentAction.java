@@ -1,5 +1,6 @@
 package com.yilin.app.controller;
 
+import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
 import com.yilin.app.domain.AgentUpgrade;
 import com.yilin.app.service.IAgentService;
@@ -27,9 +28,11 @@ public class AgentAction {
      */
     @RequestMapping("upgrade")
     @ResponseBody
-    public ResultJson upgrade(AgentUpgrade agentUpgrade) {
+    public ResultJson upgrade(AgentUpgrade agentUpgrade,String token) {
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
+            agentUpgrade.setUserId(userId);
             agentService.addUpgrade(agentUpgrade);
             result = new ResultJson(true, "提交申请成功");
         } catch (Exception e) {
@@ -42,15 +45,16 @@ public class AgentAction {
     /**
      * 获取当前用户级别
      *
-     * @param userId
+     * @param token
      * @param serise
      * @return
      */
     @RequestMapping("findLevel")
     @ResponseBody
-    public ResultJson findLevel(int userId, byte serise) {
+    public ResultJson findLevel(String token, byte serise) {
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
             int level = agentService.findLevel(userId,serise);
             result = new ResultJson(true, "查询代理等级成功",level);
         } catch (Exception e) {
@@ -64,17 +68,17 @@ public class AgentAction {
     /**
      * 查询订货价
      *
-     * @param userId
+     * @param token
      * @param start
      * @param pageSize
      * @return
      */
     @RequestMapping("findPrice")
     @ResponseBody
-    public ResultJson findPrice(int userId, int start, int pageSize) {
+    public ResultJson findPrice(String token, int start, int pageSize) {
         ResultJson result;
         try {
-
+            Integer userId = Permission.getUserId(token);
             result = new ResultJson(true, "成功");
         } catch (Exception e) {
             result = new ResultJson(false, "失败");

@@ -1,7 +1,9 @@
 package com.yilin.app.controller;
 
 import com.yilin.app.common.Page;
+import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
+import com.yilin.app.common.UserInfo;
 import com.yilin.app.domain.Cart;
 import com.yilin.app.service.ICartService;
 import org.springframework.stereotype.Controller;
@@ -22,9 +24,10 @@ public class CartAction {
 
     @RequestMapping("findPage")
     @ResponseBody
-    public ResultJson findPage(int userId,int start,int pageSize){
+    public ResultJson findPage(String token,int start,int pageSize){
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
             Page page =  cartService.getCarts(userId,start,pageSize);
             result = new ResultJson(true,"查询成功",page);
         } catch (Exception e) {
@@ -64,9 +67,10 @@ public class CartAction {
 
     @RequestMapping("removeOne")
     @ResponseBody
-    public ResultJson removeOne(int cartId,int userId){
+    public ResultJson removeOne(int cartId,String token){
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
             cartService.deleteCart(cartId,userId);
             result = new ResultJson(true,"删除成功");
         } catch (Exception e) {

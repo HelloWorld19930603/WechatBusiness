@@ -13,26 +13,26 @@ import java.util.Map;
  */
 public class Permission {
 
-    public static Map<String,UserInfo> userLoginMap = new HashMap<>();
+    public static Map<String, UserInfo> userLoginMap = new HashMap<>();
 
-    public static boolean checkToken(String token){
-        if(userLoginMap.get(token) != null){
+    public static boolean checkToken(String token) {
+        if (userLoginMap.get(token) != null) {
             return true;
         }
         return false;
     }
 
     public static String createToken(User user) throws Exception {
-        if(user == null){
+        if (user == null) {
             throw new Exception("user不能为null");
         }
-        String token = MD5Util.encrypt(user.getLoginName()+user.getLoginPwd());
+        String token = MD5Util.encrypt(user.getLoginName() + user.getLoginPwd());
 
-        userLoginMap.put(token,createUserInfo(user));
+        userLoginMap.put(token, createUserInfo(user));
         return token;
     }
 
-    public static UserInfo createUserInfo(User user){
+    public static UserInfo createUserInfo(User user) {
         UserInfo userInfo = new UserInfo();
         userInfo.setId(user.getId());
         userInfo.setHeadImg(user.getHeadImg());
@@ -43,21 +43,28 @@ public class Permission {
         return userInfo;
     }
 
-    public static boolean checkLevel(int level,int serise) {
+    public static boolean checkLevel(int level, int serise) {
 
 
         return false;
     }
 
-    public static void cancel(String token) throws Exception{
-        if(StringUtil.isEmpty(token)){
+    public static void cancel(String token) throws Exception {
+        if (StringUtil.isEmpty(token)) {
             throw new Exception("token不能为null");
         }
         userLoginMap.remove(token);
     }
 
-    public static UserInfo getToken(String token){
+    public static UserInfo getToken(String token) {
         return userLoginMap.get(token);
     }
 
+    public static Integer getUserId(String token) {
+        if(token == null){
+            return null;
+        }
+        UserInfo userInfo = getToken(token);
+        return userInfo == null ? null : userInfo.getId();
+    }
 }

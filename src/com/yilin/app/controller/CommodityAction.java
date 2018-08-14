@@ -1,7 +1,9 @@
 package com.yilin.app.controller;
 
 import com.yilin.app.common.Page;
+import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
+import com.yilin.app.common.UserInfo;
 import com.yilin.app.domain.Commodity;
 import com.yilin.app.service.ICommodityService;
 import org.springframework.stereotype.Controller;
@@ -24,14 +26,15 @@ public class CommodityAction {
 
     @RequestMapping("findPage")
     @ResponseBody
-    public ResultJson findPage(Integer type,Integer userId,Integer serise,int start,int pageSize){
+    public ResultJson findPage(Integer type, String token, Integer serise, int start, int pageSize) {
         ResultJson result;
         try {
-            Page page = commodityService.selectPage(type,userId,serise,start,pageSize);
-            result = new ResultJson(true,"查询商品分页成功",page);
+            Integer userId = Permission.getUserId(token);
+            Page page = commodityService.selectPage(type, userId, serise, start, pageSize);
+            result = new ResultJson(true, "查询商品分页成功", page);
         } catch (Exception e) {
             e.printStackTrace();
-            result = new ResultJson(false,"查询商品分页失败");
+            result = new ResultJson(false, "查询商品分页失败");
         }
         return result;
     }
@@ -39,42 +42,44 @@ public class CommodityAction {
 
     @RequestMapping("findOne")
     @ResponseBody
-    public ResultJson findOne(int commId,int userId){
+    public ResultJson findOne(int commId, String token) {
         ResultJson result;
         try {
-            Commodity commodity = commodityService.selectById(commId,userId);
-            result = new ResultJson(true,"查询商品详情成功",commodity);
+            Integer userId = Permission.getUserId(token);
+            Commodity commodity = commodityService.selectById(commId, userId);
+            result = new ResultJson(true, "查询商品详情成功", commodity);
         } catch (Exception e) {
             e.printStackTrace();
-            result = new ResultJson(false,"查询商品详情失败");
+            result = new ResultJson(false, "查询商品详情失败");
         }
         return result;
     }
 
     @RequestMapping("findPrice")
     @ResponseBody
-    public ResultJson findPrice(int commId,Integer userId){
+    public ResultJson findPrice(int commId, String token) {
         ResultJson result;
         try {
-            Float price= commodityService.getPrice(commId,userId);
-            result = new ResultJson(true,"查询订货价成功",price);
+            Integer userId = Permission.getUserId(token);
+            Float price = commodityService.getPrice(commId, userId);
+            result = new ResultJson(true, "查询订货价成功", price);
         } catch (Exception e) {
             e.printStackTrace();
-            result = new ResultJson(false,"查询订货价失败");
+            result = new ResultJson(false, "查询订货价失败");
         }
         return result;
     }
 
     @RequestMapping("findCount")
     @ResponseBody
-    public ResultJson findCount(Integer type,Integer serise){
+    public ResultJson findCount(Integer type, Integer serise) {
         ResultJson result;
         try {
-            int total = commodityService.getCount(type,serise);
-            result = new ResultJson(true,"查询商品数量成功",total);
+            int total = commodityService.getCount(type, serise);
+            result = new ResultJson(true, "查询商品数量成功", total);
         } catch (Exception e) {
             e.printStackTrace();
-            result = new ResultJson(false,"查询商品数量失败");
+            result = new ResultJson(false, "查询商品数量失败");
         }
         return result;
     }
