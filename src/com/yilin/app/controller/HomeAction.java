@@ -2,6 +2,7 @@ package com.yilin.app.controller;
 
 import com.yilin.app.common.*;
 import com.yilin.app.domain.User;
+import com.yilin.app.exception.RequestException;
 import com.yilin.app.service.IUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,14 +79,16 @@ public class HomeAction {
 
     @RequestMapping(value="logistics")
     @ResponseBody
-    public ResultJson logistics(String phone) {
+    public ResultJson logistics(String com,String no) {
         ResultJson result;
         try {
-            JuHelogistics.getRequest2();
-            result = new ResultJson(true,"发送成功!");
-        } catch (Exception e) {
+            String logistics = JuHelogistics.getRequest1(com,no);
+            result = new ResultJson(true,"查询成功!",logistics);
+        }catch (RequestException re){
+            result = new ResultJson(false,"查询失败!",re.getMsg());
+        }catch (Exception e) {
             e.printStackTrace();
-            result = new ResultJson(false,"发送失败!");
+            result = new ResultJson(false,"查询失败!");
         }
         return result;
     }

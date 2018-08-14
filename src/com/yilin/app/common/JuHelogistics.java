@@ -20,11 +20,9 @@ public class JuHelogistics {
         public static final int DEF_READ_TIMEOUT = 30000;
         public static String userAgent =  "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
-        //配置您申请的KEY
-        public static final String APPKEY ="*************************";
 
         //1.常用快递查询API
-        public static void getRequest1(String com,String no){
+        public static String getRequest1(String com,String no) throws Exception {
             String url ="http://v.juhe.cn/exp/index";//请求接口地址
             Map params = new HashMap();//请求参数
             params.put("com",com);//需要查询的快递公司编号
@@ -32,18 +30,18 @@ public class JuHelogistics {
             params.put("key",Configuration.LOGISTICS_KEY);//应用APPKEY(应用详细页查询)
             params.put("dtype","");//返回数据的格式,xml或json，默认json
 
-            JuHeMessage.sendRequest(url, params);
+            return JuHeMessage.sendRequest(url, params);
         }
 
         //2.快递公司编号对照表
-        public static void getRequest2(){
+        public static void getRequest2() throws Exception {
             String url ="http://v.juhe.cn/exp/com";//请求接口地址
             Map params = new HashMap();//请求参数
             params.put("key",Configuration.LOGISTICS_KEY);//应用APPKEY(应用详细页查询)
             JuHeMessage.sendRequest(url, params);
         }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         getRequest1("zto","220737505243");
     }
 

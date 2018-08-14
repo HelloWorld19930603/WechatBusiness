@@ -1,5 +1,6 @@
 package com.yilin.app.common;
 
+import com.yilin.app.exception.RequestException;
 import net.sf.json.JSONObject;
 
 import java.io.*;
@@ -23,7 +24,7 @@ public class JuHeMessage {
 
 
     //1.屏蔽词检查测
-    public static void getRequest1() {
+    public static void getRequest1() throws Exception {
         String url = "http://v.juhe.cn/sms/black";//请求接口地址
         Map params = new HashMap();//请求参数
         params.put("word", "");//需要检测的短信内容，需要UTF8 URLENCODE
@@ -32,26 +33,25 @@ public class JuHeMessage {
         sendRequest(url, params);
     }
 
-    public static void sendRequest(String url, Map params) {
+    public static String sendRequest(String url, Map params) throws Exception {
         String result;
-        try {
-            result = net(url, params, "GET");
-            JSONObject object = JSONObject.fromObject(result);
-            if (object.getInt("error_code") == 0) {
-                System.out.println(object.get("result"));
-            } else {
-                System.out.println(object.get("error_code") + ":" + object.get("reason"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        result = net(url, params, "GET");
+        JSONObject object = JSONObject.fromObject(result);
+        if (object.getInt("error_code") == 0) {
+            System.out.println(object.get("result"));
+            return (String) object.get("result");
+        } else {
+            System.out.println(object.get("error_code") + ":" + object.get("reason"));
+            throw new RequestException(object.get("error_code") + ":" + object.get("reason"));
         }
+
     }
 
     //2.发送短信
-    public static void getRequest2(String phone,String code,String tpl_id) {
+    public static void getRequest2(String phone, String code, String tpl_id) throws Exception {
         String url = "http://v.juhe.cn/sms/send";//请求接口地址
         Map params = new HashMap();//请求参数
-        params.put("mobile",phone);//接收短信的手机号码
+        params.put("mobile", phone);//接收短信的手机号码
         params.put("tpl_id", tpl_id);//短信模板ID，请参考个人中心短信模板设置
         params.put("tpl_value", code);//变量名和变量值对。如果你的变量名或者变量值中带有#&=中的任意一个特殊符号，请先分别进行urlencode编码后再传递，<a href="http://www.juhe.cn/news/index/id/50" target="_blank">详细说明></a>
         params.put("key", Configuration.MESSAGE_KEY);//应用APPKEY(应用详细页查询)
@@ -61,8 +61,8 @@ public class JuHeMessage {
     }
 
 
-    public static void main(String[] args) {
-        getRequest2("16657102793","#code#=16657102793&#pwd#=123456",Configuration.MESSAGE_MODEL);
+    public static void main(String[] args) throws Exception {
+        getRequest2("16657102793", "#code#=16657102793&#pwd#=123456", Configuration.MESSAGE_MODEL);
     }
 
     /**
