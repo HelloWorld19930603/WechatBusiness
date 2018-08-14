@@ -1,9 +1,6 @@
 package com.yilin.app.controller;
 
-import com.yilin.app.common.JuHeMessage;
-import com.yilin.app.common.JuHelogistics;
-import com.yilin.app.common.Permission;
-import com.yilin.app.common.ResultJson;
+import com.yilin.app.common.*;
 import com.yilin.app.domain.User;
 import com.yilin.app.service.IUserService;
 import org.springframework.stereotype.Controller;
@@ -70,7 +67,7 @@ public class HomeAction {
     public ResultJson messageCode(String phone) {
         ResultJson result;
         try {
-            JuHeMessage.getRequest2(phone);
+            JuHeMessage.getRequest2(phone,JuHeMessage.createCode(), Configuration.MESSAGE_MODEL);
             result = new ResultJson(true,"发送成功!");
         } catch (Exception e) {
             e.printStackTrace();

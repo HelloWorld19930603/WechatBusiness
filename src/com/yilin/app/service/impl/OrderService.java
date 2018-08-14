@@ -29,12 +29,13 @@ public class OrderService implements IOrderService {
     PaymentMapper paymentMapper;
 
     @Override
-    public Page selectPage(Integer userId, int start, int pageSize) throws Exception {
+    public Page selectPage(Integer userId, int start, int pageSize, byte status) throws Exception {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);
         map.put("start", (start - 1) * pageSize);
         map.put("pageSize", pageSize);
-        List<Map<String, Object>> list = ordersMapper.selectPage2(map);
+        map.put("status", status);
+        List<Map<String, Object>> list = ordersMapper.selectList(map);
         Page page = new Page(pageSize, start, list.size(), list);
         return page;
     }

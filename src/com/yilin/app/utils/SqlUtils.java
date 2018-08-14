@@ -28,7 +28,7 @@ public class SqlUtils {
 	private static Properties prop = new Properties();
 	static {
 		InputStream in = SqlUtils.class
-				.getResourceAsStream("/database2.properties");
+				.getResourceAsStream("/database.properties");
 		try {
 			prop.load(in);
 			driverClassName = prop.getProperty("jdbc.driver").trim();

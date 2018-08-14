@@ -136,7 +136,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
 
-    <select id="selectPage2" parameterType="map" resultMap="PageMap">
+    <select id="selectList" parameterType="map" resultMap="PageMap">
         select
         o.id, o.user_id, comm_id,addr_id, num, price,o.status, time
         ,c.name comm_name,c.serise,a.name addr_name,
@@ -145,6 +145,9 @@
         LEFT join commodity c on o.comm_id = c.id
         LEFT join address a on o.addr_id = a.id
         where  o.user_id = #{userId}
+        <if test="status != null">
+            and status = #{status}
+        </if>
         limit #{start},#{pageSize}
     </select>
 

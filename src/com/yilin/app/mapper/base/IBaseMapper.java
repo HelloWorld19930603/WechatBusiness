@@ -43,6 +43,7 @@ public interface IBaseMapper<T> {
 	 */
 	 List<T> selectPage(Map<String, Object> param) throws Exception;
 
+	List<Map<String,Object>> selectList(Map<String,Object> map) throws Exception;
     /**
      * 查询全部
      * @param param 数据对象

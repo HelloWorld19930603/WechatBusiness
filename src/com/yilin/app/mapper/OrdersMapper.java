@@ -15,5 +15,5 @@ public interface OrdersMapper extends IBaseMapper<Orders>{
 
     Orders selectById(String id) throws Exception;
 
-    List<Map<String,Object>> selectPage2(Map<String,Object> map) throws Exception;
+    List<Map<String,Object>> selectList(Map<String,Object> map) throws Exception;
 }

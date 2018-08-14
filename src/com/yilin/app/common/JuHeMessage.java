@@ -21,8 +21,6 @@ public class JuHeMessage {
     public static final int DEF_READ_TIMEOUT = 30000;
     public static String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
-    //配置您申请的KEY
-    public static final String APPKEY = "*************************";
 
     //1.屏蔽词检查测
     public static void getRequest1() {
@@ -50,13 +48,13 @@ public class JuHeMessage {
     }
 
     //2.发送短信
-    public static void getRequest2(String phone) {
+    public static void getRequest2(String phone,String code,String tpl_id) {
         String url = "http://v.juhe.cn/sms/send";//请求接口地址
         Map params = new HashMap();//请求参数
         params.put("mobile",phone);//接收短信的手机号码
-        params.put("tpl_id", createCode());//短信模板ID，请参考个人中心短信模板设置
-        params.put("tpl_value", "");//变量名和变量值对。如果你的变量名或者变量值中带有#&=中的任意一个特殊符号，请先分别进行urlencode编码后再传递，<a href="http://www.juhe.cn/news/index/id/50" target="_blank">详细说明></a>
-        params.put("key", APPKEY);//应用APPKEY(应用详细页查询)
+        params.put("tpl_id", tpl_id);//短信模板ID，请参考个人中心短信模板设置
+        params.put("tpl_value", code);//变量名和变量值对。如果你的变量名或者变量值中带有#&=中的任意一个特殊符号，请先分别进行urlencode编码后再传递，<a href="http://www.juhe.cn/news/index/id/50" target="_blank">详细说明></a>
+        params.put("key", Configuration.MESSAGE_KEY);//应用APPKEY(应用详细页查询)
         params.put("dtype", "");//返回数据的格式,xml或json，默认json
 
         sendRequest(url, params);
@@ -64,7 +62,7 @@ public class JuHeMessage {
 
 
     public static void main(String[] args) {
-
+        getRequest2("16657102793","#code#=16657102793&#pwd#=123456",Configuration.MESSAGE_MODEL);
     }
 
     /**

@@ -9,7 +9,7 @@ import com.yilin.app.exception.AccountException;
  */
 public interface IOrderService {
 
-    Page selectPage(Integer userId, int index, int pageSize) throws Exception;
+    Page selectPage(Integer userId, int index, int pageSize, byte serise) throws Exception;
 
     void updateStatus(String id, int userId, int status) throws AccountException;
 

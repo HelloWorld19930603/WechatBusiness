@@ -1,18 +1,11 @@
 package com.yilin.app.common;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-
-import net.sf.json.JSONObject;
 
 /**
  *常用快递调用示例代码 － 聚合数据
@@ -34,8 +27,8 @@ public class JuHelogistics {
         public static void getRequest1(String com,String no){
             String url ="http://v.juhe.cn/exp/index";//请求接口地址
             Map params = new HashMap();//请求参数
-            params.put("com","");//需要查询的快递公司编号
-            params.put("no","");//需要查询的订单号
+            params.put("com",com);//需要查询的快递公司编号
+            params.put("no",no);//需要查询的订单号
             params.put("key",Configuration.LOGISTICS_KEY);//应用APPKEY(应用详细页查询)
             params.put("dtype","");//返回数据的格式,xml或json，默认json
 
@@ -46,10 +39,13 @@ public class JuHelogistics {
         public static void getRequest2(){
             String url ="http://v.juhe.cn/exp/com";//请求接口地址
             Map params = new HashMap();//请求参数
-
+            params.put("key",Configuration.LOGISTICS_KEY);//应用APPKEY(应用详细页查询)
             JuHeMessage.sendRequest(url, params);
         }
 
+    public static void main(String[] args) {
+        getRequest1("zto","220737505243");
+    }
 
         /**
          *
