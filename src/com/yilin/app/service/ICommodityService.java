@@ -1,6 +1,7 @@
 package com.yilin.app.service;
 
 import com.yilin.app.common.Page;
+import com.yilin.app.domain.CommDetail;
 import com.yilin.app.domain.Commodity;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface ICommodityService {
     int getCount(Integer type, Integer serise) throws Exception;
 
     Float getPrice(int commId, Integer userId)throws Exception;
+
+    List<String> selectDetails(int commId) throws Exception;
 }

@@ -2,6 +2,7 @@ package com.yilin.app.service.impl;
 
 import com.yilin.app.common.Page;
 import com.yilin.app.domain.Commodity;
+import com.yilin.app.mapper.CommDetailMapper;
 import com.yilin.app.mapper.CommodityMapper;
 import com.yilin.app.service.ICommodityService;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class CommodityService implements ICommodityService {
 
     @Resource
     CommodityMapper commodityMapper;
+    @Resource
+    CommDetailMapper commDetailMapper;
+
 
     @Override
     public Page selectPage(Integer type,Integer userId, Integer serise, int index, int pageSize) throws Exception {
@@ -61,5 +65,12 @@ public class CommodityService implements ICommodityService {
         map.put("commId",commId);
         map.put("userId",userId);
         return commodityMapper.selectPrice(map);
+    }
+
+    @Override
+    public List<String> selectDetails(int commId) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        map.put("commId",commId);
+        return commDetailMapper.selectUrls(map);
     }
 }

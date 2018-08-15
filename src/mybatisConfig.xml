@@ -25,5 +25,9 @@
         <mapper resource="com/yilin/app/mapper/xml/RebateMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/AuthorityMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/PaymentMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/CommDetailMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/PosterMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/ExpressMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/LogisticsMapper.xml"/>
     </mappers>
 </configuration>

@@ -126,24 +126,12 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="loginName != null">
-        login_name = #{loginName,jdbcType=VARCHAR},
-      </if>
-      <if test="loginPwd != null">
-        login_pwd = #{loginPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="payPwd != null">
-        pay_pwd = #{payPwd,jdbcType=VARCHAR},
-      </if>
+
       <if test="sex != null">
         sex = #{sex,jdbcType=CHAR},
       </if>
-      <if test="supId != null">
-        sup_id = #{supId,jdbcType=INTEGER},
-      </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=INTEGER},
-      </if>
+
+
       <if test="wxNum != null">
         wx_num = #{wxNum,jdbcType=VARCHAR},
       </if>

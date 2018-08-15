@@ -26,7 +26,7 @@ public class UserAction {
     @Resource
     UserService userService;
 
-    @RequestMapping("register")
+/*    @RequestMapping("register")
     @ResponseBody
     public ResultJson register(User user) {
         ResultJson result;
@@ -38,13 +38,15 @@ public class UserAction {
             e.printStackTrace();
         }
         return result;
-    }
+    }*/
 
     @RequestMapping("updateUser")
     @ResponseBody
-    public ResultJson updateUser(User user) {
+    public ResultJson updateUser(User user,String token) {
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
+            user.setId(userId);
             userService.updateUser(user);
             result = new ResultJson(true, "修改成功");
         } catch (Exception e) {
@@ -56,9 +58,10 @@ public class UserAction {
 
     @RequestMapping("findUser")
     @ResponseBody
-    public ResultJson findUser(int userId) {
+    public ResultJson findUser(String token) {
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
             User user = userService.findUser(userId);
             result = new ResultJson(true, "查询成功", user);
         } catch (Exception e) {
@@ -124,10 +127,11 @@ public class UserAction {
 
     @RequestMapping("updateHead")
     @ResponseBody
-    public ResultJson updateHead(int userId, @RequestParam MultipartFile headImg,
+    public ResultJson updateHead(String token, @RequestParam MultipartFile headImg,
                                  HttpServletRequest req) {
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
             String haedUrl = PhotoUtil.photoUpload(headImg, "/head/" + userId, req);
             userService.updateHead(userId, haedUrl);
             result = new ResultJson(true, "上传成功");

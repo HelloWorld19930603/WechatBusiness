@@ -68,71 +68,11 @@
       url = #{url,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <resultMap id="BaseResultMap" type="com.yilin.app.domain.CommDetail">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="comm_id" jdbcType="INTEGER" property="commId" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, comm_id, url
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from comm_detail
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from comm_detail
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.yilin.app.domain.CommDetail">
-    insert into comm_detail (id, comm_id, url
-      )
-    values (#{id,jdbcType=INTEGER}, #{commId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.yilin.app.domain.CommDetail">
-    insert into comm_detail
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="commId != null">
-        comm_id,
-      </if>
-      <if test="url != null">
-        url,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="commId != null">
-        #{commId,jdbcType=INTEGER},
-      </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.CommDetail">
-    update comm_detail
-    <set>
-      <if test="commId != null">
-        comm_id = #{commId,jdbcType=INTEGER},
-      </if>
-      <if test="url != null">
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.CommDetail">
-    update comm_detail
-    set comm_id = #{commId,jdbcType=INTEGER},
-      url = #{url,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+    <select id="selectUrls"  parameterType="map" resultType="string">
+        select
+         url
+        from comm_detail
+        where comm_id = #{commId,jdbcType=INTEGER}
+    </select>
+
 </mapper>
