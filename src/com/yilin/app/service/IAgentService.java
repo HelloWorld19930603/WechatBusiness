@@ -10,6 +10,6 @@ public interface IAgentService {
     void addUpgrade(AgentUpgrade agentUpgrade) throws Exception;
 
 
-    int findLevel(int userId,byte serise) throws Exception;
+    int findLevel(int userId, byte serise) throws Exception;
 
 }

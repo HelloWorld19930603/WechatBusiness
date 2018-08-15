@@ -5,7 +5,7 @@ package com.yilin.app.service;
  */
 public interface IPriceService {
 
-    float findPrice(int roleId,int commId) throws Exception;
+    float findPrice(int roleId, int commId) throws Exception;
 
     float findDefault(int commId) throws Exception;
 }

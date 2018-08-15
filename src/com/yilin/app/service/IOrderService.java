@@ -19,7 +19,7 @@ public interface IOrderService {
 
     int getCount(Integer userId, Integer status) throws Exception;
 
-    void payOrder(String id,int userId,float money,String type) throws AccountException;
+    void payOrder(String id, int userId, float money, String type) throws AccountException;
 
     void removeOrder(String id, int userId) throws Exception;
 }

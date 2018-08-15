@@ -6,5 +6,5 @@ import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper  extends IBaseMapper<User> {
 
-    User selectForLogin(@Param("loginName")String loginName, @Param("loginPwd") String loginPwd);
+    User selectForLogin(@Param("loginName") String loginName, @Param("loginPwd") String loginPwd);
 }

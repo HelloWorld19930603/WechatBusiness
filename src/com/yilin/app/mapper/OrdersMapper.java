@@ -8,12 +8,12 @@ import java.util.Map;
 
 public interface OrdersMapper extends IBaseMapper<Orders>{
 
-    void updateStatus(Map<String,Object> map) throws Exception;
+    void updateStatus(Map<String, Object> map) throws Exception;
 
 
-    void deleteById(Map<String,Object> map) throws Exception;
+    void deleteById(Map<String, Object> map) throws Exception;
 
     Orders selectById(String id) throws Exception;
 
-    List<Map<String,Object>> selectList(Map<String,Object> map) throws Exception;
+    List<Map<String,Object>> selectList(Map<String, Object> map) throws Exception;
 }

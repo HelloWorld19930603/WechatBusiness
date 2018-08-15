@@ -20,5 +20,5 @@ public interface IWalletService {
 
         float getMoney(int userId, byte serise) throws Exception;
 
-        Page getRebate(int userId,int start,int pageSize) throws Exception;
+        Page getRebate(int userId, int start, int pageSize) throws Exception;
 }

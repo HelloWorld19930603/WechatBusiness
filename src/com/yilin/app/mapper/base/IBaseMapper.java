@@ -36,14 +36,14 @@ public interface IBaseMapper<T> {
 	 */
     T selectByPrimaryKey(Integer id) throws Exception;
 
-    T selectOne(Map<String,Object> param) throws Exception;
+    T selectOne(Map<String, Object> param) throws Exception;
 	/**
 	 * 分页查询
 	 * @param param 数据对象
 	 */
 	 List<T> selectPage(Map<String, Object> param) throws Exception;
 
-	List<Map<String,Object>> selectList(Map<String,Object> map) throws Exception;
+	List<Map<String,Object>> selectList(Map<String, Object> map) throws Exception;
     /**
      * 查询全部
      * @param param 数据对象

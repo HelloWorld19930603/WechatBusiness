@@ -8,7 +8,7 @@ import java.util.Map;
 public interface CartMapper extends IBaseMapper<Cart>{
 
 
-    void deleteById(Map<String,Object> map) throws Exception;
+    void deleteById(Map<String, Object> map) throws Exception;
 
     void updateNum(Cart cart) throws Exception;
 
