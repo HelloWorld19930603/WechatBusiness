@@ -29,7 +29,7 @@ public class OrderService implements IOrderService {
     PaymentMapper paymentMapper;
 
     @Override
-    public Page selectPage(Integer userId, int start, int pageSize, byte status) throws Exception {
+    public Page selectPage(Integer userId, int start, int pageSize, Byte status) throws Exception {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);
         map.put("start", (start - 1) * pageSize);

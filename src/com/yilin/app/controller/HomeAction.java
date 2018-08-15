@@ -65,11 +65,18 @@ public class HomeAction {
 
     @RequestMapping(value="messageCode")
     @ResponseBody
-    public ResultJson messageCode(String phone) {
+    public ResultJson messageCode(String phone,String token) {
         ResultJson result;
         try {
-            JuHeMessage.getRequest2(phone,JuHeMessage.createCode(), Configuration.MESSAGE_MODEL);
+            UserInfo userInfo = Permission.getUserInfo(token);
+            if(userInfo.getMessage_code() != null && (System.currentTimeMillis() - userInfo.getMessage_time() < 60000) ){
+                return new ResultJson(false,"短信发送间隔60秒/次，请稍后尝试！");
+            }
+            String code = JuHeMessage.createCode();
+            JuHeMessage.getRequest2(phone,"#code#="+code, Configuration.MESSAGE_MODEL);
             result = new ResultJson(true,"发送成功!");
+            userInfo.setMessage_code(code);
+            userInfo.setMessage_time(System.currentTimeMillis());
         } catch (Exception e) {
             e.printStackTrace();
             result = new ResultJson(false,"发送失败!");
@@ -82,7 +89,7 @@ public class HomeAction {
     public ResultJson logistics(String com,String no) {
         ResultJson result;
         try {
-            String logistics = JuHelogistics.getRequest1(com,no);
+            Object logistics = JuHelogistics.getRequest1(com,no);
             result = new ResultJson(true,"查询成功!",logistics);
         }catch (RequestException re){
             result = new ResultJson(false,"查询失败!",re.getMsg());

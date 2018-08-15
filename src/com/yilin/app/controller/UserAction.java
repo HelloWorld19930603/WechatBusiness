@@ -28,13 +28,13 @@ public class UserAction {
 
     @RequestMapping("register")
     @ResponseBody
-    public ResultJson register(User user){
+    public ResultJson register(User user) {
         ResultJson result;
         try {
             userService.register(user);
-            result = new ResultJson(true,"注册成功");
+            result = new ResultJson(true, "注册成功");
         } catch (Exception e) {
-            result = new ResultJson(false,"注册失败");
+            result = new ResultJson(false, "注册失败");
             e.printStackTrace();
         }
         return result;
@@ -42,13 +42,13 @@ public class UserAction {
 
     @RequestMapping("updateUser")
     @ResponseBody
-    public ResultJson updateUser(User user){
+    public ResultJson updateUser(User user) {
         ResultJson result;
         try {
             userService.updateUser(user);
-            result = new ResultJson(true,"修改成功");
+            result = new ResultJson(true, "修改成功");
         } catch (Exception e) {
-            result = new ResultJson(false,"修改失败");
+            result = new ResultJson(false, "修改失败");
             e.printStackTrace();
         }
         return result;
@@ -56,13 +56,13 @@ public class UserAction {
 
     @RequestMapping("findUser")
     @ResponseBody
-    public ResultJson findUser(int userId){
+    public ResultJson findUser(int userId) {
         ResultJson result;
         try {
             User user = userService.findUser(userId);
-            result = new ResultJson(true,"查询成功",user);
+            result = new ResultJson(true, "查询成功", user);
         } catch (Exception e) {
-            result = new ResultJson(false,"查询失败");
+            result = new ResultJson(false, "查询失败");
             e.printStackTrace();
         }
         return result;
@@ -70,13 +70,13 @@ public class UserAction {
 
     @RequestMapping("getUser")
     @ResponseBody
-    public ResultJson getUser(String token){
+    public ResultJson getUser(String token) {
         ResultJson result;
         try {
-            UserInfo userInfo = Permission.getToken(token);
-            result = new ResultJson(true,"查询成功",userInfo);
+            UserInfo userInfo = Permission.getUserInfo(token);
+            result = new ResultJson(true, "查询成功", userInfo);
         } catch (Exception e) {
-            result = new ResultJson(false,"查询失败");
+            result = new ResultJson(false, "查询失败");
             e.printStackTrace();
         }
         return result;
@@ -84,17 +84,19 @@ public class UserAction {
 
     @RequestMapping("loginPwd")
     @ResponseBody
-    public ResultJson loginPwd(int userId,String oldPwd,String newPwd){
+    public ResultJson loginPwd(String token, String newPwd, String code) {
         ResultJson result;
         try {
-            if(userService.checkLoginPwd(userId,oldPwd)) {
-                userService.updateLoginPwd(userId, newPwd);
+            UserInfo userInfo = Permission.getUserInfo(token);
+            if (userInfo.getMessage_code() != null && userInfo.getMessage_code().equals(code.trim())) {
+                userService.updateLoginPwd(userInfo.getId(), newPwd);
                 result = new ResultJson(true, "修改成功");
-            }else{
-                result = new ResultJson(true, "密码错误");
+                userInfo.setMessage_code(null);
+            } else {
+                result = new ResultJson(false, "验证码错误");
             }
         } catch (Exception e) {
-            result = new ResultJson(false,"修改失败");
+            result = new ResultJson(false, "修改失败");
             e.printStackTrace();
         }
         return result;
@@ -102,17 +104,19 @@ public class UserAction {
 
     @RequestMapping("payPwd")
     @ResponseBody
-    public ResultJson payPwd(int userId,String oldPwd,String newPwd){
+    public ResultJson payPwd(String token,String newPwd, String code) {
         ResultJson result;
         try {
-            if(userService.checkPayPwd(userId,oldPwd)) {
-                userService.updatePayPwd(userId, newPwd);
-                result = new ResultJson(true,"修改成功");
-            }else{
-                result = new ResultJson(false,"密码错误");
+            UserInfo userInfo = Permission.getUserInfo(token);
+            if (userInfo.getMessage_code() != null && userInfo.getMessage_code().equals(code.trim())) {
+                userService.updatePayPwd(userInfo.getId(), newPwd);
+                result = new ResultJson(true, "修改成功");
+                userInfo.setMessage_code(null);
+            } else {
+                result = new ResultJson(false, "验证码错误");
             }
         } catch (Exception e) {
-            result = new ResultJson(false,"修改失败");
+            result = new ResultJson(false, "修改失败");
             e.printStackTrace();
         }
         return result;
@@ -121,17 +125,17 @@ public class UserAction {
     @RequestMapping("updateHead")
     @ResponseBody
     public ResultJson updateHead(int userId, @RequestParam MultipartFile headImg,
-                                 HttpServletRequest req){
+                                 HttpServletRequest req) {
         ResultJson result;
         try {
-            String haedUrl = PhotoUtil.photoUpload(headImg,"/head/"+userId,req);
-            userService.updateHead(userId,haedUrl);
-            result = new ResultJson(true,"上传成功");
-        }catch (FileException e) {
-            result = new ResultJson(false,"修改失败");
+            String haedUrl = PhotoUtil.photoUpload(headImg, "/head/" + userId, req);
+            userService.updateHead(userId, haedUrl);
+            result = new ResultJson(true, "上传成功");
+        } catch (FileException e) {
+            result = new ResultJson(false, "修改失败");
             e.printStackTrace();
         } catch (Exception e) {
-            result = new ResultJson(false,"修改失败");
+            result = new ResultJson(false, "修改失败");
             e.printStackTrace();
         }
         return result;

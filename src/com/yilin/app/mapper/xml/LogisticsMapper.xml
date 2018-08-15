@@ -3,12 +3,12 @@
 <mapper namespace="com.yilin.app.mapper.LogisticsMapper">
   <resultMap id="BaseResultMap" type="com.yilin.app.domain.Logistics">
     <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="com" jdbcType="VARCHAR" property="com" />
-    <result column="no" jdbcType="VARCHAR" property="no" />
     <result column="order_id" jdbcType="VARCHAR" property="orderId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, com, no, order_id
+    id, name, com, order_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -21,9 +21,9 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.yilin.app.domain.Logistics">
-    insert into logistics (id, com, no, 
+    insert into logistics (id, name, com, 
       order_id)
-    values (#{id,jdbcType=VARCHAR}, #{com,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{com,jdbcType=VARCHAR}, 
       #{orderId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yilin.app.domain.Logistics">
@@ -32,11 +32,11 @@
       <if test="id != null">
         id,
       </if>
+      <if test="name != null">
+        name,
+      </if>
       <if test="com != null">
         com,
-      </if>
-      <if test="no != null">
-        no,
       </if>
       <if test="orderId != null">
         order_id,
@@ -46,11 +46,11 @@
       <if test="id != null">
         #{id,jdbcType=VARCHAR},
       </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
       <if test="com != null">
         #{com,jdbcType=VARCHAR},
-      </if>
-      <if test="no != null">
-        #{no,jdbcType=VARCHAR},
       </if>
       <if test="orderId != null">
         #{orderId,jdbcType=VARCHAR},
@@ -60,11 +60,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.Logistics">
     update logistics
     <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
       <if test="com != null">
         com = #{com,jdbcType=VARCHAR},
-      </if>
-      <if test="no != null">
-        no = #{no,jdbcType=VARCHAR},
       </if>
       <if test="orderId != null">
         order_id = #{orderId,jdbcType=VARCHAR},
@@ -74,8 +74,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.Logistics">
     update logistics
-    set com = #{com,jdbcType=VARCHAR},
-      no = #{no,jdbcType=VARCHAR},
+    set name = #{name,jdbcType=VARCHAR},
+      com = #{com,jdbcType=VARCHAR},
       order_id = #{orderId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>

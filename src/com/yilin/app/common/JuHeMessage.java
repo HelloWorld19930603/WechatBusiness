@@ -33,13 +33,13 @@ public class JuHeMessage {
         sendRequest(url, params);
     }
 
-    public static String sendRequest(String url, Map params) throws Exception {
+    public static Object sendRequest(String url, Map params) throws Exception {
         String result;
         result = net(url, params, "GET");
         JSONObject object = JSONObject.fromObject(result);
         if (object.getInt("error_code") == 0) {
             System.out.println(object.get("result"));
-            return (String) object.get("result");
+            return  object.get("result");
         } else {
             System.out.println(object.get("error_code") + ":" + object.get("reason"));
             throw new RequestException(object.get("error_code") + ":" + object.get("reason"));

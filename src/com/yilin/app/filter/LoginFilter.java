@@ -44,7 +44,16 @@ public class LoginFilter implements Filter {
                 response.getWriter().print(jsonString);
                 return;
             } else {
-                Byte serise = (Byte) request.getSession().getAttribute("serise");
+
+                if (!Permission.checkToken(token)) {
+                    result = new ResultJson(false, "token校验失败！");
+                    String jsonString = JSONObject.toJSONString(result);
+                    response.setContentType("application/json; charset=utf-8");
+                    response.getWriter().print(jsonString);
+                    return;
+                }
+/*
+                 Byte serise = (Byte) request.getSession().getAttribute("serise");
                 if (serise == null) {
                     serise = Byte.valueOf(request.getParameter("token"));
                     if (serise == null) {
@@ -52,22 +61,15 @@ public class LoginFilter implements Filter {
                     }
                 }
                 if (!Permission.checkLevel(level, serise)) {
-                    if (!Permission.checkToken(token)) {
-                        result = new ResultJson(false, "token校验失败！");
-                        String jsonString = JSONObject.toJSONString(result);
-                        response.setContentType("application/json; charset=utf-8");
-                        response.getWriter().print(jsonString);
-                        return;
-                    }
                     result = new ResultJson(false, "该用户无此系列访问权限！");
                     String jsonString = JSONObject.toJSONString(result);
                     response.setContentType("application/json; charset=utf-8");
                     response.getWriter().print(jsonString);
                     return;
-                }
+                }*/
                 arg2.doFilter(arg0, arg1);
             }
-        }else{
+        } else {
             arg2.doFilter(arg0, arg1);
         }
 

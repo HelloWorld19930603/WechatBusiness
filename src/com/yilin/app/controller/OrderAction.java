@@ -37,7 +37,7 @@ public class OrderAction {
 
     @RequestMapping("findPage")
     @ResponseBody
-    public ResultJson findPage(Integer userId, int start, int pageSize, byte status) {
+    public ResultJson findPage(Integer userId, int start, int pageSize, Byte status) {
         ResultJson result;
         try {
             if (userId != null) {

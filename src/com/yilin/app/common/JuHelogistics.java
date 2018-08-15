@@ -22,7 +22,7 @@ public class JuHelogistics {
 
 
         //1.常用快递查询API
-        public static String getRequest1(String com,String no) throws Exception {
+        public static Object getRequest1(String com,String no) throws Exception {
             String url ="http://v.juhe.cn/exp/index";//请求接口地址
             Map params = new HashMap();//请求参数
             params.put("com",com);//需要查询的快递公司编号

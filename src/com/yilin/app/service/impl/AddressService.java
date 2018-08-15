@@ -58,7 +58,7 @@ public class AddressService implements IAddressService {
     }
 
     @Override
-    public void removeAddress(int id) throws Exception{
-        addressMapper.deleteByPrimaryKey(id);
+    public void removeAddress(int id,int userId) throws Exception{
+        addressMapper.deleteOne(id,userId);
     }
 }

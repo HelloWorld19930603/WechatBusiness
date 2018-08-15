@@ -50,7 +50,7 @@ public class UserService implements IUserService {
     public void updateLoginPwd(int userId, String newPwd) throws Exception{
         User user = new User();
         user.setId(userId);
-        user.setLoginPwd(newPwd);
+        user.setLoginPwd(MD5Util.encrypt(newPwd));
         userMapper.updateByPrimaryKeySelective(user);
     }
 

@@ -121,7 +121,10 @@
         status = 0
         where user_id = #{user_id,jdbcType=INTEGER}
     </update>
-
+  <delete id="deleteOne" parameterType="com.yilin.app.domain.Address">
+    delete from address
+    where id = #{id,jdbcType=INTEGER} and user_id = #{userId,jdbcType=INTEGER}
+  </delete>
 
     <select id="selectAll" parameterType="map" resultMap="BaseResultMap">
         SELECT

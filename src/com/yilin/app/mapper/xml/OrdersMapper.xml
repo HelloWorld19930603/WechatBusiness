@@ -26,6 +26,8 @@
         <result column="phone" jdbcType="VARCHAR" property="phone"/>
         <result column="ssq" jdbcType="VARCHAR" property="ssq"/>
         <result column="addr" jdbcType="VARCHAR" property="addr"/>
+        <result column="no" jdbcType="VARCHAR" property="no"/>
+        <result column="com" jdbcType="VARCHAR" property="com"/>
     </resultMap>
     <sql id="Base_Column_List">
     id, user_id, comm_id,addr_id, num, price, status, time
@@ -140,11 +142,11 @@
         select
         o.id, o.user_id, comm_id,addr_id, num, price,o.status, time
         ,c.name comm_name,c.serise,a.name addr_name,
-        a.phone,a.ssq,a.addr,l.name express,l.com
+        a.phone,a.ssq,a.addr,l.id no,l.com
         from orders o
         LEFT join commodity c on o.comm_id = c.id
         LEFT join address a on o.addr_id = a.id
-        left join logistics l on l.id = o.id
+        left join logistics l on l.order_id = o.id
         where  o.user_id = #{userId}
         <if test="status != null">
             and status = #{status}

@@ -1,5 +1,6 @@
 package com.yilin.app.controller;
 
+import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
 import com.yilin.app.domain.Address;
 import com.yilin.app.service.impl.AddressService;
@@ -23,9 +24,10 @@ public class AddressAction {
 
     @RequestMapping("findList")
     @ResponseBody
-    public ResultJson findList(int userId){
+    public ResultJson findList(String token){
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
             List list = addressService.findAllByUserId(userId);
             result = new ResultJson(true,"查询成功",list);
         } catch (Exception e) {
@@ -38,9 +40,10 @@ public class AddressAction {
 
     @RequestMapping("setDefault")
     @ResponseBody
-    public ResultJson setDefault(int addrId,int userId){
+    public ResultJson setDefault(int addrId,String token){
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
             addressService.updateDefault(addrId,userId);
             result = new ResultJson(true,"设置成功");
         } catch (Exception e) {
@@ -53,9 +56,10 @@ public class AddressAction {
 
     @RequestMapping("getDefault")
     @ResponseBody
-    public ResultJson getDefault(int userId){
+    public ResultJson getDefault(String token){
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
             Address address = addressService.findDefault(userId);
             result = new ResultJson(true,"获取默认地址成功",address);
         } catch (Exception e) {
@@ -67,9 +71,10 @@ public class AddressAction {
 
     @RequestMapping("getAddress")
     @ResponseBody
-    public ResultJson getAddress(int userId){
+    public ResultJson getAddress(String token){
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
             Address address = addressService.findDefault(userId);
             result = new ResultJson(true,"获取地址成功",address);
         } catch (Exception e) {
@@ -81,9 +86,11 @@ public class AddressAction {
 
     @RequestMapping("updateOne")
     @ResponseBody
-    public ResultJson updateOne(Address address){
+    public ResultJson updateOne(Address address,String token){
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
+            address.setUserId(userId);
             addressService.updateAddress(address);
             result = new ResultJson(true,"更新地址成功");
         } catch (Exception e) {
@@ -95,9 +102,11 @@ public class AddressAction {
 
     @RequestMapping("addOne")
     @ResponseBody
-    public ResultJson addOne(Address address){
+    public ResultJson addOne(Address address,String token){
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
+            address.setUserId(userId);
             addressService.addAddress(address);
             result = new ResultJson(true,"添加地址成功");
         } catch (Exception e) {
@@ -109,10 +118,11 @@ public class AddressAction {
 
     @RequestMapping("removeOne")
     @ResponseBody
-    public ResultJson removeAddr(int addrId){
+    public ResultJson removeAddr(int addrId,String token){
         ResultJson result;
         try {
-            addressService.removeAddress(addrId);
+            Integer userId = Permission.getUserId(token);
+            addressService.removeAddress(addrId,userId);
             result = new ResultJson(true,"删除地址成功");
         } catch (Exception e) {
             result = new ResultJson(false,"删除地址失败");

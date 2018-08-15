@@ -4,7 +4,6 @@ import com.yilin.app.domain.User;
 import com.yilin.app.utils.MD5Util;
 import com.yilin.app.utils.StringUtil;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,11 +34,6 @@ public class Permission {
     public static UserInfo createUserInfo(User user) {
         UserInfo userInfo = new UserInfo();
         userInfo.setId(user.getId());
-        userInfo.setHeadImg(user.getHeadImg());
-        userInfo.setName(user.getName());
-        userInfo.setSex(user.getSex());
-        userInfo.setCurr_time(new Date());
-        userInfo.setLast_time(user.getLoginTime());
         return userInfo;
     }
 
@@ -56,7 +50,7 @@ public class Permission {
         userLoginMap.remove(token);
     }
 
-    public static UserInfo getToken(String token) {
+    public static UserInfo getUserInfo(String token) {
         return userLoginMap.get(token);
     }
 
@@ -64,7 +58,7 @@ public class Permission {
         if(token == null){
             return null;
         }
-        UserInfo userInfo = getToken(token);
+        UserInfo userInfo = getUserInfo(token);
         return userInfo == null ? null : userInfo.getId();
     }
 }
