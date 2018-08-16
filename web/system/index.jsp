@@ -13,6 +13,7 @@
     <!--common-->
     <link href="<%=path%>css/style.css" rel="stylesheet">
     <link href="<%=path%>css/style-responsive.css" rel="stylesheet">
+    <link href="<%=path%>css/systemcss.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -222,6 +223,93 @@
                         </section>
                     </div>
                 </div>
+
+            <div class="xuanzhe_tj">
+                <form action=""
+                      method="post" name="form1" id="form1">
+                    <ul class="clear">
+                        <li>基地编号:</li>
+                        <li><input type="text" size="10" class="ppname" id="bh"
+                                   value="${bh}" name="bh" /></li>
+                        <li>所在企业:</li>
+                        <li><input type="text" size="10" class="ppname" id="en_name"
+                                   value="${en_name}" name="en_name" /></li>
+                        <li>基地状态:</li>
+                        <li>
+                            <select id="status" name="status" style="width: 100px">
+                                <option value="">--请选择--</option>
+                                <option value="9" <c:out value="${status=='9'?'selected':''}"/>>禁用</option>
+                                <option value="1" <c:out value="${status=='1'?'selected':''}"/>>启用</option>
+                            </select>
+                        </li>
+                        <li><input type="button" class="chax" value="" /></li>
+                        <li><input type="button" class="tianj"></li>
+                        <li><input type="button" class="removeBtn" value="" /></li>
+                        <li><input type="hidden" name="pageIndex" id="pageIndex" />
+                            <input type="hidden" name="en_id" id="en_id" value="${en_id}"/>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+
+            <div class="xianbo">
+                <div class="biaoge" style="height: 600px;">
+                    <table cellpadding="0" cellspacing="1" width="100%" bgcolor="#b2d3f6">
+                        <thead>
+                        <tr>
+                            <th bgcolor="#eff0f3" style="width:30px;"><input type="checkbox"  id="checkAll"/></th>
+                            <th bgcolor="#eff0f3" height="36">序号</th>
+                            <th bgcolor="#eff0f3">所在企业</th>
+                            <th bgcolor="#eff0f3">基地编号</th>
+                            <th bgcolor="#eff0f3">基地名称</th>
+                            <th bgcolor="#eff0f3">基地类型</th>
+                            <th bgcolor="#eff0f3">基地状态</th>
+                            <th bgcolor="#eff0f3">操作</th>
+                        </tr>
+                        </thead>
+                            <tr style="height:30px;" >
+                                <td align="center"><input type="checkbox" name="ids" value="${v.id}"/></td>
+                                <td align="center">${pager.pageIndex * pager.pageSize + s.index + 1}
+                                    <input type="hidden" name="ids" value="${v.id}"/>
+                                </td>
+                                <td align="center">${v.en_name}</td>
+                                <td align="center">${v.bh}</td>
+                                <td align="center">${v.name}</td>
+                                <td align="center">
+                                    室内
+                                </td>
+                                <td align="center">
+                                   启用
+                                </td>
+                                <td align="center">
+                                    <img src="${pageContext.request.contextPath}/images/czuox1.jpg" class="modifyBtn" style="cursor: pointer;" title="点击进入修改基地信息"/>
+                                  <img src="${pageContext.request.contextPath}/images/czuox3.jpg" class="removeOneBtn" style="cursor: pointer;" title="点击可禁用该基地"/>
+                                </td>
+                            </tr>
+                        <tr style="height:30px;" >
+                            <td align="center"><input type="checkbox" name="ids" value="${v.id}"/></td>
+                            <td align="center">${pager.pageIndex * pager.pageSize + s.index + 1}
+                                <input type="hidden" name="ids" value="${v.id}"/>
+                            </td>
+                            <td align="center">${v.en_name}</td>
+                            <td align="center">${v.bh}</td>
+                            <td align="center">${v.name}</td>
+                            <td align="center">
+                                室内
+                            </td>
+                            <td align="center">
+                                启用
+                            </td>
+                            <td align="center">
+                                <img src="${pageContext.request.contextPath}/images/czuox1.jpg" class="modifyBtn" style="cursor: pointer;" title="点击进入修改基地信息"/>
+                                <img src="${pageContext.request.contextPath}/images/czuox3.jpg" class="removeOneBtn" style="cursor: pointer;" title="点击可禁用该基地"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="xiaobt"></div>
+            </div>
         </div>
         <!--body wrapper end-->
 
