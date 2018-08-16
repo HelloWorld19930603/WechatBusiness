@@ -59,13 +59,16 @@ var EditableTable = function () {
                 "oLanguage": {
                     "sLengthMenu": "_MENU_ records per page",
                     "oPaginate": {
-                        "sPrevious": "Prev",
-                        "sNext": "Next"
+                        "sPrevious": "上一页",
+                        "sFirst": "首页",
+
+                        "sNext": "Next",
+                        "sLast": "Last"
                     }
                 },
                 "aoColumnDefs": [{
                         'bSortable': false,
-                        'aTargets': [0]
+                        'aTargets': [0,1]
                     }
                 ]
             });
@@ -94,7 +97,7 @@ var EditableTable = function () {
 
                 var nRow = $(this).parents('tr')[0];
                 oTable.fnDeleteRow(nRow);
-                alert("Deleted! Do not forget to do some ajax to sync with backend :)");
+                alert(nRow);
             });
 
             $('#editable-sample a.cancel').live('click', function (e) {

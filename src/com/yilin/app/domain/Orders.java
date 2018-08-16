@@ -19,6 +19,8 @@ public class Orders {
 
     private Date time;
 
+    private String description;
+
     public String getId() {
         return id;
     }
@@ -81,5 +83,13 @@ public class Orders {
 
     public void setAddrId(Integer addrId) {
         this.addrId = addrId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

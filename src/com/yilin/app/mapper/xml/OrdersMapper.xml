@@ -10,6 +10,7 @@
         <result column="price" jdbcType="REAL" property="price"/>
         <result column="status" jdbcType="TINYINT" property="status"/>
         <result column="time" jdbcType="TIMESTAMP" property="time"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
     </resultMap>
     <resultMap id="PageMap" type="HashMap">
         <id column="id" jdbcType="VARCHAR" property="id"/>
@@ -28,9 +29,10 @@
         <result column="addr" jdbcType="VARCHAR" property="addr"/>
         <result column="no" jdbcType="VARCHAR" property="no"/>
         <result column="com" jdbcType="VARCHAR" property="com"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, user_id, comm_id,addr_id, num, price, status, time
+    id, user_id, comm_id,addr_id, num, price, status, time,description
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -44,10 +46,10 @@
   </delete>
     <insert id="insert" parameterType="com.yilin.app.domain.Orders">
     insert into orders (user_id, comm_id,addr_id,
-    num, price, status, time
+    num, price, status, time,description
     )
     values ( #{userId,jdbcType=INTEGER}, #{commId,jdbcType=INTEGER}, #{addrId,jdbcType=INTEGER},
-    #{num,jdbcType=INTEGER}, #{price,jdbcType=REAL}, #{status,jdbcType=TINYINT}, #{time,jdbcType=TIMESTAMP}
+    #{num,jdbcType=INTEGER}, #{price,jdbcType=REAL}, #{status,jdbcType=TINYINT}, #{time,jdbcType=TIMESTAMP},#{description}
     )
   </insert>
     <insert id="insertSelective" parameterType="com.yilin.app.domain.Orders">
@@ -74,6 +76,9 @@
             <if test="time != null">
                 time,
             </if>
+            <if test="time != null">
+                description,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userId != null">
@@ -96,6 +101,9 @@
             </if>
             <if test="time != null">
                 #{time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null">
+                 #{description,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
@@ -123,6 +131,9 @@
             <if test="time != null">
                 time = #{time,jdbcType=TIMESTAMP},
             </if>
+            <if test="description != null">
+                description = #{description,jdbcType=TIMESTAMP},
+            </if>
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>
@@ -134,13 +145,14 @@
       num = #{num,jdbcType=INTEGER},
       price = #{price,jdbcType=REAL},
       status = #{status,jdbcType=TINYINT},
-      time = #{time,jdbcType=TIMESTAMP}
+      time = #{time,jdbcType=TIMESTAMP},
+      description=#{description}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 
     <select id="selectList" parameterType="map" resultMap="PageMap">
         select
-        o.id, o.user_id, comm_id,addr_id, num, price,o.status, time
+        o.id, o.user_id, comm_id,addr_id, num, price,o.status, time,description
         ,c.name comm_name,c.serise,a.name addr_name,
         a.phone,a.ssq,a.addr,l.id no,l.com
         from orders o

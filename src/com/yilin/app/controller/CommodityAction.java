@@ -3,7 +3,6 @@ package com.yilin.app.controller;
 import com.yilin.app.common.Page;
 import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
-import com.yilin.app.domain.CommDetail;
 import com.yilin.app.domain.Commodity;
 import com.yilin.app.service.ICommodityService;
 import org.springframework.stereotype.Controller;
