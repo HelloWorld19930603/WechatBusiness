@@ -21,4 +21,10 @@ public class HomeController {
         model.addAttribute("active","test");
         return "table";
     }
+
+    @RequestMapping("form")
+    public String form(Model model){
+        model.addAttribute("active","test2");
+        return "form";
+    }
 }

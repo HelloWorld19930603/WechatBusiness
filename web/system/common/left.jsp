@@ -22,7 +22,7 @@
                 <ul class="sub-menu-list">
                     <li ><a href="/index.do"> Blank Page</a></li>
                     <li class="test"><a href="/table.do"> Boxed Page</a></li>
-                    <li><a href="leftmenu_collapsed_view.html"> Sidebar Collapsed</a></li>
+                    <li class="test2"><a href="/form.do"> Sidebar Collapsed</a></li>
                     <li><a href="horizontal_menu.html"> Horizontal Menu</a></li>
 
                 </ul>
@@ -49,8 +49,6 @@
             </li>
 
             <li><a href="fontawesome.html"><i class="fa fa-bullhorn"></i> <span>Fontawesome</span></a></li>
-
-
 
 
         </ul>
