@@ -12,7 +12,13 @@ public class HomeController {
 
     @RequestMapping("index")
     public String index(Model model){
-        model.addAttribute("index","index");
+        model.addAttribute("active","index");
         return "index";
+    }
+
+    @RequestMapping("table")
+    public String table(Model model){
+        model.addAttribute("active","test");
+        return "table";
     }
 }

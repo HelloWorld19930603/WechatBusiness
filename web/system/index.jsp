@@ -11,14 +11,16 @@
     <title>AdminX</title>
 
     <!--common-->
-    <link href="<%=path%>css/style.css" rel="stylesheet">
-    <link href="<%=path%>css/style-responsive.css" rel="stylesheet">
-    <link href="<%=path%>css/systemcss.css" rel="stylesheet">
+    <link href="<%=path%>/css/style.css" rel="stylesheet">
+    <link href="<%=path%>/css/style-responsive.css" rel="stylesheet">
+    <link href="<%=path%>/css/systemcss.css" rel="stylesheet">
 
+
+    <link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/css/jquery-ui.css" />
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="<%=path%>js/html5shiv.js"></script>
-    <script src="<%=path%>js/respond.min.js"></script>
+    <script src="<%=path%>/js/html5shiv.js"></script>
+    <script src="<%=path%>/js/respond.min.js"></script>
     <![endif]-->
 </head>
 
@@ -323,29 +325,31 @@
 </section>
 
 <!-- Placed js at the end of the document so the pages load faster -->
-<script src="<%=path%>js/jquery-1.10.2.min.js"></script>
-<script src="<%=path%>js/jquery-ui-1.9.2.custom.min.js"></script>
-<script src="<%=path%>js/jquery-migrate-1.2.1.min.js"></script>
-<script src="<%=path%>js/bootstrap.min.js"></script>
-<script src="<%=path%>js/modernizr.min.js"></script>
-<script src="<%=path%>js/jquery.nicescroll.js"></script>
+<script src="<%=path%>/js/jquery-1.10.2.min.js"></script>
+<script src="<%=path%>/js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="<%=path%>/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="<%=path%>/js/bootstrap.min.js"></script>
+<script src="<%=path%>/js/modernizr.min.js"></script>
+<script src="<%=path%>/js/jquery.nicescroll.js"></script>
 
 
 <!--common scripts for all pages-->
-<script src="<%=path%>js/scripts.js"></script>
+<script src="<%=path%>/js/scripts.js"></script>
 
 <!--data table-->
-<script type="text/javascript" src="<%=path%>js/data-tables/jquery.dataTables.js"></script>
-<script type="text/javascript" src="<%=path%>js/data-tables/DT_bootstrap.js"></script>
+<script type="text/javascript" src="<%=path%>/js/data-tables/jquery.dataTables.js"></script>
+<script type="text/javascript" src="<%=path%>/js/data-tables/DT_bootstrap.js"></script>
 
 <!--script for editable table-->
-<script src="<%=path%>js/editable-table.js"></script>
+<script src="<%=path%>/js/editable-table.js"></script>
 
+<script type="text/javascript" src="<%=path%>/js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="<%=path%>/js/easyui-lang-zh_CN.js"></script>
 </body>
 </html>
 <script type="text/javascript">
-    $(".${index}").addClass("active");
-    $(".${index}").parents("li").addClass("active");
+    $(".${active}").addClass("active");
+    $(".${active}").parents("li").addClass("active");
 
     $.ajax({
         type: "GET",
@@ -372,5 +376,6 @@
         $(".delete").click(function () {
             alert("delete");
         });
+        $.messager.alert('提示:','请选择要删除的数据!','warning');
     })
 </script>

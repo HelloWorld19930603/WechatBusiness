@@ -3,11 +3,11 @@
 
     <!--logo and iconic logo start-->
     <div class="logo">
-        <a href="index.html"><img src="<%=path%>images/logo.png" alt=""></a>
+        <a href="index.html"><img src="<%=path%>/images/logo.png" alt=""></a>
     </div>
 
     <div class="logo-icon text-center">
-        <a href="index.html"><img src="<%=path%>images/logo_icon.png" alt=""></a>
+        <a href="index.html"><img src="<%=path%>/images/logo_icon.png" alt=""></a>
     </div>
     <!--logo and iconic logo end-->
 
@@ -21,7 +21,7 @@
             <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>Layouts</span></a>
                 <ul class="sub-menu-list">
                     <li ><a href="/index.do"> Blank Page</a></li>
-                    <li><a href="boxed_view.html"> Boxed Page</a></li>
+                    <li class="test"><a href="/table.do"> Boxed Page</a></li>
                     <li><a href="leftmenu_collapsed_view.html"> Sidebar Collapsed</a></li>
                     <li><a href="horizontal_menu.html"> Horizontal Menu</a></li>
 

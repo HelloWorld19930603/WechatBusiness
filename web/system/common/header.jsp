@@ -96,7 +96,7 @@
                     <ul class="dropdown-list normal-list">
                         <li class="new">
                             <a href="">
-                                <span class="thumb"><img src="<%=path%>images/photos/user1.png" alt="" /></span>
+                                <span class="thumb"><img src="<%=path%>/images/photos/user1.png" alt="" /></span>
                                 <span class="desc">
                                           <span class="name">John Doe <span class="badge badge-success">new</span></span>
                                           <span class="msg">Lorem ipsum dolor sit amet...</span>
@@ -105,7 +105,7 @@
                         </li>
                         <li>
                             <a href="">
-                                <span class="thumb"><img src="<%=path%>images/photos/user2.png" alt="" /></span>
+                                <span class="thumb"><img src="<%=path%>/images/photos/user2.png" alt="" /></span>
                                 <span class="desc">
                                           <span class="name">Jonathan Smith</span>
                                           <span class="msg">Lorem ipsum dolor sit amet...</span>
@@ -114,7 +114,7 @@
                         </li>
                         <li>
                             <a href="">
-                                <span class="thumb"><img src="<%=path%>images/photos/user3.png" alt="" /></span>
+                                <span class="thumb"><img src="<%=path%>/images/photos/user3.png" alt="" /></span>
                                 <span class="desc">
                                           <span class="name">Jane Doe</span>
                                           <span class="msg">Lorem ipsum dolor sit amet...</span>
@@ -123,7 +123,7 @@
                         </li>
                         <li>
                             <a href="">
-                                <span class="thumb"><img src="<%=path%>images/photos/user4.png" alt="" /></span>
+                                <span class="thumb"><img src="<%=path%>/images/photos/user4.png" alt="" /></span>
                                 <span class="desc">
                                           <span class="name">Mark Henry</span>
                                           <span class="msg">Lorem ipsum dolor sit amet...</span>
@@ -132,7 +132,7 @@
                         </li>
                         <li>
                             <a href="">
-                                <span class="thumb"><img src="<%=path%>images/photos/user5.png" alt="" /></span>
+                                <span class="thumb"><img src="<%=path%>/images/photos/user5.png" alt="" /></span>
                                 <span class="desc">
                                           <span class="name">Jim Doe</span>
                                           <span class="msg">Lorem ipsum dolor sit amet...</span>
@@ -185,7 +185,7 @@
             </li>
             <li>
                 <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <img src="<%=path%>images/photos/user-avatar.png" alt="" />
+                    <img src="<%=path%>/images/photos/user-avatar.png" alt="" />
                     John Doe
                     <span class="caret"></span>
                 </a>
@@ -202,7 +202,7 @@
     <!-- visible to small devices only -->
     <div class="visible-xs hidden-sm hidden-md hidden-lg">
         <div class="media logged-user">
-            <img alt="" src="<%=path%>images/photos/user-avatar.png" class="media-object">
+            <img alt="" src="<%=path%>/images/photos/user-avatar.png" class="media-object">
             <div class="media-body">
                 <h4><a href="#">John Doe</a></h4>
                 <span>"Hello There..."</span>

@@ -53,19 +53,7 @@ var EditableTable = function () {
                     [5, 15, 20, "All"] // change per page values here
                 ],
                 // set the initial value
-                "iDisplayLength": 5,
-                "sDom": "<'row'<'col-lg-6'l><'col-lg-6'f>r>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
-                "sPaginationType": "bootstrap",
-                "oLanguage": {
-                    "sLengthMenu": "_MENU_ records per page",
-                    "oPaginate": {
-                        "sPrevious": "上一页",
-                        "sFirst": "首页",
 
-                        "sNext": "Next",
-                        "sLast": "Last"
-                    }
-                },
                 "aoColumnDefs": [{
                         'bSortable': false,
                         'aTargets': [0,1]
