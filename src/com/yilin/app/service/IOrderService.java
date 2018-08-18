@@ -4,6 +4,8 @@ import com.yilin.app.common.Page;
 import com.yilin.app.domain.Orders;
 import com.yilin.app.exception.AccountException;
 
+import java.util.Map;
+
 /**
  * Created by Administrator on 2018/7/9.
  */
@@ -15,7 +17,7 @@ public interface IOrderService {
 
     Orders findOrder(String id) throws Exception;
 
-    String createOrder(Orders orders) throws Exception;
+    void createOrder(int userId,Map<String,Object> orders) throws Exception;
 
     int getCount(Integer userId, Integer status) throws Exception;
 

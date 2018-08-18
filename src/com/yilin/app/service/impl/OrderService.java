@@ -60,12 +60,21 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public String createOrder(Orders orders) throws Exception {
-        orders.setTime(new Date());
-        String orderId = OrderNumberBuilder.getOrderIdByUUId();
-        orders.setId(orderId);
-        ordersMapper.insert(orders);
-        return orderId;
+    public void createOrder(int userId,Map<String,Object> ordersMap) throws Exception {
+        Orders order = new Orders();
+        order.setTime(new Date());
+        order.setStatus((byte) 1);
+        order.setUserId(userId);
+        order.setAddrId((int)ordersMap.get("addrId"));
+        order.setDescription((String)ordersMap.get("description"));
+        List<Map<String,Object>> commIds =  (List<Map<String,Object>>) ordersMap.get("commIds");
+        for(Map<String,Object> map : commIds){
+            String orderId = OrderNumberBuilder.getOrderIdByUUId();
+            order.setId(orderId);
+            order.setCommId((int)map.get("commId"));
+            order.setNum((int)map.get("num"));
+            ordersMapper.insert(order);
+        }
     }
 
     @Override

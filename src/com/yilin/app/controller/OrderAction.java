@@ -1,6 +1,7 @@
 package com.yilin.app.controller;
 
 import com.yilin.app.common.Page;
+import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
 import com.yilin.app.domain.Commodity;
 import com.yilin.app.domain.Orders;
@@ -11,6 +12,7 @@ import com.yilin.app.service.IUserService;
 import com.yilin.app.service.IWalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -97,17 +99,17 @@ public class OrderAction {
     /**
      * 创建订单
      *
-     * @param order
+     * @param orders
      * @return
      */
     @RequestMapping("createOne")
     @ResponseBody
-    public ResultJson createOne(Orders order) {
+    public ResultJson createOne(@RequestBody Map<String,Object> orders) {
         ResultJson result;
         try {
-            order.setStatus((byte) 1);
-            String orderId = orderService.createOrder(order);
-            result = new ResultJson(true, "创建成功", orderId);
+            Integer userId = Permission.getUserId((String)orders.get("token"));
+            orderService.createOrder(userId,orders);
+            result = new ResultJson(true, "创建成功");
         } catch (Exception e) {
             e.printStackTrace();
             result = new ResultJson(false, "创建失败");
@@ -120,7 +122,7 @@ public class OrderAction {
      *
      * @param orderId
      * @param serise
-     * @param userId
+     * @param token
      * @param type
      * @param money
      * @param payPwd
@@ -128,9 +130,10 @@ public class OrderAction {
      */
     @RequestMapping("payOrder")
     @ResponseBody
-    public ResultJson payOrder(String orderId, byte serise, int userId, String type, float money, String payPwd) {
+    public ResultJson payOrder(String orderId, byte serise, String token, String type, float money, String payPwd) {
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
             if (userService.checkPayPwd(userId, payPwd)) {
                 walletService.takeMoney(serise, userId, money);
                 orderService.payOrder(orderId, userId, money, type);
@@ -151,9 +154,10 @@ public class OrderAction {
 
     @RequestMapping("removeOne")
     @ResponseBody
-    public ResultJson removeOne(String orderId, int userId) {
+    public ResultJson removeOne(String orderId, String token) {
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
             orderService.removeOrder(orderId, userId);
             result = new ResultJson(true, "取消订单成功");
         } catch (Exception e) {
