@@ -242,9 +242,9 @@
     <select id="selectOne" parameterType="map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        ,m.price m_price
+            ,m.price m_price
         <if test="userId != null">
-           ,a.price a_price
+            ,a.price a_price
         </if>
         from commodity c
         left join price m on c.id = m.comm_id and m.role_id = 9

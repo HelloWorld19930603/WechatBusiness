@@ -49,7 +49,10 @@
     num, price, status, time,description
     )
     values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{commId,jdbcType=INTEGER}, #{addrId,jdbcType=INTEGER},
-    #{num,jdbcType=INTEGER}, #{price,jdbcType=REAL}, #{status,jdbcType=TINYINT}, #{time,jdbcType=TIMESTAMP},#{description}
+    #{num,jdbcType=INTEGER}, (SELECT price from price where role_id =
+    (SELECT role_id from user_role where user_id = #{userId} and serise =
+    (SELECT serise from commodity c where c.id = #{commId}))
+    and comm_id = #{commId}), #{status,jdbcType=TINYINT}, #{time,jdbcType=TIMESTAMP},#{description}
     )
   </insert>
     <insert id="insertSelective" parameterType="com.yilin.app.domain.Orders">
