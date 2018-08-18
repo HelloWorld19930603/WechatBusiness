@@ -18,9 +18,9 @@
         <!--sidebar nav start-->
         <ul class="nav nav-pills nav-stacked custom-nav">
             <li class="index"><a href="index.do"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
-            <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>Layouts</span></a>
+            <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>经销商</span></a>
                 <ul class="sub-menu-list">
-                    <li ><a href="/index.do"> Blank Page</a></li>
+                    <li class="dealer"><a href="/dealer.do"> 格丽缇经销商</a></li>
                     <li class="test"><a href="/table.do"> Boxed Page</a></li>
                     <li class="test2"><a href="/form.do"> Sidebar Collapsed</a></li>
                     <li><a href="horizontal_menu.html"> Horizontal Menu</a></li>

@@ -2,6 +2,9 @@ package com.yilin.app.service;
 
 import com.yilin.app.domain.User;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by cc on 2018/7/16.
  */
@@ -25,4 +28,8 @@ public interface IUserService {
     boolean checkLoginPwd(int userId, String loginPwd) throws Exception;
 
     boolean checkPayPwd(int userId, String payPwd) throws Exception;
+
+    List<Map<String, Object>> selectBySerise(byte serise, int start, int pageSize);
+
+    int selectNumBySerise(byte serise);
 }

@@ -250,7 +250,7 @@
         left join price m on c.id = m.comm_id and m.role_id = 9
         <if test="userId != null">
           left join price a on c.id = a.comm_id
-          and a.role_id = (SELECT role_id from user_role where user_id = #{userId} and serise = #{serise})
+          and a.role_id = (SELECT role_id from user_role where user_id = #{userId} and serise = c.serise)
         </if>
         where id = #{id,jdbcType=INTEGER}
     </select>

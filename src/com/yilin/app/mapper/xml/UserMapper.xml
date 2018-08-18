@@ -15,6 +15,14 @@
     <result column="head_img" jdbcType="VARCHAR" property="headImg" />
     <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
   </resultMap>
+    <resultMap id="PageMap" type="HashMap">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <id column="role_id" jdbcType="INTEGER" property="roleId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+        <result column="phone" jdbcType="INTEGER" property="phone" />
+        <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    </resultMap>
   <sql id="Base_Column_List">
     id, name, login_name, login_pwd, pay_pwd, sex, sup_id, phone, wx_num, id_num, head_img,
     login_time
@@ -164,10 +172,25 @@
   </update>
 
   <select id="selectForLogin"  resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+  from user
+  where login_name = #{loginName}
+  and login_pwd = #{loginPwd}
+</select>
+
+  <select id="selectBySerise"  resultMap="PageMap">
     select
-    <include refid="Base_Column_List" />
+    id,name,login_name,phone,login_time,role_id
     from user
-    where login_name = #{loginName}
-    and login_pwd = #{loginPwd}
+    inner join user_role on serise = #{serise} and id = user_id
+    limit #{start},#{pageSize}
   </select>
+
+    <select id="selectNumBySerise"  resultType="int">
+        select
+        count(*)
+        from user
+        inner join user_role on serise = #{serise} and id = user_id
+    </select>
 </mapper>

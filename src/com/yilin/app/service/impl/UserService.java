@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cc on 2018/7/16.
@@ -87,5 +90,21 @@ public class UserService implements IUserService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Map<String, Object>> selectBySerise(byte serise, int start, int pageSize) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("serise",serise);
+        map.put("start",(start-1)*pageSize);
+        map.put("pageSize",pageSize);
+        return userMapper.selectBySerise(map);
+    }
+
+    @Override
+    public int selectNumBySerise(byte serise) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("serise",serise);
+        return userMapper.selectNumBySerise(map);
     }
 }

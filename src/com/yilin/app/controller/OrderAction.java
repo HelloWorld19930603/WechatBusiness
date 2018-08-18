@@ -102,9 +102,9 @@ public class OrderAction {
      * @param orders
      * @return
      */
-    @RequestMapping("createOne")
+    @RequestMapping("createOrders")
     @ResponseBody
-    public ResultJson createOne(@RequestBody Map<String,Object> orders) {
+    public ResultJson createOrders(@RequestBody Map<String,Object> orders) {
         ResultJson result;
         try {
             Integer userId = Permission.getUserId((String)orders.get("token"));

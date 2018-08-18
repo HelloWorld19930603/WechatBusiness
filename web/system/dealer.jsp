@@ -31,15 +31,14 @@
 
 </style>
 <script>
-    // 博文类型
     const TYPE_MAP = {
-        '1': 'HTML/CSS',
-        '2': 'nodeJS',
-        '3': 'javaScript',
-        '4': '前端鸡汤',
-        '5': 'PM Coffee',
-        '6': '前端框架',
-        '7': '前端相关'
+        '1': '股东',
+        '2': '联创',
+        '3': '执行董事',
+        '4': '官方',
+        '5': '总代理',
+        '6': '一级代理',
+        '7': '二级代理'
     };
 
 </script>
@@ -59,14 +58,12 @@
 
         <!-- page heading start-->
         <div class="page-heading">
-            <h3>
-                Dashboard
-            </h3>
+
             <ul class="breadcrumb">
                 <li>
-                    <a href="#">Dashboard</a>
+                    <a href="#">经销商</a>
                 </li>
-                <li class="active"> My Dashboard</li>
+                <li class="active"> 格丽缇经销商</li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -74,21 +71,19 @@
         <!--body wrapper start-->
         <div class="wrapper">
 
-            <section class="search-area">
+            <section class="search-area panel">
+                <input type="hidden" name="serise" value="1">
                 <div class="sa-ele">
-                    <label class="se-title">标题:</label>
+                    <label class="se-title">经销商名称:</label>
                     <input class="se-con" name="title"/>
                 </div>
                 <div class="sa-ele">
-                    <label class="se-title">博文分类:</label>
-                    <select class="se-con" name="type">
-                        <option value="-1">请选择</option>
-                        <!--通过js增加-->
-                    </select>
+                    <label class="se-title">手机号:</label>
+                    <input class="se-con" name="phone"/>
                 </div>
                 <div class="sa-ele">
-                    <label class="se-title">内容:</label>
-                    <input class="se-con" name="content"/>
+                    <label class="se-title">授权码:</label>
+                    <input class="se-con" name="code"/>
                 </div>
                 <div class="sa-ele">
                     <button class="search-action">搜索</button>
@@ -143,69 +138,25 @@
             ,height: '100%'
             ,supportAjaxPage:true
             ,supportSorting: true
+            ,supportCheckbox: false
             ,isCombSorting: false
             ,disableCache: false
+            ,checkbox:false
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
             ,ajax_data: function () {
-                return 'http://www.lovejavascript.com/blogManager/getBlogList';
+                return '/getUsers.do';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
             ,ajax_type: 'POST'
             ,supportMenu: true
 
-            // 选择事件执行前事件
-            ,checkedBefore: function(checkedList){
-                console.log('checkedBefore==', checkedList);
-            }
-
-            // 选择事件执行后事件
-            ,checkedAfter: function(checkedList){
-                console.log('checkedAfter==', checkedList);
-            }
-
-            // 全选事件执行前事件
-            ,checkedAllBefore: function(checkedList){
-                console.log('checkedAllBefore==', checkedList);
-            }
-
-            // 全选事件执行后事件
-            ,checkedAllAfter: function(checkedList){
-                console.log('checkedAllAfter==', checkedList);
-            }
-
-            // AJAX请求前事件函数
-            ,ajax_beforeSend: function(promise){
-                console.log('ajax_beforeSend');
-            }
-            // AJAX成功事件函数
-            ,ajax_success: function(response){
-                console.log('ajax_success');
-            }
 
             // AJAX失败事件函数
             ,ajax_error: function(error){
                 console.log('ajax_error');
             }
-
-            // AJAX结束事件函数
-            ,ajax_complete: function(complete){
-                console.log('ajax_complete');
-            }
-
-            // ,emptyTemplate: '<div class="void-template">通过 emptyTemplate 配置的空数据提示</div>'
-            // 配置 request header, 非xhr自带的头信息将会触发非简单请求, 需要在后端进行对应的配置
-            // 参考链接: http://www.lovejavascript.com/#!zone/blog/content.html?id=53
-//				,ajax_headers: {
-//					'header-test': 'this is test request header'
-//					'Content-Type': 'application/json'
-//				}
-            // 配置xhr, 如: withCredentials -> 跨域情况使用cookie等证书. 需要在后端进行对应的配置
-            // 参考链接: http://www.lovejavascript.com/#!zone/blog/content.html?id=59
-            //		,ajax_xhrFields: {
-            //			withCredentials: true
-            //		}
-            ,query: {test2: 222}
+            ,query: {serise: 1}
             ,dataKey: 'list'  // 注意: 这里是用来测试responseHandler 是否生效; 数据本身返回为data, 而在这里我把数据名模拟为list, 再通过responseHandler去更改
             ,pageSize:10
 
@@ -227,95 +178,57 @@
             }
             ,columnData: [
                 {
-                    key: 'pic',
+                    key: 'loginName',
                     remind: 'the pic',
-                    width: '110px',
+                    width: '130px',
                     align: 'center',
-                    text: '缩略图',
+                    text: '经销商账号',
                     // 使用函数返回 dom node
-                    template: function(pic, rowObject) {
-                        var picNode = document.createElement('a');
-                        picNode.setAttribute('href', `http://www.lovejavascript.com/#!zone/blog/content.html?id=`+rowObject.id);
-                        picNode.setAttribute('title', rowObject.title);
-                        picNode.setAttribute('target', '_blank');
-                        picNode.title = `点击阅读[${rowObject.title}]`;
-                        picNode.style.display = 'block';
-                        picNode.style.height = '68.5px';
+                    template: function(loginName, rowObject) {
 
-                        var imgNode = document.createElement('img');
-                        imgNode.style.width = '100px';
-                        imgNode.style.padding = '5px';
-                        imgNode.style.margin = '0 auto';
-                        imgNode.alt = rowObject.title;
-                        imgNode.src = `http://www.lovejavascript.com/`+rowObject.pic;
-
-                        picNode.appendChild(imgNode);
-                        return picNode;
+                        return loginName;
                     }
                 },{
-                    key: 'title',
+                    key: 'name',
                     remind: 'the title',
-                    align: 'left',
-                    text: '标题',
+                    align: 'center',
+                    width: '120px',
+                    text: '经销商名称',
                     sorting: '',
                     // 使用函数返回 dom node
-                    template: function(title, rowObject) {
-                        var titleNode = document.createElement('a');
-                        titleNode.setAttribute('href', `http://www.lovejavascript.com/#!zone/blog/content.html?id=`+rowObject.id);
-                        titleNode.setAttribute('title', title);
-                        titleNode.setAttribute('target', '_blank');
-                        titleNode.innerText = title;
-                        titleNode.title = `点击阅读[${rowObject.title}]`;
-                        titleNode.classList.add('plugin-action');
-                        return titleNode;
+                    template: function(name, rowObject) {
+
+                        return name;
                     }
                 },{
-                    key: 'type',
+                    key: 'roleId',
                     remind: 'the type',
-                    text: '博文分类',
+                    text: '级别',
                     width: '100px',
                     align: 'center',
-                    template: function(type, rowObject){
-                        return TYPE_MAP[type];
+                    template: function(roleId, rowObject){
+                        return TYPE_MAP[roleId];
                     }
                 },{
-                    key: 'info',
+                    key: 'phone',
                     remind: 'the info',
-                    text: '简介',
+                    text: '手机号',
                     isShow: false
                 },{
-                    key: 'username',
-                    remind: 'the username',
-                    align: 'center',
-                    width: '100px',
-                    text: '作者',
-                    template: function(username){
-                        return `<a class="plugin-action" href="https://github.com/baukh789" target="_blank" title="去看看${username}的github">${username}</a>`;
-                    }
-                },{
-                    key: 'createDate',
+                    key: 'loginTime',
                     remind: 'the createDate',
-                    width: '130px',
-                    text: '创建时间',
+                    width: '100px',
+                    align: 'center',
+                    text: '最近登录时间',
                     sorting: 'DESC',
                     // 使用函数返回 htmlString
-                    template: function(createDate, rowObject){
-                        return new Date(createDate).toLocaleDateString();
-                    }
-                },{
-                    key: 'lastDate',
-                    remind: 'the lastDate',
-                    width: '130px',
-                    text: '最后修改时间',
-                    sorting: '',
-                    // 使用函数返回 htmlString
-                    template: function(lastDate, rowObject){
-                        return new Date(lastDate).toLocaleDateString();
+                    template: function(loginTime, rowObject){
+                        return new Date(loginTime).toLocaleString();
                     }
                 },{
                     key: 'action',
                     remind: 'the action',
-                    width: '100px',
+                    width: '110px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString
@@ -341,19 +254,9 @@
     }
 
     /**
-     * 渲染博文类型
+     * 渲染用户级别
      */
-    (function () {
-        // 渲染下拉框
-        var typeSelect = document.querySelector('.search-area select[name="type"]');
 
-        for(var key in TYPE_MAP){
-            var option = document.createElement('option');
-            option.value = key;
-            option.innerText = TYPE_MAP[key];
-            typeSelect.appendChild(option);
-        }
-    })();
 
     /**
      * 提供demo中的搜索, 重置
@@ -363,9 +266,9 @@
         // 绑定搜索事件
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
-                title: document.querySelector('[name="title"]').value,
-                type: document.querySelector('[name="type"]').value,
-                content: document.querySelector('[name="content"]').value,
+                title: document.querySelector('[name="name"]').value,
+                type: document.querySelector('[name="phone"]').value,
+                content: document.querySelector('[name="code"]').value,
                 index: 1
             };
             table.GM('setQuery', _query, function(){
@@ -375,9 +278,9 @@
 
         // 绑定重置
         document.querySelector('.reset-action').addEventListener('click', function () {
-            document.querySelector('[name="title"]').value = '';
-            document.querySelector('[name="type"]').value = '-1';
-            document.querySelector('[name="content"]').value = '';
+            document.querySelector('[name="name"]').value = '';
+            document.querySelector('[name="phone"]').value = '';
+            document.querySelector('[name="code"]').value = '';
         });
     })();
 
