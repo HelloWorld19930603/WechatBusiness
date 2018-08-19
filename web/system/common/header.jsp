@@ -15,7 +15,7 @@
             <li>
                 <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     <img src="<%=path%>/images/photos/user-avatar.png" alt="" />
-                    John Doe
+                    管理员
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
@@ -32,7 +32,7 @@
         <div class="media logged-user">
             <img alt="" src="<%=path%>/images/photos/user-avatar.png" class="media-object">
             <div class="media-body">
-                <h4><a href="#">John Doe</a></h4>
+                <h4><a href="#">管理员</a></h4>
                 <span>"Hello There..."</span>
             </div>
         </div>

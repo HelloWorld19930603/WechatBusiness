@@ -5,16 +5,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Created by cc on 2018/8/7.
+ * Created by cc on 2018/8/19.
  */
 @Controller
-public class PosterController {
+public class CommodityController {
 
-
-    @RequestMapping("poster")
+    @RequestMapping("commodity")
     public String dealer1(Model model){
-        model.addAttribute("active","poster");
+        model.addAttribute("active","commodity");
 
-        return "poster";
+        return "commodity";
     }
 }

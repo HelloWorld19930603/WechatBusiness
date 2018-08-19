@@ -20,11 +20,25 @@ public class DealerController {
     @Autowired
     IUserService userService;
 
-    @RequestMapping("dealer")
-    public String index(Model model){
-        model.addAttribute("active","dealer");
+    @RequestMapping("dealer1")
+    public String dealer1(Model model){
+        model.addAttribute("active","dealer1");
 
-        return "dealer";
+        return "dealer1";
+    }
+
+    @RequestMapping("dealer2")
+    public String dealer2(Model model){
+        model.addAttribute("active","dealer2");
+
+        return "dealer2";
+    }
+
+    @RequestMapping("dealer3")
+    public String dealer3(Model model){
+        model.addAttribute("active","dealer3");
+
+        return "dealer3";
     }
 
     @RequestMapping("getUsers")

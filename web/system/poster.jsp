@@ -32,13 +32,13 @@
 </style>
 <script>
     const TYPE_MAP = {
-        '1': '股东',
-        '2': '联创',
-        '3': '执行董事',
-        '4': '官方',
-        '5': '总代理',
-        '6': '一级代理',
-        '7': '二级代理'
+        '1': '轮播'
+
+    };
+
+    const PAGE_MAP = {
+        '1': '首页'
+
     };
 
 </script>
@@ -63,7 +63,7 @@
                 <li>
                     <a href="#">经销商</a>
                 </li>
-                <li class="active"> 格丽缇经销商</li>
+                <li class="active"> 格丽缇</li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -74,20 +74,28 @@
             <section class="search-area panel">
                 <input type="hidden" name="serise" value="1">
                 <div class="sa-ele">
-                    <label class="se-title">经销商名称:</label>
-                    <input class="se-con" name="title"/>
+                    <label class="se-title">所在页面:</label>
+                    <select class="se-con" name="page">
+                        <option value="-1">请选择</option>
+                        <!--通过js增加-->
+                    </select>
                 </div>
                 <div class="sa-ele">
-                    <label class="se-title">手机号:</label>
-                    <input class="se-con" name="phone"/>
+                    <label class="se-title">展示类型:</label>
+                    <select class="se-con" name="type">
+                        <option value="-1">请选择</option>
+                        <!--通过js增加-->
+                    </select>
                 </div>
-                <div class="sa-ele">
-                    <label class="se-title">授权码:</label>
-                    <input class="se-con" name="code"/>
-                </div>
+
                 <div class="sa-ele">
                     <button class="search-action">搜索</button>
                     <button class="reset-action">重置</button>
+                </div>
+                <div class="btn-group" style="float:right;">
+                    <button id="editable-sample_new" class="btn btn-primary" style="font-size: 12px;padding: 4px 10px;">
+                        Add New <i class="fa fa-plus"></i>
+                    </button>
                 </div>
             </section>
 
@@ -182,7 +190,7 @@
                     remind: 'the pic',
                     width: '130px',
                     align: 'center',
-                    text: '经销商账号',
+                    text: '广告名称',
                     // 使用函数返回 dom node
                     template: function(loginName, rowObject) {
 
@@ -193,7 +201,7 @@
                     remind: 'the title',
                     align: 'center',
                     width: '120px',
-                    text: '经销商名称',
+                    text: '所在页面',
                     sorting: '',
                     // 使用函数返回 dom node
                     template: function(name, rowObject) {
@@ -203,7 +211,7 @@
                 },{
                     key: 'roleId',
                     remind: 'the type',
-                    text: '级别',
+                    text: '展示类型',
                     width: '100px',
                     align: 'center',
                     template: function(roleId, rowObject){
@@ -212,14 +220,25 @@
                 },{
                     key: 'phone',
                     remind: 'the info',
-                    text: '手机号',
+                    text: '广告尺寸',
                     isShow: false
+                },{
+                    key: 'status',
+                    remind: 'the createDate',
+                    width: '100px',
+                    align: 'center',
+                    text: '状态',
+                    sorting: 'DESC',
+                    // 使用函数返回 htmlString
+                    template: function(status, rowObject){
+                        return status;
+                    }
                 },{
                     key: 'loginTime',
                     remind: 'the createDate',
                     width: '100px',
                     align: 'center',
-                    text: '最近登录时间',
+                    text: '更新时间',
                     sorting: 'DESC',
                     // 使用函数返回 htmlString
                     template: function(loginTime, rowObject){
@@ -254,9 +273,28 @@
     }
 
     /**
-     * 渲染用户级别
+     * 渲染下拉框
      */
+    (function () {
+        // 渲染下拉框
+        var typeSelect1 = document.querySelector('.search-area select[name="page"]');
 
+        for(var key in TYPE_MAP){
+            var option = document.createElement('option');
+            option.value = key;
+            option.innerText = PAGE_MAP[key];
+            typeSelect1.appendChild(option);
+        }
+
+        var typeSelect2 = document.querySelector('.search-area select[name="type"]');
+
+        for(var key in TYPE_MAP){
+            var option = document.createElement('option');
+            option.value = key;
+            option.innerText = TYPE_MAP[key];
+            typeSelect2.appendChild(option);
+        }
+    })();
 
     /**
      * 提供demo中的搜索, 重置
@@ -266,9 +304,10 @@
         // 绑定搜索事件
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
-                title: document.querySelector('[name="name"]').value,
-                type: document.querySelector('[name="phone"]').value,
-                content: document.querySelector('[name="code"]').value,
+                name: document.querySelector('[name="name"]').value,
+                phone: document.querySelector('[name="phone"]').value,
+                code: document.querySelector('[name="code"]').value,
+                serise: document.querySelector('[name="serise"]').value,
                 index: 1
             };
             table.GM('setQuery', _query, function(){
