@@ -11,9 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CommodityController {
 
     @RequestMapping("commodity")
-    public String dealer1(Model model){
+    public String commodity(Model model){
         model.addAttribute("active","commodity");
 
         return "commodity";
+    }
+
+    @RequestMapping("addCommodity")
+    public String addCommodity(Model model){
+        model.addAttribute("active","addCommodity");
+
+        return "addCommodity";
     }
 }

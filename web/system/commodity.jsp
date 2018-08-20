@@ -288,6 +288,10 @@
             document.querySelector('[name="phone"]').value = '';
             document.querySelector('[name="code"]').value = '';
         });
+
+        $("#editable-sample_new").click(function () {
+            window.location.href = "/addCommodity.do";
+        })
     })();
 
     (function(){

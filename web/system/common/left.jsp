@@ -33,7 +33,7 @@
             <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>商品</span></a>
                 <ul class="sub-menu-list">
                     <li class="commodity"><a href="/commodity.do"> 商品管理</a></li>
-                    <li><a href="gallery.html"> 添加商品</a></li>
+                    <li class="addCommodity"><a href="/addCommodity.do"> 添加商品</a></li>
 
                 </ul>
             </li>

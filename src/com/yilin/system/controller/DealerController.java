@@ -1,5 +1,6 @@
 package com.yilin.system.controller;
 
+import com.yilin.app.domain.User;
 import com.yilin.app.service.IUserService;
 import com.yilin.system.common.SystemPage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,14 @@ public class DealerController {
         model.addAttribute("active","dealer3");
 
         return "dealer3";
+    }
+
+    @RequestMapping("addDealer")
+    public String addDealer(Model model,int serise){
+        model.addAttribute("active","dealer"+serise);
+        model.addAttribute("serise",serise);
+
+        return "addDealer";
     }
 
     @RequestMapping("getUsers")
