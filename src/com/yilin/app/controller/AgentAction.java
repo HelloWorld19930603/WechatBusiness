@@ -86,4 +86,19 @@ public class AgentAction {
         }
         return result;
     }
+
+    @RequestMapping("invitingAgent")
+    @ResponseBody
+    public ResultJson invitingAgent(String token) {
+        ResultJson result;
+        try {
+            Integer userId = Permission.getUserId(token);
+            String url = "http://www.twrzu.cn/invitingAgent.do?inviting="+userId;
+            result = new ResultJson(true, "成功",url);
+        } catch (Exception e) {
+            result = new ResultJson(false, "失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

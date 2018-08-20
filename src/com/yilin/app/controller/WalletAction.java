@@ -1,6 +1,7 @@
 package com.yilin.app.controller;
 
 import com.yilin.app.common.Page;
+import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
 import com.yilin.app.domain.User;
 import com.yilin.app.service.IWalletService;
@@ -27,9 +28,10 @@ public class WalletAction {
 
     @RequestMapping("payment")
     @ResponseBody
-    public ResultJson payment(User user){
+    public ResultJson payment(User user,String token){
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
             result = new ResultJson(true,"支付成功");
         } catch (Exception e) {
             result = new ResultJson(false,"支付失败");
@@ -40,15 +42,16 @@ public class WalletAction {
 
     /**
      *查询某系列账户余额
-     * @param userId
+     * @param token
      * @param serise
      * @return
      */
     @RequestMapping("findMoney")
     @ResponseBody
-    public ResultJson findMoney(int userId,byte serise){
+    public ResultJson findMoney(String token,byte serise){
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
             float money = walletService.getMoney(userId,serise);
             result = new ResultJson(true,"查询成功",money);
         } catch (Exception e) {
@@ -60,7 +63,7 @@ public class WalletAction {
 
     /**
      * 钱包充值
-     * @param userId
+     * @param token
      * @param serise
      * @param money
      * @param voucher
@@ -68,11 +71,12 @@ public class WalletAction {
      */
     @RequestMapping("addMoney")
     @ResponseBody
-    public ResultJson addMoney(int userId, int serise, float money, @RequestParam MultipartFile voucher,
+    public ResultJson addMoney(String token, int serise, float money, @RequestParam MultipartFile voucher,
                                HttpServletRequest req){
         ResultJson result;
         try {
-            PhotoUtil.photoUpload(voucher,"/voucher/"+userId,req);
+            Integer userId = Permission.getUserId(token);
+            PhotoUtil.photoUpload(voucher,"/voucher/",userId.toString(),req);
             result = new ResultJson(true,"充值成功");
         } catch (Exception e) {
             result = new ResultJson(false,"充值失败");
@@ -83,16 +87,17 @@ public class WalletAction {
 
     /**
      * 获取返利
-     * @param userId
+     * @param token
      * @param start
      * @param pageSize
      * @return
      */
     @RequestMapping("findRebate")
     @ResponseBody
-    public ResultJson findRebate(int userId,int start,int pageSize){
+    public ResultJson findRebate(String token,int start,int pageSize){
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
             Page page = walletService.getRebate(userId,start,pageSize);
             result = new ResultJson(true,"查询成功",page);
         } catch (Exception e) {
@@ -104,9 +109,10 @@ public class WalletAction {
 
     @RequestMapping("findRecharge")
     @ResponseBody
-    public ResultJson findRecharge(int userId,byte serise,int start,int pageSize){
+    public ResultJson findRecharge(String token,byte serise,int start,int pageSize){
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
             Page page = walletService.findRechargePage(userId,serise,start,pageSize);
             result = new ResultJson(true,"查询成功",page);
         } catch (Exception e) {

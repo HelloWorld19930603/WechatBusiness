@@ -99,5 +99,19 @@ public class HomeAction {
         }
         return result;
     }
+
+    @RequestMapping("isLogin")
+    @ResponseBody
+    public ResultJson isLogin(String token) {
+        ResultJson result;
+        try {
+            boolean isLogin = Permission.getUserInfo(token)==null?false:true;
+            result = new ResultJson(true, "查询成功",isLogin);
+        } catch (Exception e) {
+            result = new ResultJson(false, "查询失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
 

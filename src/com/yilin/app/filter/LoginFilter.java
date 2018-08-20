@@ -38,7 +38,7 @@ public class LoginFilter implements Filter {
                 token = request.getParameter("token");
             }
             if (token == null) {
-                result = new ResultJson(false, "token不能为空！");
+                result = new ResultJson(false, "token不能为空！",1);
                 String jsonString = JSONObject.toJSONString(result);
                 response.setContentType("application/json; charset=utf-8");
                 response.getWriter().print(jsonString);
@@ -46,7 +46,7 @@ public class LoginFilter implements Filter {
             } else {
 
                 if (!Permission.checkToken(token)) {
-                    result = new ResultJson(false, "token校验失败！");
+                    result = new ResultJson(false, "token校验失败！",1);
                     String jsonString = JSONObject.toJSONString(result);
                     response.setContentType("application/json; charset=utf-8");
                     response.getWriter().print(jsonString);

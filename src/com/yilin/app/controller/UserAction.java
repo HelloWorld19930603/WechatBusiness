@@ -132,7 +132,7 @@ public class UserAction {
         ResultJson result;
         try {
             Integer userId = Permission.getUserId(token);
-            String haedUrl = PhotoUtil.photoUpload(headImg, "/head/" + userId, req);
+            String haedUrl = PhotoUtil.photoUpload(headImg, "images/home/head/" ,userId.toString(), req);
             userService.updateHead(userId, haedUrl);
             result = new ResultJson(true, "上传成功");
         } catch (FileException e) {
@@ -144,4 +144,7 @@ public class UserAction {
         }
         return result;
     }
+
+
+
 }
