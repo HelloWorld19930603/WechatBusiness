@@ -104,11 +104,12 @@ public class HomeAction {
     @ResponseBody
     public ResultJson isLogin(String token) {
         ResultJson result;
+        boolean isLogin = false;
         try {
-            boolean isLogin = Permission.getUserInfo(token)==null?false:true;
+            isLogin = Permission.getUserInfo(token)==null?false:true;
             result = new ResultJson(true, "查询成功",isLogin);
         } catch (Exception e) {
-            result = new ResultJson(false, "查询失败");
+            result = new ResultJson(false, "查询失败",isLogin);
             e.printStackTrace();
         }
         return result;

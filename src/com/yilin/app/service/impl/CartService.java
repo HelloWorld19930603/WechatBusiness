@@ -29,7 +29,7 @@ public class CartService implements ICartService {
         map.put("userId", userId);
         map.put("start", (start - 1) * pageSize);
         map.put("pageSize", pageSize);
-        List list = cartMapper.selectPage(map);
+        List list = cartMapper.selectList(map);
         Page page = new Page(pageSize, start, list.size(), list);
         return page;
     }

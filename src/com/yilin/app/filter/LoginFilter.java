@@ -32,11 +32,19 @@ public class LoginFilter implements Filter {
         ResultJson result;
         String url = request.getRequestURI();
         Integer level = Configuration.urls.get(url);
+        String token = (String) request.getSession().getAttribute("token");
+        if (token == null) {
+            token = request.getParameter("token");
+        }
+        if(token != null && Permission.getUserInfo(token) == null){
+            result = new ResultJson(false, "token无效",1);
+            String jsonString = JSONObject.toJSONString(result);
+            response.setContentType("application/json; charset=utf-8");
+            response.getWriter().print(jsonString);
+            return;
+        }
         if (level != null) {
-            String token = (String) request.getSession().getAttribute("token");
-            if (token == null) {
-                token = request.getParameter("token");
-            }
+
             if (token == null) {
                 result = new ResultJson(false, "token不能为空！",1);
                 String jsonString = JSONObject.toJSONString(result);

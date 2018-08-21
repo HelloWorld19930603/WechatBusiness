@@ -14,6 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cc on 2018/7/18.
@@ -61,6 +64,27 @@ public class WalletAction {
         return result;
     }
 
+    @RequestMapping("findAllMoney")
+    @ResponseBody
+    public ResultJson findAllMoney(String token){
+        ResultJson result;
+        try {
+            Integer userId = Permission.getUserId(token);
+            float money1 = walletService.getMoney(userId,(byte)1);
+            float money2 = walletService.getMoney(userId,(byte)2);
+            float money3 = walletService.getMoney(userId,(byte)3);
+            Map<String,Float> map = new HashMap<>();
+            map.put("1",money1);
+            map.put("2",money2);
+            map.put("3",money3);
+            result = new ResultJson(true,"查询成功",map);
+        } catch (Exception e) {
+            result = new ResultJson(false,"查询失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     /**
      * 钱包充值
      * @param token
@@ -88,18 +112,16 @@ public class WalletAction {
     /**
      * 获取返利
      * @param token
-     * @param start
-     * @param pageSize
      * @return
      */
     @RequestMapping("findRebate")
     @ResponseBody
-    public ResultJson findRebate(String token,int start,int pageSize){
+    public ResultJson findRebate(String token,Byte serise){
         ResultJson result;
         try {
             Integer userId = Permission.getUserId(token);
-            Page page = walletService.getRebate(userId,start,pageSize);
-            result = new ResultJson(true,"查询成功",page);
+            List<Map<String,Object>>  list = walletService.getRebate(userId,serise);
+            result = new ResultJson(true,"查询成功",list);
         } catch (Exception e) {
             result = new ResultJson(false,"查询失败");
             e.printStackTrace();

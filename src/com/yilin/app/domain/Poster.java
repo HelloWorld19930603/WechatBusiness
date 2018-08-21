@@ -17,7 +17,7 @@ public class Poster {
 
     private Date time;
 
-    private String contant;
+    private String content;
 
     public Integer getId() {
         return id;
@@ -75,11 +75,11 @@ public class Poster {
         this.time = time;
     }
 
-    public String getContant() {
-        return contant;
+    public String getcontent() {
+        return content;
     }
 
-    public void setContant(String contant) {
-        this.contant = contant == null ? null : contant.trim();
+    public void setcontent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 }

@@ -8,6 +8,13 @@
         <result column="money" jdbcType="REAL" property="money"/>
         <result column="time" jdbcType="TIMESTAMP" property="time"/>
     </resultMap>
+    <resultMap id="PageMap" type="HashMap">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="serise" jdbcType="TINYINT" property="serise"/>
+        <result column="money" jdbcType="REAL" property="money"/>
+        <result column="month" jdbcType="INTEGER" property="month"/>
+    </resultMap>
     <sql id="Base_Column_List">
     id, user_id, serise, money, time
   </sql>
@@ -91,11 +98,15 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-    <select id="selectPage" parameterType="map" resultType="com.yilin.app.domain.Rebate">
+    <select id="selectList" parameterType="map" resultMap="PageMap">
         SELECT
-        <include refid="Base_Column_List"/>
+         user_id, serise, sum(money) money, MONTH (time) month
         from rebate
         where user_id = #{userId}
-        limit #{start},#{pageSize}
+        <if test="serise != null">
+            and serise = #{serise}
+        </if>
+        GROUP by user_id,serise,month
+        order by month desc
     </select>
 </mapper>

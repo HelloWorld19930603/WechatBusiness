@@ -17,7 +17,7 @@ public class ReadExcel2 {
 
 
     public static void main(String[] args) {
-        String fileName = "f:/信息统计模版(湖州市)汇总(生态办).xls";
+        String fileName = "f:/信息统计模版(湖州市)汇总1.xls";
         //String fileName = "f:/1.xls";
         domain(fileName);
     }
@@ -29,9 +29,12 @@ public class ReadExcel2 {
         File file = new File(fileName);
         List<List<List>> excelAllList = obj.readExcel(file);
         for (int n = 0; n < excelAllList.size(); n++) {
+
+            enterpriseinfo(excelAllList.get(n), n);
+           // nyzt(excelAllList.get(n), n);
            // commodity(excelAllList.get(n), n);
             //lsgnq(excelAllList.get(n), n);
-            nysfq(excelAllList.get(n),n);
+           // nysfq(excelAllList.get(n),n);
            // enterpriseinfo(excelAllList.get(n), n);
 /*            huahui(excelAllList.get(n),n);
             shiyongjun(excelAllList.get(n),n);
@@ -80,6 +83,7 @@ public class ReadExcel2 {
 
                 sql.append("where sfqmc = '").append(l.get(0)).append("'");
                 SqlUtils.getInstance().update(sql.toString());
+                System.out.println(sql);
             }
         }
     }
@@ -179,33 +183,66 @@ public class ReadExcel2 {
 
 
     static void enterpriseinfo(List<List> excelList, int n) {
-        if (n == 12 || n == 13) {
+        if (n == 0 || n == 1) {
         }else {
             return;
         }
+
         for (int i = 1; i < excelList.size(); i++) {
-            StringBuilder sql = new StringBuilder("insert into  enterprise_info(en_name,en_contact,en_contact_num,en_address,status,subject_type,unite_credit_code,business_scope) values(  ");
             List l = excelList.get(i);
+            String str = "select count(*) num from enterprise_info where en_name = '%s'";
+            str = String.format(str, l.get(1).toString().trim());
+            JSONArray jsonArray = SqlUtils.getInstance().search(str);
+            int num = (int) jsonArray.getJSONObject(0).get("num");
+            if (num == 0) {
+                if (l.size() == 0 || l.get(0) == null || l.get(0).equals("")) {
+                    continue;
+                }
+                StringBuilder sql = new StringBuilder("insert into  enterprise_info(en_name,en_contact,en_contact_num,en_lon,en_lat,en_address,status,subject_type,unite_credit_code,business_scope) values(  ");
+
+                sql.append("'").append(l.get(1)).append("'").append(",");
+                sql.append("'").append(l.get(3)).append("'").append(",");
+                sql.append("'").append(l.get(4)).append("'").append(",");
+                sql.append("'").append(l.get(5)).append("'").append(",");
+                sql.append("'").append(l.get(6)).append("'").append(",");
+                sql.append("'").append(l.get(9)).append("'").append(",");
+                sql.append(1).append(",");
+                if (n == 0) {
+                    sql.append("'").append(199002).append("'").append(",");
+                } else if (n == 1) {
+                    sql.append("'").append(199003).append("'").append(",");
+                }
+                sql.append("'").append(l.get(12)).append("'").append(",");
+                sql.append("'").append(l.get(13)).append("'");
+
+                sql.append(")");
+                SqlUtils.getInstance().update(sql.toString());
+                System.out.println(sql);
+        }else{
             if (l.size() == 0 || l.get(0) == null || l.get(0).equals("")) {
                 continue;
             }
-            sql.append("'").append(l.get(1)).append("'").append(",");
-            sql.append("'").append(l.get(3)).append("'").append(",");
-            sql.append("'").append(l.get(4)).append("'").append(",");
-            sql.append("'").append(l.get(9)).append("'").append(",");
-            sql.append(1).append(",");
-            if(n == 12) {
-                sql.append("'").append(199002).append("'").append(",");
-            }
-            else if(n==13) {
-                sql.append("'").append(199003).append("'").append(",");
-            }
-            sql.append("'").append(l.get(12)).append("'").append(",");
-            sql.append("'").append(l.get(13)).append("'");
+            StringBuilder sql = new StringBuilder("update enterprise_info set  ");
 
-            sql.append(")");
+            sql.append("en_name='").append(l.get(1)).append("'").append(",");
+            sql.append("en_contact='").append(l.get(3)).append("'").append(",");
+            sql.append("en_contact_num='").append(l.get(4)).append("'").append(",");
+            sql.append("en_lon='").append(l.get(5)).append("'").append(",");
+            sql.append("en_lat='").append(l.get(6)).append("'").append(",");
+            sql.append("en_address='").append(l.get(9)).append("'").append(",");
+            sql.append("status=").append(1).append(",");
+            if (n == 12) {
+                sql.append("subject_type='").append(199002).append("'").append(",");
+            } else if (n == 13) {
+                sql.append("subject_type='").append(199003).append("'").append(",");
+            }
+            sql.append("unite_credit_code='").append(l.get(12)).append("'").append(",");
+            sql.append("business_scope='").append(l.get(13)).append("'");
+
+            sql.append(" where en_name='").append(l.get(1)).append("'");
             SqlUtils.getInstance().update(sql.toString());
             System.out.println(sql);
+        }
         }
     }
 

@@ -1,14 +1,13 @@
 package com.yilin.app.service.impl;
 
 import com.yilin.app.common.Page;
-import com.yilin.app.domain.Rebate;
 import com.yilin.app.domain.Recharge;
+import com.yilin.app.exception.AccountException;
 import com.yilin.app.mapper.PaymentMapper;
 import com.yilin.app.mapper.RebateMapper;
 import com.yilin.app.mapper.RechargeMapper;
 import com.yilin.app.mapper.WalletMapper;
 import com.yilin.app.service.IWalletService;
-import com.yilin.app.exception.AccountException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -87,12 +86,11 @@ public class WalletService implements IWalletService {
     }
 
     @Override
-    public Page getRebate(int userId, int start, int pageSize) throws Exception {
+    public List<Map<String, Object>> getRebate(int userId,Byte serise) throws Exception {
         Map<String, Object> map = new HashMap<>();
-        map.put("start", (start - 1) * pageSize);
         map.put("userId", userId);
-        map.put("pageSize", pageSize);
-        List<Rebate> list = rebateMapper.selectPage(map);
-        return new Page(pageSize, start, list.size(), list);
+        map.put("serise", serise);
+        List<Map<String,Object>> list = rebateMapper.selectList(map);
+        return list;
     }
 }
