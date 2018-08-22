@@ -23,5 +23,7 @@ public interface IWalletService {
 
     float getMoney(int userId, byte serise) throws Exception;
 
+    List<Map<String, Object>> getAllMoney(int userId, byte serise) throws Exception;
+
     List<Map<String, Object>> getRebate(int userId,Byte serise) throws Exception;
 }

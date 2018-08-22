@@ -37,7 +37,7 @@
     };
 
     const PAGE_MAP = {
-        '1': '首页'
+        '首页': '首页'
 
     };
 
@@ -76,7 +76,7 @@
                 <div class="sa-ele">
                     <label class="se-title">所在页面:</label>
                     <select class="se-con" name="page">
-                        <option value="-1">请选择</option>
+                        <option value="">请选择</option>
                         <!--通过js增加-->
                     </select>
                 </div>

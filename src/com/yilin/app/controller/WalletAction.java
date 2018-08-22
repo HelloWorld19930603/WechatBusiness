@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,14 +69,7 @@ public class WalletAction {
         ResultJson result;
         try {
             Integer userId = Permission.getUserId(token);
-            float money1 = walletService.getMoney(userId,(byte)1);
-            float money2 = walletService.getMoney(userId,(byte)2);
-            float money3 = walletService.getMoney(userId,(byte)3);
-            Map<String,Float> map = new HashMap<>();
-            map.put("1",money1);
-            map.put("2",money2);
-            map.put("3",money3);
-            result = new ResultJson(true,"查询成功",map);
+            result = new ResultJson(true,"查询成功",walletService.getAllMoney(userId,(byte)1));
         } catch (Exception e) {
             result = new ResultJson(false,"查询失败");
             e.printStackTrace();
@@ -100,7 +92,7 @@ public class WalletAction {
         ResultJson result;
         try {
             Integer userId = Permission.getUserId(token);
-            PhotoUtil.photoUpload(voucher,"/voucher/",userId.toString(),req);
+            PhotoUtil.photoUpload(voucher,"/voucher/",userId.toString(),req.getSession().getServletContext().getRealPath("/"));
             result = new ResultJson(true,"充值成功");
         } catch (Exception e) {
             result = new ResultJson(false,"充值失败");

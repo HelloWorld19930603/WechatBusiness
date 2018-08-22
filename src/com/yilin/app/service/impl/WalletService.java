@@ -80,9 +80,17 @@ public class WalletService implements IWalletService {
         Map<String, Object> map = new HashMap<>();
         map.put("serise", serise);
         map.put("userId", userId);
-        Float money = walletMapper.getMoney(map);
+        Float money = walletMapper.takeMoney(map);
 
         return money == null ? 0 : money;
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllMoney(int userId, byte serise) throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put("serise", serise);
+        map.put("userId", userId);
+        return walletMapper.selectList(map);
     }
 
     @Override
