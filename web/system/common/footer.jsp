@@ -2,6 +2,3 @@
 <footer>
     Copyright © 2018  Admin by CC
 </footer>
-<script type="text/javascript">
-
-</script>

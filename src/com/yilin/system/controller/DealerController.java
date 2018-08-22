@@ -50,6 +50,20 @@ public class DealerController {
         return "addDealer";
     }
 
+    @RequestMapping("addOne")
+    @ResponseBody
+    public Object addOne(Model model,int serise,User user){
+        model.addAttribute("active","dealer"+serise);
+        model.addAttribute("serise",serise);
+        try {
+            userService.register(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
     @RequestMapping("getUsers")
     @ResponseBody
     public Object getUsers(byte serise,int start,int pageSize){

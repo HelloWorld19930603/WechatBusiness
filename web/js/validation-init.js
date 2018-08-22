@@ -1,8 +1,6 @@
 var Script = function () {
 
-    $.validator.setDefaults({
-        submitHandler: function() { alert("submitted!"); }
-    });
+
 
     $().ready(function() {
         // validate the comment form when it is submitted
@@ -44,13 +42,13 @@ var Script = function () {
                     minlength: "Your username must consist of at least 2 characters"
                 },
                 password: {
-                    required: "Please provide a password",
-                    minlength: "Your password must be at least 5 characters long"
+                    required: "请输入密码",
+                    minlength: "您的密码长度必须大于5"
                 },
                 confirm_password: {
-                    required: "Please provide a password",
-                    minlength: "Your password must be at least 5 characters long",
-                    equalTo: "Please enter the same password as above"
+                    required: "请输入密码",
+                    minlength: "您的密码长度必须大于5",
+                    equalTo: "请输入相同密码"
                 },
                 email: "Please enter a valid email address",
                 agree: "Please accept our policy"

@@ -183,6 +183,18 @@
             }
             ,columnData: [
                 {
+                    key: 'id',
+                    remind: 'the id',
+                    width: '100px',
+                    align: 'center',
+                    text: '授权码',
+                    // 使用函数返回 dom node
+                    template: function(id, rowObject) {
+
+                        return id;
+                    }
+                },
+                {
                     key: 'loginName',
                     remind: 'the pic',
                     width: '130px',

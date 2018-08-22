@@ -96,9 +96,7 @@
         <!--body wrapper end-->
 
         <!--footer section start-->
-        <footer>
-            2014 &copy; AdminEx by ThemeBucket
-        </footer>
+        <%@include file="common/footer.jsp" %>
         <!--footer section end-->
 
 

@@ -55,52 +55,56 @@
                 <div class="col-lg-12">
                     <section class="panel">
                         <header class="panel-heading">
-                            Advanced Form validations
+                            经销商表单
                         </header>
                         <div class="panel-body">
-                            <div class="form">
-                                <form class="cmxform form-horizontal adminex-form" id="signupForm" method="get" action="">
+                            <div class="form" >
+                                <form class="cmxform form-horizontal adminex-form" id="signupForm" >
+                                    <input type = "hidden" name="serise" value = "${serise}">
                                     <div class="form-group ">
-                                        <label for="firstname" class="control-label col-lg-3">Firstname</label>
+                                        <label for="name" class="control-label col-lg-3">经销商名字</label>
                                         <div class="col-lg-5">
-                                            <input class=" form-control" id="firstname" name="firstname" type="text" />
+                                            <input class=" form-control" id="name" name="name" type="text" />
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="lastname" class="control-label col-lg-3">Lastname</label>
+                                        <label for="loginName" class="control-label col-lg-3">账号</label>
                                         <div class="col-lg-5">
-                                            <input class=" form-control" id="lastname" name="lastname" type="text" />
+                                            <input class=" form-control" id="loginName" name="loginName" type="text" />
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="username" class="control-label col-lg-3">Username</label>
+                                        <label for="roleId" class="control-label col-lg-3">级别</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="username" name="username" type="text" />
+                                        <select class="form-control m-bot15" name="roleId" id="roleId">
+                                            <option value="9">请选择</option>
+                                            <!--通过js增加-->
+                                        </select>
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="password" class="control-label col-lg-3">Password</label>
+                                        <label for="phone" class="control-label col-lg-3">手机号</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="password" name="password" type="password" />
+                                            <input class="form-control " id="phone" name="phone" type="text" />
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="confirm_password" class="control-label col-lg-3">Confirm Password</label>
+                                        <label for="password" class="control-label col-lg-3">密码</label>
+                                        <div class="col-lg-5">
+                                            <input class="form-control " id="password" name="loginPwd" type="password" />
+                                        </div>
+                                    </div>
+<%--                                    <div class="form-group ">
+                                        <label for="confirm_password" class="control-label col-lg-3">确认密码</label>
                                         <div class="col-lg-5">
                                             <input class="form-control " id="confirm_password" name="confirm_password" type="password" />
                                         </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="email" class="control-label col-lg-3">Email</label>
-                                        <div class="col-lg-5">
-                                            <input class="form-control " id="email" name="email" type="email" />
-                                        </div>
-                                    </div>
+                                    </div>--%>
 
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-10">
-                                            <button class="btn btn-primary" type="submit">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <button class="btn btn-default" type="button">Cancel</button>
+                                            <button class="btn btn-primary" type="button" id="submit">提交</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <button class="btn btn-default" type="button">返回</button>
                                         </div>
                                     </div>
                                 </form>
@@ -113,9 +117,7 @@
         <!--body wrapper end-->
 
         <!--footer section start-->
-        <footer>
-            2014 &copy; AdminEx by ThemeBucket
-        </footer>
+        <%@include file="common/footer.jsp" %>
         <!--footer section end-->
 
 
@@ -132,7 +134,7 @@
 <script src="js/jquery.nicescroll.js"></script>
 
 <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-<script src="js/validation-init.js"></script>
+<script src="/js/validation-init.js"></script>
 
 <!--common scripts for all pages-->
 <script src="js/scripts.js"></script>
@@ -142,4 +144,50 @@
 <script type="text/javascript">
     $(".${active}").addClass("active");
     $(".${active}").parents("li").addClass("nav-active");
+
+    const TYPE_MAP = {
+        '1': '股东',
+        '2': '联创',
+        '3': '执行董事',
+        '4': '官方',
+        '5': '总代理',
+        '6': '一级代理',
+        '7': '二级代理',
+        '9': '普通用户'
+    };
+
+    (function () {
+        // 渲染下拉框
+        var typeSelect = document.querySelector('select[name="roleId"]');
+
+        for(var key in TYPE_MAP){
+            var option = document.createElement('option');
+            option.value = key;
+            option.innerText = TYPE_MAP[key];
+            typeSelect.appendChild(option);
+        }
+
+        $("#submit").click(function(){
+            var serise = document.querySelector('[name="serise"]').value;
+            var name = document.querySelector('[name="name"]').value;
+            var roleId = document.querySelector('select[name="roleId"]').value;
+            var phone = document.querySelector('[name="phone"]').value;
+            var loginName = document.querySelector('[name="loginName"]').value;
+            var loginPwd = document.querySelector('[name="loginPwd"]').value;
+            alert(serise);
+
+            $.ajax({
+                url: "http://localhost:8080/addOne.do",
+                type: "post",
+                data: "serise="+serise+"&loginPwd="+loginPwd+"&name="+name+"&loginName="+loginName,
+                success: function (data) {
+                    alert(data);
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+    })();
 </script>
