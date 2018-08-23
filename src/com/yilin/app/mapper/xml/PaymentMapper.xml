@@ -28,7 +28,7 @@
       money, discount, type, time
       )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, 
-      #{money,jdbcType=REAL}, #{discount,jdbcType=REAL}, #{type,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}
+      (SELECT sum(price*num) from order_comm where order_id = #{orderId}, #{discount,jdbcType=REAL}, #{type,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.yilin.app.domain.Payment">

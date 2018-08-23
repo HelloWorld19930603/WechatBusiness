@@ -13,6 +13,10 @@ public class Recharge {
 
     private Date time;
 
+    private Byte status;
+
+    private String url;
+
     public Integer getId() {
         return id;
     }
@@ -51,5 +55,21 @@ public class Recharge {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url == null ? null : url.trim();
     }
 }

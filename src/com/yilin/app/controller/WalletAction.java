@@ -3,9 +3,11 @@ package com.yilin.app.controller;
 import com.yilin.app.common.Page;
 import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
-import com.yilin.app.domain.User;
+import com.yilin.app.domain.Recharge;
+import com.yilin.app.service.IOrderService;
 import com.yilin.app.service.IWalletService;
 import com.yilin.app.utils.PhotoUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -26,14 +29,17 @@ public class WalletAction {
 
     @Resource
     IWalletService walletService;
+    @Autowired
+    IOrderService orderService;
 
 
     @RequestMapping("payment")
     @ResponseBody
-    public ResultJson payment(User user,String token){
+    public ResultJson payment(String token,String orderId){
         ResultJson result;
         try {
             Integer userId = Permission.getUserId(token);
+            orderService.updateStatus(orderId,userId,1,null);
             result = new ResultJson(true,"支付成功");
         } catch (Exception e) {
             result = new ResultJson(false,"支付失败");
@@ -87,15 +93,23 @@ public class WalletAction {
      */
     @RequestMapping("addMoney")
     @ResponseBody
-    public ResultJson addMoney(String token, int serise, float money, @RequestParam MultipartFile voucher,
+    public ResultJson addMoney(String token, byte serise, float money, @RequestParam MultipartFile voucher,
                                HttpServletRequest req){
         ResultJson result;
         try {
             Integer userId = Permission.getUserId(token);
-            PhotoUtil.photoUpload(voucher,"/voucher/",userId.toString(),req.getSession().getServletContext().getRealPath("/"));
-            result = new ResultJson(true,"充值成功");
+            String url = PhotoUtil.photoUpload(voucher,"images/voucher/",userId.toString()+System.currentTimeMillis(),req.getSession().getServletContext().getRealPath("/"));
+            Recharge recharge = new Recharge();
+            recharge.setMoney(money);
+            recharge.setUserId(userId);
+            recharge.setTime(new Date());
+            recharge.setSerise(serise);
+            recharge.setUrl(url);
+            recharge.setStatus((byte)1);
+            walletService.addRecharge(recharge);
+            result = new ResultJson(true,"提交充值凭证成功");
         } catch (Exception e) {
-            result = new ResultJson(false,"充值失败");
+            result = new ResultJson(false,"提交充值凭证失败");
             e.printStackTrace();
         }
         return result;

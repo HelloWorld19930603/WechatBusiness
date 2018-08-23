@@ -3,7 +3,6 @@ package com.yilin.app.controller;
 import com.yilin.app.common.Page;
 import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
-import com.yilin.app.common.UserInfo;
 import com.yilin.app.domain.Cart;
 import com.yilin.app.service.ICartService;
 import org.springframework.stereotype.Controller;
@@ -39,9 +38,11 @@ public class CartAction {
 
     @RequestMapping("addOne")
     @ResponseBody
-    public ResultJson addOne(Cart cart){
+    public ResultJson addOne(Cart cart,String token){
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
+            cart.setUserId(userId);
             cartService.addCart(cart);
             result = new ResultJson(true,"添加成功");
         } catch (Exception e) {

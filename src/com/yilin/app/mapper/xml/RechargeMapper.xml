@@ -7,12 +7,14 @@
     <result column="serise" jdbcType="TINYINT" property="serise" />
     <result column="money" jdbcType="REAL" property="money" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_id, serise, money, time
+    id, user_id, serise, money, time, status, url
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from recharge
     where id = #{id,jdbcType=INTEGER}
@@ -22,10 +24,12 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yilin.app.domain.Recharge">
-    insert into recharge (id, user_id, serise, 
-      money, time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{serise,jdbcType=TINYINT}, 
-      #{money,jdbcType=REAL}, #{time,jdbcType=TIMESTAMP})
+    insert into recharge (id, user_id, serise,
+    money, time, status,
+    url)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{serise,jdbcType=TINYINT},
+    #{money,jdbcType=REAL}, #{time,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT},
+    #{url,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yilin.app.domain.Recharge">
     insert into recharge
@@ -45,6 +49,12 @@
       <if test="time != null">
         time,
       </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -61,6 +71,12 @@
       </if>
       <if test="time != null">
         #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -79,6 +95,12 @@
       <if test="time != null">
         time = #{time,jdbcType=TIMESTAMP},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -87,7 +109,9 @@
     set user_id = #{userId,jdbcType=INTEGER},
       serise = #{serise,jdbcType=TINYINT},
       money = #{money,jdbcType=REAL},
-      time = #{time,jdbcType=TIMESTAMP}
+      time = #{time,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      url = #{url,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

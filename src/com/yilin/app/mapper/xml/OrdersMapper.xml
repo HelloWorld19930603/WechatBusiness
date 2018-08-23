@@ -168,10 +168,13 @@
 
     <update id="updateStatus" parameterType="map">
     update orders set status= #{status} where user_id = #{userId} and id = #{id}
+    <if test="oldStatus != null">
+        where status = #{oldStatus}
+    </if>
   </update>
 
     <delete id="deleteById" parameterType="map">
-    delete from orders  where user_id = #{userId} and id = #{id}
+    delete from orders  where user_id = #{userId} and id = #{id} and status in (1,4,7)
   </delete>
 
     <select id="selectById" parameterType="java.lang.String" resultMap="PageMap">

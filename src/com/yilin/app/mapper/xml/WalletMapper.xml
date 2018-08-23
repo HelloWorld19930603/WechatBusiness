@@ -95,14 +95,20 @@
     <update id="takeMoney" parameterType="map">
         update wallet
         set
-        money = money - #{money,jdbcType=REAL}
-        where user_id = #{userId} and serise = #{serise} and money >= #{money}
+        money = money - (SELECT sum(price*num) from order_comm where order_id = #{orderId})
+        where user_id = #{userId} and serise = (SELECT DISTINCT serise from order_comm where order_id = #{orderId})
+        and (SELECT status from orders where id = #{orderId}) = 1
     </update>
 
     <select id="getMoney" parameterType="map" resultType="float">
         select money from wallet where user_id = #{userId} and serise = #{serise}
     </select>
 
+    <select id="getMoney2" parameterType="map" resultType="float">
+        select money from wallet where user_id = #{userId}
+        and serise = (SELECT DISTINCT serise from order_comm where order_id = #{orderId})
+        and money >= (SELECT sum(price*num) from order_comm where order_id = #{orderId})
+    </select>
 
     <select id="selectList" parameterType="map" resultMap="PageMap">
     select money,w.serise,role_id from wallet w

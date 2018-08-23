@@ -80,7 +80,7 @@ public class WalletService implements IWalletService {
         Map<String, Object> map = new HashMap<>();
         map.put("serise", serise);
         map.put("userId", userId);
-        Float money = walletMapper.takeMoney(map);
+        Float money = walletMapper.getMoney(map);
 
         return money == null ? 0 : money;
     }

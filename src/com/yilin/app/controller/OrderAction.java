@@ -104,8 +104,8 @@ public class OrderAction {
         ResultJson result;
         try {
             Integer userId = Permission.getUserId((String)orders.get("token"));
-            orderService.createOrder(userId,orders);
-            result = new ResultJson(true, "创建成功");
+            String orderId = orderService.createOrder(userId,orders);
+            result = new ResultJson(true, "创建成功",orderId);
         } catch (Exception e) {
             e.printStackTrace();
             result = new ResultJson(false, "创建失败");
@@ -117,23 +117,19 @@ public class OrderAction {
      * 支付订单
      *
      * @param orderId
-     * @param serise
      * @param token
      * @param type
-     * @param money
      * @param payPwd
      * @return
      */
     @RequestMapping("payOrder")
     @ResponseBody
-    public ResultJson payOrder(String orderId, byte serise, String token, String type, float money, String payPwd) {
+    public ResultJson payOrder(String orderId, String token, String type, String payPwd) {
         ResultJson result;
         try {
             Integer userId = Permission.getUserId(token);
             if (userService.checkPayPwd(userId, payPwd)) {
-                walletService.takeMoney(serise, userId, money);
-                orderService.payOrder(orderId, userId, money, type);
-                orderService.updateStatus(orderId, userId, 2);
+                orderService.payOrder(orderId, userId,  type);
                 result = new ResultJson(true, "支付成功", orderId);
             } else {
                 result = new ResultJson(false, "支付密码错误", orderId);
@@ -155,10 +151,10 @@ public class OrderAction {
         try {
             Integer userId = Permission.getUserId(token);
             orderService.removeOrder(orderId, userId);
-            result = new ResultJson(true, "取消订单成功");
+            result = new ResultJson(true, "删除订单成功");
         } catch (Exception e) {
             e.printStackTrace();
-            result = new ResultJson(false, "取消订单失败");
+            result = new ResultJson(false, "删除订单失败");
         }
         return result;
     }

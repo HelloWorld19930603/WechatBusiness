@@ -11,6 +11,7 @@ public interface WalletMapper extends IBaseMapper<Wallet> {
 
     Float getMoney(Map<String, Object> map);
 
+    Float getMoney2(Map<String, Object> map);
 
-    Float takeMoney(Map<String, Object> map);
+    void takeMoney(Map<String, Object> map);
 }
