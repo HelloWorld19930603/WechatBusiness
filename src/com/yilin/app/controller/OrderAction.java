@@ -3,8 +3,6 @@ package com.yilin.app.controller;
 import com.yilin.app.common.Page;
 import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
-import com.yilin.app.domain.Commodity;
-import com.yilin.app.domain.Orders;
 import com.yilin.app.exception.AccountException;
 import com.yilin.app.service.ICommodityService;
 import com.yilin.app.service.IOrderService;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,9 +38,10 @@ public class OrderAction {
 
     @RequestMapping("findPage")
     @ResponseBody
-    public ResultJson findPage(Integer userId, int start, int pageSize, Byte status) {
+    public ResultJson findPage(String token, int start, int pageSize, Byte status) {
         ResultJson result;
         try {
+            Integer userId = Permission.getUserId(token);
             if (userId != null) {
                 Page page = orderService.selectPage(userId, start, pageSize, status);
                 result = new ResultJson(true, "查询成功", page);
@@ -60,11 +60,9 @@ public class OrderAction {
     public ResultJson findOne(String orderId) {
         ResultJson result;
         try {
-            Orders order = orderService.findOrder(orderId);
-            Commodity commodity = commodityService.selectById(order.getCommId(), order.getUserId());
+            Map<String,Object> order = orderService.findOrder(orderId);
             Map<String, Object> map = new HashMap<>();
             map.put("order", order);
-            map.put("commodity", commodity);
             result = new ResultJson(true, "查询成功", map);
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,18 +75,16 @@ public class OrderAction {
     /**
      * 获取特定状态下订单数量
      *
-     * @param userId
-     * @param status
      * @return
      */
     @RequestMapping("findCount")
     @ResponseBody
-    public ResultJson findCount(int userId, Integer status) {
+    public ResultJson findCount(String token) {
         ResultJson result;
         try {
-
-            int num = orderService.getCount(userId, status);
-            result = new ResultJson(true, "查询成功", num);
+            Integer userId = Permission.getUserId(token);
+            List<Map<String,Integer>> numList = orderService.getAllCount(userId);
+            result = new ResultJson(true, "查询成功", numList);
         } catch (Exception e) {
             e.printStackTrace();
             result = new ResultJson(false, "查询失败");

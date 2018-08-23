@@ -29,5 +29,6 @@
         <mapper resource="com/yilin/app/mapper/xml/PosterMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/ExpressMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/LogisticsMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/OrderCommMapper.xml"/>
     </mappers>
 </configuration>

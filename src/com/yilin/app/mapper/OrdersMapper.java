@@ -13,7 +13,9 @@ public interface OrdersMapper extends IBaseMapper<Orders>{
 
     void deleteById(Map<String, Object> map) throws Exception;
 
-    Orders selectById(String id) throws Exception;
+    Map<String,Object> selectById(String id) throws Exception;
 
     List<Map<String,Object>> selectList(Map<String, Object> map) throws Exception;
+
+    List<Map<String,Integer>> countAll(Map<String, Object> map);
 }

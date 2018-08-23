@@ -2,15 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yilin.app.mapper.OrdersMapper">
     <resultMap id="BaseResultMap" type="com.yilin.app.domain.Orders">
-        <id column="id" jdbcType="VARCHAR" property="id"/>
-        <result column="user_id" jdbcType="INTEGER" property="userId"/>
-        <result column="comm_id" jdbcType="INTEGER" property="commId"/>
-        <result column="addr_id" jdbcType="INTEGER" property="addrId"/>
-        <result column="num" jdbcType="INTEGER" property="num"/>
-        <result column="price" jdbcType="REAL" property="price"/>
-        <result column="status" jdbcType="TINYINT" property="status"/>
-        <result column="time" jdbcType="TIMESTAMP" property="time"/>
-        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="addr_id" jdbcType="INTEGER" property="addrId" />
+        <result column="status" jdbcType="TINYINT" property="status" />
+        <result column="time" jdbcType="TIMESTAMP" property="time" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
     </resultMap>
     <resultMap id="PageMap" type="HashMap">
         <id column="id" jdbcType="VARCHAR" property="id"/>
@@ -31,47 +28,42 @@
         <result column="com" jdbcType="VARCHAR" property="com"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
     </resultMap>
+    <resultMap id="CountMap" type="HashMap">
+        <result column="countNum" jdbcType="INTEGER" property="countNum"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+    </resultMap>
     <sql id="Base_Column_List">
-    id, user_id, comm_id,addr_id, num, price, status, time,description
-  </sql>
+        id, user_id, addr_id, status, time, description
+    </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from orders
         where id = #{id,jdbcType=VARCHAR}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from orders
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
+        delete from orders
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
     <insert id="insert" parameterType="com.yilin.app.domain.Orders">
-    insert into orders (id,user_id, comm_id,addr_id,
-    num, price, status, time,description
-    )
-    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{commId,jdbcType=INTEGER}, #{addrId,jdbcType=INTEGER},
-    #{num,jdbcType=INTEGER}, (SELECT price from price where role_id =
-    (SELECT role_id from user_role where user_id = #{userId} and serise =
-    (SELECT serise from commodity c where c.id = #{commId}))
-    and comm_id = #{commId}), #{status,jdbcType=TINYINT}, #{time,jdbcType=TIMESTAMP},#{description}
-    )
-  </insert>
+        insert into orders (id, user_id, addr_id,
+        status, time, description
+        )
+        values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{addrId,jdbcType=INTEGER},
+        #{status,jdbcType=TINYINT}, #{time,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
+        )
+    </insert>
     <insert id="insertSelective" parameterType="com.yilin.app.domain.Orders">
         insert into orders
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
             <if test="userId != null">
                 user_id,
             </if>
-            <if test="commId != null">
-                comm_id,
-            </if>
             <if test="addrId != null">
                 addr_id,
-            </if>
-            <if test="num != null">
-                num,
-            </if>
-            <if test="price != null">
-                price,
             </if>
             <if test="status != null">
                 status,
@@ -79,25 +71,19 @@
             <if test="time != null">
                 time,
             </if>
-            <if test="time != null">
+            <if test="description != null">
                 description,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
             <if test="userId != null">
                 #{userId,jdbcType=INTEGER},
             </if>
-            <if test="commId != null">
-                #{commId,jdbcType=INTEGER},
-            </if>
             <if test="addrId != null">
-                #{addr_id,jdbcType=INTEGER},
-            </if>
-            <if test="num != null">
-                #{num,jdbcType=INTEGER},
-            </if>
-            <if test="price != null">
-                #{price,jdbcType=REAL},
+                #{addrId,jdbcType=INTEGER},
             </if>
             <if test="status != null">
                 #{status,jdbcType=TINYINT},
@@ -106,7 +92,7 @@
                 #{time,jdbcType=TIMESTAMP},
             </if>
             <if test="description != null">
-                 #{description,jdbcType=TIMESTAMP},
+                #{description,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -116,17 +102,8 @@
             <if test="userId != null">
                 user_id = #{userId,jdbcType=INTEGER},
             </if>
-            <if test="commId != null">
-                comm_id = #{commId,jdbcType=INTEGER},
-            </if>
             <if test="addrId != null">
-                #{addr_id,jdbcType=INTEGER},
-            </if>
-            <if test="num != null">
-                num = #{num,jdbcType=INTEGER},
-            </if>
-            <if test="price != null">
-                price = #{price,jdbcType=REAL},
+                addr_id = #{addrId,jdbcType=INTEGER},
             </if>
             <if test="status != null">
                 status = #{status,jdbcType=TINYINT},
@@ -135,7 +112,7 @@
                 time = #{time,jdbcType=TIMESTAMP},
             </if>
             <if test="description != null">
-                description = #{description,jdbcType=TIMESTAMP},
+                description = #{description,jdbcType=VARCHAR},
             </if>
         </set>
         where id = #{id,jdbcType=VARCHAR}
@@ -143,23 +120,19 @@
     <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.Orders">
     update orders
     set user_id = #{userId,jdbcType=INTEGER},
-      comm_id = #{commId,jdbcType=INTEGER},
       addr_id = #{addrId,jdbcType=INTEGER},
-      num = #{num,jdbcType=INTEGER},
-      price = #{price,jdbcType=REAL},
       status = #{status,jdbcType=TINYINT},
       time = #{time,jdbcType=TIMESTAMP},
-      description=#{description}
+      description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 
     <select id="selectList" parameterType="map" resultMap="PageMap">
         select
-        o.id, o.user_id, comm_id,addr_id, num, price,o.status, time,description
-        ,c.name comm_name,c.serise,a.name addr_name,
+        o.id, o.user_id, addr_id,o.status, time,description
+        ,a.name addr_name,
         a.phone,a.ssq,a.addr,l.id no,l.com
         from orders o
-        LEFT join commodity c on o.comm_id = c.id
         LEFT join address a on o.addr_id = a.id
         left join logistics l on l.order_id = o.id
         where  o.user_id = #{userId}
@@ -182,6 +155,17 @@
         </if>
     </select>
 
+    <select id="countAll" parameterType="map" resultMap="CountMap">
+        select
+        count(*) countNum,status
+        from orders
+        where 1=1
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        GROUP by status
+    </select>
+
     <update id="updateStatus" parameterType="map">
     update orders set status= #{status} where user_id = #{userId} and id = #{id}
   </update>
@@ -190,10 +174,16 @@
     delete from orders  where user_id = #{userId} and id = #{id}
   </delete>
 
-    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="selectById" parameterType="java.lang.String" resultMap="PageMap">
         select
-        <include refid="Base_Column_List"/>
-        from orders
+        o.id, o.user_id, comm_id,addr_id, num, price,o.status, time,description
+        ,c.name comm_name,c.serise,a.name addr_name,
+        a.phone,a.ssq,a.addr,l.id no,l.com
+        from orders o
+        left join order_comm oc on o.id = oc.order_id
+        LEFT join commodity c on o.comm_id = c.id
+        LEFT join address a on o.addr_id = a.id
+        left join logistics l on l.order_id = o.id
         where id = #{id,jdbcType=VARCHAR}
     </select>
 </mapper>

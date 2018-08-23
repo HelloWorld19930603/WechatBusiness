@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yilin.app.mapper.OrderCommMapper">
+  <resultMap id="BaseResultMap" type="com.yilin.app.domain.OrderComm">
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="comm_id" jdbcType="INTEGER" property="commId" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="serise" jdbcType="TINYINT" property="serise" />
+  </resultMap>
+  <resultMap id="PageMap" type="HashMap">
+    <result column="comm_id" jdbcType="INTEGER" property="commId" />
+    <result column="name" jdbcType="VARCHAR" property="commName" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="serise" jdbcType="TINYINT" property="serise" />
+  </resultMap>
+  <insert id="insert" parameterType="com.yilin.app.domain.OrderComm">
+    insert into order_comm (order_id, comm_id, num, 
+      price, serise)
+    values (#{orderId,jdbcType=VARCHAR}, #{commId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, 
+      #{price,jdbcType=REAL}, #{serise,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilin.app.domain.OrderComm">
+    insert into order_comm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="commId != null">
+        comm_id,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="serise != null">
+        serise,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="commId != null">
+        #{commId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="serise != null">
+        #{serise,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectList" parameterType="map" resultMap="PageMap">
+      SELECT comm_id,name,num,price,oc.serise
+      from order_comm oc
+      LEFT JOIN commodity c on c.id = comm_id
+      where order_id = #{orderId}
+  </select>
+</mapper>

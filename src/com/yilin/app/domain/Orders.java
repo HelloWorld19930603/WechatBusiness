@@ -7,13 +7,7 @@ public class Orders {
 
     private Integer userId;
 
-    private Integer commId;
-
     private Integer addrId;
-
-    private Integer num;
-
-    private Float price;
 
     private Byte status;
 
@@ -37,28 +31,12 @@ public class Orders {
         this.userId = userId;
     }
 
-    public Integer getCommId() {
-        return commId;
+    public Integer getAddrId() {
+        return addrId;
     }
 
-    public void setCommId(Integer commId) {
-        this.commId = commId;
-    }
-
-    public Integer getNum() {
-        return num;
-    }
-
-    public void setNum(Integer num) {
-        this.num = num;
-    }
-
-    public Float getPrice() {
-        return price;
-    }
-
-    public void setPrice(Float price) {
-        this.price = price;
+    public void setAddrId(Integer addrId) {
+        this.addrId = addrId;
     }
 
     public Byte getStatus() {
@@ -77,19 +55,11 @@ public class Orders {
         this.time = time;
     }
 
-    public Integer getAddrId() {
-        return addrId;
-    }
-
-    public void setAddrId(Integer addrId) {
-        this.addrId = addrId;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description == null ? null : description.trim();
     }
 }

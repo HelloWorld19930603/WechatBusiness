@@ -1,8 +1,10 @@
 package com.yilin.app.service.impl;
 
 import com.yilin.app.common.Page;
+import com.yilin.app.domain.OrderComm;
 import com.yilin.app.domain.Orders;
 import com.yilin.app.domain.Payment;
+import com.yilin.app.mapper.OrderCommMapper;
 import com.yilin.app.mapper.OrdersMapper;
 import com.yilin.app.mapper.PaymentMapper;
 import com.yilin.app.service.IOrderService;
@@ -27,6 +29,8 @@ public class OrderService implements IOrderService {
     OrdersMapper ordersMapper;
     @Resource
     PaymentMapper paymentMapper;
+    @Autowired
+    OrderCommMapper orderCommMapper;
 
     @Override
     public Page selectPage(Integer userId, int start, int pageSize, Byte status) throws Exception {
@@ -36,6 +40,11 @@ public class OrderService implements IOrderService {
         map.put("pageSize", pageSize);
         map.put("status", status);
         List<Map<String, Object>> list = ordersMapper.selectList(map);
+        for(Map<String, Object> orderMap : list ){
+            map.clear();
+            map.put("orderId",orderMap.get("id"));
+            orderMap.put("commList",orderCommMapper.selectList(map));
+        }
         Page page = new Page(pageSize, start, list.size(), list);
         return page;
     }
@@ -55,7 +64,7 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public Orders findOrder(String orderId) throws Exception {
+    public Map<String,Object> findOrder(String orderId) throws Exception {
         return ordersMapper.selectById(orderId);
     }
 
@@ -71,9 +80,11 @@ public class OrderService implements IOrderService {
         for(Map<String,Object> map : commIds){
             String orderId = OrderNumberBuilder.getOrderIdByUUId();
             order.setId(orderId);
-            order.setCommId((int)map.get("commId"));
-            order.setNum((int)map.get("num"));
+            OrderComm orderComm = new OrderComm();
+            orderComm.setCommId((int)map.get("commId"));
+            orderComm.setNum((int)map.get("num"));
             ordersMapper.insert(order);
+            orderCommMapper.insert(orderComm);
         }
     }
 
@@ -83,6 +94,13 @@ public class OrderService implements IOrderService {
         map.put("user_id", userId);
         map.put("status", status);
         return ordersMapper.count(map);
+    }
+
+    @Override
+    public List<Map<String,Integer>> getAllCount(Integer userId) throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put("user_id", userId);
+        return ordersMapper.countAll(map);
     }
 
     @Override

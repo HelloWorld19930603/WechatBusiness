@@ -1,9 +1,9 @@
 package com.yilin.app.service;
 
 import com.yilin.app.common.Page;
-import com.yilin.app.domain.Orders;
 import com.yilin.app.exception.AccountException;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,11 +15,13 @@ public interface IOrderService {
 
     void updateStatus(String id, int userId, int status) throws AccountException;
 
-    Orders findOrder(String id) throws Exception;
+    Map<String,Object> findOrder(String id) throws Exception;
 
     void createOrder(int userId,Map<String,Object> orders) throws Exception;
 
     int getCount(Integer userId, Integer status) throws Exception;
+
+    List<Map<String,Integer>> getAllCount(Integer userId) throws Exception;
 
     void payOrder(String id, int userId, float money, String type) throws AccountException;
 
