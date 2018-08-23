@@ -10,7 +10,7 @@ public interface ICartService {
 
     Page getCarts(int userId, int start, int pageSieze) throws Exception;
 
-    void addCart(Cart cart) throws Exception;
+    void addCart(int commId,int num,int userId) throws Exception;
 
     void deleteCart(int id, int userId) throws Exception;
 

@@ -35,12 +35,17 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public void addCart(Cart cart) throws Exception {
-        Cart dikCart = cartMapper.selectNum(cart);
+    public void addCart(int commId,int num,int userId) throws Exception {
+        Cart dikCart = cartMapper.selectNum(commId,userId);
         if (dikCart != null) {
-            dikCart.setNum(dikCart.getNum() + cart.getNum());
+            dikCart.setUserId(userId);
+            dikCart.setNum(dikCart.getNum() + num);
             cartMapper.updateNum(dikCart);
         } else {
+            Cart cart = new Cart();
+            cart.setCommId(commId);
+            cart.setNum(num);
+            cart.setUserId(userId);
             cart.setTime(new Date());
             cartMapper.insert(cart);
         }

@@ -98,7 +98,7 @@ public class WalletAction {
         ResultJson result;
         try {
             Integer userId = Permission.getUserId(token);
-            String url = PhotoUtil.photoUpload(voucher,"images/voucher/",userId.toString()+System.currentTimeMillis(),req.getSession().getServletContext().getRealPath("/"));
+            String url = PhotoUtil.photoUpload(voucher,"images/home/voucher/",userId.toString()+System.currentTimeMillis(),req.getSession().getServletContext().getRealPath("/"));
             Recharge recharge = new Recharge();
             recharge.setMoney(money);
             recharge.setUserId(userId);

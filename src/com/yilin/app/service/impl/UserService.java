@@ -25,6 +25,7 @@ public class UserService implements IUserService {
     public void register(User user) throws Exception {
         String pwd = MD5Util.encrypt(user.getLoginPwd());
         user.setLoginPwd(pwd);
+        user.setLoginTime(new Date());
         userMapper.insertSelective(user);
     }
 

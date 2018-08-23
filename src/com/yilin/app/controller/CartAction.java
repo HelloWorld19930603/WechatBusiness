@@ -38,12 +38,11 @@ public class CartAction {
 
     @RequestMapping("addOne")
     @ResponseBody
-    public ResultJson addOne(Cart cart,String token){
+    public ResultJson addOne(int commId,int num,String token){
         ResultJson result;
         try {
             Integer userId = Permission.getUserId(token);
-            cart.setUserId(userId);
-            cartService.addCart(cart);
+            cartService.addCart(commId,num,userId);
             result = new ResultJson(true,"添加成功");
         } catch (Exception e) {
             result = new ResultJson(false,"添加失败");
