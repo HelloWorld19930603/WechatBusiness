@@ -12,22 +12,56 @@ import java.util.Map;
  * Created by cc on 2018/8/23.
  */
 @Controller
+@RequestMapping("poster")
 public class PosterAction {
 
 
-    @RequestMapping
+    @RequestMapping("findBanner")
     @ResponseBody
     public ResultJson findBanner(){
-        ResultJson result = new ResultJson();
+        ResultJson result;
         String[] banner = new String[3];
         banner[0] = "/images/home/poster/banner-1.jpg";
         banner[1] = "/images/home/poster/banner-2.jpg";
         banner[2] = "/images/home/poster/banner-3.jpg";
         Map<String,Object> map = new HashedMap();
         map.put("1",banner);
-        map.put("2","/images/home/commodity/");
-        map.put("3","/images/home/commodity/");
+        map.put("2","/images/home/commodity/demo.png");
+        map.put("3","/images/home/commodity/demo.png");
         result = new ResultJson(true,"查询成功",map);
         return result;
     }
+
+    @RequestMapping("findPopularity")
+    @ResponseBody
+    public ResultJson findPopularity(){
+
+        ResultJson result = new ResultJson(true,"查询成功","/images/home/commodity/demo.png");
+        return result;
+    }
+
+    @RequestMapping("findStar")
+    @ResponseBody
+    public ResultJson findStar(){
+
+        ResultJson result = new ResultJson(true,"查询成功","/images/home/commodity/demo.png");
+        return result;
+    }
+
+    @RequestMapping("findLogistics")
+    @ResponseBody
+    public ResultJson findLogistics(){
+
+        ResultJson result = new ResultJson(true,"查询成功","/images/home/commodity/demo.png");
+        return result;
+    }
+
+    @RequestMapping("findReview")
+    @ResponseBody
+    public ResultJson findReview(){
+
+        ResultJson result = new ResultJson(true,"查询成功","/images/home/commodity/demo.png");
+        return result;
+    }
+
 }

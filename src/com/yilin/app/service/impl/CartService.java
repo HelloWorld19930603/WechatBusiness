@@ -52,7 +52,7 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public void deleteCart(int id, int userId) throws Exception {
+    public void deleteCart(String id, int userId) throws Exception {
         Map<String, Object> map = new HashedMap();
         map.put("id", id);
         map.put("userId", userId);

@@ -132,6 +132,6 @@
   </select>
 
   <delete id="deleteById" parameterType="map">
-    delete from cart where id = #{id} and user_id = #{userId}
+    delete from cart where id in (${id}) and user_id = #{userId}
   </delete>
 </mapper>

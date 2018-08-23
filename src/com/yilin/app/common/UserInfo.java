@@ -6,6 +6,7 @@ package com.yilin.app.common;
 public class UserInfo {
 
     private int id;
+    private String name;
     private String message_code;
     private long message_time;
 
@@ -31,5 +32,13 @@ public class UserInfo {
 
     public void setMessage_time(long message_time) {
         this.message_time = message_time;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -12,7 +12,7 @@ public interface ICartService {
 
     void addCart(int commId,int num,int userId) throws Exception;
 
-    void deleteCart(int id, int userId) throws Exception;
+    void deleteCart(String id, int userId) throws Exception;
 
     void updateCart(Cart cart) throws Exception;
 

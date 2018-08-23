@@ -67,7 +67,7 @@ public class CartAction {
 
     @RequestMapping("removeOne")
     @ResponseBody
-    public ResultJson removeOne(int cartId,String token){
+    public ResultJson removeOne(String cartId,String token){
         ResultJson result;
         try {
             Integer userId = Permission.getUserId(token);

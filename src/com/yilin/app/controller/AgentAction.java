@@ -2,13 +2,20 @@ package com.yilin.app.controller;
 
 import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
+import com.yilin.app.common.UserInfo;
 import com.yilin.app.domain.AgentUpgrade;
+import com.yilin.app.domain.UserRole;
 import com.yilin.app.service.IAgentService;
+import com.yilin.app.service.IRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cc on 2018/7/17.
@@ -19,6 +26,8 @@ public class AgentAction {
 
     @Resource
     IAgentService agentService;
+    @Autowired
+    IRoleService roleService;
 
     /**
      * 代理升级
@@ -69,19 +78,24 @@ public class AgentAction {
      * 查询订货价
      *
      * @param token
-     * @param start
-     * @param pageSize
+
      * @return
      */
     @RequestMapping("findPrice")
     @ResponseBody
-    public ResultJson findPrice(String token, int start, int pageSize) {
+    public ResultJson findPrice(String token) {
         ResultJson result;
         try {
             Integer userId = Permission.getUserId(token);
-            result = new ResultJson(true, "成功");
+            List<UserRole> list = roleService.selectRoles(userId);
+            Map<Integer,String> map = new HashMap<>();
+            String[] agent = {"glt","ut","ps"};
+            for(UserRole userRole : list){
+                map.put(userRole.getSerise(),"/images/home/agent/"+agent[userRole.getSerise()-1]+"/"+userRole.getRoleId()+".jpg");
+            }
+            result = new ResultJson(true, "查询订货价成功",map);
         } catch (Exception e) {
-            result = new ResultJson(false, "失败");
+            result = new ResultJson(false, "查询订货价失败");
             e.printStackTrace();
         }
         return result;
@@ -89,11 +103,12 @@ public class AgentAction {
 
     @RequestMapping("invitingAgent")
     @ResponseBody
-    public ResultJson invitingAgent(String token) {
+    public ResultJson invitingAgent(String token,String name,byte serise,int level) {
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
-            String url = "http://www.twrzu.cn/invitingAgent.do?inviting="+userId;
+            UserInfo userInfo = Permission.getUserInfo(token);
+            String url = "http://www.twrzu.cn/invitingAgent.do?inviting="+userInfo.getId()
+                    +"&invitationName="+userInfo.getName()+"&applyName="+name+"&serise="+serise+"&level="+level;
             result = new ResultJson(true, "成功",url);
         } catch (Exception e) {
             result = new ResultJson(false, "失败");

@@ -34,6 +34,7 @@ public class Permission {
     public static UserInfo createUserInfo(User user) {
         UserInfo userInfo = new UserInfo();
         userInfo.setId(user.getId());
+        userInfo.setName(user.getName());
         return userInfo;
     }
 

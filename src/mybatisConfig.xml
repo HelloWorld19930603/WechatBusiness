@@ -18,6 +18,7 @@
         <mapper resource="com/yilin/app/mapper/xml/RechargeMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/RoleMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/UserMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/UserRoleMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/OrdersMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/WalletMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/CartMapper.xml"/>
