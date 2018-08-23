@@ -45,3 +45,21 @@
         </ul>
     </div>
 </div>
+<script language="javascript">
+
+    function logout(){
+        $.messager.confirm('提示框', '确定退出系统？',function(event){
+            if(event){
+                window.location.href = "<c:url value='/jsp/login_ypt.jsp' />";
+            }
+        });
+    }
+
+    function modifyPassword(){
+        var user_id = $("#user_id").val();
+        var path = "<c:url value='/userInfo/toModifyPwd.action?user_id="+user_id+"' />";
+        var left1 = (screen.width-700)/2;
+        var top1 = (screen.height-400)/2;
+        window.open(path, "", "width=600, height=400, left=" + left1.toString() + ", top=" + top1.toString());
+    }
+</script>

@@ -53,10 +53,10 @@ public class OrderService implements IOrderService {
     public void updateStatus(String id, int userId, int status,Integer oldStatus) throws AccountException {
         try {
             Map<String, Object> map = new HashMap<>();
-            map.put("user_id", userId);
+            map.put("userId", userId);
             map.put("status", status);
             map.put("oldStatus", oldStatus);
-            map.put("id", id);
+            map.put("orderId", id);
             ordersMapper.updateStatus(map);
         } catch (Exception e) {
             e.printStackTrace();

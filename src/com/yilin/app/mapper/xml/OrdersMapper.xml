@@ -167,9 +167,9 @@
     </select>
 
     <update id="updateStatus" parameterType="map">
-    update orders set status= #{status} where user_id = #{userId} and id = #{id}
+    update orders set status= #{status} where user_id = #{userId} and id = #{orderId}
     <if test="oldStatus != null">
-        where status = #{oldStatus}
+        and status = #{oldStatus}
     </if>
   </update>
 
