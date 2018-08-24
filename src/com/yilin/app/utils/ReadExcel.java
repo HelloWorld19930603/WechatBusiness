@@ -105,12 +105,12 @@ public class ReadExcel {
             return;
         }
         for (int i = 17; i < 18; i++) {
-            for(int j = 1; j<8;j++) {
+            for (int j = 1; j < 8; j++) {
                 StringBuilder sql = new StringBuilder(" insert into price (comm_id,role_id, price) values(  ");
                 List l = excelList.get(i);
-                sql.append("").append(i-3).append("").append(",");
+                sql.append("").append(i - 3).append("").append(",");
                 sql.append("").append(j).append("").append(",");
-                sql.append("").append(l.get(j+2)).append("");
+                sql.append("").append(l.get(j + 2)).append("");
 
                 sql.append(")");
                 SqlUtils.getInstance().update(sql.toString());
@@ -120,12 +120,12 @@ public class ReadExcel {
     }
 
 
-    public static void main(String[] args) {
+        public static void main(String[] args) {
+
         String fileName = "D:\\weishang\\格丽缇\\工作簿1.xls";
        // domain(fileName);
         commoDetail();
        // inserExpress();
-
     }
 
 
