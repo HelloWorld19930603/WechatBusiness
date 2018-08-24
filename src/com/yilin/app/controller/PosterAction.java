@@ -26,8 +26,8 @@ public class PosterAction {
         banner[2] = "/images/home/poster/banner-3.jpg";
         Map<String,Object> map = new HashedMap();
         map.put("1",banner);
-        map.put("2","/images/home/commodity/demo.png");
-        map.put("3","/images/home/commodity/demo.png");
+        map.put("2","/images/home/commodity/popularity.png");
+        map.put("3","/images/home/commodity/star.png");
         result = new ResultJson(true,"查询成功",map);
         return result;
     }
@@ -36,7 +36,7 @@ public class PosterAction {
     @ResponseBody
     public ResultJson findPopularity(){
 
-        ResultJson result = new ResultJson(true,"查询成功","/images/home/commodity/demo.png");
+        ResultJson result = new ResultJson(true,"查询成功","/images/home/commodity/popularity2.png");
         return result;
     }
 
@@ -44,7 +44,7 @@ public class PosterAction {
     @ResponseBody
     public ResultJson findStar(){
 
-        ResultJson result = new ResultJson(true,"查询成功","/images/home/commodity/demo.png");
+        ResultJson result = new ResultJson(true,"查询成功","/images/home/commodity/star2.png");
         return result;
     }
 
