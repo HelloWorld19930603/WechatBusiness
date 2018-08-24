@@ -35,7 +35,7 @@
         delete from commodity
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="com.yilin.app.domain.Commodity">
+    <insert id="insert" parameterType="com.yilin.app.domain.Commodity" useGeneratedKeys="true" keyProperty="id">
         insert into commodity (id, serise, stock,
         name, e_name, descript,
         type, scale, qr_code,
@@ -47,7 +47,7 @@
         #{quality,jdbcType=VARCHAR}, #{start,jdbcType=DATE}, #{img,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR},
         #{size,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" parameterType="com.yilin.app.domain.Commodity">
+    <insert id="insertSelective" parameterType="com.yilin.app.domain.Commodity" useGeneratedKeys="true" keyProperty="id">
         insert into commodity
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">

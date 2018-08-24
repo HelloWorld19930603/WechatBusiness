@@ -54,27 +54,27 @@
                             <div class="form">
                                 <form class="cmxform form-horizontal adminex-form" id="signupForm" method="get" action="">
                                     <div class="form-group ">
-                                        <label for="firstname" class="control-label col-lg-3">邀请人</label>
+                                        <label for="disabledInput" class="control-label col-lg-3">邀请人</label>
                                         <div class="col-lg-5">
-                                            <input class=" form-control" id="firstname" name="firstname" type="text" value="${invitationName}"/>
+                                            <input class=" form-control" id="disabledInput" name="firstname" type="text" value="${invitationName}" disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="lastname" class="control-label col-lg-3">申请人</label>
                                         <div class="col-lg-5">
-                                            <input class=" form-control" id="lastname" name="lastname" type="text" value="${applyName}"/>
+                                            <input class=" form-control" id="lastname" name="lastname" type="text" value="${applyName}" disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="username2" class="control-label col-lg-3">申请系列</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="username2" name="username" type="text" value="${serise}"/>
+                                            <input class="form-control " id="username2" name="username" type="text" value="${serise}" disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="username3" class="control-label col-lg-3">申请级别</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="username3" name="username" type="text" value="${level}"/>
+                                            <input class="form-control " id="username3" name="username" type="text" value="${level}"  disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
