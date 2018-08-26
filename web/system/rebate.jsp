@@ -195,14 +195,14 @@
                 }
                 ,
                 {
-                    key: 'name',
+                    key: 'bili',
                     remind: 'the pic',
                     width: '130px',
                     align: 'center',
                     text: '一级返利比例',
-                    template: function(loginName, rowObject) {
+                    template: function(bili, rowObject) {
 
-                        return loginName;
+                        return bili;
                     }
                 },{
                     key: 'page',
