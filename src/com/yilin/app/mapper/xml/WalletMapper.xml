@@ -12,6 +12,15 @@
         <result column="serise" jdbcType="TINYINT" property="serise"/>
         <result column="role_id" jdbcType="TINYINT" property="roleId"/>
     </resultMap>
+
+    <resultMap id="RecordMap" type="HashMap">
+        <result column="money" jdbcType="REAL" property="money"/>
+        <result column="title1" jdbcType="VARCHAR" property="title1"/>
+        <result column="title2" jdbcType="VARCHAR" property="title2"/>
+        <result column="symbol" jdbcType="VARCHAR" property="symbol"/>
+        <result column="mark" jdbcType="VARCHAR" property="mark"/>
+        <result column="time" jdbcType="TINYINT" property="time"/>
+    </resultMap>
     <sql id="Base_Column_List">
         id, user_id, money, serise
     </sql>
@@ -115,4 +124,16 @@
     LEFT JOIN user_role r on w.serise = r.serise and r.user_id = #{userId}
     where w.user_id = #{userId}
   </select>
+
+    <select id="selectRecords" parameterType="map" resultMap="RecordMap">
+select * from (
+  select '采购商品' title1,concat(c.name,'×',num)as title2,price*num money,'-' symbol,o.time,'采购' mark from order_comm
+  LEFT JOIN commodity c on comm_id = c.id
+  inner join orders o on o.id = order_id and status in (2,3,4)
+  where user_id = #{userId}
+  union ALL
+  SELECT '充值记录' title1,'' title2,money,'+' symbol,time,'充值' mark from recharge
+  where user_id = #{userId}
+)a order by time desc limit #{start},#{pageSize}
+    </select>
 </mapper>

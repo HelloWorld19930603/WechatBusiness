@@ -38,7 +38,7 @@ public class WalletAction {
     public ResultJson payment(String token,String orderId){
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             orderService.updateStatus(orderId,userId,1,null);
             result = new ResultJson(true,"支付成功");
         } catch (Exception e) {
@@ -59,7 +59,7 @@ public class WalletAction {
     public ResultJson findMoney(String token,byte serise){
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             float money = walletService.getMoney(userId,serise);
             result = new ResultJson(true,"查询成功",money);
         } catch (Exception e) {
@@ -74,7 +74,7 @@ public class WalletAction {
     public ResultJson findAllMoney(String token){
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             result = new ResultJson(true,"查询成功",walletService.getAllMoney(userId,(byte)1));
         } catch (Exception e) {
             result = new ResultJson(false,"查询失败");
@@ -97,8 +97,8 @@ public class WalletAction {
                                HttpServletRequest req){
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
-            String url = PhotoUtil.photoUpload(voucher,"images/home/voucher/",userId.toString()+System.currentTimeMillis(),req.getSession().getServletContext().getRealPath("/"));
+            int userId = Permission.getUserId(token);
+            String url = PhotoUtil.photoUpload(voucher,"images/home/voucher/",""+userId+System.currentTimeMillis(),req.getSession().getServletContext().getRealPath("/"));
             Recharge recharge = new Recharge();
             recharge.setMoney(money);
             recharge.setUserId(userId);
@@ -125,7 +125,7 @@ public class WalletAction {
     public ResultJson findRebate(String token,Byte serise){
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             List<Map<String,Object>>  list = walletService.getRebate(userId,serise);
             result = new ResultJson(true,"查询成功",list);
         } catch (Exception e) {
@@ -137,10 +137,10 @@ public class WalletAction {
 
     @RequestMapping("findRecharge")
     @ResponseBody
-    public ResultJson findRecharge(String token,byte serise,int start,int pageSize){
+    public ResultJson findRecharge(String token,Byte serise,int start,int pageSize){
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             Page page = walletService.findRechargePage(userId,serise,start,pageSize);
             result = new ResultJson(true,"查询成功",page);
         } catch (Exception e) {
@@ -150,6 +150,19 @@ public class WalletAction {
         return result;
     }
 
-
+    @RequestMapping("findRecords")
+    @ResponseBody
+    public ResultJson findRecords(String token,int start,int pageSize){
+        ResultJson result;
+        try {
+            int userId = Permission.getUserId(token);
+            Page page = walletService.findRecords(userId,start,pageSize);
+            result = new ResultJson(true,"查询成功",page);
+        } catch (Exception e) {
+            result = new ResultJson(false,"查询失败");
+            e.printStackTrace();
+        }
+        return result;
+    }
 
 }

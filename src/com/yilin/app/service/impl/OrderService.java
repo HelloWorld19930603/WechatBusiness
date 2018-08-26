@@ -150,4 +150,17 @@ public class OrderService implements IOrderService {
         map.put("id", id);
         ordersMapper.deleteById(map);
     }
+
+    @Override
+    public void refund(String orderId, int userId, byte status) throws Exception {
+        byte oldStatus = ordersMapper.selectStatus(orderId);
+        if(oldStatus != 1){
+            throw new Exception();
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("user_id", userId);
+        map.put("status", status);
+        map.put("id", orderId);
+        ordersMapper.updateStatus(map);
+    }
 }

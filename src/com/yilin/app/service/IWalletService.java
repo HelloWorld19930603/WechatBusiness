@@ -15,7 +15,7 @@ public interface IWalletService {
 
     void addRecharge(Recharge recharge) throws Exception;
 
-    Page findRechargePage(int userId, byte serise, int start, int pageSize) throws Exception;
+    Page findRechargePage(int userId, Byte serise, int start, int pageSize) throws Exception;
 
     void addMoney(byte serise, int userId, float money) throws Exception;
 
@@ -26,4 +26,6 @@ public interface IWalletService {
     List<Map<String, Object>> getAllMoney(int userId, byte serise) throws Exception;
 
     List<Map<String, Object>> getRebate(int userId,Byte serise) throws Exception;
+
+    Page findRecords(int userId, int start, int pageSize) throws Exception;
 }

@@ -29,7 +29,7 @@ public class PhotoUtil {
             // 判断文件类型
             type=fileName.indexOf(".")!=-1?fileName.substring(fileName.lastIndexOf("."), fileName.length()):null;
             if (type!=null) {// 判断文件类型是否为空
-                if (".GIF".equals(type.toUpperCase())||".PNG".equals(type.toUpperCase())||".JPG".equals(type.toUpperCase())) {
+                /*if (".GIF".equals(type.toUpperCase())||".PNG".equals(type.toUpperCase())||".JPG".equals(type.toUpperCase())) {*/
                     // 设置存放图片文件的路径
                     path=realPath+dic;
                     File f = new File(path);
@@ -43,10 +43,10 @@ public class PhotoUtil {
                     file.transferTo(new File(path));
                     System.out.println("文件成功上传到指定目录下");
                     return "/"+dic+trueFileName+type;
-                }else {
+                /*}else {
                     System.out.println("不是我们想要的文件类型,请按要求重新上传");
                     throw new FileException("不是我们想要的文件类型,请按要求重新上传");
-                }
+                }*/
             }else {
                 System.out.println("文件类型为空");
                 throw new FileException("文件类型为空");

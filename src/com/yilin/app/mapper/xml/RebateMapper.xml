@@ -100,13 +100,13 @@
 
     <select id="selectList" parameterType="map" resultMap="PageMap">
         SELECT
-         user_id, serise, sum(money) money, MONTH (time) month
+        user_id, serise, sum(money) money, MONTH (time) month,date_format(time,'%Y-%m') ym
         from rebate
         where user_id = #{userId}
         <if test="serise != null">
             and serise = #{serise}
         </if>
-        GROUP by user_id,serise,month
-        order by month desc
+        GROUP by user_id,serise,month,ym
+        order by time desc
     </select>
 </mapper>

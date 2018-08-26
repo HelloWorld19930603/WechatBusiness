@@ -27,6 +27,8 @@ public class User {
 
     private Date loginTime;
 
+    private Byte status;
+
     public Integer getId() {
         return id;
     }
@@ -121,5 +123,13 @@ public class User {
 
     public void setLoginTime(Date loginTime) {
         this.loginTime = loginTime;
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 }

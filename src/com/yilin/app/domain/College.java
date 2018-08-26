@@ -7,13 +7,17 @@ public class College {
 
     private String title;
 
-    private String url;
+    private String video;
 
-    private Integer readNum;
+    private Integer readnum;
 
     private Integer forward;
 
     private Date time;
+
+    private String img;
+
+    private Byte type;
 
     private String content;
 
@@ -33,20 +37,20 @@ public class College {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getUrl() {
-        return url;
+    public String getVideo() {
+        return video;
     }
 
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+    public void setVideo(String video) {
+        this.video = video == null ? null : video.trim();
     }
 
-    public Integer getreadNum() {
-        return readNum;
+    public Integer getReadnum() {
+        return readnum;
     }
 
-    public void setreadNum(Integer readNum) {
-        this.readNum = readNum;
+    public void setReadnum(Integer readnum) {
+        this.readnum = readnum;
     }
 
     public Integer getForward() {
@@ -63,6 +67,22 @@ public class College {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img == null ? null : img.trim();
+    }
+
+    public Byte getType() {
+        return type;
+    }
+
+    public void setType(Byte type) {
+        this.type = type;
     }
 
     public String getContent() {

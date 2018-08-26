@@ -1,185 +1,209 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yilin.app.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.yilin.app.domain.User">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
-    <result column="login_pwd" jdbcType="VARCHAR" property="loginPwd" />
-    <result column="pay_pwd" jdbcType="VARCHAR" property="payPwd" />
-    <result column="sex" jdbcType="CHAR" property="sex" />
-    <result column="sup_id" jdbcType="INTEGER" property="supId" />
-    <result column="phone" jdbcType="INTEGER" property="phone" />
-    <result column="wx_num" jdbcType="VARCHAR" property="wxNum" />
-    <result column="id_num" jdbcType="VARCHAR" property="idNum" />
-    <result column="head_img" jdbcType="VARCHAR" property="headImg" />
-    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
-  </resultMap>
     <resultMap id="PageMap" type="HashMap">
-        <id column="id" jdbcType="INTEGER" property="id" />
-        <id column="role_id" jdbcType="INTEGER" property="roleId" />
-        <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="login_name" jdbcType="VARCHAR" property="loginName" />
-        <result column="phone" jdbcType="INTEGER" property="phone" />
-        <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <id column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
+        <result column="phone" jdbcType="INTEGER" property="phone"/>
+        <result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
     </resultMap>
-  <sql id="Base_Column_List">
-    id, name, login_name, login_pwd, pay_pwd, sex, sup_id, phone, wx_num, id_num, head_img,
-    login_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from user
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.yilin.app.domain.User">
-    insert into user (id, name, login_name,
-    login_pwd, pay_pwd, sex,
-    sup_id, phone, wx_num,
-    id_num, head_img, login_time
-    )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR},
-    #{loginPwd,jdbcType=VARCHAR}, #{payPwd,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR},
-    #{supId,jdbcType=INTEGER}, #{phone,jdbcType=INTEGER}, #{wxNum,jdbcType=VARCHAR},
-    #{idNum,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}
-    )
-  </insert>
-  <insert id="insertSelective" parameterType="com.yilin.app.domain.User">
-    insert into user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="loginName != null">
-        login_name,
-      </if>
-      <if test="loginPwd != null">
-        login_pwd,
-      </if>
-      <if test="payPwd != null">
-        pay_pwd,
-      </if>
-      <if test="sex != null">
-        sex,
-      </if>
-      <if test="supId != null">
-        sup_id,
-      </if>
-      <if test="phone != null">
-        phone,
-      </if>
-      <if test="wxNum != null">
-        wx_num,
-      </if>
-      <if test="idNum != null">
-        id_num,
-      </if>
-      <if test="headImg != null">
-        head_img,
-      </if>
-      <if test="loginTime != null">
-        login_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="loginName != null">
-        #{loginName,jdbcType=VARCHAR},
-      </if>
-      <if test="loginPwd != null">
-        #{loginPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="payPwd != null">
-        #{payPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        #{sex,jdbcType=CHAR},
-      </if>
-      <if test="supId != null">
-        #{supId,jdbcType=INTEGER},
-      </if>
-      <if test="phone != null">
-        #{phone,jdbcType=INTEGER},
-      </if>
-      <if test="wxNum != null">
-        #{wxNum,jdbcType=VARCHAR},
-      </if>
-      <if test="idNum != null">
-        #{idNum,jdbcType=VARCHAR},
-      </if>
-      <if test="headImg != null">
-        #{headImg,jdbcType=VARCHAR},
-      </if>
-      <if test="loginTime != null">
-        #{loginTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.User">
-    update user
-    <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-
-      <if test="sex != null">
-        sex = #{sex,jdbcType=CHAR},
-      </if>
-
-
-      <if test="wxNum != null">
-        wx_num = #{wxNum,jdbcType=VARCHAR},
-      </if>
-      <if test="idNum != null">
-        id_num = #{idNum,jdbcType=VARCHAR},
-      </if>
-      <if test="headImg != null">
-        head_img = #{headImg,jdbcType=VARCHAR},
-      </if>
-      <if test="loginTime != null">
-        login_time = #{loginTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.User">
+    <resultMap id="BaseResultMap" type="com.yilin.app.domain.User">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
+        <result column="login_pwd" jdbcType="VARCHAR" property="loginPwd"/>
+        <result column="pay_pwd" jdbcType="VARCHAR" property="payPwd"/>
+        <result column="sex" jdbcType="CHAR" property="sex"/>
+        <result column="sup_id" jdbcType="INTEGER" property="supId"/>
+        <result column="phone" jdbcType="INTEGER" property="phone"/>
+        <result column="wx_num" jdbcType="VARCHAR" property="wxNum"/>
+        <result column="id_num" jdbcType="VARCHAR" property="idNum"/>
+        <result column="head_img" jdbcType="VARCHAR" property="headImg"/>
+        <result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, name, login_name, login_pwd, pay_pwd, sex, sup_id, phone, wx_num, id_num, head_img,
+        login_time, status
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from user
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.yilin.app.domain.User">
+        insert into user (id, name, login_name,
+        login_pwd, pay_pwd, sex,
+        sup_id, phone, wx_num,
+        id_num, head_img, login_time,
+        status)
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR},
+        #{loginPwd,jdbcType=VARCHAR}, #{payPwd,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR},
+        #{supId,jdbcType=INTEGER}, #{phone,jdbcType=INTEGER}, #{wxNum,jdbcType=VARCHAR},
+        #{idNum,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP},
+        #{status,jdbcType=TINYINT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.yilin.app.domain.User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="loginName != null">
+                login_name,
+            </if>
+            <if test="loginPwd != null">
+                login_pwd,
+            </if>
+            <if test="payPwd != null">
+                pay_pwd,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="supId != null">
+                sup_id,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="wxNum != null">
+                wx_num,
+            </if>
+            <if test="idNum != null">
+                id_num,
+            </if>
+            <if test="headImg != null">
+                head_img,
+            </if>
+            <if test="loginTime != null">
+                login_time,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="loginName != null">
+                #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="loginPwd != null">
+                #{loginPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="payPwd != null">
+                #{payPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=CHAR},
+            </if>
+            <if test="supId != null">
+                #{supId,jdbcType=INTEGER},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=INTEGER},
+            </if>
+            <if test="wxNum != null">
+                #{wxNum,jdbcType=VARCHAR},
+            </if>
+            <if test="idNum != null">
+                #{idNum,jdbcType=VARCHAR},
+            </if>
+            <if test="headImg != null">
+                #{headImg,jdbcType=VARCHAR},
+            </if>
+            <if test="loginTime != null">
+                #{loginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.User">
+        update user
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="loginName != null">
+                login_name = #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="loginPwd != null">
+                login_pwd = #{loginPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="payPwd != null">
+                pay_pwd = #{payPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=CHAR},
+            </if>
+            <if test="supId != null">
+                sup_id = #{supId,jdbcType=INTEGER},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=INTEGER},
+            </if>
+            <if test="wxNum != null">
+                wx_num = #{wxNum,jdbcType=VARCHAR},
+            </if>
+            <if test="idNum != null">
+                id_num = #{idNum,jdbcType=VARCHAR},
+            </if>
+            <if test="headImg != null">
+                head_img = #{headImg,jdbcType=VARCHAR},
+            </if>
+            <if test="loginTime != null">
+                login_time = #{loginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.User">
     update user
     set name = #{name,jdbcType=VARCHAR},
-    login_name = #{loginName,jdbcType=VARCHAR},
-    login_pwd = #{loginPwd,jdbcType=VARCHAR},
-    pay_pwd = #{payPwd,jdbcType=VARCHAR},
-    sex = #{sex,jdbcType=CHAR},
-    sup_id = #{supId,jdbcType=INTEGER},
-    phone = #{phone,jdbcType=INTEGER},
-    wx_num = #{wxNum,jdbcType=VARCHAR},
-    id_num = #{idNum,jdbcType=VARCHAR},
-    head_img = #{headImg,jdbcType=VARCHAR},
-    login_time = #{loginTime,jdbcType=TIMESTAMP}
+      login_name = #{loginName,jdbcType=VARCHAR},
+      login_pwd = #{loginPwd,jdbcType=VARCHAR},
+      pay_pwd = #{payPwd,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      sup_id = #{supId,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=INTEGER},
+      wx_num = #{wxNum,jdbcType=VARCHAR},
+      id_num = #{idNum,jdbcType=VARCHAR},
+      head_img = #{headImg,jdbcType=VARCHAR},
+      login_time = #{loginTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectForLogin"  resultMap="BaseResultMap">
-  select
-  <include refid="Base_Column_List" />
-  from user
-  where login_name = #{loginName}
-  and login_pwd = #{loginPwd}
-</select>
+    <select id="selectForLogin" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where login_name = #{loginName}
+        and login_pwd = #{loginPwd}
+    </select>
 
-  <select id="selectBySerise"  resultMap="PageMap">
+    <select id="selectBySerise" resultMap="PageMap">
     select
     id,name,login_name,phone,login_time,role_id
     from user
@@ -187,7 +211,7 @@
     limit #{start},#{pageSize}
   </select>
 
-    <select id="selectNumBySerise"  resultType="int">
+    <select id="selectNumBySerise" resultType="int">
         select
         count(*)
         from user

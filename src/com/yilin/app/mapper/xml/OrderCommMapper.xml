@@ -11,7 +11,11 @@
   <resultMap id="PageMap" type="HashMap">
     <result column="comm_id" jdbcType="INTEGER" property="commId" />
     <result column="name" jdbcType="VARCHAR" property="commName" />
-    <result column="price" jdbcType="REAL" property="price" />
+    <result column="e_name" jdbcType="VARCHAR" property="eName" />
+    <result column="scale" jdbcType="VARCHAR" property="scale" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="aPrice" jdbcType="REAL" property="aPrice" />
+    <result column="mPrice" jdbcType="REAL" property="mPrice" />
     <result column="num" jdbcType="INTEGER" property="num" />
     <result column="serise" jdbcType="TINYINT" property="serise" />
   </resultMap>
@@ -60,9 +64,10 @@
   </insert>
 
   <select id="selectList" parameterType="map" resultMap="PageMap">
-      SELECT comm_id,name,num,price,oc.serise
+      SELECT oc.comm_id,name,oc.num,oc.price aPrice,m.price mPrice,oc.serise,scale,img,e_name
       from order_comm oc
       LEFT JOIN commodity c on c.id = comm_id
+      left join price m on c.id = m.comm_id and m.role_id = 0
       where order_id = #{orderId}
   </select>
 </mapper>

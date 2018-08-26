@@ -21,10 +21,10 @@ public class CollegeAction {
 
     @RequestMapping("findPage")
     @ResponseBody
-    public ResultJson findPage(int start, int pageSize){
+    public ResultJson findPage(Byte type,int start, int pageSize){
         ResultJson result;
         try {
-            Page page = collegeService.findPage(start,pageSize);
+            Page page = collegeService.findPage(type,start,pageSize);
             result = new ResultJson(true,"查询学院详情成功",page);
         } catch (Exception e) {
             e.printStackTrace();

@@ -10,4 +10,14 @@ public class Price extends PriceKey {
     public void setPrice(Float price) {
         this.price = price;
     }
+
+
+    public Price(Integer commId, Integer roleId, Float price) {
+        super(commId, roleId);
+        this.price = price;
+    }
+
+    public Price(Float price) {
+        this.price = price;
+    }
 }

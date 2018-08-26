@@ -30,4 +30,12 @@ public class CommDetail {
     public void setUrl(String url) {
         this.url = url == null ? null : url.trim();
     }
+
+    public CommDetail(Integer commId, String url) {
+        this.commId = commId;
+        this.url = url;
+    }
+
+    public CommDetail() {
+    }
 }

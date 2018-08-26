@@ -103,7 +103,7 @@ public class OrderAction {
     public ResultJson createOrders(@RequestBody Map<String,Object> orders) {
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId((String)orders.get("token"));
+            int userId = Permission.getUserId((String)orders.get("token"));
             String orderId = orderService.createOrder(userId,orders);
             result = new ResultJson(true, "创建成功",orderId);
         } catch (Exception e) {
@@ -127,7 +127,7 @@ public class OrderAction {
     public ResultJson payOrder(String orderId, String token, String type, String payPwd) {
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             if (userService.checkPayPwd(userId, payPwd)) {
                 orderService.payOrder(orderId, userId,  type);
                 result = new ResultJson(true, "支付成功", orderId);
@@ -149,12 +149,27 @@ public class OrderAction {
     public ResultJson removeOne(String orderId, String token) {
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             orderService.removeOrder(orderId, userId);
             result = new ResultJson(true, "删除订单成功");
         } catch (Exception e) {
             e.printStackTrace();
             result = new ResultJson(false, "删除订单失败");
+        }
+        return result;
+    }
+
+    @RequestMapping("refund")
+    @ResponseBody
+    public ResultJson refund(String orderId, String token) {
+        ResultJson result;
+        try {
+            int userId = Permission.getUserId(token);
+            orderService.refund(orderId, userId, (byte) 5);
+            result = new ResultJson(true, "订单退款成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = new ResultJson(false, "订单退款失败");
         }
         return result;
     }

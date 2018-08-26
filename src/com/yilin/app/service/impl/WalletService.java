@@ -40,7 +40,7 @@ public class WalletService implements IWalletService {
     }
 
     @Override
-    public Page findRechargePage(int userId, byte serise, int start, int pageSize) throws Exception {
+    public Page findRechargePage(int userId, Byte serise, int start, int pageSize) throws Exception {
         Map<String, Object> map = new HashMap<>();
         map.put("serise", serise);
         map.put("userId", userId);
@@ -100,5 +100,16 @@ public class WalletService implements IWalletService {
         map.put("serise", serise);
         List<Map<String,Object>> list = rebateMapper.selectList(map);
         return list;
+    }
+
+    @Override
+    public Page findRecords(int userId, int start, int pageSize) throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("start", (start-1)*pageSize);
+        map.put("pageSize", pageSize);
+        List<Map<String,Object>> list = walletMapper.selectRecords(map);
+        Page page = new Page(pageSize,start,list.size(),list);
+        return page;
     }
 }

@@ -8,4 +8,6 @@ import java.util.Map;
 public interface CommodityMapper  extends IBaseMapper<Commodity> {
 
     Float selectPrice(Map<String, Object> map);
+
+    Float[] selectAllPrice(Map<String, Object> map);
 }

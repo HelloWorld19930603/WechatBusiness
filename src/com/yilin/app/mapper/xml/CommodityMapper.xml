@@ -28,7 +28,7 @@
         <include refid="Base_Column_List" />
         ,p.price m_price
         from commodity c
-        left join price p on c.id = p.comm_id and role_id = 9
+        left join price p on c.id = p.comm_id and role_id = 0
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -47,12 +47,10 @@
         #{quality,jdbcType=VARCHAR}, #{start,jdbcType=DATE}, #{img,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR},
         #{size,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" parameterType="com.yilin.app.domain.Commodity" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertSelective" parameterType="com.yilin.app.domain.Commodity"  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+
         insert into commodity
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
             <if test="serise != null">
                 serise,
             </if>
@@ -94,9 +92,6 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
             <if test="serise != null">
                 #{serise,jdbcType=TINYINT},
             </if>
@@ -210,13 +205,15 @@
           ,a.price a_price
         </if>
         from commodity c
-        left join price m on c.id = m.comm_id and m.role_id = 9
+        left join price m on c.id = m.comm_id and m.role_id = 0
         <if test="userId != null">
             left join price a on c.id = a.comm_id
             and a.role_id = (SELECT role_id from user_role where user_id = #{userId} and serise = #{serise})
         </if>
         where 1=1
-        and serise = #{serise}
+        <if test="serise != null">
+            and serise = #{serise}
+        </if>
         <if test="type != null">
             and type = #{type}
         </if>
@@ -247,7 +244,7 @@
             ,a.price a_price
         </if>
         from commodity c
-        left join price m on c.id = m.comm_id and m.role_id = 9
+        left join price m on c.id = m.comm_id and m.role_id = 0
         <if test="userId != null">
           left join price a on c.id = a.comm_id
           and a.role_id = (SELECT role_id from user_role where user_id = #{userId} and serise = c.serise)
@@ -256,12 +253,20 @@
     </select>
 
     <select id="selectPrice" parameterType="map" resultType="float">
+    select
+    price
+    from price p
+    where comm_id = #{commId} and role_id = (SELECT role_id from user_role
+    where user_id = #{userId}
+    and serise = (select serise from commodity where id = #{commId}))
+
+  </select>
+
+    <select id="selectAllPrice" parameterType="map" resultType="float">
         select
         price
         from price p
-        where comm_id = #{commId} and role_id = (SELECT role_id from user_role
-        where user_id = #{userId}
-        and serise = (select serise from commodity where id = #{commId}))
+        where comm_id = #{commId}
 
     </select>
 </mapper>

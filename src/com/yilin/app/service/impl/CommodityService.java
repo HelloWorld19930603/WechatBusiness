@@ -1,11 +1,13 @@
 package com.yilin.app.service.impl;
 
 import com.yilin.app.common.Page;
+import com.yilin.app.domain.CommDetail;
 import com.yilin.app.domain.Commodity;
 import com.yilin.app.mapper.CommDetailMapper;
 import com.yilin.app.mapper.CommodityMapper;
 import com.yilin.app.service.ICommodityService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -35,6 +37,18 @@ public class CommodityService implements ICommodityService {
         List<Commodity> list = commodityMapper.selectPage(map);
         Page page = new Page(pageSize,index,list.size(),list);
         return page;
+    }
+
+    @Override
+    public List<Commodity> selectPage2(Integer type, Integer userId, Integer serise, int index, int pageSize) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        map.put("type",type);
+        map.put("userId",userId);
+        map.put("serise",serise);
+        map.put("start",(index-1)*pageSize);
+        map.put("pageSize",pageSize);
+        List<Commodity> list = commodityMapper.selectPage(map);
+        return list;
     }
 
     @Override
@@ -68,9 +82,46 @@ public class CommodityService implements ICommodityService {
     }
 
     @Override
+    public Float[] getAllPrice(int commId) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        map.put("commId",commId);
+        return commodityMapper.selectAllPrice(map);
+    }
+
+    @Override
     public List<String> selectDetails(int commId) throws Exception {
         Map<String,Object> map = new HashMap<>();
         map.put("commId",commId);
         return commDetailMapper.selectUrls(map);
+    }
+
+    @Override
+    public void deleteOne(int commId) throws Exception {
+        commodityMapper.deleteByPrimaryKey(commId);
+    }
+
+    @Override
+    public List<Commodity> selectRecommend(Integer userId) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("start",5);
+        map.put("pageSize",5);
+        return commodityMapper.selectPage(map);
+    }
+
+    @Override
+    public void addCommodity(Commodity commodity) throws Exception {
+        commodityMapper.insertSelective(commodity);
+    }
+
+    @Override
+    public void addCommDetail(CommDetail detail) throws Exception {
+
+        commDetailMapper.insertSelective(detail);
+    }
+
+    @Override
+    public void updateOne(Commodity commodity) throws Exception {
+        commodityMapper.updateByPrimaryKey(commodity);
     }
 }

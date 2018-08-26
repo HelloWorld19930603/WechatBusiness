@@ -97,4 +97,19 @@ public class CommodityAction {
         }
         return result;
     }
+
+    @RequestMapping("findRecommend")
+    @ResponseBody
+    public ResultJson findRecommend(String token) {
+        ResultJson result;
+        try {
+            Integer userId = token == null ? null : Permission.getUserId(token);
+            List<Commodity> list = commodityService.selectRecommend(userId);
+            result = new ResultJson(true, "查询人气推荐成功", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = new ResultJson(false, "查询人气推荐失败");
+        }
+        return result;
+    }
 }

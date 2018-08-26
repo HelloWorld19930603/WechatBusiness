@@ -26,4 +26,6 @@ public interface IOrderService {
     void payOrder(String id, int userId, String type) throws AccountException;
 
     void removeOrder(String id, int userId) throws Exception;
+
+    void refund(String orderId, int userId, byte i) throws Exception;
 }
