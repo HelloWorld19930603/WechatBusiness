@@ -77,7 +77,7 @@
                                         <label for="roleId" class="control-label col-lg-3">级别</label>
                                         <div class="col-lg-5">
                                         <select class="form-control m-bot15" name="roleId" id="roleId">
-                                            <option value="9">请选择</option>
+                                            <option value="">请选择</option>
                                             <!--通过js增加-->
                                         </select>
                                         </div>
@@ -177,7 +177,7 @@
             alert(serise);
 
             $.ajax({
-                url: "http://localhost:8080/addOne.do",
+                url: "/addOne.do",
                 type: "post",
                 data: "serise="+serise+"&loginPwd="+loginPwd+"&name="+name+"&loginName="+loginName,
                 success: function (data) {

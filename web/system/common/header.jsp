@@ -14,8 +14,8 @@
         <ul class="notification-menu">
             <li>
                 <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <img src="<%=path%>/images/photos/user-avatar.png" alt="" />
-                    管理员
+                    <img src="<%=path%>/images/photos/user.jpg" alt="" />
+                    欢迎您，管理员${name}
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-usermenu pull-right">

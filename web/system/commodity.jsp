@@ -7,19 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="">
     <link rel="shortcut icon" href="#" type="image/png">
-    <title>AdminX</title>
+    <title><%=title%></title>
 
     <!--common-->
     <link href="<%=path%>/css/style.css" rel="stylesheet">
     <link href="<%=path%>/css/style-responsive.css" rel="stylesheet">
     <link href="<%=path%>/css/gm.css" rel="stylesheet">
     <link href="<%=path%>/css/grid.css" rel="stylesheet">
-    <!--dashboard calendar-->
-    <link href="/css/clndr.css" rel="stylesheet">
-    <!--Morris Chart CSS -->
-    <link rel="stylesheet" href="/js/morris-chart/morris.css">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/css/jquery-ui.css" />
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="<%=path%>/js/html5shiv.js"></script>
@@ -32,13 +28,9 @@
 </style>
 <script>
     const TYPE_MAP = {
-        '1': '股东',
-        '2': '联创',
-        '3': '执行董事',
-        '4': '官方',
-        '5': '总代理',
-        '6': '一级代理',
-        '7': '二级代理'
+        '1': '格丽缇',
+        '2': 'Utomorrow',
+        '3': 'Pslady'
     };
 
 </script>
@@ -61,9 +53,9 @@
 
             <ul class="breadcrumb">
                 <li>
-                    <a href="#">经销商</a>
+                    <a href="#">商品</a>
                 </li>
-                <li class="active"> 格丽缇经销商</li>
+                <li class="active"> 商品管理</li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -72,19 +64,18 @@
         <div class="wrapper">
 
             <section class="search-area panel">
-                <input type="hidden" name="serise" value="1">
                 <div class="sa-ele">
-                    <label class="se-title">经销商名称:</label>
+                    <label class="se-title">系列:</label>
+                    <select class="se-con" name="serise">
+                        <option value="-1">请选择</option>
+                        <!--通过js增加-->
+                    </select>
+                </div>
+                <div class="sa-ele">
+                    <label class="se-title">商品名称:</label>
                     <input class="se-con" name="name"/>
                 </div>
-                <div class="sa-ele">
-                    <label class="se-title">手机号:</label>
-                    <input class="se-con" name="phone"/>
-                </div>
-                <div class="sa-ele">
-                    <label class="se-title">授权码:</label>
-                    <input class="se-con" name="code"/>
-                </div>
+
                 <div class="sa-ele">
                     <button class="search-action">搜索</button>
                     <button class="reset-action">重置</button>
@@ -115,6 +106,8 @@
 <script src="js/jquery-1.10.2.min.js"></script>
 <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
 <script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/jquery.stepy.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/modernizr.min.js"></script>
 <script src="js/jquery.nicescroll.js"></script>
@@ -150,7 +143,7 @@
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
             ,ajax_data: function () {
-                return '/getUsers.do';
+                return '/getCommoditys.do';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
             ,ajax_type: 'POST'
@@ -183,22 +176,51 @@
             }
             ,columnData: [
                 {
-                    key: 'loginName',
+                    key: 'id',
                     remind: 'the pic',
-                    width: '130px',
+                    text: '编号',
+                    isShow: false
+                }, {
+                    key: 'img',
+                    remind: 'the pic',
+                    width: '110px',
+                    align: 'center',
+                    text: '缩略图',
+                    // 使用函数返回 dom node
+                    template: function(img, rowObject) {
+                        var picNode = document.createElement('a');
+                        picNode.setAttribute('href', img);
+                        picNode.setAttribute('target', '_blank');
+                        picNode.style.display = 'block';
+                        picNode.style.height = '68.5px';
+                        var imgNode = document.createElement('img');
+                        imgNode.style.width = '100px';
+                        imgNode.style.padding = '5px';
+                        imgNode.style.margin = '0 auto';
+                        imgNode.alt = rowObject.title;
+                        imgNode.src = img;
+
+                        picNode.appendChild(imgNode);
+                        return picNode;
+                    }
+                },
+                {
+                    key: 'name',
+                    remind: 'the pic',
+                    width: '120px',
                     align: 'center',
                     text: '经销商账号',
                     // 使用函数返回 dom node
-                    template: function(loginName, rowObject) {
+                    template: function(name, rowObject) {
 
-                        return loginName;
+                        return name;
                     }
                 },{
-                    key: 'name',
+                    key: 'eName',
                     remind: 'the title',
                     align: 'center',
                     width: '120px',
-                    text: '经销商名称',
+                    text: '英文名',
                     sorting: '',
                     // 使用函数返回 dom node
                     template: function(name, rowObject) {
@@ -206,30 +228,28 @@
                         return name;
                     }
                 },{
-                    key: 'roleId',
+                    key: 'serise',
                     remind: 'the type',
-                    text: '级别',
+                    text: '系列',
                     width: '100px',
                     align: 'center',
-                    template: function(roleId, rowObject){
-                        return TYPE_MAP[roleId];
+                    template: function(serise, rowObject){
+                        return TYPE_MAP[serise];
                     }
                 },{
-                    key: 'phone',
+                    key: 'scale',
                     remind: 'the info',
-                    text: '手机号',
-                    isShow: false
-                },{
-                    key: 'loginTime',
-                    remind: 'the createDate',
+                    text: '规格',
+                    isShow: true,
                     width: '100px',
-                    align: 'center',
-                    text: '最近登录时间',
-                    sorting: 'DESC',
-                    // 使用函数返回 htmlString
-                    template: function(loginTime, rowObject){
-                        return new Date(loginTime).toLocaleString();
-                    }
+                    align: 'center'
+                },{
+                    key: 'mPrice',
+                    remind: 'the info',
+                    text: '市场价',
+                    isShow: true,
+                    width: '100px',
+                    align: 'center'
                 },{
                     key: 'action',
                     remind: 'the action',
@@ -237,7 +257,7 @@
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString
-                    template: '<span class="plugin-action" gm-click="delectRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
+                    template: '<span class="plugin-action" gm-click="editRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
                 }
             ]
             // 排序后事件
@@ -253,8 +273,26 @@
     // 删除功能
     function delectRowData(rowData){
         // 执行删除操作
-        if(window.confirm('确认要删除['+rowData.title+']?')){
-            window.alert('当然这只是个示例,并不会真实删除,要不然每天我每天就光填demo数据了.');
+        if(window.confirm('确认要删除['+rowData.name+']?')){
+            $.ajax({
+                url: "http://localhost:8080/removeCommodity.do?commId="+rowData.id,
+                type: "get",
+                success: function (data) {
+                    alert("商品删除成功");
+                    console.log(data);
+                },
+                error: function (data) {
+                    alert("商品删除失败");
+                    console.log(data);
+                }
+        });
+        }
+    }
+
+    function editRowData(rowData){
+        // 执行删除操作
+        if(window.confirm('确认要修改['+rowData.name+']?')){
+            window.open("/editCommodity.do?commId="+rowData.id);
         }
     }
 
@@ -268,12 +306,19 @@
      */
     (function(){
 
+        var typeSelect2 = document.querySelector('.search-area select[name="serise"]');
+
+        for(var key in TYPE_MAP){
+            var option = document.createElement('option');
+            option.value = key;
+            option.innerText = TYPE_MAP[key];
+            typeSelect2.appendChild(option);
+        }
+
         // 绑定搜索事件
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
                 name: document.querySelector('[name="name"]').value,
-                phone: document.querySelector('[name="phone"]').value,
-                code: document.querySelector('[name="code"]').value,
                 serise: document.querySelector('[name="serise"]').value,
                 index: 1
             };
@@ -285,16 +330,18 @@
         // 绑定重置
         document.querySelector('.reset-action').addEventListener('click', function () {
             document.querySelector('[name="name"]').value = '';
-            document.querySelector('[name="phone"]').value = '';
-            document.querySelector('[name="code"]').value = '';
+            document.querySelector('[name="serise"]').value = '-1';
         });
 
         $("#editable-sample_new").click(function () {
-            window.location.href = "/addCommodity.do";
+            window.open("/addCommodity.do");
         })
     })();
 
     (function(){
         init();
     })();
+
+
+
 </script>

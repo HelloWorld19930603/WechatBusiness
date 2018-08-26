@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="">
     <link rel="shortcut icon" href="#" type="image/png">
-    <title>AdminX</title>
+    <title><%=title%></title>
 
     <!--common-->
     <link href="<%=path%>/css/style.css" rel="stylesheet">

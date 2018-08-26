@@ -128,23 +128,23 @@
 			        	}
 
 		        		$finish.click(function(evt) {
-		    				if (opt.finish && !methods.execute.call($this, opt.finish, $steps.length - 1)) {
+							/*		    				if (opt.finish && !methods.execute.call($this, opt.finish, $steps.length - 1)) {
 		   						evt.preventDefault();
 		    				} else {
-		    					if (isForm) {
+										    					if (isForm) {
 		    						if (onSubmit) {
 		    							$this.attr('onsubmit', onSubmit);
 		    						} else {
 		    							$this.removeAttr('onsubmit');
 		    						}
+                                    $this.removeAttr('onsubmit');
+	    						var isSubmit = $finish.attr('type') == 'submit';
 
-		    						var isSubmit = $finish.attr('type') == 'submit';
-
-		    						if (!isSubmit && (!opt.validate || methods.validate.call($this, $steps.length - 1))) {
-		    							$this.submit();
-		    						}
+									 if (!isSubmit && (!opt.validate || methods.validate.call($this, $steps.length - 1))) {
+									 $this.submit();
+									 }
 		    					}
-		    				}
+		    				}*/
 		        		});
 
 		        		$finish.appendTo($this.find('p:last'));

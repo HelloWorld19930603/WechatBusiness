@@ -40,4 +40,9 @@ public class SystemPage {
         this.totals = totals;
         this.data = data;
     }
+
+    public SystemPage() {
+        this.status = "failed";
+
+    }
 }

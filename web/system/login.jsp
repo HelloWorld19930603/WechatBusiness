@@ -26,27 +26,22 @@
 
     <form class="form-signin" action="/index.do">
         <div class="form-signin-heading text-center">
-            <h1 class="sign-title">Sign In</h1>
-            <img src="/images/login-logo.png" alt=""/>
+            <h1 class="sign-title">后台管理系统登录</h1>
+            <img src="/images/logo-demo.jpg" alt="" width="144px" height="99px"/>
         </div>
         <div class="login-wrap">
-            <input type="text" class="form-control" placeholder="User ID" autofocus>
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="text" class="form-control" placeholder="用户名" autofocus>
+            <input type="password" class="form-control" placeholder="密码">
 
             <button class="btn btn-lg btn-login btn-block" type="submit">
                 <i class="fa fa-check"></i>
             </button>
 
-            <div class="registration">
-                Not a member yet?
-                <a class="" href="registration.html">
-                    Signup
-                </a>
-            </div>
+
             <label class="checkbox">
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" value="remember-me"> 记住我
                 <span class="pull-right">
-                    <a data-toggle="modal" href="#myModal"> Forgot Password?</a>
+                    <a data-toggle="modal" href="#myModal"> </a>
 
                 </span>
             </label>

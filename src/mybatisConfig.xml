@@ -31,5 +31,6 @@
         <mapper resource="com/yilin/app/mapper/xml/ExpressMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/LogisticsMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/OrderCommMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/SystemUserMapper.xml"/>
     </mappers>
 </configuration>

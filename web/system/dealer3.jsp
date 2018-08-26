@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="">
     <link rel="shortcut icon" href="#" type="image/png">
-    <title>AdminX</title>
+    <title><%=title%></title>
 
     <!--common-->
     <link href="<%=path%>/css/style.css" rel="stylesheet">
@@ -33,12 +33,12 @@
 <script>
     const TYPE_MAP = {
         '1': '股东',
-        '2': '联创',
+        '2': '合伙人',
         '3': '执行董事',
         '4': '官方',
         '5': '总代理',
         '6': '一级代理',
-        '7': '二级代理'
+        '7': '体验'
     };
 
 </script>
