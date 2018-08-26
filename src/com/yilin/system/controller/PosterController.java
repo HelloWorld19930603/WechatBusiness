@@ -48,6 +48,18 @@ public class PosterController {
         return systemPage;
     }
 
+    @RequestMapping("removePoster")
+    @ResponseBody
+    public Object removePoster(int id) {
+
+        try {
+            posterService.removeOne(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
     @RequestMapping("addPoster")
     public String addPoster(Model model) {
         model.addAttribute("active", "addPoster");

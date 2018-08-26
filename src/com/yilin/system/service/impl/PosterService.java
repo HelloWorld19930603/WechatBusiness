@@ -43,4 +43,9 @@ public class PosterService implements IPosterService{
         poster.setTime(new Date());
         posterMapper.insertSelective(poster);
     }
+
+    @Override
+    public void removeOne(int id) throws Exception {
+        posterMapper.deleteByPrimaryKey(id);
+    }
 }

@@ -72,9 +72,9 @@ public class SystemController {
 
     @RequestMapping("removeSystemUser")
     @ResponseBody
-    public Object removeSystemUser(int userId){
+    public Object removeSystemUser(int id){
         try {
-            systemUserService.deleteOne(userId);
+            systemUserService.deleteOne(id);
             return "删除成功";
         } catch (Exception e) {
             e.printStackTrace();

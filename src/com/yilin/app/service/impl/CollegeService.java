@@ -61,4 +61,14 @@ public class CollegeService implements ICollegeService{
         college.setTime(new Date());
         collegeMapper.insertSelective(college);
     }
+
+    @Override
+    public void removeOne(int id) throws Exception {
+        collegeMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void editOne(College college) throws Exception {
+        collegeMapper.updateByPrimaryKeySelective(college);
+    }
 }

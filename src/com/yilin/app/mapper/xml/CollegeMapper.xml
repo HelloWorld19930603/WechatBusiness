@@ -165,7 +165,7 @@
            and  type = #{type}
         </if>
         <if test="title != null">
-            and  type like '%${title}%'
+            and  title like '%${title}%'
         </if>
         order by time
         limit #{start},#{pageSize}
@@ -175,5 +175,12 @@
         select
         count(*)
         from college
+        where 1=1
+        <if test="type != null">
+            and  type = #{type}
+        </if>
+        <if test="title != null">
+            and  title like '%${title}%'
+        </if>
     </select>
 </mapper>

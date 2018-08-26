@@ -1,5 +1,6 @@
 package com.yilin.system.controller;
 
+import com.yilin.app.domain.College;
 import com.yilin.app.domain.Commodity;
 import com.yilin.app.exception.FileException;
 import com.yilin.app.service.ICollegeService;
@@ -52,6 +53,28 @@ public class ColleageController {
     @RequestMapping("addColleage")
     public String addColleage(Model model) {
         model.addAttribute("active", "addColleage");
+        return "addColleage";
+    }
+
+    @RequestMapping("removeColleage")
+    @ResponseBody
+    public String removeColleage(int id) {
+        try {
+            collegeService.removeOne(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "addColleage";
+    }
+
+    @RequestMapping("editColleage")
+    @ResponseBody
+    public String editColleage(College college) {
+        try {
+            collegeService.editOne(college);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "addColleage";
     }
 

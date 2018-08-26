@@ -256,8 +256,19 @@
     // 删除功能
     function delectRowData(rowData){
         // 执行删除操作
-        if(window.confirm('确认要删除['+rowData.title+']?')){
-            window.alert('当然这只是个示例,并不会真实删除,要不然每天我每天就光填demo数据了.');
+        if(window.confirm('确认要删除['+rowData.name+']?')){
+            $.ajax({
+                url: "/removeSystemUser.do?id="+rowData.id,
+                type: "get",
+                success: function (data) {
+                    alert("删除成功");
+                    console.log(data);
+                },
+                error: function (data) {
+                    alert("删除失败");
+                    console.log(data);
+                }
+            });
         }
     }
 

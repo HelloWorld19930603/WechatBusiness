@@ -14,4 +14,6 @@ public interface IPosterService {
     List<Map<String,Object>> selectList(String page, Byte type, int start, int pageSize) throws Exception;
 
     void insertPoster(Poster poster) throws Exception;
+
+    void removeOne(int id)throws Exception;;
 }
