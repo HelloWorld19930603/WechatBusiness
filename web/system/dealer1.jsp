@@ -303,7 +303,7 @@
         });
 
         $("#editable-sample_new").click(function () {
-            window.location.href = "/addDealer.do?serise="+document.querySelector('[name="serise"]').value;
+            window.open( "/addDealer.do?serise="+document.querySelector('[name="serise"]').value);
         })
     })();
 

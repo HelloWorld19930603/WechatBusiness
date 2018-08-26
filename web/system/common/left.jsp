@@ -26,7 +26,7 @@
             <li class="menu-list"><a href=""><i class="fa fa-picture-o"></i> <span>广告</span></a>
                 <ul class="sub-menu-list">
                     <li class="poster"><a href="/poster.do"> 广告管理</a></li>
-                    <li><a href="buttons.html"> Buttons</a></li>
+                    <li class="addPoster"><a href="/addPoster.do"> 添加广告</a></li>
 
                 </ul>
             </li>
@@ -39,8 +39,8 @@
             </li>
             <li class="menu-list"><a href=""><i class="fa fa-jpy"></i> <span>返利</span></a>
                 <ul class="sub-menu-list">
-                    <li class="rebate"><a href="/rebate.do"> 商品管理</a></li>
-                    <li class="rebate"><a href="/rebate.do"> 添加商品</a></li>
+                    <li class="rebate"><a href="/rebate.do"> 返利详情</a></li>
+                    <li class="addRebate"><a href="/addRebate.do"> 添加规则</a></li>
 
                 </ul>
             </li>

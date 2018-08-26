@@ -32,12 +32,15 @@
 </style>
 <script>
     const TYPE_MAP = {
-        '1': '轮播'
+        '1': '轮播',
+        '2': '静态',
 
     };
 
     const PAGE_MAP = {
-        '首页': '首页'
+        '1': '首页',
+        '2':'物流查询页',
+        '3':'商品追溯页'
 
     };
 
@@ -61,9 +64,9 @@
 
             <ul class="breadcrumb">
                 <li>
-                    <a href="#">经销商</a>
+                    <a href="#">广告</a>
                 </li>
-                <li class="active"> 格丽缇</li>
+                <li class="active"> 广告详情</li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -153,7 +156,7 @@
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
             ,ajax_data: function () {
-                return '/getUsers.do';
+                return '/getPoster.do';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
             ,ajax_type: 'POST'
@@ -186,7 +189,31 @@
             }
             ,columnData: [
                 {
-                    key: 'loginName',
+                    key: 'img',
+                    remind: 'the pic',
+                    width: '110px',
+                    align: 'center',
+                    text: '缩略图',
+                    // 使用函数返回 dom node
+                    template: function(img, rowObject) {
+                        var picNode = document.createElement('a');
+                        picNode.setAttribute('href', img);
+                        picNode.setAttribute('target', '_blank');
+                        picNode.style.display = 'block';
+                        picNode.style.height = '68.5px';
+                        var imgNode = document.createElement('img');
+                        imgNode.style.width = '100px';
+                        imgNode.style.padding = '5px';
+                        imgNode.style.margin = '0 auto';
+                        imgNode.alt = rowObject.title;
+                        imgNode.src = img;
+
+                        picNode.appendChild(imgNode);
+                        return picNode;
+                    }
+                },
+                {
+                    key: 'name',
                     remind: 'the pic',
                     width: '130px',
                     align: 'center',
@@ -197,7 +224,7 @@
                         return loginName;
                     }
                 },{
-                    key: 'name',
+                    key: 'page',
                     remind: 'the title',
                     align: 'center',
                     width: '120px',
@@ -209,7 +236,7 @@
                         return name;
                     }
                 },{
-                    key: 'roleId',
+                    key: 'type',
                     remind: 'the type',
                     text: '展示类型',
                     width: '100px',
@@ -217,11 +244,6 @@
                     template: function(roleId, rowObject){
                         return TYPE_MAP[roleId];
                     }
-                },{
-                    key: 'phone',
-                    remind: 'the info',
-                    text: '广告尺寸',
-                    isShow: false
                 },{
                     key: 'status',
                     remind: 'the createDate',
@@ -234,15 +256,26 @@
                         return status;
                     }
                 },{
-                    key: 'loginTime',
+                    key: 'size',
+                    remind: 'the createDate',
+                    width: '100px',
+                    align: 'center',
+                    text: '尺寸',
+                    sorting: 'DESC',
+                    // 使用函数返回 htmlString
+                    template: function(size, rowObject){
+                        return status;
+                    }
+                },{
+                    key: 'time',
                     remind: 'the createDate',
                     width: '100px',
                     align: 'center',
                     text: '更新时间',
                     sorting: 'DESC',
                     // 使用函数返回 htmlString
-                    template: function(loginTime, rowObject){
-                        return new Date(loginTime).toLocaleString();
+                    template: function(time, rowObject){
+                        return new Date(time).toLocaleString();
                     }
                 },{
                     key: 'action',
@@ -321,6 +354,10 @@
             document.querySelector('[name="phone"]').value = '';
             document.querySelector('[name="code"]').value = '';
         });
+
+        $("#editable-sample_new").click(function () {
+            window.open("/addPoster.do");
+        })
     })();
 
     (function(){

@@ -9,13 +9,13 @@ import java.util.List;
  */
 public interface IRebateService {
 
-    public Rebate findOne(int id) throws Exception;
+     Rebate findOne(int id) throws Exception;
 
-    public void addOne(Rebate rebate) throws Exception;
+    List<Rebate> selectList(String name,Byte serise,int start,int pageSize)throws Exception;
 
-    public void deleteOne(int id) throws Exception;
+    void addOne(Rebate rebate) throws Exception;
 
-    public void editOne(Rebate rebate) throws Exception;
+    void editOne(Rebate rebate) throws Exception;
 
-    public List<Rebate> findPage(int start,int pageSize) throws Exception;
+    void removeOne(int id)throws Exception;
 }

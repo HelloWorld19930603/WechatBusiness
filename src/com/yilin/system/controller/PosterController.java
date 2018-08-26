@@ -1,8 +1,10 @@
 package com.yilin.system.controller;
 
+import com.yilin.app.domain.Poster;
 import com.yilin.app.utils.PhotoUtil;
 import com.yilin.system.common.SystemPage;
 import com.yilin.system.service.IPosterService;
+import com.yilin.system.service.impl.PosterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,13 +48,22 @@ public class PosterController {
         return systemPage;
     }
 
-    @RequestMapping("/addPoster")
+    @RequestMapping("addPoster")
+    public String addPoster(Model model) {
+        model.addAttribute("active", "addPoster");
+
+        return "addPoster";
+    }
+
+    @RequestMapping("/addPoster2")
     @ResponseBody
-    public Object addOne(@RequestParam( value="file",required=false) MultipartFile file, HttpServletRequest req) {
+    public Object addOne(Poster poster, @RequestParam( value="file",required=false) MultipartFile file, HttpServletRequest req) {
 
         try {
             String path = PhotoUtil.photoUpload(file, "images/home/head/" ,file.getName(), req.getSession().getServletContext().getRealPath("/"));
-            System.out.println(path);
+            poster.setContent(path);
+            poster.setSize(PhotoUtil.getPhotoSize(file));
+            posterService.insertPoster(poster);
         } catch (Exception e) {
             e.printStackTrace();
             return false;

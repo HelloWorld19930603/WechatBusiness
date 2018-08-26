@@ -89,6 +89,11 @@
                     <button class="search-action">搜索</button>
                     <button class="reset-action">重置</button>
                 </div>
+                <div class="btn-group" style="float:right;">
+                    <button id="editable-sample_new" class="btn btn-primary" style="font-size: 12px;padding: 4px 10px;">
+                        Add New <i class="fa fa-plus"></i>
+                    </button>
+                </div>
             </section>
 
             <section class="grid-main">
@@ -283,6 +288,10 @@
             document.querySelector('[name="phone"]').value = '';
             document.querySelector('[name="code"]').value = '';
         });
+
+        $("#editable-sample_new").click(function () {
+            window.open( "/addDealer.do?serise="+document.querySelector('[name="serise"]').value);
+        })
     })();
 
     (function(){

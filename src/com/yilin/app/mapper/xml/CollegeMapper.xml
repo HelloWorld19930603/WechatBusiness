@@ -165,8 +165,9 @@
            and  type = #{type}
         </if>
         <if test="title != null">
-            and  type like "%"+#{type}+"#"
+            and  type like '%${title}%'
         </if>
+        order by time
         limit #{start},#{pageSize}
     </select>
 

@@ -30,18 +30,7 @@
 
 
 </style>
-<script>
-    const TYPE_MAP = {
-        '1': '股东',
-        '2': '合伙人',
-        '3': '执行董事',
-        '4': '官方',
-        '5': '总代理',
-        '6': '一级代理',
-        '7': '体验'
-    };
 
-</script>
 <body class="sticky-header">
 
 <section>
@@ -61,9 +50,9 @@
 
             <ul class="breadcrumb">
                 <li>
-                    <a href="#">经销商</a>
+                    <a href="#">返利</a>
                 </li>
-                <li class="active"> Pslady</li>
+                <li class="active"> 返利详情</li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -72,19 +61,19 @@
         <div class="wrapper">
 
             <section class="search-area panel">
-                <input type="hidden" name="serise" value="3">
+                <input type="hidden" name="serise" value="1">
                 <div class="sa-ele">
-                    <label class="se-title">经销商名称:</label>
+                    <label class="se-title">返利名称:</label>
                     <input class="se-con" name="name"/>
                 </div>
                 <div class="sa-ele">
-                    <label class="se-title">手机号:</label>
-                    <input class="se-con" name="phone"/>
+                    <label class="se-title">系列:</label>
+                    <select class="se-con" name="serise">
+                        <option value="-1">请选择</option>
+                        <!--通过js增加-->
+                    </select>
                 </div>
-                <div class="sa-ele">
-                    <label class="se-title">授权码:</label>
-                    <input class="se-con" name="code"/>
-                </div>
+
                 <div class="sa-ele">
                     <button class="search-action">搜索</button>
                     <button class="reset-action">重置</button>
@@ -150,7 +139,7 @@
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
             ,ajax_data: function () {
-                return '/getUsers.do';
+                return '/getRebates.do';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
             ,ajax_type: 'POST'
@@ -161,7 +150,7 @@
             ,ajax_error: function(error){
                 console.log('ajax_error');
             }
-            ,query: {serise: 3}
+            ,query: {serise: 1}
             ,dataKey: 'list'  // 注意: 这里是用来测试responseHandler 是否生效; 数据本身返回为data, 而在这里我把数据名模拟为list, 再通过responseHandler去更改
             ,pageSize:10
 
@@ -183,52 +172,69 @@
             }
             ,columnData: [
                 {
-                    key: 'loginName',
+                    key: 'name',
                     remind: 'the pic',
                     width: '130px',
                     align: 'center',
-                    text: '经销商账号',
-                    // 使用函数返回 dom node
+                    text: '返利名称',
+                    template: function(name, rowObject) {
+
+                        return name;
+                    }
+                },
+                {
+                    key: 'serise',
+                    remind: 'the pic',
+                    width: '130px',
+                    align: 'center',
+                    text: '系列',
+                    template: function(serise, rowObject) {
+
+                        return serise;
+                    }
+                }
+                ,
+                {
+                    key: 'name',
+                    remind: 'the pic',
+                    width: '130px',
+                    align: 'center',
+                    text: '一级返利比例',
                     template: function(loginName, rowObject) {
 
                         return loginName;
                     }
                 },{
-                    key: 'name',
+                    key: 'page',
                     remind: 'the title',
                     align: 'center',
                     width: '120px',
-                    text: '经销商名称',
+                    text: '二级返利比例',
                     sorting: '',
-                    // 使用函数返回 dom node
                     template: function(name, rowObject) {
 
                         return name;
                     }
                 },{
-                    key: 'roleId',
-                    remind: 'the type',
-                    text: '级别',
-                    width: '100px',
+                    key: 'page',
+                    remind: 'the title',
                     align: 'center',
-                    template: function(roleId, rowObject){
-                        return TYPE_MAP[roleId];
+                    width: '120px',
+                    text: '返利说明',
+                    sorting: '',
+                    template: function(name, rowObject) {
+
+                        return name;
                     }
                 },{
-                    key: 'phone',
-                    remind: 'the info',
-                    text: '手机号',
-                    isShow: false
-                },{
-                    key: 'loginTime',
+                    key: 'time',
                     remind: 'the createDate',
                     width: '100px',
                     align: 'center',
-                    text: '最近登录时间',
+                    text: '更新时间',
                     sorting: 'DESC',
-                    // 使用函数返回 htmlString
-                    template: function(loginTime, rowObject){
-                        return new Date(loginTime).toLocaleString();
+                    template: function(time, rowObject){
+                        return new Date(time).toLocaleString();
                     }
                 },{
                     key: 'action',
@@ -236,7 +242,6 @@
                     width: '110px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
-                    // 直接返回 htmlString
                     template: '<span class="plugin-action" gm-click="delectRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
                 }
             ]
@@ -258,10 +263,6 @@
         }
     }
 
-    /**
-     * 渲染用户级别
-     */
-
 
     /**
      * 提供demo中的搜索, 重置
@@ -273,8 +274,6 @@
             var _query = {
                 name: document.querySelector('[name="name"]').value,
                 phone: document.querySelector('[name="phone"]').value,
-                code: document.querySelector('[name="code"]').value,
-                serise: document.querySelector('[name="serise"]').value,
                 index: 1
             };
             table.GM('setQuery', _query, function(){
@@ -286,11 +285,10 @@
         document.querySelector('.reset-action').addEventListener('click', function () {
             document.querySelector('[name="name"]').value = '';
             document.querySelector('[name="phone"]').value = '';
-            document.querySelector('[name="code"]').value = '';
         });
 
         $("#editable-sample_new").click(function () {
-            window.open( "/addDealer.do?serise="+document.querySelector('[name="serise"]').value);
+            window.open("/addRebate.do");
         })
     })();
 
