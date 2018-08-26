@@ -200,7 +200,15 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    <div class="form-group ">
+                                        <label for="type" class="control-label col-lg-2">类型</label>
+                                        <div class="col-lg-6">
+                                            <select class="form-control m-bot15" name="type" id="type">
+                                                <option value="1">素材</option>
+                                                <option value="2">官方素材</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </fieldset>
                                 <fieldset title="确认提交">
                                     <legend></legend>
@@ -397,12 +405,14 @@
     function saveColleage() {
 
         var title = $("#title").val().trim();
+        var type = $("#type").val().trim();
         var content = UM.getEditor('myEditor').getContent();
         var file1 = document.getElementById("file1").files[0];
         var file2 = document.getElementById("file2").files[0];
         var formData = new FormData();
         formData.append('title', title);
         formData.append('content', content);
+        formData.append('type', type);
 
         if (file1) {
             formData.append('file1', file1);
@@ -410,9 +420,8 @@
         if (file2) {
             formData.append('file2', file2);
         }
-
         $.ajax({
-            url: "http://localhost:8080/addColleage2.do",
+            url: "/addColleage2.do",
             type: "post",
             data: formData,
             contentType: false,
@@ -425,7 +434,7 @@
                 console.log(data);
             },
             error: function (data) {
-                alert(data);
+                alert('素材添加失败');
                 console.log(data);
             }
         });

@@ -56,7 +56,7 @@ public class Uploader {
 
     }
 
-    public void upload(MultipartFile upfile, String path) throws Exception {
+    public void upload(MultipartFile upfile,String systemPath, String path) throws Exception {
         boolean isMultipart = ServletFileUpload.isMultipartContent(this.request);
         if (!isMultipart) {
             this.state = this.errorInfo.get("NOFILE");
@@ -68,13 +68,14 @@ public class Uploader {
             ServletFileUpload sfu = new ServletFileUpload(dff);
             sfu.setSizeMax(this.maxSize * 1024);
             sfu.setHeaderEncoding("utf-8");
+            System.out.println(upfile.getName());
+            System.out.println(upfile.getOriginalFilename());
+            this.type = this.getFileExt(upfile.getOriginalFilename());
+            originalName = getName("")+type;
+           // originalName = originalName.substring(0,upfile.getOriginalFilename().lastIndexOf("."));
+            this.url = path + "/" + this.originalName;
 
-            this.originalName = upfile.getOriginalFilename();
-
-            this.fileName = this.getName(this.originalName);
-            this.type = this.getFileExt(this.fileName);
-            this.url = path + "/" + this.fileName;
-            upfile.transferTo(new File(url));
+            upfile.transferTo(new File(systemPath+url));
             this.state = this.errorInfo.get("SUCCESS");
             this.size = upfile.getSize();
             //UE中只会处理单张上传，完成后即退出
@@ -149,7 +150,7 @@ public class Uploader {
     private String getName(String fileName) {
         Random random = new Random();
         return this.fileName = "" + random.nextInt(10000)
-                + System.currentTimeMillis() + this.getFileExt(fileName);
+                + System.currentTimeMillis() ;
     }
 
     /**

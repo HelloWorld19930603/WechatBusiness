@@ -330,7 +330,7 @@
         // 绑定重置
         document.querySelector('.reset-action').addEventListener('click', function () {
             document.querySelector('[name="name"]').value = '';
-            document.querySelector('[name="serise"]').value = '-1';
+            document.querySelector('select[name="serise"]').value = '-1';
         });
 
         $("#editable-sample_new").click(function () {

@@ -367,7 +367,7 @@
         formData.append('prices',getPrices());
 
         $.ajax({
-            url: "http://localhost:8080/addCommodity2.do",
+            url: "/addCommodity2.do",
             type: "post",
             data: formData,
             contentType: false,
@@ -375,12 +375,12 @@
             mimeType: "multipart/form-data",
             success: function (data) {
                 if(data){
-                    alert('商品添加成功');
+                    alert('添加成功');
                 }
                 console.log(data);
             },
             error: function (data) {
-                alert(data);
+                alert('添加失败');
                 console.log(data);
             }
         });

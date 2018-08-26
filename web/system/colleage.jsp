@@ -30,19 +30,7 @@
 
 
 </style>
-<script>
-    const TYPE_MAP = {
-        '1': '股东',
-        '2': '联创',
-        '3': '执行董事',
-        '4': '官方',
-        '5': '总代理',
-        '6': '一级代理',
-        '7': '二级代理',
-        '8': '特约'
-    };
 
-</script>
 <body class="sticky-header">
 
 <section>
@@ -62,9 +50,9 @@
 
             <ul class="breadcrumb">
                 <li>
-                    <a href="#">经销商</a>
+                    <a href="#">学院</a>
                 </li>
-                <li class="active"> 格丽缇经销商</li>
+                <li class="active"> 学院详情</li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -75,16 +63,16 @@
             <section class="search-area panel">
                 <input type="hidden" name="serise" value="1">
                 <div class="sa-ele">
-                    <label class="se-title">经销商名称:</label>
-                    <input class="se-con" name="name"/>
+                    <label class="se-title">标题:</label>
+                    <input class="se-con" name="title"/>
                 </div>
                 <div class="sa-ele">
-                    <label class="se-title">手机号:</label>
-                    <input class="se-con" name="phone"/>
-                </div>
-                <div class="sa-ele">
-                    <label class="se-title">授权码:</label>
-                    <input class="se-con" name="code"/>
+                    <label class="se-title">类型:</label>
+                    <select class="se-con" name="type">
+                        <option value="-1">请选择</option>
+                        <option value="1">素材</option>
+                        <option value="2">官方素材</option>
+                    </select>
                 </div>
                 <div class="sa-ele">
                     <button class="search-action">搜索</button>
@@ -184,64 +172,65 @@
             }
             ,columnData: [
                 {
-                    key: 'id',
-                    remind: 'the id',
-                    width: '100px',
+                    key: 'pic',
+                    remind: 'the pic',
+                    width: '110px',
                     align: 'center',
-                    text: '授权码',
+                    text: '缩略图',
                     // 使用函数返回 dom node
-                    template: function(id, rowObject) {
+                    template: function(pic, rowObject) {
+                        var picNode = document.createElement('a');
+                        picNode.setAttribute('href', rowObject.img);
+                        picNode.setAttribute('title', rowObject.title);
+                        picNode.setAttribute('target', '_blank');
+                        picNode.style.display = 'block';
+                        picNode.style.height = '68.5px';
 
-                        return id;
+                        var imgNode = document.createElement('img');
+                        imgNode.style.width = '100px';
+                        imgNode.style.padding = '5px';
+                        imgNode.style.margin = '0 auto';
+                        imgNode.alt = rowObject.title;
+                        imgNode.src = rowObject.img;
+
+                        picNode.appendChild(imgNode);
+                        return picNode;
                     }
                 },
                 {
-                    key: 'loginName',
+                    key: 'title',
                     remind: 'the pic',
                     width: '130px',
                     align: 'center',
-                    text: '经销商账号',
+                    text: '文章标题',
                     // 使用函数返回 dom node
                     template: function(loginName, rowObject) {
 
                         return loginName;
                     }
                 },{
-                    key: 'name',
-                    remind: 'the title',
-                    align: 'center',
-                    width: '120px',
-                    text: '经销商名称',
-                    sorting: '',
-                    // 使用函数返回 dom node
-                    template: function(name, rowObject) {
-
-                        return name;
-                    }
-                },{
-                    key: 'roleId',
+                    key: 'type',
                     remind: 'the type',
-                    text: '级别',
+                    text: 'type',
                     width: '100px',
                     align: 'center',
-                    template: function(roleId, rowObject){
-                        return TYPE_MAP[roleId];
+                    template: function(type, rowObject){
+                        if(type==1){
+                            return '素材';
+                        }else{
+                            return '官方素材';
+                        }
                     }
                 },{
-                    key: 'phone',
-                    remind: 'the info',
-                    text: '手机号',
-                    isShow: false
-                },{
-                    key: 'loginTime',
+                    key: 'time',
                     remind: 'the createDate',
                     width: '100px',
                     align: 'center',
-                    text: '最近登录时间',
+                    text: '上传时间',
                     sorting: 'DESC',
                     // 使用函数返回 htmlString
-                    template: function(loginTime, rowObject){
-                        return new Date(loginTime).toLocaleString();
+                    template: function(time, rowObject){
+                        return new Date(time).toLocaleString();
                     }
                 },{
                     key: 'action',
@@ -284,10 +273,8 @@
         // 绑定搜索事件
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
-                name: document.querySelector('[name="name"]').value,
-                phone: document.querySelector('[name="phone"]').value,
-                code: document.querySelector('[name="code"]').value,
-                serise: document.querySelector('[name="serise"]').value,
+                title: document.querySelector('[name="title"]').value,
+                type:  document.querySelector('select[name="type"]').value,
                 index: 1
             };
             table.GM('setQuery', _query, function(){
@@ -297,13 +284,12 @@
 
         // 绑定重置
         document.querySelector('.reset-action').addEventListener('click', function () {
-            document.querySelector('[name="name"]').value = '';
-            document.querySelector('[name="phone"]').value = '';
-            document.querySelector('[name="code"]').value = '';
+            document.querySelector('[name="title"]').value = '';
+            document.querySelector('select[name="type"]').value = '-1';
         });
 
         $("#editable-sample_new").click(function () {
-            window.location.href = "/addDealer.do?serise="+document.querySelector('[name="serise"]').value;
+            window.open( "/addColleage.do");
         })
     })();
 
