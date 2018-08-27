@@ -33,7 +33,7 @@ public class OrderService implements IOrderService {
     WalletMapper walletMapper;
 
     @Override
-    public Page selectPage(Integer userId, int start, int pageSize, Byte status) throws Exception {
+    public List selectList(Integer userId, int start, int pageSize, Byte status) throws Exception {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);
         map.put("start", (start - 1) * pageSize);
@@ -46,9 +46,9 @@ public class OrderService implements IOrderService {
             map.put("userId", orderMap.get("userId"));
             orderMap.put("commList", orderCommMapper.selectList(map));
         }
-        Page page = new Page(pageSize, start, list.size(), list);
-        return page;
+        return list;
     }
+
 
     @Override
     public List<Map<String, Object>> selectDetails(String orderId) throws Exception {

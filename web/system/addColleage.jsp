@@ -213,7 +213,8 @@
                                 <fieldset title="确认提交">
                                     <legend></legend>
                                     <div class="form-group">
-                                        <div class="col-md-12">
+                                        <label  class="col-md-1 control-label "></label>
+                                        <div class="col-md-11">
                                             <script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
                                                 <%--  <p>这里我可以写一些输入提示</p>--%>
                                             </script>

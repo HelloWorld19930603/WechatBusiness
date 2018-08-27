@@ -7,6 +7,7 @@ import com.yilin.app.exception.FileException;
 import com.yilin.app.service.ICommodityService;
 import com.yilin.app.service.IPriceService;
 import com.yilin.app.utils.PhotoUtil;
+import com.yilin.app.utils.StringUtil;
 import com.yilin.system.common.SystemPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -76,19 +77,19 @@ public class CommodityController {
             return "editCommodity";
         } catch (Exception e) {
             e.printStackTrace();
-            return "404";
+            return "500";
         }
 
     }
 
     @RequestMapping("editCommodity2")
     @ResponseBody
-    public Object editCommodity2(Commodity commodity, @RequestParam(value = "file", required = false) MultipartFile file,
+    public String editCommodity2(Commodity commodity, @RequestParam(value = "file", required = false) MultipartFile file,
                                   HttpServletRequest req) {
         try {
             String img = commodity.getImg();
             if (file != null) {
-                String imgPath = PhotoUtil.photoUpload(file, img.substring(1,img.lastIndexOf("/")+1), img.substring(img.lastIndexOf("/")+1,img.lastIndexOf("."))
+                String imgPath = PhotoUtil.photoUpload(file, img.substring(1,img.lastIndexOf("/")+1), StringUtil.makeFileName()
                         , req.getSession().getServletContext().getRealPath("/"));
                 commodity.setImg(imgPath);
             }
@@ -102,7 +103,7 @@ public class CommodityController {
 
     @RequestMapping("removeCommodity")
     @ResponseBody
-    public Object removeCommodity(int commId) {
+    public String removeCommodity(int commId) {
         try {
             commodityService.deleteOne(commId);
             return "删除成功";
@@ -114,22 +115,22 @@ public class CommodityController {
 
     @RequestMapping("addCommodity2")
     @ResponseBody
-    public Object addCommodity2(Commodity commodity, Float[] prices, @RequestParam(value = "file", required = false) MultipartFile file
+    public String addCommodity2(Commodity commodity, Float[] prices, @RequestParam(value = "file", required = false) MultipartFile file
             , @RequestParam(value = "file2", required = false) MultipartFile file2, @RequestParam(value = "file3", required = false) MultipartFile file3
             , HttpServletRequest req) {
         try {
             String img1 = "", img2 = null, img3 = null;
             if (file != null) {
-                img1 = PhotoUtil.photoUpload(file, "images/home/commodity/", "" + new Random().nextInt(1000)
-                        + System.currentTimeMillis(), req.getSession().getServletContext().getRealPath("/"));
+                img1 = PhotoUtil.photoUpload(file, "images/home/commodity/", StringUtil.makeFileName()
+                        , req.getSession().getServletContext().getRealPath("/"));
             }
             if (file2 != null) {
-                img2 = PhotoUtil.photoUpload(file2, "images/home/commodity/", "" + new Random().nextInt(1000)
-                        + System.currentTimeMillis(), req.getSession().getServletContext().getRealPath("/"));
+                img2 = PhotoUtil.photoUpload(file2, "images/home/commodity/", StringUtil.makeFileName()
+                        , req.getSession().getServletContext().getRealPath("/"));
             }
             if (file3 != null) {
-                img3 = PhotoUtil.photoUpload(file3, "images/home/commodity/", "" + new Random().nextInt(1000)
-                        + System.currentTimeMillis(), req.getSession().getServletContext().getRealPath("/"));
+                img3 = PhotoUtil.photoUpload(file3, "images/home/commodity/", StringUtil.makeFileName()
+                        , req.getSession().getServletContext().getRealPath("/"));
             }
             commodity.setImg(img1);
             commodityService.addCommodity(commodity);

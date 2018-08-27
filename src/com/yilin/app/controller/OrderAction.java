@@ -42,7 +42,8 @@ public class OrderAction {
         try {
             Integer userId = Permission.getUserId(token);
             if (userId != null) {
-                Page page = orderService.selectPage(userId, start, pageSize, status);
+                List list = orderService.selectList(userId, start, pageSize, status);
+                Page page = new Page(pageSize, start, list.size(), list);
                 result = new ResultJson(true, "查询成功", page);
             } else {
                 result = new ResultJson(false, "userId不能为空");
