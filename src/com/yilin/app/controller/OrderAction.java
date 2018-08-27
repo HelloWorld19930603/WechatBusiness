@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,13 +56,13 @@ public class OrderAction {
 
     @RequestMapping("findOne")
     @ResponseBody
-    public ResultJson findOne(String orderId) {
+    public ResultJson findOne(String orderId,String token) {
         ResultJson result;
         try {
             Map<String,Object> order = orderService.findOrder(orderId);
-            Map<String, Object> map = new HashMap<>();
-            map.put("order", order);
-            result = new ResultJson(true, "查询成功", map);
+            List<Map<String,Object>> commList = orderService.selectDetails(orderId);
+            order.put("commList", commList);
+            result = new ResultJson(true, "查询成功", order);
         } catch (Exception e) {
             e.printStackTrace();
             result = new ResultJson(false, "查询失败");

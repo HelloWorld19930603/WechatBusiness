@@ -43,10 +43,18 @@ public class OrderService implements IOrderService {
         for (Map<String, Object> orderMap : list) {
             map.clear();
             map.put("orderId", orderMap.get("id"));
+            map.put("userId", orderMap.get("userId"));
             orderMap.put("commList", orderCommMapper.selectList(map));
         }
         Page page = new Page(pageSize, start, list.size(), list);
         return page;
+    }
+
+    @Override
+    public List<Map<String, Object>> selectDetails(String orderId) throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put("orderId", orderId);
+        return orderCommMapper.selectList(map);
     }
 
     @Override

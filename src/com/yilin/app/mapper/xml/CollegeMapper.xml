@@ -183,4 +183,18 @@
             and  title like '%${title}%'
         </if>
     </select>
+
+    <update id="updateForward" parameterType="int">
+        update college
+        set
+        forward = forward + 1
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateRead" parameterType="int">
+        update college
+        set
+        readNum = readNum + 1
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

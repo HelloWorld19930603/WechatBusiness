@@ -13,7 +13,9 @@ public interface IOrderService {
 
     Page selectPage(Integer userId, int index, int pageSize, Byte status) throws Exception;
 
-    void updateStatus(String id, int userId, int status,Integer oldStatus) throws AccountException;
+    List<Map<String, Object>> selectDetails(String orderId) throws Exception;
+
+    void updateStatus(String id, int userId, int status, Integer oldStatus) throws AccountException;
 
     Map<String,Object> findOrder(String id) throws Exception;
 

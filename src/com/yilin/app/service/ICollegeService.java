@@ -21,4 +21,10 @@ public interface ICollegeService {
     void removeOne(int id)throws Exception;
 
     void editOne(College college)throws Exception;
+
+    College selectOne(int id) throws Exception;
+
+    void forwardOne(int id);
+
+    void readOne(int id);
 }

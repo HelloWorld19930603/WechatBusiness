@@ -71,4 +71,19 @@ public class CollegeService implements ICollegeService{
     public void editOne(College college) throws Exception {
         collegeMapper.updateByPrimaryKeySelective(college);
     }
+
+    @Override
+    public College selectOne(int id) throws Exception {
+        return collegeMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void forwardOne(int id) {
+        collegeMapper.updateForward(id);
+    }
+
+    @Override
+    public void readOne(int id) {
+        collegeMapper.updateRead(id);
+    }
 }

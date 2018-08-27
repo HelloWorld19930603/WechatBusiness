@@ -182,16 +182,13 @@
 
     <select id="selectById" parameterType="java.lang.String" resultMap="PageMap">
         select
-        o.id, o.user_id, oc.comm_id,addr_id, num, oc.price,m.price mPrice,o.status, time,o.description
-        ,c.name comm_name,c.scale,c.img,c.serise,a.name addr_name,
+        o.id, o.user_id, addr_id,  o.status, time,o.description
+        ,a.name addr_name,
         a.phone,a.ssq,a.addr,l.order_id no,l.com
         from orders o
-        left join order_comm oc on o.id = oc.order_id
-        LEFT join commodity c on o.comm_id = c.id
-        left join price m on c.id = m.comm_id and m.role_id = 0
         LEFT join address a on o.addr_id = a.id
         left join logistics l on l.order_id = o.id
-        where id = #{id,jdbcType=VARCHAR}
+        where o.id = #{id,jdbcType=VARCHAR}
     </select>
 
     <select id="selectStatus" parameterType="java.lang.String" resultType="byte">

@@ -12,8 +12,10 @@
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="comm_id" jdbcType="INTEGER" property="commId" />
         <result column="name" jdbcType="VARCHAR" property="commName" />
+        <result column="e_name" jdbcType="VARCHAR" property="eName" />
         <result column="scale" jdbcType="VARCHAR" property="scale" />
         <result column="aPrice" jdbcType="REAL" property="aPrice" />
+        <result column="mPrice" jdbcType="REAL" property="mPrice" />
         <result column="img" jdbcType="VARCHAR" property="img" />
         <result column="user_id" jdbcType="INTEGER" property="userId" />
         <result column="num" jdbcType="INTEGER" property="num" />
@@ -120,11 +122,12 @@
   <select id="selectList" parameterType="map" resultMap ="PageMap">
     SELECT
       ca.id, ca.comm_id, ca.user_id, num, time
-      ,name,price aPrice,scale,img,co.serise
+      ,name,e_name,a.price aPrice,m.price mPrice,scale,img,co.serise
       from cart ca
       LEFT JOIN commodity co on ca.comm_id = co.id
-      left join price p on p.comm_id = co.id
-      and p.role_id = (SELECT role_id from user_role where serise = co.serise and user_id = #{userId})
+      left join price a on a.comm_id = co.id
+      and a.role_id = (SELECT role_id from user_role where serise = co.serise and user_id = #{userId})
+      left join price m on ca.comm_id = m.comm_id and m.role_id = 0
       where user_id = #{userId} limit ${start}
     <if test="pageSize != null and pageSize != 0">
       ,#{pageSize}

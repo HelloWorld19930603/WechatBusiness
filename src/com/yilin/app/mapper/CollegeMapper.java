@@ -5,4 +5,7 @@ import com.yilin.app.mapper.base.IBaseMapper;
 
 public interface CollegeMapper extends IBaseMapper<College>{
 
+    void updateForward(int id);
+
+    void updateRead(int id);
 }

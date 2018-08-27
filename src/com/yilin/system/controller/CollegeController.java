@@ -24,7 +24,7 @@ import java.util.List;
  * Created by cc on 2018/8/25.
  */
 @Controller
-public class ColleageController {
+public class CollegeController {
 
     @Autowired
     ICollegeService collegeService;
