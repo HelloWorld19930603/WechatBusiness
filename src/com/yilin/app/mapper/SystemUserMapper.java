@@ -5,4 +5,5 @@ import com.yilin.app.mapper.base.IBaseMapper;
 
 public interface SystemUserMapper extends IBaseMapper<SystemUser>{
 
+    SystemUser selectForLogin(String loginName, String loginPwd);
 }

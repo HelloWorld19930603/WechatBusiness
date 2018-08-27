@@ -2,6 +2,7 @@ package com.yilin.system.service.impl;
 
 import com.yilin.app.domain.SystemUser;
 import com.yilin.app.mapper.SystemUserMapper;
+import com.yilin.app.utils.MD5Util;
 import com.yilin.system.service.ISystemUserService;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,10 @@ public class SystemUserService implements ISystemUserService {
         map.put("phone",phone);
         map.put("loginName",loginName);
         return systemUserMapper.count(new HashedMap());
+    }
+
+    @Override
+    public SystemUser selectForLogin(String loginName, String loginPwd) throws Exception {
+        return systemUserMapper.selectForLogin(loginName, MD5Util.encrypt(loginPwd));
     }
 }

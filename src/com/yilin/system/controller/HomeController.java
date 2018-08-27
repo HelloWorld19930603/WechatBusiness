@@ -1,5 +1,6 @@
 package com.yilin.system.controller;
 
+import com.yilin.app.domain.SystemUser;
 import com.yilin.system.service.ISystemUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,12 @@ public class HomeController {
     }
 
     @RequestMapping("toLogin")
-    public String toLogin(){
+    public String toLogin(String loginName,String loginPwd){
+        try {
+            SystemUser user = systemUserService.selectForLogin(loginName,loginPwd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "login";
     }
 
