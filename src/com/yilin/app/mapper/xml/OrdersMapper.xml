@@ -140,7 +140,7 @@
         left join logistics l on l.order_id = o.id
         where o.user_id = #{userId}
         <if test="status != null">
-            and status = #{status}
+            and o.status = #{status}
         </if>
         limit #{start},#{pageSize}
     </select>

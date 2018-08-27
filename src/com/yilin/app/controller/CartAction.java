@@ -26,7 +26,7 @@ public class CartAction {
     public ResultJson findPage(String token,int start,int pageSize){
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             Page page =  cartService.getCarts(userId,start,pageSize);
             result = new ResultJson(true,"查询成功",page);
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public class CartAction {
     public ResultJson addOne(int commId,int num,String token){
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             cartService.addCart(commId,num,userId);
             result = new ResultJson(true,"添加成功");
         } catch (Exception e) {
@@ -70,7 +70,7 @@ public class CartAction {
     public ResultJson removeOne(String cartId,String token){
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             cartService.deleteCart(cartId,userId);
             result = new ResultJson(true,"删除成功");
         } catch (Exception e) {
