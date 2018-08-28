@@ -112,7 +112,7 @@ public class OrderService implements IOrderService {
     @Override
     public int getCount(Integer userId, Integer status) throws Exception {
         Map<String, Object> map = new HashMap<>();
-        map.put("user_id", userId);
+        map.put("userId", userId);
         map.put("status", status);
         return ordersMapper.count(map);
     }
@@ -120,7 +120,7 @@ public class OrderService implements IOrderService {
     @Override
     public List<Map<String, Integer>> getAllCount(Integer userId) throws Exception {
         Map<String, Object> map = new HashMap<>();
-        map.put("user_id", userId);
+        map.put("userId", userId);
         return ordersMapper.countAll(map);
     }
 
@@ -165,7 +165,7 @@ public class OrderService implements IOrderService {
             throw new Exception();
         }
         Map<String, Object> map = new HashMap<>();
-        map.put("user_id", userId);
+        map.put("userId", userId);
         map.put("status", status);
         map.put("id", orderId);
         ordersMapper.updateStatus(map);
