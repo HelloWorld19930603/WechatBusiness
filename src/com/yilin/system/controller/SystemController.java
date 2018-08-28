@@ -70,6 +70,19 @@ public class SystemController {
 
     }
 
+    @RequestMapping("editPwd")
+    @ResponseBody
+    public Object editPwd(int id,String oldPwd,String newPwd){
+        try {
+            systemUserService.editPwd(id,oldPwd,newPwd);
+            return "修改成功";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "修改失败";
+        }
+
+    }
+
     @RequestMapping("removeSystemUser")
     @ResponseBody
     public Object removeSystemUser(int id){

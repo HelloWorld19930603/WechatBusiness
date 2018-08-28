@@ -139,7 +139,7 @@
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
             ,ajax_data: function () {
-                return '/getColleages.do';
+                return '/getColleges.do';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
             ,ajax_type: 'POST'
@@ -257,7 +257,7 @@
         // 执行删除操作
         if(window.confirm('确认要删除['+rowData.name+']?')){
             $.ajax({
-                url: "/removeColleage.do?id="+rowData.id,
+                url: "/removeCollege.do?id="+rowData.id,
                 type: "get",
                 success: function (data) {
                     alert("删除成功");
@@ -300,7 +300,7 @@
         });
 
         $("#editable-sample_new").click(function () {
-            window.open( "/addColleage.do");
+            window.open( "/addCollege.do");
         })
     })();
 

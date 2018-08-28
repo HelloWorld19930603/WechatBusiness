@@ -21,4 +21,6 @@ public interface ISystemUserService {
     int selectCount(String name, String phone, String loginName) throws Exception;
 
     SystemUser selectForLogin(@Param("loginName") String loginName, @Param("loginPwd") String loginPwd) throws Exception;
+
+    void editPwd(int id,String oldPwd, String newPwd)throws Exception;
 }

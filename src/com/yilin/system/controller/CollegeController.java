@@ -29,15 +29,15 @@ public class CollegeController {
     @Autowired
     ICollegeService collegeService;
 
-    @RequestMapping("colleage")
-    public String colleage(Model model) {
-        model.addAttribute("active", "colleage");
-        return "colleage";
+    @RequestMapping("College")
+    public String College(Model model) {
+        model.addAttribute("active", "College");
+        return "College";
     }
 
-    @RequestMapping("getColleages")
+    @RequestMapping("getColleges")
     @ResponseBody
-    public SystemPage getColleages(Byte type, String titile, int start, int pageSize, String title) {
+    public SystemPage getColleges(Byte type, String titile, int start, int pageSize, String title) {
         int totals = 0;
         SystemPage page = new SystemPage();
         try {
@@ -50,48 +50,48 @@ public class CollegeController {
         return page;
     }
 
-    @RequestMapping("addColleage")
-    public String addColleage(Model model) {
-        model.addAttribute("active", "addColleage");
-        return "addColleage";
+    @RequestMapping("addCollege")
+    public String addCollege(Model model) {
+        model.addAttribute("active", "addCollege");
+        return "addCollege";
     }
 
-    @RequestMapping("removeColleage")
+    @RequestMapping("removeCollege")
     @ResponseBody
-    public String removeColleage(int id) {
+    public String removeCollege(int id) {
         try {
             collegeService.removeOne(id);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "addColleage";
+        return "addCollege";
     }
 
-    @RequestMapping("editColleage")
+    @RequestMapping("editCollege")
     @ResponseBody
-    public String editColleage(College college) {
+    public String editCollege(College college) {
         try {
             collegeService.editOne(college);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "addColleage";
+        return "addCollege";
     }
 
-    @RequestMapping("addColleage2")
+    @RequestMapping("addCollege2")
     @ResponseBody
-    public Object addColleage2(String title, String content, byte type, @RequestParam(value = "file1", required = false) MultipartFile file1,
+    public Object addCollege2(String title, String content, byte type, @RequestParam(value = "file1", required = false) MultipartFile file1,
                                @RequestParam(value = "file2", required = false) MultipartFile file2, HttpServletRequest req) {
 
         try {
             String img = null, video = null;
             if (file1 != null) {
-                img = PhotoUtil.photoUpload(file1, "images/home/colleage/",
+                img = PhotoUtil.photoUpload(file1, "images/home/College/",
                         file1.getOriginalFilename().substring(0,file1.getOriginalFilename().lastIndexOf(".")),
                         req.getSession().getServletContext().getRealPath("/"));
             }
             if (file2 != null) {
-                video = PhotoUtil.photoUpload(file2, "images/home/colleage/video/",
+                video = PhotoUtil.photoUpload(file2, "images/home/College/video/",
                         file2.getOriginalFilename().substring(0,file2.getOriginalFilename().lastIndexOf(".")),
                         req.getSession().getServletContext().getRealPath("/"));
             }
@@ -118,7 +118,7 @@ public class CollegeController {
         String[] fileType = {".gif", ".png", ".jpg", ".jpeg", ".bmp"};
         up.setAllowFiles(fileType);
         up.setMaxSize(10000); //单位KB
-        up.upload(upfile, req.getSession().getServletContext().getRealPath("/") ,"images/home/colleage");
+        up.upload(upfile, req.getSession().getServletContext().getRealPath("/") ,"images/home/College");
 
         String callback = req.getParameter("callback");
 

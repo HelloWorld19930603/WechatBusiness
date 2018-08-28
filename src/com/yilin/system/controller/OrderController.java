@@ -41,5 +41,31 @@ public class OrderController {
         return page;
     }
 
+    @RequestMapping("getLogistics")
+    @ResponseBody
+    public Object getLogistics(int orderId){
 
+        return null;
+    }
+
+    @RequestMapping("deliverGoods")
+    @ResponseBody
+    public Object deliverGoods(int orderId,String com,String no){
+
+        return null;
+    }
+
+    @RequestMapping("receivingAddress")
+    @ResponseBody
+    public Object receivingAddress(int addrId){
+
+        return null;
+    }
+
+    @RequestMapping("listOfGoods")
+    @ResponseBody
+    public Object listOfGoods(int addrId){
+
+        return null;
+    }
 }

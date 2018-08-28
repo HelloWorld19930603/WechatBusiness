@@ -44,6 +44,7 @@ public class SystemUserService implements ISystemUserService {
 
     @Override
     public void addOne(SystemUser user) throws Exception {
+        user.setLoginPwd(MD5Util.encrypt(user.getLoginPwd()));
         systemUserMapper.insert(user);
     }
 
@@ -59,5 +60,14 @@ public class SystemUserService implements ISystemUserService {
     @Override
     public SystemUser selectForLogin(String loginName, String loginPwd) throws Exception {
         return systemUserMapper.selectForLogin(loginName, MD5Util.encrypt(loginPwd));
+    }
+
+    @Override
+    public void editPwd(int id,String oldPwd, String newPwd) throws Exception {
+        SystemUser user = systemUserMapper.selectByPrimaryKey(id);
+        if(user.getLoginPwd().equals(MD5Util.encrypt(oldPwd))){
+            user.setLoginPwd(MD5Util.encrypt(newPwd));
+            systemUserMapper.insertSelective(user);
+        }
     }
 }

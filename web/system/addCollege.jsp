@@ -336,12 +336,12 @@
         });
 
         $("#finished").click(function (e) {
-            saveColleage();
+            saveCollege();
         });
     });
 
 
-    function saveColleage() {
+    function saveCollege() {
 
         var title = $("#title").val().trim();
         var type = $("#type").val().trim();
@@ -360,7 +360,7 @@
             formData.append('file2', file2);
         }
         $.ajax({
-            url: "/addColleage2.do",
+            url: "/addCollege2.do",
             type: "post",
             data: formData,
             contentType: false,

@@ -8,7 +8,9 @@ import jxl.read.biff.BiffException;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Administrator on 2018/7/11.
@@ -44,15 +46,13 @@ public class ReadExcel {
                     // sheet.getColumns()返回该页的总列数
                     for (int j = 0; j < sheet.getColumns(); j++) {
                         String cellinfo = sheet.getCell(j, i).getContents();
-                        if (cellinfo.isEmpty()) {
-                            continue;
-                        }
+
                         innerList.add(cellinfo);
                     }
                     for (String s : innerList) {
-                        System.out.print(s + " ");
+                      //  System.out.print(s + " ");
                     }
-                    System.out.println();
+                  //  System.out.println();
                     outerList.add(m, innerList);
                 }
                 result.add(outerList);
@@ -122,10 +122,12 @@ public class ReadExcel {
 
         public static void main(String[] args) {
 
-        String fileName = "D:\\weishang\\格丽缇\\工作簿1.xls";
-       // domain(fileName);
-        commoDetail();
+       // String fileName = "D:\\weishang\\格丽缇\\工作簿1.xls";
+       // domain( "D:\\weishang\\格丽缇\\工作簿1.xls");
+      //  commoDetail();
        // inserExpress();
+            domain("e:\\123.xls");
+
     }
 
 
@@ -137,9 +139,52 @@ public class ReadExcel {
         for (int n = 0; n < excelAllList.size(); n++) {
             //commodity(excelAllList.get(n), n);
             // price(excelAllList.get(n), n);
+            user(excelAllList.get(n), n);
         }
+    }
 
+    private static void user(List<List> excelList, int n) {
+        if (n != 0) {
+            return;
+        }
+        Set<String> set1  = new HashSet<>();
+        Set<String> set2  = new HashSet<>();
+        Set<String> set3  = new HashSet<>();
+        String sql1 = "select max(id) from user";
+        StringBuilder sql2 = new StringBuilder( "insert into user_role(user_id,role_id,serise) values(");
+        int num = 0;
+        for (int i = 1; i < 2234; i++) {
+                StringBuilder sql = new StringBuilder(" insert into user (`name`, `login_name`, `login_pwd`, `pay_pwd`, `sex`, `sup_id`, `phone`, `wx_num`, `id_num`, `head_img`, `login_time`, `status`) values(  ");
+                List l = excelList.get(i);
+                sql.append("").append(i - 3).append("").append(",");
+                sql.append(")");
 
+                    set1.add((String) l.get(0));
+                    set2.add((String) l.get(1));
+                    set3.add((String) l.get(2));
+            if("股东".indexOf((String)l.get(0))>-1){
+                num++;
+            }
+
+               // SqlUtils.getInstance().update(sql.toString());
+              //  System.out.println(sql);
+        }
+        System.out.println(num);
+        System.out.println("\n系列1：");
+        for(String s1 : set1){
+
+            System.out.print(s1 + " ");
+        }
+        System.out.println("\n系列2：");
+        for(String s2 : set2){
+
+            System.out.print(s2 + " ");
+        }
+        System.out.println("\n系列3：");
+        for(String s3 : set3){
+
+            System.out.print(s3 + " ");
+        }
     }
 
     public static void inserExpress(){
