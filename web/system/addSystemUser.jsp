@@ -56,7 +56,7 @@
                         </header>
                         <div class="panel-body">
                             <div class="form" >
-                                <form class="cmxform form-horizontal adminex-form" id="signupForm" >
+                                <form class="cmxform form-horizontal adminex-form" >
                                     <div class="form-group ">
                                         <label for="name" class="control-label col-lg-3">管理员名字</label>
                                         <div class="col-lg-5">
@@ -115,10 +115,28 @@
         <!--footer section start-->
         <%@include file="common/footer.jsp" %>
         <!--footer section end-->
+    </div>
+    <!-- main content end-->
+</section>
 
+<!-- Placed js at the end of the document so the pages load faster -->
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="/js/jquery.stepy.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
 
 <script type="text/javascript" src="js/jquery.validate.min.js"></script>
 <script src="/js/validation-init.js"></script>
+<!--common scripts for all pages-->
+<script src="js/scripts.js"></script>
+
+</body>
+</html>
+
 <script type="text/javascript">
     $(".${active}").addClass("active");
     $(".${active}").parents("li").addClass("nav-active");

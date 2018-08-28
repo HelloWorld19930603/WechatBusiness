@@ -29,10 +29,10 @@ public class CollegeController {
     @Autowired
     ICollegeService collegeService;
 
-    @RequestMapping("College")
+    @RequestMapping("college")
     public String College(Model model) {
-        model.addAttribute("active", "College");
-        return "College";
+        model.addAttribute("active", "college");
+        return "college";
     }
 
     @RequestMapping("getColleges")
@@ -86,12 +86,12 @@ public class CollegeController {
         try {
             String img = null, video = null;
             if (file1 != null) {
-                img = PhotoUtil.photoUpload(file1, "images/home/College/",
+                img = PhotoUtil.photoUpload(file1, "images/home/college/",
                         file1.getOriginalFilename().substring(0,file1.getOriginalFilename().lastIndexOf(".")),
                         req.getSession().getServletContext().getRealPath("/"));
             }
             if (file2 != null) {
-                video = PhotoUtil.photoUpload(file2, "images/home/College/video/",
+                video = PhotoUtil.photoUpload(file2, "images/home/college/video/",
                         file2.getOriginalFilename().substring(0,file2.getOriginalFilename().lastIndexOf(".")),
                         req.getSession().getServletContext().getRealPath("/"));
             }
@@ -118,11 +118,11 @@ public class CollegeController {
         String[] fileType = {".gif", ".png", ".jpg", ".jpeg", ".bmp"};
         up.setAllowFiles(fileType);
         up.setMaxSize(10000); //单位KB
-        up.upload(upfile, req.getSession().getServletContext().getRealPath("/") ,"images/home/College");
+        up.upload(upfile, req.getSession().getServletContext().getRealPath("/") ,"images/home/college");
 
         String callback = req.getParameter("callback");
 
-        String result = "{\"name\":\"" + up.getFileName() + "\", \"originalName\": \"" + up.getOriginalName()+ "\", \"size\": " + up.getSize() + ", \"state\": \"" + up.getState() + "\", \"type\": \"" + up.getType() + "\", \"url\": \"" +up.getOriginalName() + "\"}";
+        String result = "{\"name\":\"" + up.getFileName() + "\", \"originalName\": \"" + up.getOriginalName()+ "\", \"size\": " + up.getSize() + ", \"state\": \"" + up.getState() + "\", \"type\": \"" + up.getType() + "\", \"url\": \"" +up.getUrl() + "\"}";
 
         result = result.replaceAll("\\\\", "\\\\");
 

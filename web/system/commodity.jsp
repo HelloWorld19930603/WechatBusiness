@@ -154,7 +154,7 @@
             ,ajax_error: function(error){
                 console.log('ajax_error');
             }
-            ,query: {serise: 1}
+            ,query: {serise: -1}
             ,dataKey: 'list'  // 注意: 这里是用来测试responseHandler 是否生效; 数据本身返回为data, 而在这里我把数据名模拟为list, 再通过responseHandler去更改
             ,pageSize:10
 
@@ -290,10 +290,7 @@
     }
 
     function editRowData(rowData){
-        // 执行删除操作
-        if(window.confirm('确认要修改['+rowData.name+']?')){
             window.open("/editCommodity.do?commId="+rowData.id);
-        }
     }
 
     /**
