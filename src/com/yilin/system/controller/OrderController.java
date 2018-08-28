@@ -1,5 +1,6 @@
 package com.yilin.system.controller;
 
+import com.yilin.app.service.IAddressService;
 import com.yilin.app.service.IOrderService;
 import com.yilin.system.common.SystemPage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class OrderController {
 
     @Autowired
     IOrderService orderService;
+    @Autowired
+    IAddressService addressService;
+
 
     @RequestMapping("order")
     public String order(Model model){

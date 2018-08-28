@@ -1,6 +1,5 @@
 package com.yilin.app.service.impl;
 
-import com.yilin.app.common.Page;
 import com.yilin.app.domain.OrderComm;
 import com.yilin.app.domain.Orders;
 import com.yilin.app.domain.Payment;
@@ -154,7 +153,7 @@ public class OrderService implements IOrderService {
     @Override
     public void removeOrder(String id, int userId) throws Exception {
         Map<String, Object> map = new HashMap<>();
-        map.put("user_id", userId);
+        map.put("userId", userId);
         map.put("id", id);
         ordersMapper.deleteById(map);
     }

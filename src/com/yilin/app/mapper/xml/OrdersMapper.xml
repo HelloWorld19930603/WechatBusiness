@@ -140,7 +140,7 @@
         left join logistics l on l.order_id = o.id
         where 1=1
         <if test="userId != null">
-            and  o.user_id = #{userId}
+            and o.user_id = #{userId}
         </if>
         <if test="status != null">
             and o.status = #{status}
@@ -180,7 +180,7 @@
         </if>
     </update>
 
-    <delete id="deleteById" parameterType="map">
+  <delete id="deleteById" parameterType="map">
     delete from orders  where user_id = #{userId} and id = #{id} and status in (1,4,7)
   </delete>
 

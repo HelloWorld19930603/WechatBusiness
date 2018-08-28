@@ -40,14 +40,11 @@ public class OrderAction {
     public ResultJson findPage(String token, int start, int pageSize, Byte status) {
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
-            if (userId != null) {
-                List list = orderService.selectList(userId, start, pageSize, status);
-                Page page = new Page(pageSize, start, list.size(), list);
-                result = new ResultJson(true, "查询成功", page);
-            } else {
-                result = new ResultJson(false, "userId不能为空");
-            }
+            int userId = Permission.getUserId(token);
+            List list = orderService.selectList(userId, start, pageSize, status);
+            Page page = new Page(pageSize, start, list.size(), list);
+            result = new ResultJson(true, "查询成功", page);
+
         } catch (Exception e) {
             e.printStackTrace();
             result = new ResultJson(false, "查询失败");
@@ -57,11 +54,11 @@ public class OrderAction {
 
     @RequestMapping("findOne")
     @ResponseBody
-    public ResultJson findOne(String orderId,String token) {
+    public ResultJson findOne(String orderId, String token) {
         ResultJson result;
         try {
-            Map<String,Object> order = orderService.findOrder(orderId);
-            List<Map<String,Object>> commList = orderService.selectDetails(orderId);
+            Map<String, Object> order = orderService.findOrder(orderId);
+            List<Map<String, Object>> commList = orderService.selectDetails(orderId);
             order.put("commList", commList);
             result = new ResultJson(true, "查询成功", order);
         } catch (Exception e) {
@@ -82,8 +79,8 @@ public class OrderAction {
     public ResultJson findCount(String token) {
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
-            List<Map<String,Integer>> numList = orderService.getAllCount(userId);
+            int userId = Permission.getUserId(token);
+            List<Map<String, Integer>> numList = orderService.getAllCount(userId);
             result = new ResultJson(true, "查询成功", numList);
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,12 +97,12 @@ public class OrderAction {
      */
     @RequestMapping("createOrders")
     @ResponseBody
-    public ResultJson createOrders(@RequestBody Map<String,Object> orders) {
+    public ResultJson createOrders(@RequestBody Map<String, Object> orders) {
         ResultJson result;
         try {
-            int userId = Permission.getUserId((String)orders.get("token"));
-            String orderId = orderService.createOrder(userId,orders);
-            result = new ResultJson(true, "创建成功",orderId);
+            int userId = Permission.getUserId((String) orders.get("token"));
+            String orderId = orderService.createOrder(userId, orders);
+            result = new ResultJson(true, "创建成功", orderId);
         } catch (Exception e) {
             e.printStackTrace();
             result = new ResultJson(false, "创建失败");
@@ -129,7 +126,7 @@ public class OrderAction {
         try {
             int userId = Permission.getUserId(token);
             if (userService.checkPayPwd(userId, payPwd)) {
-                orderService.payOrder(orderId, userId,  type);
+                orderService.payOrder(orderId, userId, type);
                 result = new ResultJson(true, "支付成功", orderId);
             } else {
                 result = new ResultJson(false, "支付密码错误", orderId);
