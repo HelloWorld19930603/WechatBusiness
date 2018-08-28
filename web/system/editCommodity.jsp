@@ -58,7 +58,7 @@
                             <div class="stepy-tab">
                             </div>
                             <form id="default" class="form-horizontal" onsubmit="javascript:confirm()">
-                                <input type="hidden" id="commId" value="${commodity.id}">
+                                <input type="hidden" id="id" value="${commodity.id}">
                                 <input type="hidden" id="img" name="img" value="${commodity.img}">
                                 <fieldset title="商品信息">
                                     <legend></legend>
@@ -180,6 +180,7 @@
     //方式一 Jquery实现
     function saveCommodity() {
 
+        var id = $("#id").val().trim();
         var name = $("#name").val().trim();
         var eName = $("#eName").val().trim();
         var serise = $("#serise").val().trim();
@@ -189,6 +190,7 @@
         var file = document.getElementById("file").files[0];
 
         var formData = new FormData();
+        formData.append('id', id);
         formData.append('name', name);
         formData.append('eName', eName);
         formData.append('serise', serise);

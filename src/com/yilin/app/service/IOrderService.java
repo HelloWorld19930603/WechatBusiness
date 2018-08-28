@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public interface IOrderService {
 
-    Page selectPage(Integer userId, int index, int pageSize, Byte status) throws Exception;
+    List selectList(Integer userId, int index, int pageSize, Byte status) throws Exception;
 
     List<Map<String, Object>> selectDetails(String orderId) throws Exception;
 

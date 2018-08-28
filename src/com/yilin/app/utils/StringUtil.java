@@ -1,5 +1,7 @@
 package com.yilin.app.utils;
 
+import java.util.Random;
+
 /**
  * Created by cc on 2018/7/20.
  */
@@ -39,5 +41,10 @@ public class StringUtil {
 
     public static boolean isNotEmpty(String str) {
         return str != null && str.length() > 0;
+    }
+
+
+    public static String makeFileName(){
+        return "" + new Random().nextInt(1000)+ System.currentTimeMillis();
     }
 }

@@ -14,12 +14,8 @@
     <link href="<%=path%>/css/style-responsive.css" rel="stylesheet">
     <link href="<%=path%>/css/gm.css" rel="stylesheet">
     <link href="<%=path%>/css/grid.css" rel="stylesheet">
-    <!--dashboard calendar-->
-    <link href="/css/clndr.css" rel="stylesheet">
-    <!--Morris Chart CSS -->
-    <link rel="stylesheet" href="/js/morris-chart/morris.css">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/css/jquery-ui.css" />
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="<%=path%>/js/html5shiv.js"></script>
@@ -30,7 +26,15 @@
 
 
 </style>
+<script>
+    const TYPE_MAP = {
+        '1': '未付款',
+        '2': '已付款',
+        '3': '已发货',
+        '4': '已完成'
+    };
 
+</script>
 <body class="sticky-header">
 
 <section>
@@ -50,9 +54,9 @@
 
             <ul class="breadcrumb">
                 <li>
-                    <a href="#">学院</a>
+                    <a href="#">订单</a>
                 </li>
-                <li class="active"> 学院详情</li>
+                <li class="active"> 订单管理</li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -61,28 +65,26 @@
         <div class="wrapper">
 
             <section class="search-area panel">
-                <input type="hidden" name="serise" value="1">
                 <div class="sa-ele">
-                    <label class="se-title">标题:</label>
-                    <input class="se-con" name="title"/>
+                    <label class="se-title">订单状态:</label>
+                    <select class="se-con" name="status">
+                        <option value="-1">请选择</option>
+                        <!--通过js增加-->
+                    </select>
                 </div>
                 <div class="sa-ele">
-                    <label class="se-title">类型:</label>
-                    <select class="se-con" name="type">
-                        <option value="-1">请选择</option>
-                        <option value="1">素材</option>
-                        <option value="2">官方素材</option>
-                    </select>
+                    <label class="se-title">订单编号:</label>
+                    <input class="se-con" name="orderId"/>
+                </div>
+                <div class="sa-ele">
+                    <label class="se-title">收货人姓名:</label>
+                    <input class="se-con" name="name"/>
                 </div>
                 <div class="sa-ele">
                     <button class="search-action">搜索</button>
                     <button class="reset-action">重置</button>
                 </div>
-                <div class="btn-group" style="float:right;">
-                    <button id="editable-sample_new" class="btn btn-primary" style="font-size: 12px;padding: 4px 10px;">
-                        Add New <i class="fa fa-plus"></i>
-                    </button>
-                </div>
+
             </section>
 
             <section class="grid-main">
@@ -104,6 +106,8 @@
 <script src="js/jquery-1.10.2.min.js"></script>
 <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
 <script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/jquery.stepy.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/modernizr.min.js"></script>
 <script src="js/jquery.nicescroll.js"></script>
@@ -139,7 +143,7 @@
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
             ,ajax_data: function () {
-                return '/getColleages.do';
+                return '/getOrders.do';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
             ,ajax_type: 'POST'
@@ -172,61 +176,51 @@
             }
             ,columnData: [
                 {
-                    key: 'img',
-                    remind: 'the pic',
-                    width: '110px',
-                    align: 'center',
-                    text: '缩略图',
-                    // 使用函数返回 dom node
-                    template: function(img, rowObject) {
-                        var picNode = document.createElement('a');
-                        picNode.setAttribute('href', rowObject.img);
-                        picNode.setAttribute('title', rowObject.title);
-                        picNode.setAttribute('target', '_blank');
-                        picNode.style.display = 'block';
-                        picNode.style.height = '68.5px';
-
-                        var imgNode = document.createElement('img');
-                        imgNode.style.width = '100px';
-                        imgNode.style.padding = '5px';
-                        imgNode.style.margin = '0 auto';
-                        imgNode.alt = rowObject.title;
-                        imgNode.src = rowObject.img;
-
-                        picNode.appendChild(imgNode);
-                        return picNode;
-                    }
+                    key: 'id',
+                    remind: 'the info',
+                    text: '订单编号',
+                    isShow: true,
+                    width: '100px',
+                    align: 'center'
                 },
                 {
-                    key: 'title',
+                    key: 'name',
                     remind: 'the pic',
-                    width: '130px',
+                    width: '120px',
                     align: 'center',
-                    text: '文章标题',
+                    text: '购买人姓名',
                     // 使用函数返回 dom node
-                    template: function(loginName, rowObject) {
+                    template: function(name, rowObject) {
 
-                        return loginName;
+                        return name;
                     }
                 },{
-                    key: 'type',
+                    key: 'phone',
+                    remind: 'the title',
+                    align: 'center',
+                    width: '120px',
+                    text: '购买人电话',
+                    sorting: '',
+                    // 使用函数返回 dom node
+                    template: function(phone, rowObject) {
+
+                        return phone;
+                    }
+                },{
+                    key: 'status',
                     remind: 'the type',
-                    text: 'type',
+                    text: '订单状态',
                     width: '100px',
                     align: 'center',
-                    template: function(type, rowObject){
-                        if(type==1){
-                            return '素材';
-                        }else{
-                            return '官方素材';
-                        }
+                    template: function(status, rowObject){
+                        return TYPE_MAP[status];
                     }
                 },{
                     key: 'time',
                     remind: 'the createDate',
                     width: '100px',
                     align: 'center',
-                    text: '上传时间',
+                    text: '提交时间',
                     sorting: 'DESC',
                     // 使用函数返回 htmlString
                     template: function(time, rowObject){
@@ -239,7 +233,7 @@
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString
-                    template: '<span class="plugin-action" gm-click="delectRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
+                    template: '<span class="plugin-action" gm-click="editRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
                 }
             ]
             // 排序后事件
@@ -257,17 +251,24 @@
         // 执行删除操作
         if(window.confirm('确认要删除['+rowData.name+']?')){
             $.ajax({
-                url: "/removeColleage.do?id="+rowData.id,
+                url: "http://localhost:8080/removeCommodity.do?commId="+rowData.id,
                 type: "get",
                 success: function (data) {
-                    alert("删除成功");
+                    alert("商品删除成功");
                     console.log(data);
                 },
                 error: function (data) {
-                    alert("删除失败");
+                    alert("商品删除失败");
                     console.log(data);
                 }
-            });
+        });
+        }
+    }
+
+    function editRowData(rowData){
+        // 执行删除操作
+        if(window.confirm('确认要修改['+rowData.name+']?')){
+            window.open("/editCommodity.do?commId="+rowData.id);
         }
     }
 
@@ -281,11 +282,20 @@
      */
     (function(){
 
+        var typeSelect2 = document.querySelector('.search-area select[name="status"]');
+
+        for(var key in TYPE_MAP){
+            var option = document.createElement('option');
+            option.value = key;
+            option.innerText = TYPE_MAP[key];
+            typeSelect2.appendChild(option);
+        }
+
         // 绑定搜索事件
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
-                title: document.querySelector('[name="title"]').value,
-                type:  document.querySelector('select[name="type"]').value,
+                name: document.querySelector('[name="name"]').value,
+                serise: document.querySelector('[name="status"]').value,
                 index: 1
             };
             table.GM('setQuery', _query, function(){
@@ -295,16 +305,16 @@
 
         // 绑定重置
         document.querySelector('.reset-action').addEventListener('click', function () {
-            document.querySelector('[name="title"]').value = '';
-            document.querySelector('select[name="type"]').value = '-1';
+            document.querySelector('[name="name"]').value = '';
+            document.querySelector('select[name="status"]').value = '-1';
         });
 
-        $("#editable-sample_new").click(function () {
-            window.open( "/addColleage.do");
-        })
     })();
 
     (function(){
         init();
     })();
+
+
+
 </script>

@@ -138,10 +138,14 @@
         from orders o
         LEFT join address a on o.addr_id = a.id
         left join logistics l on l.order_id = o.id
-        where o.user_id = #{userId}
+        where 1=1
+        <if test="userId != null">
+            and  o.user_id = #{userId}
+        </if>
         <if test="status != null">
             and o.status = #{status}
         </if>
+        order by time
         limit #{start},#{pageSize}
     </select>
 
