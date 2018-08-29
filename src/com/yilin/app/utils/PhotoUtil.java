@@ -15,6 +15,8 @@ import java.io.IOException;
  */
 public class PhotoUtil {
 
+
+
     /**
      * 图片文件上传
      */
@@ -71,7 +73,19 @@ public class PhotoUtil {
         MultipartFile multipartFile = new MockMultipartFile(file.getName(),file.getName(),null, new FileInputStream(file));
 
         System.out.println(getPhotoSize(multipartFile));
+        File file1 = new File("d:\\123.jpg");
+       // multipartFile.transferTo(file1);
+        removePhoto("d:\\a\\a.txt");
        // System.out.println( photoUpload(multipartFile,"e:/photo/","hello",""));
 
+    }
+
+
+
+    public static void removePhoto(String filePath){
+        File fileTemp = new File(filePath);
+        if(fileTemp.exists()){
+            System.out.println(fileTemp.delete());
+        }
     }
 }

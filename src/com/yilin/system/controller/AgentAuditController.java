@@ -25,7 +25,7 @@ public class AgentAuditController {
 
     @RequestMapping("getAgentAudit")
     @ResponseBody
-    public SystemPage getAgentAudits(){
+    public SystemPage getAgentAudits(Byte status,Byte serise,String currentLevel,String phone,String name){
         int totals = 0;
         SystemPage systemPage = null;
         try {

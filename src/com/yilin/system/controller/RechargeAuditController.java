@@ -24,7 +24,7 @@ public class RechargeAuditController {
 
     @RequestMapping("getRechargeAudits")
     @ResponseBody
-    public SystemPage getRechargeAudits(){
+    public SystemPage getRechargeAudits(Byte status,Byte serise,String phone,String name){
         int totals = 0;
         SystemPage systemPage = null;
         try {

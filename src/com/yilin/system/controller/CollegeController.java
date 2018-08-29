@@ -5,6 +5,7 @@ import com.yilin.app.domain.Commodity;
 import com.yilin.app.exception.FileException;
 import com.yilin.app.service.ICollegeService;
 import com.yilin.app.utils.PhotoUtil;
+import com.yilin.app.utils.StringUtil;
 import com.yilin.system.common.SystemPage;
 import com.yilin.system.common.Uploader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +59,16 @@ public class CollegeController {
 
     @RequestMapping("removeCollege")
     @ResponseBody
-    public String removeCollege(int id) {
+    public String removeCollege(int id, HttpServletRequest req) {
         try {
+            College college = collegeService.selectOne(id);
+            String servletContext =  req.getSession().getServletContext().getRealPath("/");
+            if(StringUtil.isNotEmpty(college.getImg())) {
+                PhotoUtil.removePhoto(servletContext+college.getImg().substring(1));
+            }
+            if(StringUtil.isNotEmpty(college.getVideo())) {
+                PhotoUtil.removePhoto(servletContext+college.getVideo().substring(1));
+            }
             collegeService.removeOne(id);
         } catch (Exception e) {
             e.printStackTrace();

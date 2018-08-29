@@ -24,6 +24,7 @@ public class SystemFilter implements Filter {
         System.out.println("doFilter2");
         HttpServletRequest request = (HttpServletRequest) arg0;
         HttpServletResponse response = (HttpServletResponse) arg1;
+        request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         ResultJson result;
         String url = request.getRequestURI();

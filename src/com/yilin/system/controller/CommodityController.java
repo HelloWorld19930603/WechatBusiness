@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
-import java.util.Random;
 
 
 /**
@@ -87,10 +86,11 @@ public class CommodityController {
     public String editCommodity2(Commodity commodity, @RequestParam(value = "file", required = false) MultipartFile file,
                                   HttpServletRequest req) {
         try {
-            String img = commodity.getImg();
             if (file != null) {
-                String imgPath = PhotoUtil.photoUpload(file, img.substring(1,img.lastIndexOf("/")+1), StringUtil.makeFileName()
-                        , req.getSession().getServletContext().getRealPath("/"));
+                String servletContext = req.getSession().getServletContext().getRealPath("/");
+                String imgPath = PhotoUtil.photoUpload(file, "images/home/commodity/", StringUtil.makeFileName()
+                        , servletContext);
+                PhotoUtil.removePhoto(commodity.getImg());
                 commodity.setImg(imgPath);
             }
             commodityService.updateOne(commodity);
@@ -125,11 +125,11 @@ public class CommodityController {
                         , req.getSession().getServletContext().getRealPath("/"));
             }
             if (file2 != null) {
-                img2 = PhotoUtil.photoUpload(file2, "images/home/commodity/", StringUtil.makeFileName()
+                img2 = PhotoUtil.photoUpload(file2, "images/home/commodity/detail/", StringUtil.makeFileName()
                         , req.getSession().getServletContext().getRealPath("/"));
             }
             if (file3 != null) {
-                img3 = PhotoUtil.photoUpload(file3, "images/home/commodity/", StringUtil.makeFileName()
+                img3 = PhotoUtil.photoUpload(file3, "images/home/commodity/detail/", StringUtil.makeFileName()
                         , req.getSession().getServletContext().getRealPath("/"));
             }
             commodity.setImg(img1);
