@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@include file="common/path.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +44,7 @@
                 <li>
                     <a href="#">广告</a>
                 </li>
-                <li class="active">添加广告 </li>
+                <li class="active">编辑广告 </li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -57,46 +58,54 @@
                             <div class="stepy-tab">
                             </div>
                             <form id="default" class="form-horizontal" onsubmit="javascript:confirm()">
+                                <input type="hidden" id="id" value="${poster.id}">
+                                <input type="hidden" id="content" name="content" value="${poster.content}">
                                 <fieldset title="商品信息">
                                     <legend></legend>
                                     <div class="form-group">
-                                        <label class="col-md-2 col-sm-2 control-label">广告名称</label>
+                                        <label class="col-md-2 col-sm-2 control-label">商品名称</label>
                                         <div class="col-md-6 col-sm-6">
-                                            <input type="text" id="name" placeholder="广告名称" class="form-control">
+                                            <input type="text" id="name" placeholder="中文名" class="form-control" value="${poster.name}">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 col-sm-2 control-label">页面</label>
+                                        <label class="col-md-2 col-sm-2 control-label">所在页面</label>
                                         <div class="col-lg-6">
                                             <select class="form-control m-bot15" name="page" id="page">
-                                                <option value="1">首页</option>
-                                                <option value="2">物流查询页</option>
-                                                <option value="3">商品追溯页</option>
+                                                <option value="1" <c:if test="${poster.page == 1}">checked</c:if>>首页</option>
+                                                <option value="2" <c:if test="${poster.page == 2}">checked</c:if>>物流详情页</option>
+                                                <option value="2" <c:if test="${poster.page == 3}">checked</c:if>>商品追溯页</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 col-sm-2 control-label">类型</label>
                                         <div class="col-lg-6">
-                                        <select class="form-control m-bot15" name="type" id="type">
-                                            <option value="1">轮播</option>
-                                            <option value="2">静态</option>
-                                        </select>
+                                            <select class="form-control m-bot15" name="type" id="type">
+                                                <option value="1" <c:if test="${poster.type == 1}">checked</c:if>>轮播</option>
+                                                <option value="2" <c:if test="${poster.type == 2}">checked</c:if>>静态</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 col-sm-2 control-label">状态</label>
                                         <div class="col-lg-6">
-                                            <select class="form-control m-bot15" name="status" id="status">
-                                                <option value="1">展示</option>
-                                                <option value="2">隐藏</option>
-                                            </select>
+                                        <select class="form-control m-bot15" name="status" id="status">
+                                            <option value="1" <c:if test="${poster.status == 1}">checked</c:if>>显示</option>
+                                            <option value="2" <c:if test="${poster.status == 2}">checked</c:if>>隐藏</option>
+                                        </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-2 control-label">尺寸</label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <input type="text" placeholder="" class="form-control" id="scale" value="${poster.size}" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label span3"></label>
                                         <div class="col-md-6">
-                                            <img  id="img" src="/images/spacer.gif" width="100px" height="100px">
+                                            <img  id="image" src="${poster.content}" width="100px" height="100px">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -112,18 +121,11 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <button class="btn btn-info finish" id = 'finished'  type="button">
+                                        完成 </button>
                                 </fieldset>
 
-                                <fieldset title="确认提交">
-                                    <legend></legend>
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                        </div>
-                                    </div>
-                                </fieldset>
-
-                                <button class="btn btn-info finish" id = 'finished'  type="button">
-                                    完成 </button>
                             </form>
                         </div>
                     </div>
@@ -161,6 +163,12 @@
     $(".${active}").addClass("active");
     $(".${active}").parents("li").addClass("nav-active");
 
+
+    /*=====STEPY WIZARD====*/
+
+    /*=====STEPY WIZARD WITH VALIDATION====*/
+
+
     //html5实现图片预览功能
     $(function () {
         $("#file").change(function (e) {
@@ -169,12 +177,13 @@
             if (file) {
                 var reader = new FileReader();
                 reader.onload = function () {
-                    $("#img").attr("src", this.result);
+                    $("#image").attr("src", this.result);
                 }
 
                 reader.readAsDataURL(file);
             }
         });
+
 
         $("#finished").click(function (e) {
             saveCommodity();
@@ -183,40 +192,44 @@
     //方式一 Jquery实现
     function saveCommodity() {
 
+        var id = $("#id").val().trim();
         var name = $("#name").val().trim();
+        var status = $("#status").val().trim();
         var page = $("#page").val().trim();
         var type = $("#type").val().trim();
-        var status = $("#status").val().trim();
+        var content = $("#content").val().trim();
+
         var file = document.getElementById("file").files[0];
 
         var formData = new FormData();
+        formData.append('id', id);
         formData.append('name', name);
+        formData.append('status', status);
         formData.append('page', page);
         formData.append('type', type);
-        formData.append('status', status);
+        formData.append('content', content);
         if(file){
             formData.append('file', file);
-        }else{
-            alert("请添加图片");
-            return;
         }
 
         $.ajax({
-            url: "/addPoster2.do",
+            url: "/editPoster2.do",
             type: "post",
             data: formData,
             contentType: false,
             processData: false,
-            mimeType: "multipart/form-data; charset=utf-8",
+            mimeType: "multipart/form-data",
             success: function (data) {
                 if(data){
-                    alert("添加成功");
+                    alert('广告信息修改成功');
                 }else{
-                    alert("添加失败");
+                    alert('广告信息修改失败');
                 }
+                console.log(data);
             },
             error: function (data) {
-                alert('添加失败');
+                alert(data);
+                console.log(data);
             }
         });
     }

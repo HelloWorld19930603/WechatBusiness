@@ -4,6 +4,8 @@ import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
 import com.yilin.app.domain.Commodity;
 import com.yilin.app.service.ICommodityService;
+import com.yilin.app.service.IPriceService;
+import com.yilin.system.service.IPosterService;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,22 +24,26 @@ public class PosterAction {
 
     @Autowired
     ICommodityService commodityService;
+    @Autowired
+    IPosterService posterService;
 
     @RequestMapping("findBanner")
     @ResponseBody
     public ResultJson findBanner(){
         ResultJson result;
-        String[] banner = new String[3];
-        banner[0] = "/images/home/poster/banner-1.jpg";
-        banner[1] = "/images/home/poster/banner-2.jpg";
-        banner[2] = "/images/home/poster/banner-3.jpg";
-        Map<String,Object> map = new HashedMap();
-        map.put("1",banner);
-        map.put("2","/images/home/commodity/popularity.png");
-        map.put("3","/images/home/commodity/star.png");
-        map.put("popularity",2);
-        map.put("star",3);
-        result = new ResultJson(true,"查询成功",map);
+        try {
+            String[] banner = posterService.findPosterImg(1,1,1);
+            Map<String,Object> map = new HashedMap();
+            map.put("1",banner);
+            map.put("2","/images/home/commodity/popularity.png");
+            map.put("3","/images/home/commodity/star.png");
+            map.put("popularity",2);
+            map.put("star",3);
+            result = new ResultJson(true,"查询成功",map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = new ResultJson(false,"查询失败");
+        }
         return result;
     }
 

@@ -48,4 +48,23 @@ public class PosterService implements IPosterService{
     public void removeOne(int id) throws Exception {
         posterMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public Poster selectOne(int id) throws Exception {
+        return posterMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void editOne(Poster poster) throws Exception {
+        posterMapper.updateByPrimaryKeySelective(poster);
+    }
+
+    @Override
+    public String[] findPosterImg(int type, int status, int page) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        map.put("type",type);
+        map.put("status",status);
+        map.put("page",page);
+        return posterMapper.selectContent(map);
+    }
 }

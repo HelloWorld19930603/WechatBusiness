@@ -81,6 +81,40 @@ public class CommodityController {
 
     }
 
+    @RequestMapping("editPrice")
+    public String editCommodity(Model model,int commId, byte serise) {
+        try {
+            Float[] price = priceService.findAllPrice(commId);
+            model.addAttribute("active", "commodity");
+            model.addAttribute("price", price);
+            model.addAttribute("commId", commId);
+            model.addAttribute("serise", serise);
+            switch (serise){
+                case 1 :return  "editPrice1";
+                case 2 :return  "editPrice2";
+                case 3 :return  "editPrice3";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "500";
+        }
+        return "500";
+    }
+
+    @RequestMapping("updatePrice")
+    @ResponseBody
+    public String updatePrice(Float[] prices,int commId,HttpServletRequest req) {
+        try {
+            for(int i=0;i<prices.length;i++) {
+                priceService.editPrice(prices[i], commId,i);
+            }
+            return "编辑成功";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "编辑失败";
+        }
+    }
+
     @RequestMapping("editCommodity2")
     @ResponseBody
     public String editCommodity2(Commodity commodity, @RequestParam(value = "file", required = false) MultipartFile file,
@@ -90,7 +124,8 @@ public class CommodityController {
                 String servletContext = req.getSession().getServletContext().getRealPath("/");
                 String imgPath = PhotoUtil.photoUpload(file, "images/home/commodity/", StringUtil.makeFileName()
                         , servletContext);
-                PhotoUtil.removePhoto(commodity.getImg());
+                String context = req.getSession().getServletContext().getRealPath("/");
+                PhotoUtil.removePhoto(context+commodity.getImg().substring(1));
                 commodity.setImg(imgPath);
             }
             commodityService.updateOne(commodity);

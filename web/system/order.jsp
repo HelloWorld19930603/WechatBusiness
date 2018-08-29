@@ -251,7 +251,7 @@
         // 执行删除操作
         if(window.confirm('确认要删除['+rowData.name+']?')){
             $.ajax({
-                url: "http://localhost:8080/removeCommodity.do?commId="+rowData.id,
+                url: "/removeOrder.do?commId="+rowData.id,
                 type: "get",
                 success: function (data) {
                     alert("商品删除成功");
@@ -268,7 +268,7 @@
     function editRowData(rowData){
         // 执行删除操作
         if(window.confirm('确认要修改['+rowData.name+']?')){
-            window.open("/editCommodity.do?commId="+rowData.id);
+            window.open("/editOrder.do?commId="+rowData.id);
         }
     }
 

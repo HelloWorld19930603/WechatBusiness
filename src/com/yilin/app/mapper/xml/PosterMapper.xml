@@ -149,7 +149,7 @@
         </if>
     </select>
 
-    <select id="selectList" parameterType="map" resultType="int">
+    <select id="selectList" parameterType="map" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         from poster
@@ -161,5 +161,21 @@
             and page = #{page}
         </if>
         limit #{start},#{pageSize}
+    </select>
+
+    <select id="selectContent" parameterType="map" resultType="String">
+        SELECT
+        content
+        from poster
+        where 1=1
+        <if test="type != null and type != -1">
+            and type = #{type}
+        </if>
+        <if test="page != null and page != ''">
+            and page = #{page}
+        </if>
+        <if test="status != null and status != ''">
+            and status = #{status}
+        </if>
     </select>
 </mapper>

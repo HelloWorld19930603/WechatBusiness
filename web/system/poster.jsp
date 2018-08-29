@@ -44,6 +44,11 @@
 
     };
 
+    const STATUS_MAP = {
+        '1': '显示',
+        '2':'隐藏'
+    };
+
 </script>
 <body class="sticky-header">
 
@@ -156,7 +161,7 @@
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
             ,ajax_data: function () {
-                return '/getPoster.do';
+                return '/getPosters.do';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
             ,ajax_type: 'POST'
@@ -189,15 +194,15 @@
             }
             ,columnData: [
                 {
-                    key: 'img',
+                    key: 'content',
                     remind: 'the pic',
                     width: '110px',
                     align: 'center',
                     text: '缩略图',
                     // 使用函数返回 dom node
-                    template: function(img, rowObject) {
+                    template: function(content, rowObject) {
                         var picNode = document.createElement('a');
-                        picNode.setAttribute('href', img);
+                        picNode.setAttribute('href', content);
                         picNode.setAttribute('target', '_blank');
                         picNode.style.display = 'block';
                         picNode.style.height = '68.5px';
@@ -205,8 +210,8 @@
                         imgNode.style.width = '100px';
                         imgNode.style.padding = '5px';
                         imgNode.style.margin = '0 auto';
-                        imgNode.alt = rowObject.title;
-                        imgNode.src = img;
+                        imgNode.alt = rowObject.name;
+                        imgNode.src = content;
 
                         picNode.appendChild(imgNode);
                         return picNode;
@@ -219,9 +224,9 @@
                     align: 'center',
                     text: '广告名称',
                     // 使用函数返回 dom node
-                    template: function(loginName, rowObject) {
+                    template: function(name, rowObject) {
 
-                        return loginName;
+                        return name;
                     }
                 },{
                     key: 'page',
@@ -231,9 +236,9 @@
                     text: '所在页面',
                     sorting: '',
                     // 使用函数返回 dom node
-                    template: function(name, rowObject) {
+                    template: function(page, rowObject) {
 
-                        return name;
+                        return PAGE_MAP[page];
                     }
                 },{
                     key: 'type',
@@ -241,8 +246,8 @@
                     text: '展示类型',
                     width: '100px',
                     align: 'center',
-                    template: function(roleId, rowObject){
-                        return TYPE_MAP[roleId];
+                    template: function(type, rowObject){
+                        return TYPE_MAP[type];
                     }
                 },{
                     key: 'status',
@@ -253,7 +258,8 @@
                     sorting: 'DESC',
                     // 使用函数返回 htmlString
                     template: function(status, rowObject){
-                        return status;
+
+                        return STATUS_MAP[status];
                     }
                 },{
                     key: 'size',
@@ -264,7 +270,7 @@
                     sorting: 'DESC',
                     // 使用函数返回 htmlString
                     template: function(size, rowObject){
-                        return status;
+                        return size;
                     }
                 },{
                     key: 'time',
@@ -284,7 +290,7 @@
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString
-                    template: '<span class="plugin-action" gm-click="delectRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
+                    template: '<span class="plugin-action" gm-click="delectRowData2">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
                 }
             ]
             // 排序后事件
@@ -314,6 +320,10 @@
                 }
             });
         }
+    }
+
+    function delectRowData2(rowData){
+            window.location.href = "/editPoster.do?id="+rowData.id;
     }
 
     /**

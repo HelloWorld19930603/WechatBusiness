@@ -16,4 +16,10 @@ public interface IPosterService {
     void insertPoster(Poster poster) throws Exception;
 
     void removeOne(int id)throws Exception;;
+
+    Poster selectOne(int id) throws Exception;
+
+    void editOne(Poster poster)throws Exception;
+
+    String[] findPosterImg(int type, int status, int page) throws Exception;
 }

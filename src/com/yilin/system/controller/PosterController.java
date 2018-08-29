@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -33,9 +35,9 @@ public class PosterController {
         return "poster";
     }
 
-    @RequestMapping("getPoster")
+    @RequestMapping("getPosters")
     @ResponseBody
-    public Object getPoster(String page, Byte type, int start, int pageSize) {
+    public Object getPosters(String page, Byte type, int start, int pageSize) {
         int totals = 0;
         SystemPage systemPage = null;
         try {
@@ -50,10 +52,13 @@ public class PosterController {
 
     @RequestMapping("removePoster")
     @ResponseBody
-    public Object removePoster(int id) {
+    public Object removePoster(int id,HttpServletRequest req) {
 
         try {
+            Poster poster = posterService.selectOne(id);
             posterService.removeOne(id);
+            String context = req.getSession().getServletContext().getRealPath("/");
+            PhotoUtil.removePhoto(context+poster.getContent().substring(1));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,19 +72,55 @@ public class PosterController {
         return "addPoster";
     }
 
-    @RequestMapping("/addPoster2")
-    @ResponseBody
-    public Object addOne(Poster poster, @RequestParam( value="file",required=false) MultipartFile file, HttpServletRequest req) {
-
+    @RequestMapping("editPoster")
+    public String editPoster(Model model,int id) {
+        model.addAttribute("active", "poster");
         try {
-            String path = PhotoUtil.photoUpload(file, "images/home/poster/" , StringUtil.makeFileName(), req.getSession().getServletContext().getRealPath("/"));
-            poster.setContent(path);
-            poster.setSize(PhotoUtil.getPhotoSize(file));
-            posterService.insertPoster(poster);
+            Poster poster = posterService.selectOne(id);
+            model.addAttribute("poster",poster);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "editPoster";
+    }
+
+    @RequestMapping("/editPoster2")
+    @ResponseBody
+    public Object editPoster2(Poster poster, @RequestParam( value="file",required=false) MultipartFile file, HttpServletRequest req, HttpServletResponse res) {
+        try {
+            if(file != null) {
+                poster.setSize(PhotoUtil.getPhotoSize(file));
+                String path = PhotoUtil.photoUpload(file, "images/home/poster/", StringUtil.makeFileName(),
+                        req.getSession().getServletContext().getRealPath("/"));
+                String context = req.getSession().getServletContext().getRealPath("/");
+                PhotoUtil.removePhoto(context+poster.getContent().substring(1));
+                poster.setContent(path);
+            }
+            posterService.editOne(poster);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
         return true;
+    }
+
+    @RequestMapping("/addPoster2")
+    @ResponseBody
+    public Object addPoster2(Poster poster, @RequestParam( value="file",required=false) MultipartFile file, HttpServletRequest req, HttpServletResponse res) {
+        try {
+            if(file != null) {
+                poster.setSize(PhotoUtil.getPhotoSize(file));
+                String path = PhotoUtil.photoUpload(file, "images/home/poster/", StringUtil.makeFileName(),
+                        req.getSession().getServletContext().getRealPath("/"));
+                poster.setContent(path);
+                posterService.insertPoster(poster);
+                return true;
+            }else{
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

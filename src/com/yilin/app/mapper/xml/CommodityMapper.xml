@@ -252,14 +252,11 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
-    <select id="selectPrice" parameterType="map" resultType="float">
+    <select id="selectPrice" parameterType="int" resultType="float">
     select
     price
     from price p
-    where comm_id = #{commId} and role_id = (SELECT role_id from user_role
-    where user_id = #{userId}
-    and serise = (select serise from commodity where id = #{commId}))
-
+    where comm_id = #{commId}
   </select>
 
     <select id="selectAllPrice" parameterType="map" resultType="float">

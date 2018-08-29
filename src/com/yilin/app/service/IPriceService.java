@@ -9,7 +9,11 @@ public interface IPriceService {
 
     float findPrice(int roleId, int commId) throws Exception;
 
+    Float[] findAllPrice(int commId) throws Exception;
+
     float findDefault(int commId) throws Exception;
 
     void addPrice(Price price)throws Exception;
+
+    void editPrice(Float price, int commId, int i) throws Exception;
 }

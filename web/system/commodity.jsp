@@ -189,20 +189,8 @@
                     text: '缩略图',
                     // 使用函数返回 dom node
                     template: function(img, rowObject) {
-                        var picNode = document.createElement('a');
-                        picNode.setAttribute('href', img);
-                        picNode.setAttribute('target', '_blank');
-                        picNode.style.display = 'block';
-                        picNode.style.height = '68.5px';
-                        var imgNode = document.createElement('img');
-                        imgNode.style.width = '100px';
-                        imgNode.style.padding = '5px';
-                        imgNode.style.margin = '0 auto';
-                        imgNode.alt = rowObject.title;
-                        imgNode.src = img;
-                        picNode.appendChild(imgNode);
-                        var picNode= '<a href="https://avatar.csdn.net/F/C/F/3_c15158032319.jpg" data-fancybox data-caption="My caption">'+
-                        '<img src="https://t11.baidu.com/it/u=1843322191,3432047929&fm=76" width="100px" height="68px" alt="" />'
+                        var picNode= '<a href="'+img+'" data-fancybox data-caption="My caption">'+
+                        '<img src="'+img+'" width="100px" height="68px" alt="" />'
                             +'</a>';
                         return picNode;
                     }
@@ -260,7 +248,8 @@
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString
-                    template: '<span class="plugin-action" gm-click="editRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
+                    template: '<span class="plugin-action" gm-click="editRowData">编辑商品</span><span class="plugin-action" gm-click="editRowData2">编辑价格</span>' +
+                    '<span class="plugin-action" gm-click="editRowData3">编辑详情</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
                 }
             ]
             // 排序后事件
@@ -293,7 +282,16 @@
     }
 
     function editRowData(rowData){
-            window.open("/editCommodity.do?commId="+rowData.id);
+        window.location.href = "/editCommodity.do?commId="+rowData.id;
+    }
+
+    function editRowData2(rowData){
+       window.location.href = "/editPrice.do?commId="+rowData.id+"&serise="+rowData.serise;
+    }
+
+    function editRowData3(rowData){
+        alert("此功能，工程师正在玩命开发中。。。")
+        //window.location.href = "/editPrice.do?commId="+rowData.id+"&serise="+rowData.serise;
     }
 
     /**

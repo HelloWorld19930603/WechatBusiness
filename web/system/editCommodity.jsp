@@ -44,7 +44,7 @@
                 <li>
                     <a href="#">商品</a>
                 </li>
-                <li class="active">添加商品 </li>
+                <li class="active">编辑商品信息 </li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -201,7 +201,7 @@
         }
 
         $.ajax({
-            url: "http://localhost:8080/editCommodity2.do",
+            url: "/editCommodity2.do",
             type: "post",
             data: formData,
             contentType: false,

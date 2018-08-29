@@ -93,7 +93,7 @@
             formData.append('file', file);
 
             $.ajax({
-                url: "http://localhost:8080/addPoster.do",
+                url: "/addPoster.do",
                 type: "post",
                 data: formData,
                 contentType: false,
@@ -132,7 +132,7 @@
                 xhr = new ActiveXObject("Microsoft.XMLHTTP");
             }
 
-            xhr.open("post", "http://localhost:8080/addPoster.do", true);//设置提交方式，url，异步提交
+            xhr.open("post", "/addPoster.do", true);//设置提交方式，url，异步提交
             xhr.onload = function () {
                 var data = xhr.responseText;    //得到返回值
                 alert(data);
