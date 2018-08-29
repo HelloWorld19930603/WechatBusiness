@@ -15,7 +15,7 @@
     <link href="<%=path%>/css/gm.css" rel="stylesheet">
     <link href="<%=path%>/css/grid.css" rel="stylesheet">
 
-
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="<%=path%>/js/html5shiv.js"></script>
@@ -117,7 +117,8 @@
 <script src="js/scripts.js"></script>
 
 
-
+<script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
 
 <script type="text/javascript" src="<%=path%>/js/gm.js"></script>
 </body>
@@ -199,8 +200,10 @@
                         imgNode.style.margin = '0 auto';
                         imgNode.alt = rowObject.title;
                         imgNode.src = img;
-
                         picNode.appendChild(imgNode);
+                        var picNode= '<a href="https://avatar.csdn.net/F/C/F/3_c15158032319.jpg" data-fancybox data-caption="My caption">'+
+                        '<img src="https://t11.baidu.com/it/u=1843322191,3432047929&fm=76" width="100px" height="68px" alt="" />'
+                            +'</a>';
                         return picNode;
                     }
                 },
@@ -343,5 +346,20 @@
     })();
 
 
+    $("[data-fancybox]").fancybox({
+        // Options will go here
+        buttons : [
+            'zoom',
+            'close'
+        ]
+    });
 
+
+    $().fancybox({
+        selector : '[data-fancybox="images"]',
+        loop     : true
+    });
+
+
+    //  $.fancybox.open('<div class="message"><h2>Hello!</h2><p>You are awesome!</p></div>');
 </script>
