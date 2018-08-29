@@ -23,7 +23,7 @@
                     <li class="dealer3"><a href="/dealer3.do"> Pslady</a></li>
                 </ul>
             </li>
-            <li class="menu-list"><a href=""><i class="fa fa-picture-o"></i> <span>订单</span></a>
+            <li class="menu-list"><a href=""><i class="fa fa-file-text"></i> <span>订单</span></a>
                 <ul class="sub-menu-list">
                     <li class="order"><a href="/order.do"> 订单管理</a></li>
                     <li class="addPoster"><a href="/order.do"> 物流查询</a></li>
@@ -55,8 +55,8 @@
             </li>
             <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>学院</span></a>
                 <ul class="sub-menu-list">
-                    <li class="colleage"><a href="/colleage.do"> 学院详情</a></li>
-                    <li class="addColleage"><a href="/addColleage.do"> 添加素材</a></li>
+                    <li class="college"><a href="/college.do"> 学院详情</a></li>
+                    <li class="addCollege"><a href="/addCollege.do"> 添加素材</a></li>
                 </ul>
             </li>
          <%--   <li><a href="fontawesome.html"><i class="fa fa-bullhorn"></i> <span>Fontawesome</span></a></li>--%>

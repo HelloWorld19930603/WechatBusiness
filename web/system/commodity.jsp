@@ -155,7 +155,7 @@
             ,ajax_error: function(error){
                 console.log('ajax_error');
             }
-            ,query: {serise: 1}
+            ,query: {serise: -1}
             ,dataKey: 'list'  // 注意: 这里是用来测试responseHandler 是否生效; 数据本身返回为data, 而在这里我把数据名模拟为list, 再通过responseHandler去更改
             ,pageSize:10
 
@@ -278,7 +278,7 @@
         // 执行删除操作
         if(window.confirm('确认要删除['+rowData.name+']?')){
             $.ajax({
-                url: "http://localhost:8080/removeCommodity.do?commId="+rowData.id,
+                url: "/removeCommodity.do?commId="+rowData.id,
                 type: "get",
                 success: function (data) {
                     alert("商品删除成功");
@@ -293,10 +293,7 @@
     }
 
     function editRowData(rowData){
-        // 执行删除操作
-        if(window.confirm('确认要修改['+rowData.name+']?')){
             window.open("/editCommodity.do?commId="+rowData.id);
-        }
     }
 
     /**

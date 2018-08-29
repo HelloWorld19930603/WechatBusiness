@@ -111,6 +111,7 @@ public class UserAction {
         ResultJson result;
         try {
             UserInfo userInfo = Permission.getUserInfo(token);
+
             if (userInfo.getMessage_code() != null && userInfo.getMessage_code().equals(code.trim())) {
                 userService.updatePayPwd(userInfo.getId(), newPwd);
                 result = new ResultJson(true, "修改成功");

@@ -6,7 +6,7 @@
         <id column="role_id" jdbcType="INTEGER" property="roleId"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
-        <result column="phone" jdbcType="INTEGER" property="phone"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
         <result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>
         <result column="status" jdbcType="TINYINT" property="status"/>
     </resultMap>
@@ -18,7 +18,7 @@
         <result column="pay_pwd" jdbcType="VARCHAR" property="payPwd"/>
         <result column="sex" jdbcType="CHAR" property="sex"/>
         <result column="sup_id" jdbcType="INTEGER" property="supId"/>
-        <result column="phone" jdbcType="INTEGER" property="phone"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
         <result column="wx_num" jdbcType="VARCHAR" property="wxNum"/>
         <result column="id_num" jdbcType="VARCHAR" property="idNum"/>
         <result column="head_img" jdbcType="VARCHAR" property="headImg"/>
@@ -47,7 +47,7 @@
         status)
         values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR},
         #{loginPwd,jdbcType=VARCHAR}, #{payPwd,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR},
-        #{supId,jdbcType=INTEGER}, #{phone,jdbcType=INTEGER}, #{wxNum,jdbcType=VARCHAR},
+        #{supId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{wxNum,jdbcType=VARCHAR},
         #{idNum,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP},
         #{status,jdbcType=TINYINT})
     </insert>
@@ -117,7 +117,7 @@
                 #{supId,jdbcType=INTEGER},
             </if>
             <if test="phone != null">
-                #{phone,jdbcType=INTEGER},
+                #{phone,jdbcType=VARCHAR},
             </if>
             <if test="wxNum != null">
                 #{wxNum,jdbcType=VARCHAR},
@@ -158,7 +158,7 @@
                 sup_id = #{supId,jdbcType=INTEGER},
             </if>
             <if test="phone != null">
-                phone = #{phone,jdbcType=INTEGER},
+                phone = #{phone,jdbcType=VARCHAR},
             </if>
             <if test="wxNum != null">
                 wx_num = #{wxNum,jdbcType=VARCHAR},
@@ -186,7 +186,7 @@
       pay_pwd = #{payPwd,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=CHAR},
       sup_id = #{supId,jdbcType=INTEGER},
-      phone = #{phone,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
       wx_num = #{wxNum,jdbcType=VARCHAR},
       id_num = #{idNum,jdbcType=VARCHAR},
       head_img = #{headImg,jdbcType=VARCHAR},

@@ -262,6 +262,8 @@
                 success: function (data) {
                     alert("删除成功");
                     console.log(data);
+                    var tr=this.parentNode.parentNode;
+                    tr.parentNode.removeChild(tr);
                 },
                 error: function (data) {
                     alert("删除失败");
@@ -307,4 +309,10 @@
     (function(){
         init();
     })();
+
+    function del(obj,row)
+    {alert(row.id);
+        var tr=obj.parentNode.parentNode;
+        tr.parentNode.removeChild(tr);
+    }
 </script>

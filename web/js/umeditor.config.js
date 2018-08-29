@@ -137,7 +137,7 @@
 
         //ͼƬ�ϴ�������
         ,imageUrl:"imageUp"             //ͼƬ�ϴ��ύ��ַ
-        ,imagePath: "images/home/colleage/"                     //ͼƬ������ַ��������fixedImagePath,�����������󣬿���������
+        ,imagePath: "/images/home/college/"                     //ͼƬ������ַ��������fixedImagePath,�����������󣬿���������
         ,imageFieldName:"upfile"                   //ͼƬ���ݵ�key,���˴��޸ģ���Ҫ�ں�̨��Ӧ�ļ��޸Ķ�Ӧ����
 
 
