@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+
 /**
  * Created by cc on 2018/8/10.
  */
@@ -28,9 +31,16 @@ public class HomeController {
     }
 
     @RequestMapping("toLogin")
-    public String toLogin(String loginName,String loginPwd){
+    public String toLogin(String loginName, String loginPwd, HttpServletRequest req,Model model){
         try {
             SystemUser user = systemUserService.selectForLogin(loginName,loginPwd);
+            if(user != null) {
+                user.setLoginTime(new Date());
+                systemUserService.editOne(user);
+                req.getSession().setAttribute("user", user);
+                return "system";
+            }
+            model.addAttribute("info","用户名/密码错误！");
         } catch (Exception e) {
             e.printStackTrace();
         }

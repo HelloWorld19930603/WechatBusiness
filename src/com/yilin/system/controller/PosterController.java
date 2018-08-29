@@ -2,9 +2,9 @@ package com.yilin.system.controller;
 
 import com.yilin.app.domain.Poster;
 import com.yilin.app.utils.PhotoUtil;
+import com.yilin.app.utils.StringUtil;
 import com.yilin.system.common.SystemPage;
 import com.yilin.system.service.IPosterService;
-import com.yilin.system.service.impl.PosterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,7 +72,7 @@ public class PosterController {
     public Object addOne(Poster poster, @RequestParam( value="file",required=false) MultipartFile file, HttpServletRequest req) {
 
         try {
-            String path = PhotoUtil.photoUpload(file, "images/home/head/" ,file.getName(), req.getSession().getServletContext().getRealPath("/"));
+            String path = PhotoUtil.photoUpload(file, "images/home/poster/" , StringUtil.makeFileName(), req.getSession().getServletContext().getRealPath("/"));
             poster.setContent(path);
             poster.setSize(PhotoUtil.getPhotoSize(file));
             posterService.insertPoster(poster);
