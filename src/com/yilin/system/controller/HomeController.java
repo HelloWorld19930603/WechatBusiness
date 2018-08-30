@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -25,26 +26,34 @@ public class HomeController {
         return "system";
     }
 
+    @RequestMapping("loginout")
+    public String loginout(HttpServletRequest req){
+        req.getSession().invalidate();
+        return "login";
+    }
+
+
     @RequestMapping("login")
     public String login(){
         return "login";
     }
 
     @RequestMapping("toLogin")
-    public String toLogin(String loginName, String loginPwd, HttpServletRequest req,Model model){
+    @ResponseBody
+    public Object toLogin(String loginName, String loginPwd, HttpServletRequest req){
         try {
             SystemUser user = systemUserService.selectForLogin(loginName,loginPwd);
             if(user != null) {
                 user.setLoginTime(new Date());
                 systemUserService.editOne(user);
                 req.getSession().setAttribute("user", user);
-                return "system";
+                return true;
             }
-            model.addAttribute("info","用户名/密码错误！");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "login";
+        return false;
     }
 
 

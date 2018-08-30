@@ -7,6 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="ThemeBucket">
     <link rel="shortcut icon" href="#" type="image/png">
+    <link rel="stylesheet" href="/css/snow.css" type="text/css">
 
     <title>Login</title>
 
@@ -24,16 +25,16 @@
 
 <div class="container">
 
-    <form class="form-signin" action="/index.do">
+    <form class="form-signin" action="/toLogin.do" method="post">
         <div class="form-signin-heading text-center">
             <h1 class="sign-title">后台管理系统登录</h1>
             <img src="/images/logo-demo.jpg" alt="" width="144px" height="99px"/>
         </div>
         <div class="login-wrap">
-            <input type="text" class="form-control" placeholder="用户名" autofocus>
-            <input type="password" class="form-control" placeholder="密码">
+            <input type="text" class="form-control" id="loginName" placeholder="用户名" autofocus>
+            <input type="password" class="form-control" id="loginPwd" placeholder="密码">
 
-            <button class="btn btn-lg btn-login btn-block" type="submit">
+            <button class="btn btn-lg btn-login btn-block" type="button" id="submit">
                 <i class="fa fa-check"></i>
             </button>
 
@@ -49,32 +50,23 @@
         </div>
 
         <!-- Modal -->
-        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Forgot Password ?</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Enter your e-mail address below to reset your password.</p>
-                        <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
 
-                    </div>
-                    <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-                        <button class="btn btn-primary" type="button">Submit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- modal -->
 
     </form>
 
 </div>
 
-
+<!--PageEndHtml Block Begin-->
+<div class="snow-container">
+    <div class="snow foreground"></div>
+    <div class="snow foreground layered"></div>
+    <div class="snow middleground"></div>
+    <div class="snow middleground layered"></div>
+    <div class="snow background"></div>
+    <div class="snow background layered"></div>
+</div>
+<!--PageEndHtml Block End-->
 
 <!-- Placed js at the end of the document so the pages load faster -->
 
@@ -85,3 +77,39 @@
 
 </body>
 </html>
+<script type="text/javascript">
+
+    $(function () {
+        $("#submit").click(function () {
+
+
+            var loginName = $("#loginName").val().trim();
+            var loginPwd = $("#loginPwd").val().trim();
+
+            var formData = new FormData();
+            formData.append('loginName', loginName);
+            formData.append('loginPwd', loginPwd);
+            $.ajax({
+                url: "/toLogin.do",
+                type: "post",
+                data: formData,
+                contentType: false,
+                processData: false,
+                mimeType: "multipart/form-data",
+                success: function (data) {
+                    if (data) {
+                        window.location.href = "index.do";
+                    } else {
+                        alert("用户名/密码错误！");
+                    }
+                    console.log(data);
+                },
+                error: function (data) {
+                    alert("用户名/密码错误！");
+                    console.log(data);
+                }
+            })
+        });
+    })
+
+</script>

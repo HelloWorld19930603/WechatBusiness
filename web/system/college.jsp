@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/js/morris-chart/morris.css">
 
     <link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/css/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="<%=path%>/js/html5shiv.js"></script>
@@ -113,7 +114,8 @@
 <script src="js/scripts.js"></script>
 
 
-
+<script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
 
 <script type="text/javascript" src="<%=path%>/js/gm.js"></script>
 </body>
@@ -179,21 +181,9 @@
                     text: '缩略图',
                     // 使用函数返回 dom node
                     template: function(img, rowObject) {
-                        var picNode = document.createElement('a');
-                        picNode.setAttribute('href', rowObject.img);
-                        picNode.setAttribute('title', rowObject.title);
-                        picNode.setAttribute('target', '_blank');
-                        picNode.style.display = 'block';
-                        picNode.style.height = '68.5px';
-
-                        var imgNode = document.createElement('img');
-                        imgNode.style.width = '100px';
-                        imgNode.style.padding = '5px';
-                        imgNode.style.margin = '0 auto';
-                        imgNode.alt = rowObject.title;
-                        imgNode.src = rowObject.img;
-
-                        picNode.appendChild(imgNode);
+                        var picNode= '<a href="'+img+'" data-fancybox data-caption="My caption">'+
+                            '<img src="'+img+'" width="100px" height="68px" alt="" />'
+                            +'</a>';
                         return picNode;
                     }
                 },
