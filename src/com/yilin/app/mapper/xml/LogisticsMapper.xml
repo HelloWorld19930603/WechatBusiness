@@ -6,12 +6,13 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="com" jdbcType="VARCHAR" property="com" />
     <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, com, order_id
+    id, name, com, order_id, time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from logistics
     where id = #{id,jdbcType=VARCHAR}
@@ -21,10 +22,10 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.yilin.app.domain.Logistics">
-    insert into logistics (id, name, com, 
-      order_id)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{com,jdbcType=VARCHAR}, 
-      #{orderId,jdbcType=VARCHAR})
+    insert into logistics (id, name, com,
+    order_id, time)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{com,jdbcType=VARCHAR},
+    #{orderId,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.yilin.app.domain.Logistics">
     insert into logistics
@@ -41,6 +42,9 @@
       <if test="orderId != null">
         order_id,
       </if>
+      <if test="time != null">
+        time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -54,6 +58,9 @@
       </if>
       <if test="orderId != null">
         #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -69,6 +76,9 @@
       <if test="orderId != null">
         order_id = #{orderId,jdbcType=VARCHAR},
       </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -76,7 +86,8 @@
     update logistics
     set name = #{name,jdbcType=VARCHAR},
       com = #{com,jdbcType=VARCHAR},
-      order_id = #{orderId,jdbcType=VARCHAR}
+      order_id = #{orderId,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

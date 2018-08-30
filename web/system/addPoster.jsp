@@ -96,7 +96,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label span3"></label>
                                         <div class="col-md-6">
-                                            <img  id="img" src="/images/spacer.gif" width="100px" height="100px">
+                                            <img  id="img" src="/images/default.png" width="100px" height="100px">
                                         </div>
                                     </div>
                                     <div class="form-group">

@@ -9,7 +9,7 @@
   <meta name="author" content="ThemeBucket">
   <link rel="shortcut icon" href="#" type="image/png">
 
-  <title>Form Validation</title>
+  <title><%=title%></title>
 
   <link href="css/style.css" rel="stylesheet">
   <link href="css/style-responsive.css" rel="stylesheet">
@@ -37,14 +37,11 @@
 
         <!-- page heading start-->
         <div class="page-heading">
-            <h3>
-                Form Validation
-            </h3>
             <ul class="breadcrumb">
                 <li>
-                    <a href="#">Form</a>
+                    <a href="#">经销商</a>
                 </li>
-                <li class="active"> Form Validation </li>
+                <li class="active"> 添加经销商 </li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -174,18 +171,18 @@
             var phone = document.querySelector('[name="phone"]').value;
             var loginName = document.querySelector('[name="loginName"]').value;
             var loginPwd = document.querySelector('[name="loginPwd"]').value;
-            alert(serise);
 
             $.ajax({
                 url: "/addOne.do",
                 type: "post",
-                data: "serise="+serise+"&loginPwd="+loginPwd+"&name="+name+"&loginName="+loginName,
+                data: "serise="+serise+"&loginPwd="+loginPwd+"&name="+name+"&loginName="+loginName+"&phone="+phone,
                 success: function (data) {
-                    alert(data);
                     console.log(data);
+                    alert("添加成功");
                 },
                 error: function (data) {
                     console.log(data);
+                    alert("添加失败");
                 }
             });
         });

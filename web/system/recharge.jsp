@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="">
     <link rel="shortcut icon" href="#" type="image/png">
-    <title><%=title%>
-    </title>
+    <title><%=title%></title>
 
     <!--common-->
     <link href="<%=path%>/css/style.css" rel="stylesheet">
@@ -16,7 +15,7 @@
     <link href="<%=path%>/css/gm.css" rel="stylesheet">
     <link href="<%=path%>/css/grid.css" rel="stylesheet">
 
-
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="<%=path%>/js/html5shiv.js"></script>
@@ -29,10 +28,9 @@
 </style>
 <script>
     const TYPE_MAP = {
-        '1': '未付款',
-        '2': '已付款',
-        '3': '已发货',
-        '4': '已完成'
+        '1': '格丽缇',
+        '2': 'Utomorrow',
+        '3': 'Pslady'
     };
 
 </script>
@@ -55,9 +53,9 @@
 
             <ul class="breadcrumb">
                 <li>
-                    <a href="#">订单</a>
+                    <a href="#">商品</a>
                 </li>
-                <li class="active"> 订单管理</li>
+                <li class="active"> 商品管理</li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -67,25 +65,26 @@
 
             <section class="search-area panel">
                 <div class="sa-ele">
-                    <label class="se-title">订单状态:</label>
-                    <select class="se-con" name="status">
+                    <label class="se-title">系列:</label>
+                    <select class="se-con" name="serise">
                         <option value="-1">请选择</option>
                         <!--通过js增加-->
                     </select>
                 </div>
                 <div class="sa-ele">
-                    <label class="se-title">订单编号:</label>
-                    <input class="se-con" name="orderId"/>
-                </div>
-                <div class="sa-ele">
-                    <label class="se-title">收货人姓名:</label>
+                    <label class="se-title">商品名称:</label>
                     <input class="se-con" name="name"/>
                 </div>
+
                 <div class="sa-ele">
                     <button class="search-action">搜索</button>
                     <button class="reset-action">重置</button>
                 </div>
-
+                <div class="btn-group" style="float:right;">
+                    <button id="editable-sample_new" class="btn btn-primary" style="font-size: 12px;padding: 4px 10px;">
+                        Add New <i class="fa fa-plus"></i>
+                    </button>
+                </div>
             </section>
 
             <section class="grid-main">
@@ -118,6 +117,9 @@
 <script src="js/scripts.js"></script>
 
 
+<script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+
 <script type="text/javascript" src="<%=path%>/js/gm.js"></script>
 </body>
 </html>
@@ -131,34 +133,34 @@
     function init() {
         table.GM({
             supportRemind: true
-            , gridManagerName: 'test'
-            , height: '100%'
-            , supportAjaxPage: true
-            , supportSorting: true
-            , supportCheckbox: false
-            , isCombSorting: false
-            , disableCache: false
-            , checkbox: false
+            ,gridManagerName: 'test'
+            ,height: '100%'
+            ,supportAjaxPage:true
+            ,supportSorting: true
+            ,supportCheckbox: false
+            ,isCombSorting: false
+            ,disableCache: false
+            ,checkbox:false
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
-            , ajax_data: function () {
-                return '/getOrders.do';
+            ,ajax_data: function () {
+                return '/getCommoditys.do';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
-            , ajax_type: 'POST'
-            , supportMenu: true
+            ,ajax_type: 'POST'
+            ,supportMenu: true
 
 
             // AJAX失败事件函数
-            , ajax_error: function (error) {
+            ,ajax_error: function(error){
                 console.log('ajax_error');
             }
-            , query: {serise: 1}
-            , dataKey: 'list'  // 注意: 这里是用来测试responseHandler 是否生效; 数据本身返回为data, 而在这里我把数据名模拟为list, 再通过responseHandler去更改
-            , pageSize: 10
+            ,query: {serise: -1}
+            ,dataKey: 'list'  // 注意: 这里是用来测试responseHandler 是否生效; 数据本身返回为data, 而在这里我把数据名模拟为list, 再通过responseHandler去更改
+            ,pageSize:10
 
             // 通过该方法修改全部的请求参数
-            , requestHandler: function (request) {
+            ,requestHandler: function(request){
                 request.newParams = '这个参数是通过 requestHandler 函数新增的';
                 // 更改这个参数后, 将会强制createDate字段使用 降序排序.
                 // 'sort_' 通过 配置项 sortKey 进行配置
@@ -167,102 +169,105 @@
                 return request;
             }
             // 可以通过该方法修改返回的数据
-            , responseHandler: function (response) {
+            ,responseHandler: function(response){
 
                 // 数据本身返回为data, 通过responseHandler更改为与dataKey匹配的值
                 response.list = response.data;
                 return response;
             }
-            , columnData: [
+            ,columnData: [
                 {
                     key: 'id',
-                    remind: 'the info',
-                    text: '订单编号',
-                    isShow: true,
-                    width: '100px',
-                    align: 'center'
+                    remind: 'the pic',
+                    text: '编号',
+                    isShow: false
+                }, {
+                    key: 'img',
+                    remind: 'the pic',
+                    width: '110px',
+                    align: 'center',
+                    text: '缩略图',
+                    // 使用函数返回 dom node
+                    template: function(img, rowObject) {
+                        var picNode= '<a href="'+img+'" data-fancybox data-caption="My caption">'+
+                        '<img src="'+img+'" width="100px" height="68px" alt="" />'
+                            +'</a>';
+                        return picNode;
+                    }
                 },
                 {
-                    key: 'addrName',
+                    key: 'name',
                     remind: 'the pic',
                     width: '120px',
                     align: 'center',
-                    text: '购买人姓名',
+                    text: '经销商账号',
                     // 使用函数返回 dom node
-                    template: function (addrName, rowObject) {
+                    template: function(name, rowObject) {
 
-                        return addrName;
+                        return name;
                     }
-                }, {
-                    key: 'phone',
+                },{
+                    key: 'eName',
                     remind: 'the title',
                     align: 'center',
                     width: '120px',
-                    text: '购买人电话',
+                    text: '英文名',
                     sorting: '',
                     // 使用函数返回 dom node
-                    template: function (phone, rowObject) {
+                    template: function(name, rowObject) {
 
-                        return phone;
+                        return name;
                     }
-                }, {
-                    key: 'status',
+                },{
+                    key: 'serise',
                     remind: 'the type',
-                    text: '订单状态',
+                    text: '系列',
                     width: '100px',
                     align: 'center',
-                    template: function (status, rowObject) {
-                        return TYPE_MAP[status];
+                    template: function(serise, rowObject){
+                        return TYPE_MAP[serise];
                     }
-                }, {
-                    key: 'time',
-                    remind: 'the createDate',
+                },{
+                    key: 'scale',
+                    remind: 'the info',
+                    text: '规格',
+                    isShow: true,
                     width: '100px',
-                    align: 'center',
-                    text: '提交时间',
-                    sorting: 'DESC',
-                    // 使用函数返回 htmlString
-                    template: function (time, rowObject) {
-                        return new Date(time).toLocaleString();
-                    }
-                }, {
+                    align: 'center'
+                },{
+                    key: 'mPrice',
+                    remind: 'the info',
+                    text: '市场价',
+                    isShow: true,
+                    width: '100px',
+                    align: 'center'
+                },{
                     key: 'action',
                     remind: 'the action',
                     width: '110px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString
-                    template: function (action, rowObject) {
-                        var option = '';
-                        var status = rowObject.status;
-                        if (status == 1) {
-                            option += '<span class="plugin-action" onclick="receivingAddress(\'' + rowObject.addrId + '\');">收货人详情</span>';
-                        } else if (status == 2) {
-                            option += '&nbsp<span class="plugin-action" onclick="deliverGoods(\'' + rowObject.id + '\');">我要发货</span>&nbsp&nbsp';
-                        } else if (status == 3 || status == 4 || status == 5) {
-                            option += '<span class="plugin-action" onclick="getLogistics(\'' + rowObject.com+'\',\''+rowObject.no + '\');">查看物流</span>';
-                        }
-                        option += '<span class="plugin-action" onclick="listOfGoods(\'' + rowObject.id + '\');">商品信息</span>';
-                        return option;
-                    }
+                    template: '<span class="plugin-action" gm-click="editRowData">编辑商品</span><span class="plugin-action" gm-click="editRowData2">编辑价格</span>' +
+                    '<span class="plugin-action" gm-click="editRowData3">编辑详情</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
                 }
             ]
             // 排序后事件
-            , sortingAfter: function (data) {
+            ,sortingAfter: function (data) {
                 console.log('sortAfter', data);
             }
-        }, function (query) {
+        }, function(query){
             // 渲染完成后的回调函数
             console.log('渲染完成后的回调函数:', query);
         });
     }
 
     // 删除功能
-    function delectRowData(id) {
+    function delectRowData(rowData){
         // 执行删除操作
-        if (window.confirm('确认要删除编号[' + id + ']?')) {
+        if(window.confirm('确认要删除['+rowData.name+']?')){
             $.ajax({
-                url: "/removeOrder.do?commId=" + id,
+                url: "/removeCommodity.do?commId="+rowData.id,
                 type: "get",
                 success: function (data) {
                     alert("商品删除成功");
@@ -272,25 +277,21 @@
                     alert("商品删除失败");
                     console.log(data);
                 }
-            });
+        });
         }
     }
 
-
-    function receivingAddress(orderId) {
-        window.open("/receivingAddress.do?addrId=" + orderId);
+    function editRowData(rowData){
+        window.location.href = "/editCommodity.do?commId="+rowData.id;
     }
 
-    function deliverGoods(orderId) {
-        window.open("/deliverGoods.do?orderId=" + orderId);
+    function editRowData2(rowData){
+       window.location.href = "/editPrice.do?commId="+rowData.id+"&serise="+rowData.serise;
     }
 
-    function getLogistics(com,no) {
-        window.open("/getLogistics.do?com=" + com+"&no="+no);
-    }
-
-    function listOfGoods(orderId) {
-        window.open("/listOfGoods.do?orderId=" + orderId);
+    function editRowData3(rowData){
+        alert("此功能，工程师正在玩命开发中。。。")
+        //window.location.href = "/editPrice.do?commId="+rowData.id+"&serise="+rowData.serise;
     }
 
     /**
@@ -301,11 +302,11 @@
     /**
      * 提供demo中的搜索, 重置
      */
-    (function () {
+    (function(){
 
-        var typeSelect2 = document.querySelector('.search-area select[name="status"]');
+        var typeSelect2 = document.querySelector('.search-area select[name="serise"]');
 
-        for (var key in TYPE_MAP) {
+        for(var key in TYPE_MAP){
             var option = document.createElement('option');
             option.value = key;
             option.innerText = TYPE_MAP[key];
@@ -316,10 +317,10 @@
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
                 name: document.querySelector('[name="name"]').value,
-                serise: document.querySelector('[name="status"]').value,
+                serise: document.querySelector('[name="serise"]').value,
                 index: 1
             };
-            table.GM('setQuery', _query, function () {
+            table.GM('setQuery', _query, function(){
                 console.log('setQuery执行成功');
             });
         });
@@ -327,14 +328,32 @@
         // 绑定重置
         document.querySelector('.reset-action').addEventListener('click', function () {
             document.querySelector('[name="name"]').value = '';
-            document.querySelector('select[name="status"]').value = '-1';
+            document.querySelector('select[name="serise"]').value = '-1';
         });
 
+        $("#editable-sample_new").click(function () {
+            window.open("/addCommodity.do");
+        })
     })();
 
-    (function () {
+    (function(){
         init();
     })();
 
+    $("[data-fancybox]").fancybox({
+        // Options will go here
+        buttons : [
+            'zoom',
+            'close'
+        ]
+    });
 
+
+    $().fancybox({
+        selector : '[data-fancybox="images"]',
+        loop     : true
+    });
+
+
+    //  $.fancybox.open('<div class="message"><h2>Hello!</h2><p>You are awesome!</p></div>');
 </script>

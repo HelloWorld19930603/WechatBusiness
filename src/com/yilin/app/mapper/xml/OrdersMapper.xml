@@ -30,6 +30,7 @@
         <result column="no" jdbcType="VARCHAR" property="no"/>
         <result column="com" jdbcType="VARCHAR" property="com"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="money" jdbcType="VARCHAR" property="money"/>
     </resultMap>
     <resultMap id="CountMap" type="HashMap">
         <result column="countNum" jdbcType="INTEGER" property="countNum"/>
@@ -132,7 +133,7 @@
 
     <select id="selectList" parameterType="map" resultMap="PageMap">
         select
-        o.id, o.user_id, addr_id,o.status, time,description
+        o.id, o.user_id, addr_id,o.status, o.time,description
         ,a.name addr_name,
         a.phone,a.ssq,a.addr,l.id no,l.com
         from orders o
@@ -145,7 +146,26 @@
         <if test="status != null">
             and o.status = #{status}
         </if>
-        order by time
+        order by time desc
+        limit #{start},#{pageSize}
+    </select>
+
+    <select id="selectList2" parameterType="map" resultMap="PageMap">
+        select
+        o.id, o.user_id, addr_id,o.status, o.time,description
+        ,a.name addr_name,
+        a.phone,a.ssq,a.addr,l.id no,l.com,(select sum(price) from order_comm where order_id = o.id) money
+        from orders o
+        LEFT join address a on o.addr_id = a.id
+        left join logistics l on l.order_id = o.id
+        where 1=1
+        <if test="userId != null">
+            and o.user_id = #{userId}
+        </if>
+        <if test="status != null">
+            and o.status = #{status}
+        </if>
+        order by time desc
         limit #{start},#{pageSize}
     </select>
 
@@ -160,6 +180,7 @@
         <if test="status != null">
             and status = #{status}
         </if>
+
     </select>
 
     <select id="countAll" parameterType="map" resultMap="CountMap">
@@ -174,7 +195,10 @@
     </select>
 
     <update id="updateStatus" parameterType="map">
-        update orders set status= #{status} where user_id = #{userId} and id = #{orderId}
+        update orders set status= #{status} where  id = #{orderId}
+        <if test="userId != null">
+            and  user_id = #{userId}
+        </if>
         <if test="oldStatus != null">
             and status = #{oldStatus}
         </if>

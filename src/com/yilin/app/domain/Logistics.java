@@ -1,5 +1,7 @@
 package com.yilin.app.domain;
 
+import java.util.Date;
+
 public class Logistics {
     private String id;
 
@@ -8,6 +10,8 @@ public class Logistics {
     private String com;
 
     private String orderId;
+
+    private Date time;
 
     public String getId() {
         return id;
@@ -39,5 +43,13 @@ public class Logistics {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId == null ? null : orderId.trim();
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 }

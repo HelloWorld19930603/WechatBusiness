@@ -31,6 +31,13 @@
 
                 </ul>
             </li>
+            <li class="menu-list"><a href=""><i class="fa fa-legal"></i> <span>审核</span></a>
+                <ul class="sub-menu-list">
+                    <li class="recharge"><a href="/rechage.do"> 充值审核</a></li>
+                    <li class="agent"><a href="/agent.do"> 代理审核</a></li>
+                    <li class="agentUpgrade"><a href="/agentUpgrade.do"> 代理升级审核</a></li>
+                </ul>
+            </li>
             <li class="menu-list"><a href=""><i class="fa fa-picture-o"></i> <span>广告</span></a>
                 <ul class="sub-menu-list">
                     <li class="poster"><a href="/poster.do"> 广告管理</a></li>
