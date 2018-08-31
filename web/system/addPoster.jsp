@@ -108,6 +108,7 @@
                                                 <label class="input-group-btn">
                                                     <input id="file" type="file" name="file" style="left: -9999px; position: absolute;">
                                                     <span class="btn btn-default">Browse</span>
+                                                    <span class="btn btn-default" onclick="clearFileInput()">清空</span>
                                                 </label>
                                             </div>
                                         </div>
@@ -221,5 +222,12 @@
         });
     }
 
-
+    function clearFileInput() {
+        var file = $("#file");
+        if (file.files.length == 0)
+            return;
+        file.after(file.clone().val(""));
+        file.remove();
+        $("#img").src = "/images/default.png";
+    }
 </script>
