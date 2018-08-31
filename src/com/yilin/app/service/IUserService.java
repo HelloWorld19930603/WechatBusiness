@@ -31,5 +31,7 @@ public interface IUserService {
 
     List<Map<String, Object>> selectBySerise(byte serise, int start, int pageSize);
 
-    int selectNumBySerise(byte serise);
+    int selectNumBySerise(byte serise)throws Exception;
+
+    User selectByLoginName(String loginName)throws Exception;
 }

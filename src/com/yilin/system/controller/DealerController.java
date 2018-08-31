@@ -1,6 +1,8 @@
 package com.yilin.system.controller;
 
 import com.yilin.app.domain.User;
+import com.yilin.app.domain.UserRole;
+import com.yilin.app.service.IRoleService;
 import com.yilin.app.service.IUserService;
 import com.yilin.system.common.SystemPage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class DealerController {
 
     @Autowired
     IUserService userService;
+    @Autowired
+    IRoleService roleService;
 
 
     @RequestMapping("dealer1")
@@ -51,24 +55,31 @@ public class DealerController {
         return "addDealer";
     }
 
-    @RequestMapping("addOne")
+    @RequestMapping(value = "addDealer2")
     @ResponseBody
-    public Object addOne(Model model,int serise,User user){
-        model.addAttribute("active","dealer"+serise);
-        model.addAttribute("serise",serise);
-        try {
-            userService.register(user);
+    public Object addDealer2(User user,int roleId,int serise){
 
+        try {
+            User diskUser = userService.selectByLoginName(user.getLoginName());
+            if(diskUser != null ){
+                return 2;
+            }
+            userService.register(user);
+            UserRole userRole = new UserRole();
+            userRole.setRoleId(roleId);
+            userRole.setSerise(serise);
+            userRole.setUserId(user.getId());
+            roleService.addOne(userRole);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return 0;
         }
-        return true;
+        return 1;
     }
 
     @RequestMapping("getUsers")
     @ResponseBody
-    public Object getUsers(byte serise,int start,int pageSize){
+    public Object getUsers(byte serise,int start,int pageSize) throws Exception {
         int totals = userService.selectNumBySerise(serise);
         List<Map<String,Object>> data = userService.selectBySerise(serise,start,pageSize);
         SystemPage page = new SystemPage(totals,data);

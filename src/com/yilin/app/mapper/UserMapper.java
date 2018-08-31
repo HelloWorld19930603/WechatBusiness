@@ -11,6 +11,8 @@ public interface UserMapper  extends IBaseMapper<User> {
 
     User selectForLogin(@Param("loginName") String loginName, @Param("loginPwd") String loginPwd);
 
+    User selectForName(@Param("loginName") String loginName);
+
     List<Map<String, Object>> selectBySerise(Map<String, Object> map);
 
     int selectNumBySerise(Map<String, Object> map);

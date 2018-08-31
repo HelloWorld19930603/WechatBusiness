@@ -108,4 +108,9 @@ public class UserService implements IUserService {
         map.put("serise",serise);
         return userMapper.selectNumBySerise(map);
     }
+
+    @Override
+    public User selectByLoginName(String loginName) throws Exception {
+        return userMapper.selectForName(loginName);
+    }
 }

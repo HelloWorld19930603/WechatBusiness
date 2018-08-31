@@ -25,7 +25,7 @@ public class SystemFilter implements Filter {
         response.setCharacterEncoding("utf-8");
         String url = request.getRequestURI();
         System.out.println("doFilter2 : " +url);
-        if(url.indexOf("login") != -1 || url.indexOf("toLogin") != -1){
+        if(url.indexOf("login") != -1 || url.indexOf("toLogin") != -1 || url.indexOf("invitingAgent") != -1|| url.indexOf("applyAgent") != -1){
             arg2.doFilter(arg0, arg1);
         }
         Object object = request.getSession().getAttribute("user");

@@ -39,7 +39,7 @@
         delete from user
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="com.yilin.app.domain.User">
+    <insert id="insert" parameterType="com.yilin.app.domain.User" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into user (id, name, login_name,
         login_pwd, pay_pwd, sex,
         sup_id, phone, wx_num,
@@ -51,7 +51,7 @@
         #{idNum,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP},
         #{status,jdbcType=TINYINT})
     </insert>
-    <insert id="insertSelective" parameterType="com.yilin.app.domain.User">
+    <insert id="insertSelective" parameterType="com.yilin.app.domain.User" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -201,6 +201,13 @@
         from user
         where login_name = #{loginName}
         and login_pwd = #{loginPwd}
+    </select>
+
+    <select id="selectForName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where login_name = #{loginName}
     </select>
 
     <select id="selectBySerise" resultMap="PageMap">

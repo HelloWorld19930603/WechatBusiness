@@ -25,4 +25,9 @@ public class RoleService implements IRoleService {
         map.put("userId",userId);
         return userRoleMapper.selectAll(map);
     }
+
+    @Override
+    public void addOne(UserRole userRole) throws Exception {
+        userRoleMapper.insert(userRole);
+    }
 }

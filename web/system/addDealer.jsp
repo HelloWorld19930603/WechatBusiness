@@ -3,22 +3,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="ThemeBucket">
-  <link rel="shortcut icon" href="#" type="image/png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
 
-  <title><%=title%></title>
+    <title><%=title%>
+    </title>
 
-  <link href="css/style.css" rel="stylesheet">
-  <link href="css/style-responsive.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet">
 
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-  <script src="js/html5shiv.js"></script>
-  <script src="js/respond.min.js"></script>
-  <![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body class="sticky-header">
@@ -27,9 +28,9 @@
     <!-- left side start-->
     <%@include file="common/left.jsp" %>
     <!-- left side end-->
-    
+
     <!-- main content start-->
-    <div class="main-content" >
+    <div class="main-content">
 
         <!-- header section start-->
         <%@include file="common/header.jsp" %>
@@ -41,7 +42,7 @@
                 <li>
                     <a href="#">经销商</a>
                 </li>
-                <li class="active"> 添加经销商 </li>
+                <li class="active"> 添加经销商</li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -55,48 +56,48 @@
                             经销商表单
                         </header>
                         <div class="panel-body">
-                            <div class="form" >
-                                <form class="cmxform form-horizontal adminex-form" id="signupForm" >
-                                    <input type = "hidden" name="serise" value = "${serise}">
+                            <div class="form">
+                                <form class="cmxform form-horizontal adminex-form" id="signupForm">
+                                    <input type="hidden" name="serise" value="${serise}">
                                     <div class="form-group ">
                                         <label for="name" class="control-label col-lg-3">经销商名字</label>
                                         <div class="col-lg-5">
-                                            <input class=" form-control" id="name" name="name" type="text" />
+                                            <input class=" form-control" id="name" name="name" type="text"/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="loginName" class="control-label col-lg-3">账号</label>
                                         <div class="col-lg-5">
-                                            <input class=" form-control" id="loginName" name="loginName" type="text" />
+                                            <input class=" form-control" id="loginName" name="loginName" type="text"/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="roleId" class="control-label col-lg-3">级别</label>
                                         <div class="col-lg-5">
-                                        <select class="form-control m-bot15" name="roleId" id="roleId">
-                                            <option value="">请选择</option>
-                                            <!--通过js增加-->
-                                        </select>
+                                            <select class="form-control m-bot15" name="roleId" id="roleId">
+                                                <option value="">请选择</option>
+                                                <!--通过js增加-->
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="phone" class="control-label col-lg-3">手机号</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="phone" name="phone" type="text" />
+                                            <input class="form-control " id="phone" name="phone" type="text"/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="password" class="control-label col-lg-3">密码</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="password" name="loginPwd" type="password" />
+                                            <input class="form-control " id="password" name="loginPwd" type="password"/>
                                         </div>
                                     </div>
-<%--                                    <div class="form-group ">
-                                        <label for="confirm_password" class="control-label col-lg-3">确认密码</label>
-                                        <div class="col-lg-5">
-                                            <input class="form-control " id="confirm_password" name="confirm_password" type="password" />
-                                        </div>
-                                    </div>--%>
+                                    <%--                                    <div class="form-group ">
+                                                                            <label for="confirm_password" class="control-label col-lg-3">确认密码</label>
+                                                                            <div class="col-lg-5">
+                                                                                <input class="form-control " id="confirm_password" name="confirm_password" type="password" />
+                                                                            </div>
+                                                                        </div>--%>
 
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-10">
@@ -157,14 +158,14 @@
         // 渲染下拉框
         var typeSelect = document.querySelector('select[name="roleId"]');
 
-        for(var key in TYPE_MAP){
+        for (var key in TYPE_MAP) {
             var option = document.createElement('option');
             option.value = key;
             option.innerText = TYPE_MAP[key];
             typeSelect.appendChild(option);
         }
 
-        $("#submit").click(function(){
+        $("#submit").click(function () {
             var serise = document.querySelector('[name="serise"]').value;
             var name = document.querySelector('[name="name"]').value;
             var roleId = document.querySelector('select[name="roleId"]').value;
@@ -173,12 +174,18 @@
             var loginPwd = document.querySelector('[name="loginPwd"]').value;
 
             $.ajax({
-                url: "/addOne.do",
+                url: "/addDealer2.do",
                 type: "post",
-                data: "serise="+serise+"&loginPwd="+loginPwd+"&name="+name+"&loginName="+loginName+"&phone="+phone,
+                data: "serise=" + serise + "&loginPwd=" + loginPwd + "&name=" + name + "&loginName=" + loginName + "&phone=" + phonee + "&roleId=" + roleId,
                 success: function (data) {
+                    if (data == 1) {
+                        alert("添加成功");
+                    } else if (data == 2) {
+                        alert("用户名已存在")
+                    } else {
+                        alert("添加失败");
+                    }
                     console.log(data);
-                    alert("添加成功");
                 },
                 error: function (data) {
                     console.log(data);

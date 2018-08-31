@@ -70,4 +70,14 @@ public class HomeController {
     }
 
 
+    @RequestMapping("invitingAgent")
+    public String invitingAgent(int inviting,String invitationName,String applyName,byte serise,int level,Model model){
+        model.addAttribute("inviting",inviting);
+        model.addAttribute("invitationName",invitationName);
+        model.addAttribute("applyName",applyName);
+        model.addAttribute("serise",serise);
+        model.addAttribute("level",level);
+        return "invitingAgent";
+    }
+
 }

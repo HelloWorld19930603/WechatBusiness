@@ -10,4 +10,6 @@ import java.util.List;
 public interface IRoleService {
 
     List<UserRole> selectRoles(int userId) throws Exception;
+
+    void addOne(UserRole userRole)throws Exception;
 }
