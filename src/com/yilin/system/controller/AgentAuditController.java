@@ -16,14 +16,14 @@ import java.util.Map;
 public class AgentAuditController {
 
 
-    @RequestMapping("/agent/agentAudit")
+    @RequestMapping("/agent")
     public String agentAudit(Model model){
-        model.addAttribute("active","agentAudit");
-        return "agentAudit";
+        model.addAttribute("active","agent");
+        return "agent";
     }
 
 
-    @RequestMapping("getAgentAudit")
+    @RequestMapping("getAgentAudits")
     @ResponseBody
     public SystemPage getAgentAudits(Byte status,Byte serise,String currentLevel,String phone,String name){
         int totals = 0;

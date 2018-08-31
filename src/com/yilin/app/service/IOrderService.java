@@ -15,13 +15,13 @@ public interface IOrderService {
 
     List<Map<String, Object>> selectDetails(String orderId) throws Exception;
 
-    void updateStatus(String id, int userId, int status, Integer oldStatus) throws AccountException;
+    void updateStatus(String id, Integer userId, int status, Integer oldStatus) throws AccountException;
 
     Map<String,Object> findOrder(String id) throws Exception;
 
     String createOrder(int userId,Map<String,Object> orders) throws Exception;
 
-    int getCount(Integer userId, Integer status) throws Exception;
+    int getCount(Integer userId, Byte status, Byte serise) throws Exception;
 
     List<Map<String,Integer>> getAllCount(Integer userId) throws Exception;
 
@@ -30,4 +30,6 @@ public interface IOrderService {
     void removeOrder(String id, int userId) throws Exception;
 
     void refund(String orderId, int userId, byte i) throws Exception;
+
+    List selectList2(Integer userId, Byte status, Byte serise, int start, int pageSize) throws Exception;
 }

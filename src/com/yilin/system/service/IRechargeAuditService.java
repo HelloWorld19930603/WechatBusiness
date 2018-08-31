@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by cc on 2018/8/28.
  */
-public interface IRechargeAudit {
+public interface IRechargeAuditService {
 
     void updateStatus(byte status) throws Exception;
 
@@ -18,5 +18,5 @@ public interface IRechargeAudit {
 
     void removeOne(int id)throws Exception;
 
-    void auditPass(int id)throws Exception;
+    void audit(int id,byte status)throws Exception;
 }

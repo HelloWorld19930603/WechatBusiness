@@ -90,7 +90,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label span3"></label>
                                         <div class="col-md-6">
-                                            <img  id="img" src="/images/spacer.gif" width="100px" height="100px">
+                                            <img  id="img" src="/images/default.png" width="100px" height="100px">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -130,7 +130,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label span3"></label>
                                         <div class="col-md-6">
-                                            <img  id="img2" src="" width="100px" height="100px">
+                                            <img  id="img2" src="/images/default.png" width="100px" height="100px">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -149,7 +149,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label span3"></label>
                                         <div class="col-md-6">
-                                            <img  id="img3" src="" width="100px" height="100px">
+                                            <img  id="img3" src="/images/default.png" width="100px" height="100px">
                                         </div>
                                     </div>
                                     <div class="form-group">

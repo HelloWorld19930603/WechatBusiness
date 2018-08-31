@@ -15,10 +15,10 @@ import java.util.Map;
 @Controller
 public class RechargeAuditController {
 
-    @RequestMapping("rechargeAudit")
-    public String index(Model model){
-        model.addAttribute("active","rechargeAudit");
-        return "rechargeAudit";
+    @RequestMapping("recharge")
+    public String recharge(Model model){
+        model.addAttribute("active","recharge");
+        return "recharge";
     }
 
 

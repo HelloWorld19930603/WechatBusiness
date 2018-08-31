@@ -5,12 +5,14 @@ import com.yilin.app.mapper.ExpressMapper;
 import com.yilin.app.mapper.LogisticsMapper;
 import com.yilin.system.service.ILogisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by cc on 2018/8/28.
  */
+@Service
 public class LogisticsService implements ILogisticsService {
 
     @Autowired

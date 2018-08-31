@@ -21,6 +21,7 @@ public class DealerController {
     @Autowired
     IUserService userService;
 
+
     @RequestMapping("dealer1")
     public String dealer1(Model model){
         model.addAttribute("active","dealer1");
@@ -57,6 +58,7 @@ public class DealerController {
         model.addAttribute("serise",serise);
         try {
             userService.register(user);
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
