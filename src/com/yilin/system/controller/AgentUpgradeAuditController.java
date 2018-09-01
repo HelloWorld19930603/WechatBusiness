@@ -15,17 +15,17 @@ import java.util.Map;
  * Created by cc on 2018/8/28.
  */
 @Controller
-public class AgentAuditController {
+public class AgentUpgradeAuditController {
 
 
-    @RequestMapping("/agent")
+    @RequestMapping("/agentUpgrade")
     public String agentAudit(Model model){
-        model.addAttribute("active","agent");
-        return "agent";
+        model.addAttribute("active","agentUpgrade");
+        return "agentUpgrade";
     }
 
 
-    @RequestMapping("getAgentAudits")
+    @RequestMapping("getAgentUpgradeAudits")
     @ResponseBody
     public SystemPage getAgentAudits(Byte status,Byte serise,String currentLevel,String phone,String name){
         int totals = 0;
@@ -40,14 +40,14 @@ public class AgentAuditController {
     }
 
 
-    @RequestMapping("decideAgent")
+    @RequestMapping("decideAgentUpgrade")
     @ResponseBody
     public String decideAgent(int id,int status){
 
         return "";
     }
 
-    @RequestMapping("applyAgent")
+    @RequestMapping("applyAgentUpgrade")
     @ResponseBody
     public String applyAgent(int userId,String userName,String applyName,byte serise,int level,String phone,String wxNum,
                              @RequestParam(value = "file", required = false) MultipartFile file){

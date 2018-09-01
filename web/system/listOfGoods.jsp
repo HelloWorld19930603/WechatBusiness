@@ -58,14 +58,12 @@
                             <div class="stepy-tab">
                             </div>
                             <form id="default" class="form-horizontal" onsubmit="javascript:confirm()">
-                                <input type="hidden" id="id" value="${poster.id}">
-                                <input type="hidden" id="content" name="content" value="${poster.content}">
                                 <fieldset title="订单商品列表">
                                     <legend></legend>
                                     <div class="col-sm-6">
                                         <section class="panel">
                                             <header class="panel-heading">
-                                                Hover Table
+                                                订单商品列表
                                                 <span class="tools pull-right">
                                 <a href="javascript:;" class="fa fa-chevron-down"></a>
                                 <a href="javascript:;" class="fa fa-times"></a>
@@ -88,7 +86,7 @@
                                                     <c:forEach items="${list}" var="comm">
                                                     <tr>
                                                         <td>${comm.commId}</td>
-                                                        <td>${comm.name}</td>
+                                                        <td>${comm.commName}</td>
                                                         <td>${comm.eName}</td>
                                                         <td>${comm.scale}</td>
                                                         <td>${comm.num}</td>

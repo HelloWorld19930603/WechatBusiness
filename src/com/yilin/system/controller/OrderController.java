@@ -72,6 +72,7 @@ public class OrderController {
         try {
             Object logistics = JuHelogistics.getRequest1(com,no);
             model.addAttribute("logistics",logistics);
+            model.addAttribute("active","order");
             return "logistics";
         }catch (Exception e) {
             e.printStackTrace();

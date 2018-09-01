@@ -129,7 +129,6 @@
     $(".${active}").parents("li").addClass("nav-active");
 
 
-    //html5实现图片预览功能
     $(function () {
 
 

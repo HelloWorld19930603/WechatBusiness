@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -76,15 +77,47 @@ public class CollegeController {
         return "addCollege";
     }
 
+
     @RequestMapping("editCollege")
+    public String editCollege(Model model,int id) throws Exception {
+        College college = collegeService.selectOne(id);
+        model.addAttribute("college",college);
+        model.addAttribute("active","college");
+        return "editCollege";
+    }
+
+    @RequestMapping("editCollege2")
     @ResponseBody
-    public String editCollege(College college) {
+    public String editCollege2(College college,String oldImg,String oldVideo,@RequestParam(value = "file1", required = false) MultipartFile file1,
+                               @RequestParam(value = "file2", required = false) MultipartFile file2, HttpServletRequest req) {
         try {
+
+            String img = null, video = null;
+            String servletContext =  req.getSession().getServletContext().getRealPath("/");
+            if (file1 != null) {
+                img = PhotoUtil.photoUpload(file1, "images/home/college/",
+                        file1.getOriginalFilename().substring(0,file1.getOriginalFilename().lastIndexOf(".")),
+                        req.getSession().getServletContext().getRealPath("/"));
+                if(StringUtil.isNotEmpty(oldImg)) {
+                    PhotoUtil.removePhoto(servletContext+oldImg.substring(1));
+                }
+                college.setImg(img);
+            }
+            if (file2 != null) {
+                video = PhotoUtil.photoUpload(file2, "images/home/college/video/",
+                        file2.getOriginalFilename().substring(0,file2.getOriginalFilename().lastIndexOf(".")),
+                        req.getSession().getServletContext().getRealPath("/"));
+                if(StringUtil.isNotEmpty(oldVideo)) {
+                    PhotoUtil.removePhoto(servletContext+oldVideo.substring(1));
+                }
+                college.setVideo(video);
+            }
+            college.setTime(new Date());
             collegeService.editOne(college);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "addCollege";
+        return "editCollege2";
     }
 
     @RequestMapping("addCollege2")

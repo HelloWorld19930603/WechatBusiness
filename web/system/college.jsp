@@ -229,7 +229,7 @@
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString
-                    template: '<span class="plugin-action" gm-click="delectRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
+                    template: '<span class="plugin-action" gm-click="editRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
                 }
             ]
             // 排序后事件
@@ -261,6 +261,10 @@
                 }
             });
         }
+    }
+    function editRowData(rowData){
+
+        window.open("/editCollege.do?id="+rowData.id);
     }
 
     /**

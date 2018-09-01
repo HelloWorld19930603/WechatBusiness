@@ -28,7 +28,7 @@
     <form class="form-signin" action="/toLogin.do" method="post">
         <div class="form-signin-heading text-center">
             <h1 class="sign-title">后台管理系统登录</h1>
-            <img src="/images/logo-demo.jpg" alt="" width="144px" height="99px"/>
+            <img src="/images/home/login_logo.jpg" alt="" width="144px" height="99px"/>
         </div>
         <div class="login-wrap">
             <input type="text" class="form-control" id="loginName" placeholder="用户名" autofocus>

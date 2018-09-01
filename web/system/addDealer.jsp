@@ -102,7 +102,7 @@
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-10">
                                             <button class="btn btn-primary" type="button" id="submit">提交</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <button class="btn btn-default" type="button">返回</button>
+                                            <button class="btn btn-default" type="button" id="return">返回</button>
                                         </div>
                                     </div>
                                 </form>
@@ -164,6 +164,9 @@
             option.innerText = TYPE_MAP[key];
             typeSelect.appendChild(option);
         }
+        $("#return").click(function () {
+            window.history.go(-1);
+        });
 
         $("#submit").click(function () {
             var serise = document.querySelector('[name="serise"]').value;
@@ -176,7 +179,7 @@
             $.ajax({
                 url: "/addDealer2.do",
                 type: "post",
-                data: "serise=" + serise + "&loginPwd=" + loginPwd + "&name=" + name + "&loginName=" + loginName + "&phone=" + phonee + "&roleId=" + roleId,
+                data: "serise=" + serise + "&loginPwd=" + loginPwd + "&name=" + name + "&loginName=" + loginName + "&phone=" + phone+ "&roleId=" + roleId,
                 success: function (data) {
                     if (data == 1) {
                         alert("添加成功");

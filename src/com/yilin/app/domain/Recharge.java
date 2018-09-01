@@ -15,7 +15,9 @@ public class Recharge {
 
     private Byte status;
 
-    private String url;
+    private String voucher;
+
+    private Integer auditor;
 
     public Integer getId() {
         return id;
@@ -65,11 +67,19 @@ public class Recharge {
         this.status = status;
     }
 
-    public String getUrl() {
-        return url;
+    public String getVoucher() {
+        return voucher;
     }
 
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+    public void setVoucher(String voucher) {
+        this.voucher = voucher == null ? null : voucher.trim();
+    }
+
+    public Integer getAuditor() {
+        return auditor;
+    }
+
+    public void setAuditor(Integer auditor) {
+        this.auditor = auditor;
     }
 }

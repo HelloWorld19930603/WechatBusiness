@@ -26,9 +26,9 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        ,p.price m_price
+        ,m.price m_price
         from commodity c
-        left join price p on c.id = p.comm_id and role_id = 0
+        left join price m on c.id = p.comm_id and role_id = 0
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

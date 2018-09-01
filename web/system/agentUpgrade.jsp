@@ -14,12 +14,8 @@
     <link href="<%=path%>/css/style-responsive.css" rel="stylesheet">
     <link href="<%=path%>/css/gm.css" rel="stylesheet">
     <link href="<%=path%>/css/grid.css" rel="stylesheet">
-    <!--dashboard calendar-->
-    <link href="/css/clndr.css" rel="stylesheet">
-    <!--Morris Chart CSS -->
-    <link rel="stylesheet" href="/js/morris-chart/morris.css">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/css/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="<%=path%>/js/html5shiv.js"></script>
@@ -32,15 +28,15 @@
 </style>
 <script>
     const TYPE_MAP = {
-        '1': '股东',
-        '2': '合伙人',
-        '3': '经理',
-        '4': '执行董事',
-        '5': '官方',
-        '6': '总代',
-        '7': '体验'
+        '1': '格丽缇',
+        '2': 'Utomorrow',
+        '3': 'Pslady'
     };
-
+    const STATUS_MAP = {
+        '1': '待审核',
+        '2': '审核通过',
+        '3': '审核未通过'
+    };
 </script>
 <body class="sticky-header">
 
@@ -61,9 +57,9 @@
 
             <ul class="breadcrumb">
                 <li>
-                    <a href="#">经销商</a>
+                    <a href="#">审核</a>
                 </li>
-                <li class="active"> Utomorrow</li>
+                <li class="active"> 充值审核</li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -72,19 +68,26 @@
         <div class="wrapper">
 
             <section class="search-area panel">
-                <input type="hidden" name="serise" value="2">
                 <div class="sa-ele">
-                    <label class="se-title">经销商名称:</label>
-                    <input class="se-con" name="name"/>
+                    <label class="se-title">系列:</label>
+                    <select class="se-con" name="serise">
+                        <option value="-1">请选择</option>
+                        <!--通过js增加-->
+                    </select>
                 </div>
                 <div class="sa-ele">
-                    <label class="se-title">手机号:</label>
-                    <input class="se-con" name="phone"/>
+                    <label class="se-title">经销商授权码:</label>
+                    <input class="se-con" name="id"/>
                 </div>
                 <div class="sa-ele">
-                    <label class="se-title">授权码:</label>
-                    <input class="se-con" name="code"/>
+                    <label class="se-title">审核状态:</label>
+                    <select class="se-con" name="status">
+                        <option value="1">待审核</option>
+                        <option value="2">审核通过</option>
+                        <option value="3">审核未通过</option>
+                    </select>
                 </div>
+
                 <div class="sa-ele">
                     <button class="search-action">搜索</button>
                     <button class="reset-action">重置</button>
@@ -115,6 +118,8 @@
 <script src="js/jquery-1.10.2.min.js"></script>
 <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
 <script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/jquery.stepy.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/modernizr.min.js"></script>
 <script src="js/jquery.nicescroll.js"></script>
@@ -124,7 +129,8 @@
 <script src="js/scripts.js"></script>
 
 
-
+<script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
 
 <script type="text/javascript" src="<%=path%>/js/gm.js"></script>
 </body>
@@ -150,7 +156,7 @@
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
             ,ajax_data: function () {
-                return '/getUsers.do';
+                return '/getRechargeAudits.do';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
             ,ajax_type: 'POST'
@@ -161,7 +167,7 @@
             ,ajax_error: function(error){
                 console.log('ajax_error');
             }
-            ,query: {serise: 2}
+            ,query: {serise: -1}
             ,dataKey: 'list'  // 注意: 这里是用来测试responseHandler 是否生效; 数据本身返回为data, 而在这里我把数据名模拟为list, 再通过responseHandler去更改
             ,pageSize:10
 
@@ -183,52 +189,64 @@
             }
             ,columnData: [
                 {
-                    key: 'loginName',
+                    key: 'id',
                     remind: 'the pic',
-                    width: '130px',
+                    text: '编号',
+                    isShow: false
+                }, {
+                    key: 'voucher',
+                    remind: 'the pic',
+                    width: '110px',
                     align: 'center',
-                    text: '经销商账号',
+                    text: '缩略图',
                     // 使用函数返回 dom node
-                    template: function(loginName, rowObject) {
+                    template: function(voucher, rowObject) {
+                        var picNode= '<a href="'+voucher+'" data-fancybox data-caption="My caption">'+
+                        '<img src="'+voucher+'" width="100px" height="68px" alt="" />'
+                            +'</a>';
+                        return picNode;
+                    }
+                },
+                {
+                    key: 'userId',
+                    remind: 'the pic',
+                    width: '120px',
+                    align: 'center',
+                    text: '经销商授权码',
+                    // 使用函数返回 dom node
+                    template: function(userId, rowObject) {
 
-                        return loginName;
+                        return userId;
                     }
                 },{
-                    key: 'name',
+                    key: 'money',
                     remind: 'the title',
                     align: 'center',
                     width: '120px',
-                    text: '经销商名称',
+                    text: '充值金额',
                     sorting: '',
                     // 使用函数返回 dom node
-                    template: function(name, rowObject) {
+                    template: function(money, rowObject) {
 
-                        return name;
+                        return money;
                     }
                 },{
-                    key: 'roleId',
+                    key: 'serise',
                     remind: 'the type',
-                    text: '级别',
+                    text: '系列',
                     width: '100px',
                     align: 'center',
-                    template: function(roleId, rowObject){
-                        return TYPE_MAP[roleId];
+                    template: function(serise, rowObject){
+                        return TYPE_MAP[serise];
                     }
                 },{
-                    key: 'phone',
-                    remind: 'the info',
-                    text: '手机号',
-                    isShow: false
-                },{
-                    key: 'loginTime',
-                    remind: 'the createDate',
+                    key: 'status',
+                    remind: 'the type',
+                    text: '审核状态',
                     width: '100px',
                     align: 'center',
-                    text: '最近登录时间',
-                    sorting: 'DESC',
-                    // 使用函数返回 htmlString
-                    template: function(loginTime, rowObject){
-                        return new Date(loginTime).toLocaleString();
+                    template: function(status, rowObject){
+                        return STATUS_MAP[status];
                     }
                 },{
                     key: 'action',
@@ -237,7 +255,7 @@
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString
-                    template: '<span class="plugin-action" gm-click="delectRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
+                    template: '<span class="plugin-action" gm-click="editRowData">通过</span><span class="plugin-action" gm-click="editRowData2">拒绝</span>'
                 }
             ]
             // 排序后事件
@@ -251,10 +269,44 @@
     }
 
     // 删除功能
-    function delectRowData(rowData){
+    function editRowData(rowData) {
         // 执行删除操作
-        if(window.confirm('确认要删除['+rowData.title+']?')){
-            window.alert('当然这只是个示例,并不会真实删除,要不然每天我每天就光填demo数据了.');
+        if (window.confirm('确认要通过授权码为[' + rowData.userId + ']的用户的充值审核?')) {
+            $.ajax({
+                url: "/decideRecharge.do?id=" + rowData.id + "&status=2",
+                type: "get",
+                success: function (data) {
+                    if (data) {
+                       alert("通过成功");
+                      console.log(data);
+                    }else{
+                        alert("审核异常");
+                        console.log(data);
+                    }
+                },
+                error: function (data) {
+                    alert("审核异常");
+                    console.log(data);
+                }
+            });
+        }
+    }
+
+    function editRowData2(rowData) {
+        // 执行删除操作
+        if (window.confirm('确认要拒绝授权码为[' + rowData.userId + ']的用户的充值审核?')) {
+            $.ajax({
+                url: "/decideRecharge.do?id=" + rowData.id + "&status=3",
+                type: "get",
+                success: function (data) {
+                    alert("拒绝成功");
+                    console.log(data);
+                },
+                error: function (data) {
+                    alert("审核异常");
+                    console.log(data);
+                }
+            });
         }
     }
 
@@ -268,12 +320,20 @@
      */
     (function(){
 
+        var typeSelect2 = document.querySelector('.search-area select[name="serise"]');
+
+        for(var key in TYPE_MAP){
+            var option = document.createElement('option');
+            option.value = key;
+            option.innerText = TYPE_MAP[key];
+            typeSelect2.appendChild(option);
+        }
+
         // 绑定搜索事件
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
-                name: document.querySelector('[name="name"]').value,
-                phone: document.querySelector('[name="phone"]').value,
-                code: document.querySelector('[name="code"]').value,
+                id: document.querySelector('[name="id"]').value,
+                status: document.querySelector('[name="status"]').value,
                 serise: document.querySelector('[name="serise"]').value,
                 index: 1
             };
@@ -284,17 +344,34 @@
 
         // 绑定重置
         document.querySelector('.reset-action').addEventListener('click', function () {
-            document.querySelector('[name="name"]').value = '';
-            document.querySelector('[name="phone"]').value = '';
-            document.querySelector('[name="code"]').value = '';
+            document.querySelector('[id="id"]').value = '';
+            document.querySelector('select[name="serise"]').value = '-1';
+            document.querySelector('select[name="status"]').value = '1';
         });
 
         $("#editable-sample_new").click(function () {
-            window.location.href =  "/addDealer.do?serise="+document.querySelector('[name="serise"]').value;
+            window.open("/addCommodity.do");
         })
     })();
 
     (function(){
         init();
     })();
+
+    $("[data-fancybox]").fancybox({
+        // Options will go here
+        buttons : [
+            'zoom',
+            'close'
+        ]
+    });
+
+
+    $().fancybox({
+        selector : '[data-fancybox="images"]',
+        loop     : true
+    });
+
+
+    //  $.fancybox.open('<div class="message"><h2>Hello!</h2><p>You are awesome!</p></div>');
 </script>

@@ -29,9 +29,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="com.yilin.app.domain.Rebate">
-    insert into rebate (id, user_id, serise, 
+    insert into rebate (id, user_id, serise,
       money, time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{serise,jdbcType=TINYINT}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{serise,jdbcType=TINYINT},
       #{money,jdbcType=REAL}, #{time,jdbcType=TIMESTAMP})
   </insert>
     <insert id="insertSelective" parameterType="com.yilin.app.domain.Rebate">
@@ -102,11 +102,27 @@
         SELECT
         user_id, serise, sum(money) money, MONTH (time) month,date_format(time,'%Y-%m') ym
         from rebate
-        where user_id = #{userId}
+        where 1=1
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
         <if test="serise != null">
             and serise = #{serise}
         </if>
         GROUP by user_id,serise,month,ym
         order by time desc
+    </select>
+
+    <select id="count" parameterType="map" resultType="int">
+        SELECT
+        count(*)
+        from rebate
+        where 1=1
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="serise != null">
+            and serise = #{serise}
+        </if>
     </select>
 </mapper>

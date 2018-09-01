@@ -18,4 +18,6 @@ public interface IRebateService {
     void editOne(Rebate rebate) throws Exception;
 
     void removeOne(int id)throws Exception;
+
+    int selectCount(String name, Byte serise) throws Exception;
 }

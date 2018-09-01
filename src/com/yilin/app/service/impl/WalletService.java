@@ -2,6 +2,7 @@ package com.yilin.app.service.impl;
 
 import com.yilin.app.common.Page;
 import com.yilin.app.domain.Recharge;
+import com.yilin.app.domain.Wallet;
 import com.yilin.app.exception.AccountException;
 import com.yilin.app.mapper.PaymentMapper;
 import com.yilin.app.mapper.RebateMapper;
@@ -37,6 +38,11 @@ public class WalletService implements IWalletService {
     @Override
     public void addRecharge(Recharge recharge) throws Exception {
         rechargeMapper.insert(recharge);
+    }
+
+    @Override
+    public void addWallet(Wallet wallet) throws Exception {
+        walletMapper.insert(wallet);
     }
 
     @Override
@@ -76,7 +82,7 @@ public class WalletService implements IWalletService {
     }
 
     @Override
-    public float getMoney(int userId, byte serise) throws Exception {
+    public Float getMoney(int userId, byte serise) throws Exception {
         Map<String, Object> map = new HashMap<>();
         map.put("serise", serise);
         map.put("userId", userId);

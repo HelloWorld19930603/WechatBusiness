@@ -1,9 +1,13 @@
 package com.yilin.system.controller;
 
+import com.yilin.system.service.IRebateService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * Created by cc on 2018/8/26.
@@ -11,7 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class RebateController {
 
-
+    @Autowired
+    IRebateService rebateService;
 
     @RequestMapping("rebate")
     public String rebate(Model model){
@@ -27,8 +32,10 @@ public class RebateController {
 
     @RequestMapping("getRebates")
     @ResponseBody
-    public String getRebates(Model model){
+    public String getRebates(Model model,String name,Byte serise,int start,int pageSeize) throws Exception {
         model.addAttribute("active","rebate");
+        int totals = rebateService.selectCount(name,serise);
+        List list = rebateService.selectList(name,serise,start,pageSeize);
         return "rebate";
     }
 }

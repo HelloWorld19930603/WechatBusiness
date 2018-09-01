@@ -48,4 +48,12 @@ public class RebateService implements IRebateService {
     public void removeOne(int id) throws Exception {
         rebateMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public int selectCount(String name, Byte serise) throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", name);
+        map.put("serise", serise);
+        return rebateMapper.count(map);
+    }
 }

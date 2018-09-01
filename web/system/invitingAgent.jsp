@@ -52,7 +52,7 @@
                         </header>
                         <div class="panel-body">
                             <div class="form">
-                                <form class="cmxform form-horizontal adminex-form" id="signupForm" method="post" action="/applyAgent.do">
+                                <form class="cmxform form-horizontal adminex-form" id="signupForm" method="post" action="/applyAgent.do" enctype="multipart/form-data">
                                     <input type="hidden" name = "" value="${userId}">
                                     <div class="form-group ">
                                         <label for="disabledInput" class="control-label col-lg-3">邀请人</label>
@@ -96,7 +96,24 @@
                                             <input class="form-control " id="username6" name="idNum" type="text" />
                                         </div>
                                     </div>
-
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label span3"></label>
+                                        <div class="col-md-5">
+                                            <img  id="img" src="/images/default.png" width="100px" height="100px">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="col-md-3 control-label ">凭证上传</label>
+                                        <div class="col-md-5">
+                                            <div class="input-group">
+                                                <input id="photoCover" class="form-control" readonly type="text">
+                                                <label class="input-group-btn">
+                                                    <input id="file" type="file" name="file" style="left: -9999px; position: absolute;">
+                                                    <span class="btn btn-default">Browse</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
                                     <div class="form-group">

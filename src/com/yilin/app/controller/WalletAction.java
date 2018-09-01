@@ -104,7 +104,7 @@ public class WalletAction {
             recharge.setUserId(userId);
             recharge.setTime(new Date());
             recharge.setSerise(serise);
-            recharge.setUrl(url);
+            recharge.setVoucher(url);
             recharge.setStatus((byte)1);
             walletService.addRecharge(recharge);
             result = new ResultJson(true,"提交充值凭证成功");
