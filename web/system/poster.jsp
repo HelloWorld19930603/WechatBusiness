@@ -274,7 +274,7 @@
                     sorting: 'DESC',
                     // 使用函数返回 htmlString
                     template: function(time, rowObject){
-                        return new Date(time).toLocaleString();
+                        return dateFtt("yyyy-MM-dd hh:mm:ss",new Date(time));
                     }
                 },{
                     key: 'action',

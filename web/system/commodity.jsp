@@ -200,7 +200,7 @@
                     remind: 'the pic',
                     width: '120px',
                     align: 'center',
-                    text: '经销商账号',
+                    text: '商品名称',
                     // 使用函数返回 dom node
                     template: function(name, rowObject) {
 
@@ -244,7 +244,7 @@
                 },{
                     key: 'action',
                     remind: 'the action',
-                    width: '110px',
+                    width: '120px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString

@@ -33,5 +33,6 @@
         <mapper resource="com/yilin/app/mapper/xml/OrderCommMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/SystemUserMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/AgentMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/RebateRuleMapper.xml"/>
     </mappers>
 </configuration>

@@ -241,7 +241,10 @@
                     sorting: 'DESC',
                     // 使用函数返回 htmlString
                     template: function(loginTime, rowObject){
-                        return new Date(loginTime).toLocaleString();
+                        if(loginTime == null){
+                            return "";
+                        }
+                        return dateFtt("yyyy-MM-dd hh:mm:ss",new Date(loginTime));
                     }
                 },{
                     key: 'action',

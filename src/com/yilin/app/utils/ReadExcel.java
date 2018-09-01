@@ -5,12 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+import org.apache.commons.collections.map.HashedMap;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Administrator on 2018/7/11.
@@ -126,7 +124,7 @@ public class ReadExcel {
        // domain( "D:\\weishang\\格丽缇\\工作簿1.xls");
       //  commoDetail();
        // inserExpress();
-            domain("e:\\123.xls");
+            domain("e:\\agent.xls");
 
     }
 
@@ -142,34 +140,131 @@ public class ReadExcel {
             user(excelAllList.get(n), n);
         }
     }
+/*        '1': '股东',
+                '2': '联创',
+                '3': '执行董事',
+                '4': '官方',
+                '5': '总代理',
+                '6': '一级代理',
+                '7': '二级代理',
+                '8': '特约'*/
 
     private static void user(List<List> excelList, int n) {
         if (n != 0) {
             return;
         }
+        Map<String,Integer> map1 = new HashedMap();
+        map1.put("股东",1);
+        map1.put("联合创始人",2);
+        map1.put("执行董事",3);
+        map1.put("官方",4);
+        map1.put("总代",5);
+        map1.put("一级",6);
+        map1.put("二级",7);
+        map1.put("特约代理",8);
+        /*        '1': '股东',
+                '2': '合伙人',
+                '3': '经理',
+                '4': '执行董事',
+                '5': '官方',
+                '6': '总代',
+                '7': '体验'*/
+        Map<String,Integer> map2 = new HashedMap();
+        map2.put("股东",1);
+        map2.put("合伙人",2);
+        map2.put("经理",3);
+        map2.put("执行董事",4);
+        map2.put("官方",5);
+        map2.put("总代",6);
+/*        '1': '股东',
+                '2': '合伙人',
+                '3': '执行董事',
+                '4': '官方',
+                '5': '总代理',
+                '6': '一级代理',
+                '7': '体验'*/
+        Map<String,Integer> map3 = new HashedMap();
+        map3.put("股东",1);
+        map3.put("合伙人",2);
+        map3.put("执行董事",3);
+        map3.put("官方",4);
+        map3.put("总代",5);
+        map3.put("一级",6);
         Set<String> set1  = new HashSet<>();
         Set<String> set2  = new HashSet<>();
         Set<String> set3  = new HashSet<>();
         String sql1 = "select max(id) from user";
-        StringBuilder sql2 = new StringBuilder( "insert into user_role(user_id,role_id,serise) values(");
+        //E10ADC3949BA59ABBE56E057F20F883E
+        StringBuilder sql2 ;
         int num = 0;
         for (int i = 1; i < 2234; i++) {
-                StringBuilder sql = new StringBuilder(" insert into user (`name`, `login_name`, `login_pwd`, `pay_pwd`, `sex`, `sup_id`, `phone`, `wx_num`, `id_num`, `head_img`, `login_time`, `status`) values(  ");
-                List l = excelList.get(i);
-                sql.append("").append(i - 3).append("").append(",");
-                sql.append(")");
 
-                    set1.add((String) l.get(0));
-                    set2.add((String) l.get(1));
-                    set3.add((String) l.get(2));
-            if("股东".indexOf((String)l.get(0))>-1){
-                num++;
+                StringBuilder sql = new StringBuilder(" insert into user (`name`, `login_name`, `login_pwd`, `pay_pwd`, `sex`, `sup_id`, `phone`, `wx_num`, `id_num`, `status`) values(  ");
+                List l = excelList.get(i);
+                boolean flag = false;
+              Integer role1 = map1.get(((String)l.get(0)).trim());
+              Integer role2 = map2.get(((String)l.get(1)).trim());
+              Integer role3 = map2.get(((String)l.get(2)).trim());
+              if(role1 != null && role1 < 3){
+                flag = true;
+              }
+            if(role2 != null && role2 < 3){
+                flag = true;
+            }
+            if(role2!= null && role2 < 3){
+                flag = true;
+            }
+            Integer supId = null;
+
+            JSONArray array = SqlUtils.getInstance().search("(select id from user where name = '"+((String)l.get(6)).trim()+"')");
+            if(array != null && array.size() > 0) {
+                supId = (Integer) ((JSONObject) array.get(0)).get("id");
+            }
+                sql.append("'").append(((String)l.get(3)).trim()).append("'").append(",");
+                sql.append("'").append(l.get(5)).append("'").append(",");
+                sql.append("'").append("E10ADC3949BA59ABBE56E057F20F883E").append("'").append(",");
+                sql.append("'").append("E10ADC3949BA59ABBE56E057F20F883E").append("'").append(",");
+                sql.append("'").append("女").append("'").append(",");
+                sql.append("").append(supId).append(",");
+                sql.append("'").append(l.get(5)).append("'").append(",");
+                sql.append("'").append(l.get(4)).append("'").append(",");
+                sql.append("'").append(l.get(7)).append("'").append(",");
+                if(flag) {
+                    sql.append("'").append(1).append("'").append(")");
+                }else{
+                    sql.append("'").append(0).append("'").append(")");
+                }
+                SqlUtils.getInstance().insert(sql.toString());
+                sql2 = new StringBuilder( "insert into user_role(user_id,role_id,serise) values(");
+                if(role1 != null){
+                    sql2.append("(").append(sql1).append("),");
+                    sql2.append(role1).append(",");
+                    sql2.append(1).append(")");
+                    SqlUtils.getInstance().insert(sql2.toString());
+                }
+               sql2 = new StringBuilder( "insert into user_role(user_id,role_id,serise) values(");
+            if(role2 != null){
+                sql2.append("(").append(sql1).append("),");
+                sql2.append(role2).append(",");
+                sql2.append(2).append(")");
+                SqlUtils.getInstance().insert(sql2.toString());
+            }
+            sql2 = new StringBuilder( "insert into user_role(user_id,role_id,serise) values(");
+            if(role3 != null){
+                sql2.append("(").append(sql1).append("),");
+                sql2.append(role3).append(",");
+                sql2.append(3).append(")");
+                SqlUtils.getInstance().insert(sql2.toString());
             }
 
+
+/*                    set1.add((String) l.get(0));
+                    set2.add((String) l.get(1));
+                    set3.add((String) l.get(2));*/
                // SqlUtils.getInstance().update(sql.toString());
               //  System.out.println(sql);
         }
-        System.out.println(num);
+/*        System.out.println(num);
         System.out.println("\n系列1：");
         for(String s1 : set1){
 
@@ -184,7 +279,7 @@ public class ReadExcel {
         for(String s3 : set3){
 
             System.out.print(s3 + " ");
-        }
+        }*/
     }
 
     public static void inserExpress(){
