@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -36,6 +34,7 @@ public class AgentUpgradeAuditController {
         int totals = 0;
         SystemPage systemPage = null;
         try {
+            serise = serise == -1 ? null : serise;
             totals = agentUpgradeService.getCount(status,serise,phone,name);
             List<Map<String, Object>> data = agentUpgradeService.selectList(status,serise,phone,name,start,pageSize);
             systemPage = new SystemPage(totals, data);

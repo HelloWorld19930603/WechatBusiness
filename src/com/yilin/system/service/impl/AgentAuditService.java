@@ -61,7 +61,7 @@ public class AgentAuditService implements IAgentAuditService {
 
     @Override
     public void audit(int id, byte status,int userId) throws Exception {
-        if(status == 1){
+        if(status == 2){
             userMapper.updateStatus(userId,(byte)1);
         }
         agentMapper.updateStatus(id,status);

@@ -32,20 +32,21 @@ public class AgentAuditController {
     IUserService userService;
 
     @RequestMapping("/agent")
-    public String agentAudit(Model model){
-        model.addAttribute("active","agent");
+    public String agentAudit(Model model) {
+        model.addAttribute("active", "agent");
         return "agent";
     }
 
 
     @RequestMapping("getAgentAudits")
     @ResponseBody
-    public SystemPage getAgentAudits(Byte status,Byte serise,String phone,String name,int start,int pageSize){
+    public SystemPage getAgentAudits(Byte status, Byte serise, String phone, String name, int start, int pageSize) {
         int totals = 0;
         SystemPage systemPage = null;
         try {
-            totals = agentAuditService.getCount(status,serise,phone,name);
-            List<Map<String, Object>> data = agentAuditService.selectList(status,serise,phone,name,start,pageSize);
+            serise = serise == -1 ? null : serise;
+            totals = agentAuditService.getCount(status, serise, phone, name);
+            List<Map<String, Object>> data = agentAuditService.selectList(status, serise, phone, name, start, pageSize);
             systemPage = new SystemPage(totals, data);
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,8 +57,8 @@ public class AgentAuditController {
 
     @RequestMapping("decideAgent")
     @ResponseBody
-    public Integer decideAgent(int id,byte status,int userId) throws Exception {
-            agentAuditService.audit(id,status,userId);
+    public Integer decideAgent(int id, byte status, int userId) throws Exception {
+        agentAuditService.audit(id, status, userId);
         return 0;
     }
 
@@ -65,7 +66,7 @@ public class AgentAuditController {
     @ResponseBody
     public Integer applyAgent(int userId, String applyName, byte serise, int level, String phone, String wxNum,
                               String idNum, String description, @RequestParam(value = "file", required = false) MultipartFile file,
-                              HttpServletRequest req){
+                              HttpServletRequest req) {
         User user = new User();
         user.setName(applyName);
         user.setLoginName(phone);
@@ -75,22 +76,22 @@ public class AgentAuditController {
         user.setLoginPwd("123456");
         user.setPayPwd("123456");
         user.setSupId(userId);
-        user.setStatus((byte)0);
+        user.setStatus((byte) 0);
         Agent agent = new Agent();
         agent.setApplyLevel(level);
         agent.setSerise(serise);
         agent.setName(applyName);
         agent.setDescription(description);
-        agent.setStatus((byte)0);
+        agent.setStatus((byte) 0);
         try {
-            if(file != null) {
+            if (file != null) {
                 String path = PhotoUtil.photoUpload(file, "images/home/voucher/agent/", StringUtil.makeFileName(),
                         req.getSession().getServletContext().getRealPath("/"));
                 agent.setVoucher(path);
             }
-          userService.register(user);
-          agent.setInviter(user.getId());
-          agentAuditService.addOne(agent);
+            userService.register(user);
+            agent.setInviter(user.getId());
+            agentAuditService.addOne(agent);
         } catch (Exception e) {
             e.printStackTrace();
             return 1;
