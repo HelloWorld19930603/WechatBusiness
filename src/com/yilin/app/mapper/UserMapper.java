@@ -16,4 +16,6 @@ public interface UserMapper  extends IBaseMapper<User> {
     List<Map<String, Object>> selectBySerise(Map<String, Object> map);
 
     int selectNumBySerise(Map<String, Object> map);
+
+    void updateStatus(@Param("id")int id,@Param("status")byte status) throws Exception;
 }

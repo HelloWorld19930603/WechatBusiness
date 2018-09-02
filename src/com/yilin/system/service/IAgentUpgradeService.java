@@ -1,5 +1,7 @@
 package com.yilin.system.service;
 
+import com.yilin.app.domain.AgentUpgrade;
+
 import java.util.List;
 import java.util.Map;
 
@@ -18,5 +20,7 @@ public interface IAgentUpgradeService {
 
     void removeOne(int id)throws Exception;
 
-    void audit(int id,byte status)throws Exception;
+    void audit(int id,byte status,int userId,int level,int serise)throws Exception;
+
+    void addOne(AgentUpgrade agentUpgrade)throws Exception;
 }

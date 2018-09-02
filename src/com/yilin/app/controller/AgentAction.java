@@ -5,14 +5,22 @@ import com.yilin.app.common.ResultJson;
 import com.yilin.app.common.UserInfo;
 import com.yilin.app.domain.AgentUpgrade;
 import com.yilin.app.domain.UserRole;
+import com.yilin.app.exception.FileException;
 import com.yilin.app.service.IAgentService;
 import com.yilin.app.service.IRoleService;
+import com.yilin.app.utils.PhotoUtil;
+import com.yilin.system.service.IAgentUpgradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +36,8 @@ public class AgentAction {
     IAgentService agentService;
     @Autowired
     IRoleService roleService;
+    @Autowired
+    IAgentUpgradeService agentUpgradeService;
 
     /**
      * 代理升级
@@ -114,6 +124,26 @@ public class AgentAction {
             result = new ResultJson(false, "失败");
             e.printStackTrace();
         }
+        return result;
+    }
+
+
+    @RequestMapping("applyAgentUpgrade")
+    @ResponseBody
+    public ResultJson applyAgent(int userId, String userName, String applyName, byte serise, int applyLevel, int currentLevel,
+                                 String description, @RequestParam(value = "voucher", required = false) MultipartFile voucher,
+                                 HttpServletRequest req) throws Exception {
+        AgentUpgrade agentUpgrade = new AgentUpgrade();
+        agentUpgrade.setUserId(userId);
+        agentUpgrade.setApplyLevel(applyLevel);
+        agentUpgrade.setSerise(serise);
+        agentUpgrade.setStatus((byte)0);
+        agentUpgrade.setCurrentLevel(currentLevel);
+        String url = PhotoUtil.photoUpload(voucher,"images/home/voucher/recharge/",""+userId+System.currentTimeMillis(),req.getSession().getServletContext().getRealPath("/"));
+        agentUpgrade.setDescript(description);
+        agentUpgrade.setVoucher(url);
+        agentUpgradeService.addOne(agentUpgrade);
+        ResultJson result = new ResultJson(true, "成功");
         return result;
     }
 }

@@ -56,9 +56,9 @@ public class AgentAuditController {
 
     @RequestMapping("decideAgent")
     @ResponseBody
-    public String decideAgent(int id,int status){
-
-        return "";
+    public Integer decideAgent(int id,byte status,int userId) throws Exception {
+            agentAuditService.audit(id,status,userId);
+        return 0;
     }
 
     @RequestMapping("applyAgent")

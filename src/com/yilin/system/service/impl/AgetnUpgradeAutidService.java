@@ -1,6 +1,9 @@
 package com.yilin.system.service.impl;
 
+import com.yilin.app.domain.AgentUpgrade;
 import com.yilin.app.mapper.AgentUpgradeMapper;
+import com.yilin.app.mapper.UserMapper;
+import com.yilin.app.mapper.UserRoleMapper;
 import com.yilin.system.service.IAgentUpgradeService;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,8 @@ public class AgetnUpgradeAutidService implements IAgentUpgradeService {
 
     @Autowired
     AgentUpgradeMapper agentUpgradeMapper;
+    @Autowired
+    UserRoleMapper userRoleMapper;
 
     @Override
     public void updateStatus(byte status) throws Exception {
@@ -56,7 +61,15 @@ public class AgetnUpgradeAutidService implements IAgentUpgradeService {
     }
 
     @Override
-    public void audit(int id, byte status) throws Exception {
+    public void audit(int id, byte status,int userId,int level,int serise) throws Exception {
+        if(status == 1){
+            userRoleMapper.updateLevel(userId,serise,level);
+        }
+        agentUpgradeMapper.updateStatus(id,status);
+    }
 
+    @Override
+    public void addOne(AgentUpgrade agentUpgrade) throws Exception {
+        agentUpgradeMapper.insertSelective(agentUpgrade);
     }
 }

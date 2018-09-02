@@ -20,7 +20,7 @@ public interface IAgentAuditService {
 
     void removeOne(int id)throws Exception;
 
-    void audit(int id,byte status)throws Exception;
+    void audit(int id,byte status,int userId)throws Exception;
 
     void addOne(Agent agent)throws Exception;
 }

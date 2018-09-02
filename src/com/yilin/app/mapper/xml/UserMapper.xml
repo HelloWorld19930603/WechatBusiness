@@ -215,7 +215,7 @@
     select
     id,name,login_name,phone,login_time,role_id
     from user
-    inner join user_role on serise = #{serise} and id = user_id
+    inner join user_role on serise = #{serise} and id = #{user_id}
     limit #{start},#{pageSize}
   </select>
 
@@ -223,6 +223,12 @@
         select
         count(*)
         from user
-        inner join user_role on serise = #{serise} and id = user_id
+        inner join user_role on serise = #{serise} and id = #{user_id}
     </select>
+
+    <update id="updateStatus" >
+
+        update user set status = #{status}
+        where id = #{id}
+    </update>
 </mapper>

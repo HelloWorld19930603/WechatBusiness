@@ -2,6 +2,7 @@ package com.yilin.system.service.impl;
 
 import com.yilin.app.domain.Agent;
 import com.yilin.app.mapper.AgentMapper;
+import com.yilin.app.mapper.UserMapper;
 import com.yilin.system.service.IAgentAuditService;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class AgentAuditService implements IAgentAuditService {
 
     @Autowired
     AgentMapper agentMapper;
+    @Autowired
+    UserMapper userMapper;
 
     @Override
     public void updateStatus(byte status) throws Exception {
@@ -57,8 +60,11 @@ public class AgentAuditService implements IAgentAuditService {
     }
 
     @Override
-    public void audit(int id, byte status) throws Exception {
-
+    public void audit(int id, byte status,int userId) throws Exception {
+        if(status == 1){
+            userMapper.updateStatus(userId,(byte)1);
+        }
+        agentMapper.updateStatus(id,status);
     }
 
     @Override

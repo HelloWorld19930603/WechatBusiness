@@ -1,6 +1,8 @@
 package com.yilin.system.controller;
 
 import com.yilin.system.common.SystemPage;
+import com.yilin.system.service.IAgentUpgradeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,9 @@ import java.util.Map;
 public class AgentUpgradeAuditController {
 
 
+    @Autowired
+    IAgentUpgradeService agentUpgradeService;
+
     @RequestMapping("/agentUpgrade")
     public String agentAudit(Model model){
         model.addAttribute("active","agentUpgrade");
@@ -27,11 +32,12 @@ public class AgentUpgradeAuditController {
 
     @RequestMapping("getAgentUpgradeAudits")
     @ResponseBody
-    public SystemPage getAgentAudits(Byte status,Byte serise,String currentLevel,String phone,String name){
+    public SystemPage getAgentAudits(Byte status,Byte serise,String phone,String name,int start,int pageSize){
         int totals = 0;
         SystemPage systemPage = null;
         try {
-            List<Map<String, Object>> data = null;
+            totals = agentUpgradeService.getCount(status,serise,phone,name);
+            List<Map<String, Object>> data = agentUpgradeService.selectList(status,serise,phone,name,start,pageSize);
             systemPage = new SystemPage(totals, data);
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,17 +48,11 @@ public class AgentUpgradeAuditController {
 
     @RequestMapping("decideAgentUpgrade")
     @ResponseBody
-    public String decideAgent(int id,int status){
-
-        return "";
+    public String decideAgent(int id,byte status,int userId,int level,int serise) throws Exception {
+        agentUpgradeService.audit(id,status,userId,level,serise);
+        return "0";
     }
 
-    @RequestMapping("applyAgentUpgrade")
-    @ResponseBody
-    public String applyAgent(int userId,String userName,String applyName,byte serise,int level,String phone,String wxNum,
-                             @RequestParam(value = "file", required = false) MultipartFile file){
 
-        return "....";
-    }
 
 }
