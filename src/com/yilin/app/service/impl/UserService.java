@@ -96,18 +96,23 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<Map<String, Object>> selectBySerise(byte serise, int start, int pageSize) {
+    public List<Map<String, Object>> selectBySerise(Byte serise,String phone,String name, Byte status,int start, int pageSize) {
         Map<String,Object> map = new HashMap<>();
         map.put("serise",serise);
+        map.put("phone",phone);
+        map.put("name",name);
+        map.put("status",status);
         map.put("start",(start-1)*pageSize);
         map.put("pageSize",pageSize);
         return userMapper.selectBySerise(map);
     }
 
     @Override
-    public int selectNumBySerise(byte serise) {
+    public int selectNumBySerise(Byte serise,String phone,String name, Byte status) {
         Map<String,Object> map = new HashMap<>();
         map.put("serise",serise);
+        map.put("phone",phone);
+        map.put("name",name);
         return userMapper.selectNumBySerise(map);
     }
 

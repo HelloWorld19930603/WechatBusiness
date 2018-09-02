@@ -31,7 +31,7 @@
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from user
         where id = #{id,jdbcType=INTEGER}
     </select>
@@ -39,7 +39,8 @@
         delete from user
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="com.yilin.app.domain.User" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    <insert id="insert" parameterType="com.yilin.app.domain.User" useGeneratedKeys="true" keyColumn="id"
+            keyProperty="id">
         insert into user (id, name, login_name,
         login_pwd, pay_pwd, sex,
         sup_id, phone, wx_num,
@@ -51,7 +52,8 @@
         #{idNum,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP},
         #{status,jdbcType=TINYINT})
     </insert>
-    <insert id="insertSelective" parameterType="com.yilin.app.domain.User" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    <insert id="insertSelective" parameterType="com.yilin.app.domain.User" useGeneratedKeys="true" keyColumn="id"
+            keyProperty="id">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -212,21 +214,41 @@
     </select>
 
     <select id="selectBySerise" resultMap="PageMap">
-    select
-    id,name,login_name,phone,login_time,role_id
-    from user
-    inner join user_role on serise = #{serise} and id = #{user_id}
-    limit #{start},#{pageSize}
-  </select>
+        select
+        id,name,login_name,phone,login_time,role_id
+        from user u
+        inner join user_role r on serise = #{serise} and r.user_id = u.id
+        where 1=1
+        <if test="name != null and name != ''">
+            and name = #{name}
+        </if>
+        <if test="phone != null and phone != ''">
+            and phone = #{phone}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        limit #{start},#{pageSize}
+    </select>
 
     <select id="selectNumBySerise" resultType="int">
         select
         count(*)
-        from user
-        inner join user_role on serise = #{serise} and id = #{user_id}
+        from user u
+        inner join user_role r on serise = #{serise} and r.user_id = u.id
+        where 1=1
+        <if test="name != null and name != ''">
+            and name = #{name}
+        </if>
+        <if test="phone != null and phone != ''">
+            and phone = #{phone}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
     </select>
 
-    <update id="updateStatus" >
+    <update id="updateStatus">
 
         update user set status = #{status}
         where id = #{id}
