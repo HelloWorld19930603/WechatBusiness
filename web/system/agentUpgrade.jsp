@@ -76,8 +76,8 @@
                     </select>
                 </div>
                 <div class="sa-ele">
-                    <label class="se-title">经销商授权码:</label>
-                    <input class="se-con" name="id"/>
+                    <label class="se-title">经销商名称:</label>
+                    <input class="se-con" name="name" id="name"/>
                 </div>
                 <div class="sa-ele">
                     <label class="se-title">审核状态:</label>
@@ -139,6 +139,32 @@
     $(".${active}").addClass("active");
     $(".${active}").parents("li").addClass("nav-active");
 
+    const ROLE_MAP = [{
+        '1': '股东',
+        '2': '联创',
+        '3': '执行董事',
+        '4': '官方',
+        '5': '总代理',
+        '6': '一级代理',
+        '7': '二级代理',
+        '8': '特约'
+    },{
+        '1': '股东',
+        '2': '合伙人',
+        '3': '经理',
+        '4': '执行董事',
+        '5': '官方',
+        '6': '总代',
+        '7': '体验'
+    },{
+        '1': '股东',
+        '2': '合伙人',
+        '3': '执行董事',
+        '4': '官方',
+        '5': '总代理',
+        '6': '一级代理',
+        '7': '体验'
+    }];
 
     // GridManager 渲染
     var table = document.querySelector('table');
@@ -156,7 +182,7 @@
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
             ,ajax_data: function () {
-                return '/getRechargeAudits.do';
+                return '/getAgentUpgradeAudits.do';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
             ,ajax_type: 'POST'
@@ -219,16 +245,28 @@
                         return userId;
                     }
                 },{
+                    key: 'apply_level',
+                    remind: 'the title',
+                    align: 'center',
+                    width: '120px',
+                    text: '申请等级',
+                    sorting: '',
+                    // 使用函数返回 dom node
+                    template: function(applyLevel, rowObject) {
+
+                        return  ROLE_MAP[serise][applyLevel];
+                    }
+                },{
                     key: 'money',
                     remind: 'the title',
                     align: 'center',
                     width: '120px',
-                    text: '充值金额',
+                    text: '当前等级',
                     sorting: '',
                     // 使用函数返回 dom node
-                    template: function(money, rowObject) {
+                    template: function(currentLevel, rowObject) {
 
-                        return money;
+                        return  ROLE_MAP[serise][currentLevel];
                     }
                 },{
                     key: 'serise',
@@ -273,16 +311,15 @@
         // 执行删除操作
         if (window.confirm('确认要通过授权码为[' + rowData.userId + ']的用户的充值审核?')) {
             $.ajax({
-                url: "/decideRecharge.do?id=" + rowData.id + "&status=2",
+                url: "/decideAgentUpgrade.do?id=" + rowData.id + "&status=2&userId="+rowData.userId,
                 type: "get",
                 success: function (data) {
-                    if (data) {
+                    if (data == 0) {
                        alert("通过成功");
-                      console.log(data);
                     }else{
                         alert("审核异常");
-                        console.log(data);
                     }
+                    console.log(data);
                 },
                 error: function (data) {
                     alert("审核异常");
@@ -296,10 +333,15 @@
         // 执行删除操作
         if (window.confirm('确认要拒绝授权码为[' + rowData.userId + ']的用户的充值审核?')) {
             $.ajax({
-                url: "/decideRecharge.do?id=" + rowData.id + "&status=3",
+                url: "/decideAgentUpgrade.do?id=" + rowData.id + "&status=3&userId="+rowData.userId,
                 type: "get",
                 success: function (data) {
+                    if (data == 0) {
                     alert("拒绝成功");
+                     }
+                    else{
+                        alert("审核异常");
+                    }
                     console.log(data);
                 },
                 error: function (data) {
@@ -332,7 +374,7 @@
         // 绑定搜索事件
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
-                id: document.querySelector('[name="id"]').value,
+                userId: document.querySelector('[name="userId"]').value,
                 status: document.querySelector('[name="status"]').value,
                 serise: document.querySelector('[name="serise"]').value,
                 index: 1
@@ -344,7 +386,7 @@
 
         // 绑定重置
         document.querySelector('.reset-action').addEventListener('click', function () {
-            document.querySelector('[id="id"]').value = '';
+            document.querySelector('[id="userId"]').value = '';
             document.querySelector('select[name="serise"]').value = '-1';
             document.querySelector('select[name="status"]').value = '1';
         });

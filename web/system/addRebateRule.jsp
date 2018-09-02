@@ -65,17 +65,40 @@
                                             <input type="text" id="name" placeholder="返利名称" class="form-control">
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-2 control-label">返利名称</label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <select class="form-control m-bot15" name="serise" id="serise">
+                                                <option value="1">格丽缇</option>
+                                                <option value="2">Utomorrow</option>
+                                                <option value="3">Pslady</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-2 control-label">返利等级</label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <select class="form-control m-bot15" name="roleId" id="roleId">
 
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-2 col-sm-2 control-label">一级返利比例</label>
                                         <div class="col-lg-6">
-                                            <input type="text" id="proportion1" placeholder="一级返利比例" class="form-control">
+                                            <input type="text" id="first" placeholder="一级返利比例" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 col-sm-2 control-label">二级返利比例</label>
                                         <div class="col-lg-6">
-                                            <input type="text" id="proportion2" placeholder="一级返利比例" class="form-control">
+                                            <input type="text" id="second" placeholder="一级返利比例" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-2 control-label">返利描述</label>
+                                        <div class="col-lg-6">
+                                            <textarea rows="6" class="form-control" id="description"></textarea>
                                         </div>
                                     </div>
 
@@ -127,49 +150,75 @@
 <script type="text/javascript">
     $(".${active}").addClass("active");
     $(".${active}").parents("li").addClass("nav-active");
-
+    const TYPE_MAP = [{
+        '1': '股东',
+        '2': '联创',
+        '3': '执行董事',
+        '4': '官方',
+        '5': '总代理',
+        '6': '一级代理',
+        '7': '二级代理',
+        '8': '特约'
+    },{
+        '1': '股东',
+        '2': '合伙人',
+        '3': '经理',
+        '4': '执行董事',
+        '5': '官方',
+        '6': '总代',
+        '7': '体验'
+    },{
+        '1': '股东',
+        '2': '合伙人',
+        '3': '执行董事',
+        '4': '官方',
+        '5': '总代理',
+        '6': '一级代理',
+        '7': '体验'
+    }];
     //html5实现图片预览功能
     $(function () {
-        $("#file").change(function (e) {
-            var file = e.target.files[0] || e.dataTransfer.files[0];
-            $('#photoCover').val(document.getElementById("file").files[0].name);
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function () {
-                    $("#img").attr("src", this.result);
-                }
-
-                reader.readAsDataURL(file);
-            }
-        });
+        initRoles(1);
+        $("#serise").change(function () {
+            initRoles($("#serise").val());
+        })
 
         $("#finished").click(function (e) {
-            saveCommodity();
+            saveRebateRule();
         });
     })
-    //方式一 Jquery实现
-    function saveCommodity() {
 
-        var title = $("#title").val().trim();
-        var page = $("#page").val().trim();
-        var type = $("#type").val().trim();
-        var status = $("#status").val().trim();
-        var file = document.getElementById("file").files[0];
+    function  initRoles(serise) {
+        var roleId = $('#roleId');
+        roleId.html("");
+        var html = ' <legend></legend>';
+        var map = TYPE_MAP[serise-1];
+        for(var key in map) {
+            html += '<option value="' + key + '">'+map[key]+'</option>  ';
+        }
+        roleId.html(html);
+    }
+    //方式一 Jquery实现
+    function saveRebateRule() {
+
+        var name = $("#name").val().trim();
+        var serise = $("#serise").val().trim();
+        var second = $("#second").val().trim();
+        var first = $("#first").val().trim();
+        var roleId = $("#roleId").val().trim();
+        var description = $("#description").val().trim();
 
         var formData = new FormData();
-        formData.append('title', title);
-        formData.append('page', page);
-        formData.append('type', type);
-        formData.append('status', status);
-        if(file){
-            formData.append('file', file);
-        }else{
-            alert("请添加图片");
-            return;
-        }
+        formData.append('name', name);
+        formData.append('serise', serise);
+        formData.append('second', second);
+        formData.append('first', first);
+        formData.append('roleId', roleId);
+        formData.append('description', description);
+
 
         $.ajax({
-            url: "/addPoster2.do",
+            url: "/addRebateRule2.do",
             type: "post",
             data: formData,
             contentType: false,

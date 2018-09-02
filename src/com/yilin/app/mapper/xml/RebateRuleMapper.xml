@@ -1,133 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yilin.app.mapper.RebateRuleMapper">
-  <resultMap id="BaseResultMap" type="com.yilin.app.domain.RebateRule">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="firster" jdbcType="REAL" property="firster" />
-    <result column="second" jdbcType="REAL" property="second" />
-    <result column="type" jdbcType="TINYINT" property="type" />
-    <result column="role" jdbcType="INTEGER" property="role" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yilin.app.domain.RebateRule">
-    <result column="description" jdbcType="LONGVARCHAR" property="description" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, name, firster, second, type, role
-  </sql>
-  <sql id="Blob_Column_List">
-    description
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from rebate_rule
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from rebate_rule
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.yilin.app.domain.RebateRule">
-    insert into rebate_rule (id, name, firster, 
-      second, type, role, description
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{firster,jdbcType=REAL}, 
-      #{second,jdbcType=REAL}, #{type,jdbcType=TINYINT}, #{role,jdbcType=INTEGER}, #{description,jdbcType=LONGVARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.yilin.app.domain.RebateRule">
-    insert into rebate_rule
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="firster != null">
-        firster,
-      </if>
-      <if test="second != null">
-        second,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="role != null">
-        role,
-      </if>
-      <if test="description != null">
-        description,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="firster != null">
-        #{firster,jdbcType=REAL},
-      </if>
-      <if test="second != null">
-        #{second,jdbcType=REAL},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=TINYINT},
-      </if>
-      <if test="role != null">
-        #{role,jdbcType=INTEGER},
-      </if>
-      <if test="description != null">
-        #{description,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.RebateRule">
-    update rebate_rule
-    <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="firster != null">
+    <resultMap id="BaseResultMap" type="com.yilin.app.domain.RebateRule">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="firster" jdbcType="REAL" property="firster" />
+        <result column="second" jdbcType="REAL" property="second" />
+        <result column="type" jdbcType="TINYINT" property="type" />
+        <result column="role" jdbcType="INTEGER" property="role" />
+        <result column="serise" jdbcType="TINYINT" property="serise" />
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yilin.app.domain.RebateRule">
+        <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, name, firster, second, type, role, serise
+    </sql>
+    <sql id="Blob_Column_List">
+        description
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from rebate_rule
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from rebate_rule
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.yilin.app.domain.RebateRule">
+        insert into rebate_rule (id, name, firster,
+        second, type, role, serise,
+        description)
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{firster,jdbcType=REAL},
+        #{second,jdbcType=REAL}, #{type,jdbcType=TINYINT}, #{role,jdbcType=INTEGER}, #{serise,jdbcType=TINYINT},
+        #{description,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.yilin.app.domain.RebateRule">
+        insert into rebate_rule
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="firster != null">
+                firster,
+            </if>
+            <if test="second != null">
+                second,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="role != null">
+                role,
+            </if>
+            <if test="serise != null">
+                serise,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="firster != null">
+                #{firster,jdbcType=REAL},
+            </if>
+            <if test="second != null">
+                #{second,jdbcType=REAL},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=TINYINT},
+            </if>
+            <if test="role != null">
+                #{role,jdbcType=INTEGER},
+            </if>
+            <if test="serise != null">
+                #{serise,jdbcType=TINYINT},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.RebateRule">
+        update rebate_rule
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="firster != null">
+                firster = #{firster,jdbcType=REAL},
+            </if>
+            <if test="second != null">
+                second = #{second,jdbcType=REAL},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=TINYINT},
+            </if>
+            <if test="role != null">
+                role = #{role,jdbcType=INTEGER},
+            </if>
+            <if test="serise != null">
+                serise = #{serise,jdbcType=TINYINT},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yilin.app.domain.RebateRule">
+        update rebate_rule
+        set name = #{name,jdbcType=VARCHAR},
         firster = #{firster,jdbcType=REAL},
-      </if>
-      <if test="second != null">
         second = #{second,jdbcType=REAL},
-      </if>
-      <if test="type != null">
         type = #{type,jdbcType=TINYINT},
-      </if>
-      <if test="role != null">
         role = #{role,jdbcType=INTEGER},
-      </if>
-      <if test="description != null">
-        description = #{description,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yilin.app.domain.RebateRule">
+        serise = #{serise,jdbcType=TINYINT},
+        description = #{description,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.RebateRule">
     update rebate_rule
     set name = #{name,jdbcType=VARCHAR},
       firster = #{firster,jdbcType=REAL},
       second = #{second,jdbcType=REAL},
       type = #{type,jdbcType=TINYINT},
       role = #{role,jdbcType=INTEGER},
-      description = #{description,jdbcType=LONGVARCHAR}
+      serise = #{serise,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.RebateRule">
-    update rebate_rule
-    set name = #{name,jdbcType=VARCHAR},
-      firster = #{firster,jdbcType=REAL},
-      second = #{second,jdbcType=REAL},
-      type = #{type,jdbcType=TINYINT},
-      role = #{role,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
+  <select id="selectList" parameterType="map" resultMap="ResultMapWithBLOBs">
+
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from rebate_rule where 1=1
+    <if test="name != null">
+    and name = #{name}
+    </if>
+    <if test="serise != null">
+      and serise = #{serise}
+    </if>
+    limit #{start},#{pageSize}
+  </select>
+
+  <select id="count" parameterType="map" resultType="int">
+    select
+    count(*)
+    from rebate_rule where 1=1
+    <if test="name != null">
+      and name = #{name}
+    </if>
+    <if test="serise != null">
+      and serise = #{serise}
+    </if>
+  </select>
 </mapper>

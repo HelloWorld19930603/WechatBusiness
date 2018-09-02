@@ -55,8 +55,8 @@
             </li>
             <li class="menu-list"><a href=""><i class="fa fa-jpy"></i> <span>返利</span></a>
                 <ul class="sub-menu-list">
-                    <li class="rebate"><a href="/rebate.do"> 返利详情</a></li>
-                    <li class="addRebate"><a href="/addRebate.do"> 添加规则</a></li>
+                    <li class="rebateRule"><a href="/rebateRule.do"> 返利详情</a></li>
+                    <li class="addRebateRule"><a href="/addRebateRule.do"> 添加规则</a></li>
 
                 </ul>
             </li>

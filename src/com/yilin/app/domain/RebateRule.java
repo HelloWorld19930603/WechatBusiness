@@ -13,6 +13,8 @@ public class RebateRule {
 
     private Integer role;
 
+    private Byte serise;
+
     private String description;
 
     public Integer getId() {
@@ -61,6 +63,14 @@ public class RebateRule {
 
     public void setRole(Integer role) {
         this.role = role;
+    }
+
+    public Byte getSerise() {
+        return serise;
+    }
+
+    public void setSerise(Byte serise) {
+        this.serise = serise;
     }
 
     public String getDescription() {

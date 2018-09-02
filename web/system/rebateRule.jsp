@@ -121,7 +121,11 @@
 <script type="text/javascript">
     $(".${active}").addClass("active");
     $(".${active}").parents("li").addClass("nav-active");
-
+    const TYPE_MAP = {
+        '1': '格丽缇',
+        '2': 'Utomorrow',
+        '3': 'Pslady'
+    };
 
     // GridManager 渲染
     var table = document.querySelector('table');
@@ -139,7 +143,7 @@
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
             ,ajax_data: function () {
-                return '/getRebates.do';
+                return '/getRebateRules.do';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
             ,ajax_type: 'POST'
@@ -150,7 +154,7 @@
             ,ajax_error: function(error){
                 console.log('ajax_error');
             }
-            ,query: {serise: 1}
+            ,query: {serise: -1}
             ,dataKey: 'list'  // 注意: 这里是用来测试responseHandler 是否生效; 数据本身返回为data, 而在这里我把数据名模拟为list, 再通过responseHandler去更改
             ,pageSize:10
 
@@ -192,49 +196,50 @@
 
                         return serise;
                     }
+                },
+                {
+                    key: 'roleId',
+                    remind: 'the pic',
+                    width: '130px',
+                    align: 'center',
+                    text: '返利等级',
+                    template: function(roleId, rowObject) {
+
+                        return roleId;
+                    }
                 }
                 ,
                 {
-                    key: 'bili',
+                    key: 'first',
                     remind: 'the pic',
                     width: '130px',
                     align: 'center',
                     text: '一级返利比例',
-                    template: function(bili, rowObject) {
+                    template: function(first, rowObject) {
 
-                        return bili;
+                        return first;
                     }
                 },{
-                    key: 'page',
+                    key: 'second',
                     remind: 'the title',
                     align: 'center',
                     width: '120px',
                     text: '二级返利比例',
                     sorting: '',
-                    template: function(name, rowObject) {
+                    template: function(second, rowObject) {
 
-                        return name;
+                        return second;
                     }
                 },{
-                    key: 'page',
+                    key: 'description',
                     remind: 'the title',
                     align: 'center',
                     width: '120px',
                     text: '返利说明',
                     sorting: '',
-                    template: function(name, rowObject) {
+                    template: function(description, rowObject) {
 
-                        return name;
-                    }
-                },{
-                    key: 'time',
-                    remind: 'the createDate',
-                    width: '100px',
-                    align: 'center',
-                    text: '更新时间',
-                    sorting: 'DESC',
-                    template: function(time, rowObject){
-                        return new Date(time).toLocaleString();
+                        return description;
                     }
                 },{
                     key: 'action',
@@ -242,7 +247,7 @@
                     width: '110px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
-                    template: '<span class="plugin-action" gm-click="delectRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
+                    template: '<span class="plugin-action" gm-click="editRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
                 }
             ]
             // 排序后事件
@@ -258,22 +263,47 @@
     // 删除功能
     function delectRowData(rowData){
         // 执行删除操作
-        if(window.confirm('确认要删除['+rowData.title+']?')){
-            window.alert('当然这只是个示例,并不会真实删除,要不然每天我每天就光填demo数据了.');
+        if(window.confirm('确认要删除['+rowData.name+']?')){
+            $.ajax({
+                url: "/removeRebateRule.do?id=" + rowData.id ,
+                type: "get",
+                success: function (data) {
+                    if(data == 0){
+                        alert("删除成功");
+                    }
+                    console.log(data);
+                },
+                error: function (data) {
+                    alert("删除异常");
+                    console.log(data);
+                }
+            });
         }
     }
+    function editRowData(rowData){
+        // 执行删除操作
+        if(window.confirm('确认要修改['+rowData.name+']?')){
 
+        }
+    }
 
     /**
      * 提供demo中的搜索, 重置
      */
     (function(){
+        var typeSelect2 = document.querySelector('.search-area select[name="serise"]');
 
+        for(var key in TYPE_MAP){
+            var option = document.createElement('option');
+            option.value = key;
+            option.innerText = TYPE_MAP[key];
+            typeSelect2.appendChild(option);
+        }
         // 绑定搜索事件
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
                 name: document.querySelector('[name="name"]').value,
-                phone: document.querySelector('[name="phone"]').value,
+                serise: document.querySelector('[name="serise"]').value,
                 index: 1
             };
             table.GM('setQuery', _query, function(){
@@ -284,11 +314,11 @@
         // 绑定重置
         document.querySelector('.reset-action').addEventListener('click', function () {
             document.querySelector('[name="name"]').value = '';
-            document.querySelector('[name="phone"]').value = '';
+            document.querySelector('[name="serise"]').value = '-1';
         });
 
         $("#editable-sample_new").click(function () {
-            window.open("/addRebate.do");
+            window.open("/addRebateRule.do");
         })
     })();
 
