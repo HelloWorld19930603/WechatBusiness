@@ -9,4 +9,6 @@ import java.util.Map;
 public interface CommDetailMapper extends IBaseMapper<CommDetail>{
 
     List<String> selectUrls(Map<String,Object> map);
+
+    List<CommDetail> selectByCommId(Map<String, Object> map);
 }

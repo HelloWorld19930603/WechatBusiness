@@ -201,6 +201,7 @@
         from user
         where login_name = #{loginName}
         and login_pwd = #{loginPwd}
+        and status = 1
     </select>
 
     <select id="selectForName" resultMap="BaseResultMap">

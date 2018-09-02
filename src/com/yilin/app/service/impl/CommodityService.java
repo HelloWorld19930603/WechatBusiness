@@ -96,6 +96,13 @@ public class CommodityService implements ICommodityService {
     }
 
     @Override
+    public List<CommDetail> selectDetails2(int commId) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        map.put("commId",commId);
+        return commDetailMapper.selectByCommId(map);
+    }
+
+    @Override
     public void deleteOne(int commId) throws Exception {
         commodityMapper.deleteByPrimaryKey(commId);
     }
@@ -123,5 +130,10 @@ public class CommodityService implements ICommodityService {
     @Override
     public void updateOne(Commodity commodity) throws Exception {
         commodityMapper.updateByPrimaryKey(commodity);
+    }
+
+    @Override
+    public void updateDetail(CommDetail detail1) throws Exception {
+        commDetailMapper.updateByPrimaryKey(detail1);
     }
 }

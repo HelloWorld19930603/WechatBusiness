@@ -81,6 +81,81 @@ public class CommodityController {
 
     }
 
+    @RequestMapping("editCommDetail")
+    public String editCommDetail(Model model, int commId) {
+        try {
+            List details = commodityService.selectDetails2(commId);
+            model.addAttribute("active", "commodity");
+            if(details.size() == 1)
+                 model.addAttribute("detail1", details.get(0));
+            else if(details.size() == 2) {
+                model.addAttribute("detail1", details.get(0));
+                model.addAttribute("detail2", details.get(1));
+            }
+            model.addAttribute("commId", commId);
+            return "editCommDetail";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "500";
+        }
+
+    }
+
+    @RequestMapping("editCommDetail2")
+    @ResponseBody
+    public String editCommDetail2(int commId,Integer id1,Integer id2,String img1,String img2, @RequestParam(value = "file2", required = false) MultipartFile file2,
+                                  @RequestParam(value = "file3", required = false) MultipartFile file3,
+                                 HttpServletRequest req) {
+        try {
+            String context = req.getSession().getServletContext().getRealPath("/");
+            if (file2 != null) {
+                String servletContext = req.getSession().getServletContext().getRealPath("/");
+                String imgPath = PhotoUtil.photoUpload(file2, "images/home/commodity/", StringUtil.makeFileName()
+                        , servletContext);
+
+                if(img1 != null) {
+                    PhotoUtil.removePhoto(context + img1.substring(1));
+                }
+                if(id1 != null) {
+                    CommDetail detail1 = new CommDetail();
+                    detail1.setCommId(commId);
+                    detail1.setId(id1);
+                    detail1.setUrl(imgPath);
+                    commodityService.updateDetail(detail1);
+                }else{
+                    CommDetail detail1 = new CommDetail();
+                    detail1.setCommId(commId);
+                    detail1.setUrl(imgPath);
+                    commodityService.addCommDetail(detail1);
+                }
+            }
+            if (file3 != null) {
+                String servletContext = req.getSession().getServletContext().getRealPath("/");
+                String imgPath = PhotoUtil.photoUpload(file3, "images/home/commodity/", StringUtil.makeFileName()
+                        , servletContext);
+                if(img2 != null) {
+                    PhotoUtil.removePhoto(context + img2.substring(1));
+                }
+                if(id2 != null) {
+                    CommDetail detail1 = new CommDetail();
+                    detail1.setCommId(commId);
+                    detail1.setId(id2);
+                    detail1.setUrl(imgPath);
+                    commodityService.updateDetail(detail1);
+                }else{
+                    CommDetail detail2 = new CommDetail();
+                    detail2.setCommId(commId);
+                    detail2.setUrl(imgPath);
+                    commodityService.addCommDetail(detail2);
+                }
+            }
+            return "编辑成功";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "编辑失败";
+        }
+    }
+
     @RequestMapping("editPrice")
     public String editCommodity(Model model,int commId, byte serise) {
         try {

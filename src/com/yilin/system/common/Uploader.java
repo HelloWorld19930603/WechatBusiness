@@ -73,7 +73,7 @@ public class Uploader {
             this.type = this.getFileExt(upfile.getOriginalFilename());
             originalName = getName("")+type;
            // originalName = originalName.substring(0,upfile.getOriginalFilename().lastIndexOf("."));
-            url =   this.originalName;
+            url =  path+"/"+ this.originalName;
 
             upfile.transferTo(new File(systemPath+url));
             this.state = this.errorInfo.get("SUCCESS");

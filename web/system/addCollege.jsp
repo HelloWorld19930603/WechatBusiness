@@ -10,115 +10,16 @@
   <link rel="shortcut icon" href="#" type="image/png">
 
   <title><%=title%></title>
-    <link href="css/jquery.stepy.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
   <link href="css/style-responsive.css" rel="stylesheet">
-   <link href="/css/umeditor.css" type="text/css" rel="stylesheet">
+
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
   <script src="js/html5shiv.js"></script>
   <script src="js/respond.min.js"></script>
   <![endif]-->
 </head>
-<style type="text/css">
-    h1{
-        font-family: "微软雅黑";
-        font-weight: normal;
-    }
-    .btn {
-        display: inline-block;
-        *display: inline;
-        padding: 4px 12px;
-        margin-bottom: 0;
-        *margin-left: .3em;
-        font-size: 14px;
-        line-height: 20px;
-        color: #333333;
-        text-align: center;
-        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-        vertical-align: middle;
-        cursor: pointer;
-        background-color: #f5f5f5;
-        *background-color: #e6e6e6;
-        background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-        background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-        background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-        background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
-        background-repeat: repeat-x;
-        border: 1px solid #cccccc;
-        *border: 0;
-        border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-        border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-        border-bottom-color: #b3b3b3;
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
-        border-radius: 4px;
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
-        filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-        *zoom: 1;
-        -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-        -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-    }
 
-    .btn:hover,
-    .btn:focus,
-    .btn:active,
-    .btn.active,
-    .btn.disabled,
-    .btn[disabled] {
-        color: #333333;
-        background-color: #e6e6e6;
-        *background-color: #d9d9d9;
-    }
-
-    .btn:active,
-    .btn.active {
-        background-color: #cccccc \9;
-    }
-
-    .btn:first-child {
-        *margin-left: 0;
-    }
-
-    .btn:hover,
-    .btn:focus {
-        color: #333333;
-        text-decoration: none;
-        background-position: 0 -15px;
-        -webkit-transition: background-position 0.1s linear;
-        -moz-transition: background-position 0.1s linear;
-        -o-transition: background-position 0.1s linear;
-        transition: background-position 0.1s linear;
-    }
-
-    .btn:focus {
-        outline: thin dotted #333;
-        outline: 5px auto -webkit-focus-ring-color;
-        outline-offset: -2px;
-    }
-
-    .btn.active,
-    .btn:active {
-        background-image: none;
-        outline: 0;
-        -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-        -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-    }
-
-    .btn.disabled,
-    .btn[disabled] {
-        cursor: default;
-        background-image: none;
-        opacity: 0.65;
-        filter: alpha(opacity=65);
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
-        box-shadow: none;
-    }
-</style>
 <body class="sticky-header">
 
 <section>
@@ -165,7 +66,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label span3"></label>
                                         <div class="col-md-6">
-                                            <img  id="img1" src="" width="100px" height="100px">
+                                            <img  id="img1" src="/images/default.png" width="100px" height="100px">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -184,7 +85,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label span3"></label>
                                         <div class="col-md-6">
-                                            <img  id="img2" src="" width="100px" height="100px">
+                                            <img  id="img2" src="/images/default.png" width="100px" height="100px">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -209,20 +110,27 @@
                                             </select>
                                         </div>
                                     </div>
+                                </fieldset >
+                                <fieldset>
+                                    <legend></legend>
+                                <p>编辑素材内容上传到到服务器</p>
+                                <div id="div3">
+                                    <p>请编写文本内容</p>
+                                </div>
                                 </fieldset>
-                                <fieldset title="确认提交">
+<%--                                <fieldset title="确认提交">
                                     <legend></legend>
                                     <div class="form-group">
                                         <label  class="col-md-1 control-label "></label>
                                         <div class="col-md-11">
                                             <script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
-                                                <%--  <p>这里我可以写一些输入提示</p>--%>
+                                                &lt;%&ndash;  <p>这里我可以写一些输入提示</p>&ndash;%&gt;
                                             </script>
                                         </div>
                                     </div>
-                                </fieldset>
-
-                                <button class="btn btn-info finish" id = 'finished'  type="button">
+                                </fieldset>--%>
+                                <legend></legend>
+                                <button class="btn btn-info finish" id = 'finished' style="float:right;margin-top: 10px;" type="button">
                                     完成 </button>
                             </form>
                         </div>
@@ -238,7 +146,7 @@
 
                     <div class="clear"></div>
                         <div id="btns">
-
+                     <button class="btn" onclick="clearContent()">清空内容</button>&nbsp;&nbsp;&nbsp;&nbsp;
                     <button class="btn" onclick="getContent()">获得内容</button>&nbsp;
 
 
@@ -271,10 +179,6 @@
 <script src="js/scripts.js"></script>
 
 
-
-<script type="text/javascript" charset="gbk" src="/js/umeditor.config.js"></script>
-<script type="text/javascript" charset="gbk" src="/js/umeditor.js"></script>
-<script type="text/javascript" src="/js/lang/zh-cn/zh-cn.js"></script>
 </body>
 </html>
 <script type="text/javascript">
@@ -283,27 +187,15 @@
 </script>
 
 <script type="text/javascript">
-    //实例化编辑器
-    var um = UM.getEditor('myEditor');
 
-    //按钮的操作
-    function insertHtml() {
-        var value = prompt('插入html代码', '');
-        um.execCommand('insertHtml', value)
+
+    function  clearContent() {
+        editor2.txt.clear();
     }
 
     function getContent() {
-
-        alert(UM.getEditor('myEditor').getContent());
-        console.log(UM.getEditor('myEditor').getContent());
+        alert(editor2.txt.html());
     }
-    function getPlainTxt() {
-        var arr = [];
-        arr.push("内容为：");
-        arr.push(UM.getEditor('myEditor').getPlainTxt());
-        alert(arr.join('\n'))
-    }
-
 
 
 
@@ -345,7 +237,7 @@
 
         var title = $("#title").val().trim();
         var type = $("#type").val().trim();
-        var content = UM.getEditor('myEditor').getContent();
+        var content = editor2.txt.html();
         var file1 = document.getElementById("file1").files[0];
         var file2 = document.getElementById("file2").files[0];
         var formData = new FormData();
@@ -378,4 +270,31 @@
             }
         });
     }
+</script>
+
+<script type="text/javascript" src="/js/wangEditor.js"></script>
+<script type="text/javascript">
+    var E = window.wangEditor
+
+    var editor2 = new E('#div3')
+    editor2.customConfig.uploadImgServer = '/imageUp.do';
+    editor2.customConfig.uploadFileName = 'upfile';
+    editor2.customConfig.uploadImgHooks = {
+        // customInsert: function (insertImg, result, editor) {
+        //     console.log(JSON.stringify(result))
+        //     insertImg(result.data[0])
+        // },
+
+        // customInsert: function (insertImg, result, editor) {
+        //     console.log(result)
+        // }
+    }
+    // editor2.customConfig.uploadImgParams = {
+    //     a: 123,
+    //     b: 'vvv'
+    // }
+    // editor2.customConfig.uploadImgParamsWithUrl = true
+    editor2.create()
+
+
 </script>

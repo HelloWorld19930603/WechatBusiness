@@ -244,7 +244,7 @@
                 },{
                     key: 'action',
                     remind: 'the action',
-                    width: '120px',
+                    width: '145px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString
@@ -290,8 +290,7 @@
     }
 
     function editRowData3(rowData){
-        alert("此功能，工程师正在玩命开发中。。。")
-        //window.location.href = "/editPrice.do?commId="+rowData.id+"&serise="+rowData.serise;
+        window.location.href = "/editCommDetail.do?commId="+rowData.id;
     }
 
     /**

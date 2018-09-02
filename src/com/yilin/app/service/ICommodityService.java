@@ -27,6 +27,8 @@ public interface ICommodityService {
     List<String> selectDetails(int commId) throws Exception;
 
 
+    List<CommDetail> selectDetails2(int commId) throws Exception;
+
     void deleteOne(int commId) throws Exception;
 
 
@@ -37,4 +39,6 @@ public interface ICommodityService {
     void addCommDetail(CommDetail detail) throws Exception;
 
     void updateOne(Commodity commodity) throws Exception;
+
+    void updateDetail(CommDetail detail1)throws Exception;
 }

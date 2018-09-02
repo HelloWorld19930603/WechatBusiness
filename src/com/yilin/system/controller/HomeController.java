@@ -32,6 +32,11 @@ public class HomeController {
         return "login";
     }
 
+    @RequestMapping("modifyPwd")
+    public String modifyPwd(HttpServletRequest req){
+        req.getSession().invalidate();
+        return "modifyPwd";
+    }
 
     @RequestMapping("login")
     public String login(){

@@ -23,8 +23,10 @@ public class UserService implements IUserService {
 
     @Override
     public void register(User user) throws Exception {
-        String pwd = MD5Util.encrypt(user.getLoginPwd());
-        user.setLoginPwd(pwd);
+        String loginPwd = MD5Util.encrypt(user.getLoginPwd());
+        String payPwd =  MD5Util.encrypt(user.getPayPwd());
+        user.setLoginPwd(loginPwd);
+        user.setPayPwd(payPwd);
         user.setLoginTime(new Date());
         userMapper.insertSelective(user);
     }

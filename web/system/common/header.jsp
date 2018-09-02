@@ -38,7 +38,7 @@
 
         <h5 class="left-nav-title">Account Information</h5>
         <ul class="nav nav-pills nav-stacked custom-nav">
-            <li><a href="#"><i class="fa fa-cog"></i>  修改密码</a></li>
+            <li><a href="#" onclick="modifyPassword();"><i class="fa fa-cog"></i>  修改密码</a></li>
             <li><a href="loginout.do"><i class="fa fa-sign-out"></i> 注销</a></li>
         </ul>
     </div>
@@ -55,7 +55,7 @@
 
     function modifyPassword(){
         var user_id = $("#user_id").val();
-        var path = "<c:url value='/userInfo/toModifyPwd.action?user_id="+user_id+"' />";
+        var path = "/toModifyPwd.do";
         var left1 = (screen.width-700)/2;
         var top1 = (screen.height-400)/2;
         window.open(path, "", "width=600, height=400, left=" + left1.toString() + ", top=" + top1.toString());

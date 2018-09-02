@@ -164,14 +164,10 @@ public class CollegeController {
 
         String callback = req.getParameter("callback");
 
-        String result = "{\"name\":\"" + up.getFileName() + "\", \"originalName\": \"" + up.getOriginalName()+ "\", \"size\": " + up.getSize() + ", \"state\": \"" + up.getState() + "\", \"type\": \"" + up.getType() + "\", \"url\": \"" +up.getUrl() + "\"}";
+        //String result = "{\"name\":\"" + up.getFileName() + "\", \"originalName\": \"" + up.getOriginalName()+ "\", \"size\": " + up.getSize() + ", \"state\": \"" + up.getState() + "\", \"type\": \"" + up.getType() + "\", \"url\": \"" +up.getUrl() + "\"}";
+        String result = "{\"errno\":0, \"data\": [\"/" +up.getUrl() + "\"]}";
 
-        result = result.replaceAll("\\\\", "\\\\");
+        response.getWriter().print(result);
 
-        if (callback == null) {
-            response.getWriter().print(result);
-        } else {
-            response.getWriter().print("<script>" + callback + "(" + result + ")</script>");
-        }
     }
 }

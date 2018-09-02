@@ -96,6 +96,12 @@
                                             <input class="form-control " id="username6" name="idNum" type="text" />
                                         </div>
                                     </div>
+                                    <div class="form-group ">
+                                        <label for="username7" class="control-label col-lg-3">备注</label>
+                                        <div class="col-lg-5">
+                                            <input class="form-control " id="username7" name="idNum" type="text" />
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label span3"></label>
                                         <div class="col-md-5">
@@ -115,7 +121,6 @@
                                         </div>
                                     </div>
 
-
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-10">
                                             <button class="btn btn-primary" type="submit">提交</button>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -132,9 +137,7 @@
         <!--body wrapper end-->
 
         <!--footer section start-->
-        <footer>
-            2014 &copy; AdminEx by ThemeBucket
-        </footer>
+        <%@include file="common/footer.jsp" %>
         <!--footer section end-->
 
 
