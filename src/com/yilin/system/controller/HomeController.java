@@ -1,6 +1,7 @@
 package com.yilin.system.controller;
 
 import com.yilin.app.domain.SystemUser;
+import com.yilin.app.utils.MD5Util;
 import com.yilin.system.service.ISystemUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,8 +35,22 @@ public class HomeController {
 
     @RequestMapping("modifyPwd")
     public String modifyPwd(HttpServletRequest req){
-        req.getSession().invalidate();
         return "modifyPwd";
+    }
+
+    @RequestMapping("toModifyPwd")
+    @ResponseBody
+    public Integer toModifyPwd(HttpServletRequest req,String newPwd){
+
+        SystemUser user = (SystemUser) req.getSession().getAttribute("user");
+        try {
+            user.setLoginPwd(MD5Util.encrypt(newPwd));
+            systemUserService.editOne(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 1;
+        }
+        return 0;
     }
 
     @RequestMapping("login")

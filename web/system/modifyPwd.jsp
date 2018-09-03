@@ -44,25 +44,10 @@
                     <section class="panel">
                         <div class="panel-body">
                             <div class="form">
-                                <form class="cmxform form-horizontal adminex-form" id="signupForm">
-                                    <input type="hidden" name="serise" value="${serise}">
-                                    <div class="form-group ">
-                                        <label for="name" class="control-label col-lg-3">经销商名字</label>
-                                        <div class="col-lg-5">
-                                            <input class=" form-control" id="name" name="name" type="text"/>
-                                        </div>
-                                    </div>
                                     <div class="form-group ">
                                         <label for="loginName" class="control-label col-lg-3">账号</label>
                                         <div class="col-lg-5">
-                                            <input class=" form-control" id="loginName" name="loginName" type="text"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group ">
-                                        <label for="phone" class="control-label col-lg-3">手机号</label>
-                                        <div class="col-lg-5">
-                                            <input class="form-control " id="phone" name="phone" type="text"/>
+                                            <input class=" form-control" id="loginName" type="text" value="${user.loginName}" disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
@@ -71,20 +56,19 @@
                                             <input class="form-control " id="password" name="loginPwd" type="password"/>
                                         </div>
                                     </div>
-                                    <%--                                    <div class="form-group ">
-                                                                            <label for="confirm_password" class="control-label col-lg-3">确认密码</label>
-                                                                            <div class="col-lg-5">
-                                                                                <input class="form-control " id="confirm_password" name="confirm_password" type="password" />
-                                                                            </div>
-                                                                        </div>--%>
-
+                                    <div class="form-group ">
+                                        <label for="confirm_password" class="control-label col-lg-3">确认密码</label>
+                                        <div class="col-lg-5">
+                                            <input class="form-control " id="confirm_password" name="confirm_password"
+                                                   type="password"/>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-10">
                                             <button class="btn btn-primary" type="button" id="submit">提交</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <button class="btn btn-default" type="button" id="return">返回</button>
+                                            <button class="btn btn-default" type="button" id="return">关闭</button>
                                         </div>
                                     </div>
-                                </form>
                             </div>
                         </div>
                     </section>
@@ -120,30 +104,38 @@
     (function () {
 
         $("#return").click(function () {
-            window.history.go(-1);
+            window.opener=null;
+            window.open('','_self');
+            window.close();
         });
 
         $("#submit").click(function () {
 
-            var loginPwd = document.querySelector('[name="loginPwd"]').value;
+            var newPwd = document.querySelector('[id="password"]').value;
+            var newPwd2 = document.querySelector('[id="confirm_password"]').value;
+            if(newPwd != newPwd2){
+                alert("两次输入的密码不一样！请重新输入！");
+                return;
+            }
 
             $.ajax({
                 url: "/toModifyPwd.do",
                 type: "post",
-                data:  "loginPwd=" + loginPwd,
+                data: "newPwd=" + newPwd,
                 success: function (data) {
-                    if (data == 1) {
+                    if (data == 0) {
                         alert("添加成功");
-                    } else if (data == 2) {
-                        alert("用户名已存在")
+                        window.opener=null;
+                        window.open('','_self');
+                        window.close();
                     } else {
-                        alert("添加失败");
+                        alert("修改失败");
                     }
                     console.log(data);
                 },
                 error: function (data) {
                     console.log(data);
-                    alert("添加失败");
+                    alert("修改异常");
                 }
             });
         });

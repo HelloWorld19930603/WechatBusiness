@@ -19,7 +19,7 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                    <li><a href="#"><i class="fa fa-cog"></i>  修改密码</a></li>
+                    <li onclick="modifyPassword()"><a href="#"><i class="fa fa-cog"></i>  修改密码</a></li>
                     <li><a href="loginout.do"><i class="fa fa-sign-out"></i> 注销</a></li>
                 </ul>
             </li>
@@ -38,24 +38,16 @@
 
         <h5 class="left-nav-title">Account Information</h5>
         <ul class="nav nav-pills nav-stacked custom-nav">
-            <li><a href="#" onclick="modifyPassword();"><i class="fa fa-cog"></i>  修改密码</a></li>
+            <li onclick="modifyPassword()"><a href="#" ><i class="fa fa-cog"></i>  修改密码</a></li>
             <li><a href="loginout.do"><i class="fa fa-sign-out"></i> 注销</a></li>
         </ul>
     </div>
 </div>
 <script language="javascript">
 
-    function logout(){
-        $.messager.confirm('提示框', '确定退出系统？',function(event){
-            if(event){
-                window.location.href = "<c:url value='/jsp/login_ypt.jsp' />";
-            }
-        });
-    }
-
     function modifyPassword(){
         var user_id = $("#user_id").val();
-        var path = "/toModifyPwd.do";
+        var path = "/modifyPwd.do";
         var left1 = (screen.width-700)/2;
         var top1 = (screen.height-400)/2;
         window.open(path, "", "width=600, height=400, left=" + left1.toString() + ", top=" + top1.toString());

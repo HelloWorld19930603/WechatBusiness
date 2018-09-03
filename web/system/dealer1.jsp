@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="">
     <link rel="shortcut icon" href="#" type="image/png">
-    <title><%=title%></title>
+    <title><%=title%>
+    </title>
 
     <!--common-->
     <link href="<%=path%>/css/style.css" rel="stylesheet">
@@ -19,7 +20,7 @@
     <!--Morris Chart CSS -->
     <link rel="stylesheet" href="/js/morris-chart/morris.css">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/css/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/css/jquery-ui.css"/>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="<%=path%>/js/html5shiv.js"></script>
@@ -125,8 +126,6 @@
 <script src="js/scripts.js"></script>
 
 
-
-
 <script type="text/javascript" src="<%=path%>/js/gm.js"></script>
 </body>
 </html>
@@ -140,34 +139,34 @@
     function init() {
         table.GM({
             supportRemind: true
-            ,gridManagerName: 'test'
-            ,height: '100%'
-            ,supportAjaxPage:true
-            ,supportSorting: true
-            ,supportCheckbox: false
-            ,isCombSorting: false
-            ,disableCache: false
-            ,checkbox:false
+            , gridManagerName: 'test'
+            , height: '100%'
+            , supportAjaxPage: true
+            , supportSorting: true
+            , supportCheckbox: false
+            , isCombSorting: false
+            , disableCache: false
+            , checkbox: false
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
-            ,ajax_data: function () {
+            , ajax_data: function () {
                 return '/getUsers.do';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
-            ,ajax_type: 'POST'
-            ,supportMenu: true
+            , ajax_type: 'POST'
+            , supportMenu: true
 
 
             // AJAX失败事件函数
-            ,ajax_error: function(error){
+            , ajax_error: function (error) {
                 console.log('ajax_error');
             }
-            ,query: {serise: 1}
-            ,dataKey: 'list'  // 注意: 这里是用来测试responseHandler 是否生效; 数据本身返回为data, 而在这里我把数据名模拟为list, 再通过responseHandler去更改
-            ,pageSize:10
+            , query: {serise: 1}
+            , dataKey: 'list'  // 注意: 这里是用来测试responseHandler 是否生效; 数据本身返回为data, 而在这里我把数据名模拟为list, 再通过responseHandler去更改
+            , pageSize: 10
 
             // 通过该方法修改全部的请求参数
-            ,requestHandler: function(request){
+            , requestHandler: function (request) {
                 request.newParams = '这个参数是通过 requestHandler 函数新增的';
                 // 更改这个参数后, 将会强制createDate字段使用 降序排序.
                 // 'sort_' 通过 配置项 sortKey 进行配置
@@ -176,21 +175,21 @@
                 return request;
             }
             // 可以通过该方法修改返回的数据
-            ,responseHandler: function(response){
+            , responseHandler: function (response) {
 
                 // 数据本身返回为data, 通过responseHandler更改为与dataKey匹配的值
                 response.list = response.data;
                 return response;
             }
-            ,columnData: [
+            , columnData: [
                 {
                     key: 'id',
                     remind: 'the id',
-                    width: '100px',
+                    width: '80px',
                     align: 'center',
                     text: '授权码',
                     // 使用函数返回 dom node
-                    template: function(id, rowObject) {
+                    template: function (id, rowObject) {
 
                         return id;
                     }
@@ -202,11 +201,12 @@
                     align: 'center',
                     text: '经销商账号',
                     // 使用函数返回 dom node
-                    template: function(loginName, rowObject) {
+                    template: function (loginName, rowObject) {
 
                         return loginName;
                     }
-                },{
+                }
+                , {
                     key: 'name',
                     remind: 'the title',
                     align: 'center',
@@ -214,25 +214,59 @@
                     text: '经销商名称',
                     sorting: '',
                     // 使用函数返回 dom node
-                    template: function(name, rowObject) {
+                    template: function (name, rowObject) {
 
                         return name;
                     }
-                },{
+                },
+                {
+                    key: 'phone',
+                    remind: 'the pic',
+                    width: '120px',
+                    align: 'center',
+                    text: '手机号',
+                    // 使用函数返回 dom node
+                    template: function (phone, rowObject) {
+
+                        return phone;
+                    }
+                }, {
                     key: 'roleId',
                     remind: 'the type',
                     text: '级别',
                     width: '100px',
                     align: 'center',
-                    template: function(roleId, rowObject){
+                    template: function (roleId, rowObject) {
                         return TYPE_MAP[roleId];
                     }
                 },{
-                    key: 'phone',
-                    remind: 'the info',
-                    text: '手机号',
-                    isShow: false
+                    key: 'sex',
+                    remind: 'the type',
+                    text: '性别',
+                    width: '50px',
+                    align: 'center',
+                    template: function(sex, rowObject){
+                        return sex;
+                    }
                 },{
+                    key: 'wxNum',
+                    remind: 'the type',
+                    text: '微信号',
+                    width: '120px',
+                    align: 'center',
+                    template: function(wxNum, rowObject){
+                        return wxNum;
+                    }
+                },{
+                    key: 'idNum',
+                    remind: 'the type',
+                    text: '身份证号',
+                    width: '130px',
+                    align: 'center',
+                    template: function(idNum, rowObject){
+                        return idNum;
+                    }
+                }, {
                     key: 'loginTime',
                     remind: 'the createDate',
                     width: '100px',
@@ -240,37 +274,75 @@
                     text: '最近登录时间',
                     sorting: 'DESC',
                     // 使用函数返回 htmlString
-                    template: function(loginTime, rowObject){
-                        if(loginTime == null){
+                    template: function (loginTime, rowObject) {
+                        if (loginTime == null) {
                             return "";
                         }
-                        return dateFtt("yyyy-MM-dd hh:mm:ss",new Date(loginTime));
+                        return dateFtt("yyyy-MM-dd hh:mm:ss", new Date(loginTime));
                     }
-                },{
-                    key: 'action',
+                }, {
+                    key: 'status',
                     remind: 'the action',
                     width: '110px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString
-                    template: '<span class="plugin-action" gm-click="delectRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
+                    template: function (status, rowObject) {
+                        if (status == 1) {
+                            return '<span class="plugin-action" gm-click="closeUser">关闭账号</span>';
+                        } else if (status == 0) {
+                            return '<span class="plugin-action" gm-click="openUser">开启账号</span>';
+                        }
+                    }
                 }
             ]
             // 排序后事件
-            ,sortingAfter: function (data) {
+            , sortingAfter: function (data) {
                 console.log('sortAfter', data);
             }
-        }, function(query){
+        }, function (query) {
             // 渲染完成后的回调函数
             console.log('渲染完成后的回调函数:', query);
         });
     }
 
-    // 删除功能
-    function delectRowData(rowData){
-        // 执行删除操作
-        if(window.confirm('确认要删除['+rowData.title+']?')){
-            window.alert('当然这只是个示例,并不会真实删除,要不然每天我每天就光填demo数据了.');
+    function closeUser(rowData) {
+        if (window.confirm('确认要关闭账号[' + rowData.loginName + ']?')) {
+            $.ajax({
+                url: "/updateStatus.do",
+                type: "post",
+                data: "id=" + rowData.id + "&status=0",
+                success: function (data) {
+                    if (data == 0) {
+                        alert("关闭成功");
+                    }
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert("开启失败");
+                }
+            });
+        }
+    }
+
+    function openUser(rowData) {
+        if (window.confirm('确认要开启账号[' + rowData.loginName + ']?')) {
+            $.ajax({
+                url: "/updateStatus.do",
+                type: "post",
+                data: "id=" + rowData.id + "&status=1",
+                success: function (data) {
+                    if (data == 0) {
+                        alert("开启成功");
+                    }
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert("开启失败");
+                }
+            });
         }
     }
 
@@ -282,7 +354,7 @@
     /**
      * 提供demo中的搜索, 重置
      */
-    (function(){
+    (function () {
 
         // 绑定搜索事件
         document.querySelector('.search-action').addEventListener('click', function () {
@@ -293,7 +365,7 @@
                 serise: document.querySelector('[name="serise"]').value,
                 index: 1
             };
-            table.GM('setQuery', _query, function(){
+            table.GM('setQuery', _query, function () {
                 console.log('setQuery执行成功');
             });
         });
@@ -306,11 +378,11 @@
         });
 
         $("#editable-sample_new").click(function () {
-            window.location.href =  "/addDealer.do?serise="+document.querySelector('[name="serise"]').value;
+            window.location.href = "/addDealer.do?serise=" + document.querySelector('[name="serise"]').value;
         })
     })();
 
-    (function(){
+    (function () {
         init();
     })();
 </script>

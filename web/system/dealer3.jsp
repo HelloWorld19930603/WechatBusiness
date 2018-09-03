@@ -183,6 +183,17 @@
             }
             ,columnData: [
                 {
+                    key: 'id',
+                    remind: 'the id',
+                    width: '80px',
+                    align: 'center',
+                    text: '授权码',
+                    // 使用函数返回 dom node
+                    template: function(id, rowObject) {
+
+                        return id;
+                    }
+                },{
                     key: 'loginName',
                     remind: 'the pic',
                     width: '130px',
@@ -206,6 +217,16 @@
                         return name;
                     }
                 },{
+                    key: 'phone',
+                    remind: 'the pic',
+                    width: '120px',
+                    align: 'center',
+                    text: '手机号',
+                    // 使用函数返回 dom node
+                    template: function(phone, rowObject) {
+                        return phone;
+                    }
+                },{
                     key: 'roleId',
                     remind: 'the type',
                     text: '级别',
@@ -215,10 +236,32 @@
                         return TYPE_MAP[roleId];
                     }
                 },{
-                    key: 'phone',
-                    remind: 'the info',
-                    text: '手机号',
-                    isShow: false
+                    key: 'sex',
+                    remind: 'the type',
+                    text: '性别',
+                    width: '50px',
+                    align: 'center',
+                    template: function(sex, rowObject){
+                        return sex;
+                    }
+                },{
+                    key: 'wxNum',
+                    remind: 'the type',
+                    text: '微信号',
+                    width: '120px',
+                    align: 'center',
+                    template: function(wxNum, rowObject){
+                        return wxNum;
+                    }
+                },{
+                    key: 'idNum',
+                    remind: 'the type',
+                    text: '身份证号',
+                    width: '130px',
+                    align: 'center',
+                    template: function(idNum, rowObject){
+                        return idNum;
+                    }
                 },{
                     key: 'loginTime',
                     remind: 'the createDate',
@@ -234,33 +277,70 @@
                         return dateFtt("yyyy-MM-dd hh:mm:ss",new Date(loginTime));
                     }
                 },{
-                    key: 'action',
+                    key: 'status',
                     remind: 'the action',
                     width: '110px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString
-                    template: '<span class="plugin-action" gm-click="delectRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
+                    template: function (status, rowObject) {
+                        if (status == 1) {
+                            return '<span class="plugin-action" gm-click="closeUser">关闭账号</span>';
+                        } else if (status == 0) {
+                            return '<span class="plugin-action" gm-click="openUser">开启账号</span>';
+                        }
+                    }
                 }
             ]
             // 排序后事件
-            ,sortingAfter: function (data) {
+            , sortingAfter: function (data) {
                 console.log('sortAfter', data);
             }
-        }, function(query){
+        }, function (query) {
             // 渲染完成后的回调函数
             console.log('渲染完成后的回调函数:', query);
         });
     }
 
-    // 删除功能
-    function delectRowData(rowData){
-        // 执行删除操作
-        if(window.confirm('确认要删除['+rowData.title+']?')){
-            window.alert('当然这只是个示例,并不会真实删除,要不然每天我每天就光填demo数据了.');
+    function closeUser(rowData) {
+        if (window.confirm('确认要关闭账号[' + rowData.loginName + ']?')) {
+            $.ajax({
+                url: "/updateStatus.do",
+                type: "post",
+                data: "id=" + rowData.id + "&status=0",
+                success: function (data) {
+                    if (data == 0) {
+                        alert("关闭成功");
+                    }
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert("开启失败");
+                }
+            });
         }
     }
 
+    function openUser(rowData) {
+        if (window.confirm('确认要开启账号[' + rowData.loginName + ']?')) {
+            $.ajax({
+                url: "/updateStatus.do",
+                type: "post",
+                data: "id=" + rowData.id + "&status=1",
+                success: function (data) {
+                    if (data == 0) {
+                        alert("开启成功");
+                    }
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert("开启失败");
+                }
+            });
+        }
+    }
     /**
      * 渲染用户级别
      */

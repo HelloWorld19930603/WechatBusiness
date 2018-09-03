@@ -85,6 +85,23 @@ public class DealerController {
         SystemPage page = new SystemPage(totals,data);
         return page;
     }
+
+
+    @RequestMapping("updateStatus")
+    @ResponseBody
+    public Object updateStatus(int id,byte status) {
+
+        User user = new User();
+        user.setId(id);
+        user.setStatus(status);
+        try {
+            userService.updateUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 1;
+        }
+        return 0;
+    }
 }
 
 

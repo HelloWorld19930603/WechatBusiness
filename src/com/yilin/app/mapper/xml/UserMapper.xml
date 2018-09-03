@@ -6,7 +6,11 @@
         <id column="role_id" jdbcType="INTEGER" property="roleId"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
+        <result column="sex" jdbcType="CHAR" property="sex"/>
+        <result column="sup_id" jdbcType="INTEGER" property="supId"/>
         <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="wx_num" jdbcType="VARCHAR" property="wxNum"/>
+        <result column="id_num" jdbcType="VARCHAR" property="idNum"/>
         <result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>
         <result column="status" jdbcType="TINYINT" property="status"/>
     </resultMap>
@@ -215,7 +219,7 @@
 
     <select id="selectBySerise" resultMap="PageMap">
         select
-        id,name,login_name,phone,login_time,role_id
+        id,name,login_name,phone,login_time,role_id,status,sup_id,wx_num,id_num,sex
         from user u
         inner join user_role r on serise = #{serise} and r.user_id = u.id
         where 1=1

@@ -224,7 +224,7 @@
                     remind: 'the pic',
                     width: '110px',
                     align: 'center',
-                    text: '缩略图',
+                    text: '申请凭证',
                     // 使用函数返回 dom node
                     template: function(voucher, rowObject) {
                         var picNode= '<a href="'+voucher+'" data-fancybox data-caption="My caption">'+
