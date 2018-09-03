@@ -27,7 +27,7 @@ public class AddressAction {
     public ResultJson findList(String token){
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             List list = addressService.findAllByUserId(userId);
             result = new ResultJson(true,"查询成功",list);
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class AddressAction {
     public ResultJson setDefault(int addrId,String token){
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             addressService.updateDefault(addrId,userId);
             result = new ResultJson(true,"设置成功");
         } catch (Exception e) {
@@ -59,7 +59,7 @@ public class AddressAction {
     public ResultJson getDefault(String token){
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             Address address = addressService.findDefault(userId);
             result = new ResultJson(true,"获取默认地址成功",address);
         } catch (Exception e) {
@@ -74,7 +74,7 @@ public class AddressAction {
     public ResultJson getAddress(String token){
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             Address address = addressService.findDefault(userId);
             result = new ResultJson(true,"获取地址成功",address);
         } catch (Exception e) {
@@ -89,7 +89,7 @@ public class AddressAction {
     public ResultJson updateOne(Address address,String token){
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             address.setUserId(userId);
             addressService.updateAddress(address);
             result = new ResultJson(true,"更新地址成功");
@@ -105,7 +105,7 @@ public class AddressAction {
     public ResultJson addOne(Address address,String token){
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             address.setUserId(userId);
             addressService.addAddress(address);
             result = new ResultJson(true,"添加地址成功");
@@ -121,7 +121,7 @@ public class AddressAction {
     public ResultJson removeAddr(int addrId,String token){
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             addressService.removeAddress(addrId,userId);
             result = new ResultJson(true,"删除地址成功");
         } catch (Exception e) {
