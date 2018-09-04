@@ -210,7 +210,7 @@
 
     <select id="selectById" parameterType="java.lang.String" resultMap="PageMap">
         select
-        o.id, o.user_id, addr_id,  o.status, time,o.description
+        o.id, o.user_id, addr_id,  o.status, o.time,o.description
         ,a.name addr_name,
         a.phone,a.ssq,a.addr,l.order_id no,l.com
         from orders o

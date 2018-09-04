@@ -58,6 +58,7 @@ public class OrderAction {
     public ResultJson findOne(String orderId, String token) {
         ResultJson result;
         try {
+            int userId = Permission.getUserId(token);
             Map<String, Object> order = orderService.findOrder(orderId);
             List<Map<String, Object>> commList = orderService.selectDetails(orderId);
             order.put("commList", commList);
