@@ -111,8 +111,8 @@
     <update id="takeMoney" parameterType="map">
         update wallet
         set
-        money = money - (SELECT sum(price*num) from order_comm where order_id = #{orderId})
-        where user_id = #{userId} and serise = (SELECT DISTINCT serise from order_comm where order_id = #{orderId})
+        money = money - (SELECT totals from orders where id = #{orderId})
+        where user_id = #{userId} and serise = (SELECT serise from orders where id = #{orderId})
 
     </update>
 
@@ -122,8 +122,8 @@
 
     <select id="getMoney2" parameterType="map" resultType="float">
         select money from wallet where user_id = #{userId}
-        and serise = (SELECT DISTINCT serise from order_comm where order_id = #{orderId})
-        and money >= (SELECT sum(price*num) from order_comm where order_id = #{orderId})
+        and serise = (SELECT serise from orders where id = #{orderId})
+        and money >= (SELECT totals from orders where id = #{orderId})
     </select>
 
     <select id="selectList" parameterType="map" resultMap="PageMap">

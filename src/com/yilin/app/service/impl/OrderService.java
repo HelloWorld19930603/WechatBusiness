@@ -112,7 +112,6 @@ public class OrderService implements IOrderService {
             map.put("userId",userId);
             Commodity commodity = commodityMapper.selectOne(map);
             orderComm.setPrice(commodity.getaPrice());
-            orderComm.setSerise(commodity.getSerise());
             orderCommMapper.insert(orderComm);
         }
         ordersMapper.insert(order);
