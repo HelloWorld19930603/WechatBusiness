@@ -101,6 +101,13 @@
         where user_id = #{userId} and serise = #{serise}
     </update>
 
+
+    <update id="refundMoney" parameterType="map">
+        update wallet
+        set
+        money = money + #{money,jdbcType=REAL}
+        where user_id = #{userId} and serise = (SELECT DISTINCT serise from order_comm where order_id = #{orderId})
+    </update>
     <update id="takeMoney" parameterType="map">
         update wallet
         set

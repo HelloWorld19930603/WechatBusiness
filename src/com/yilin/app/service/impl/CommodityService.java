@@ -7,7 +7,6 @@ import com.yilin.app.mapper.CommDetailMapper;
 import com.yilin.app.mapper.CommodityMapper;
 import com.yilin.app.service.ICommodityService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -59,7 +58,7 @@ public class CommodityService implements ICommodityService {
     @Override
     public Commodity selectById(int id,Integer userId) throws Exception {
         Map<String,Object> map = new HashMap<>();
-        map.put("id",id);
+        map.put("commId",id);
         map.put("userId",userId);
         return commodityMapper.selectOne(map);
     }

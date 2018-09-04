@@ -4,6 +4,7 @@ import com.yilin.app.common.Page;
 import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
 import com.yilin.app.exception.AccountException;
+import com.yilin.app.exception.StatusException;
 import com.yilin.app.service.ICommodityService;
 import com.yilin.app.service.IOrderService;
 import com.yilin.app.service.IUserService;
@@ -164,7 +165,10 @@ public class OrderAction {
             int userId = Permission.getUserId(token);
             orderService.refund(orderId, userId, (byte) 5);
             result = new ResultJson(true, "订单退款成功");
-        } catch (Exception e) {
+        }catch (StatusException se){
+            result = new ResultJson(false, se.getMsg());
+        }
+        catch (Exception e) {
             e.printStackTrace();
             result = new ResultJson(false, "订单退款失败");
         }

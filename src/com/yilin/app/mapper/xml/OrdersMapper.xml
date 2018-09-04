@@ -223,6 +223,6 @@
         select
         status
         from orders o
-        where id = #{id,jdbcType=VARCHAR}
+        where id = #{orderId,jdbcType=VARCHAR}
     </select>
 </mapper>

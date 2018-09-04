@@ -19,12 +19,7 @@
     <result column="num" jdbcType="INTEGER" property="num" />
     <result column="serise" jdbcType="TINYINT" property="serise" />
   </resultMap>
-  <insert id="insert" parameterType="com.yilin.app.domain.OrderComm">
-    insert into order_comm (order_id, comm_id, num, 
-      price, serise)
-    values (#{orderId,jdbcType=VARCHAR}, #{commId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, 
-      #{price,jdbcType=REAL}, #{serise,jdbcType=TINYINT})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.yilin.app.domain.OrderComm">
     insert into order_comm
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -72,4 +67,20 @@
       left join price a on c.id = a.comm_id and a.role_id = (SELECT role_id from user_role where user_id = o.user_id and serise = c.serise)
       where order_id = #{orderId}
   </select>
+
+  <insert id="insert" parameterType="com.yilin.app.domain.OrderComm">
+    insert into order_comm (order_id, comm_id, num,
+    price, serise)
+    values (#{orderId,jdbcType=VARCHAR}, #{commId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER},
+    #{price,jdbcType=REAL}, #{serise,jdbcType=TINYINT})
+  </insert>
+
+    <delete id="deleteAll" >
+      DELETE  from order_comm where order_id = #{orderId}
+    </delete>
+
+    <select id="countMoney" parameterType="map" resultType="float">
+
+        SELECT sum(price*num) from order_comm where order_id = #{orderId}
+    </select>
 </mapper>
