@@ -22,7 +22,7 @@ public interface IWalletService {
 
     void addMoney(byte serise, int userId, float money) throws Exception;
 
-    void takeMoney(byte serise, int userId, float money) throws AccountException;
+    void takeMoney(byte serise, int userId, float money) throws Exception;
 
     Float getMoney(int userId, byte serise) throws Exception;
 

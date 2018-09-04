@@ -67,7 +67,7 @@ public class WalletService implements IWalletService {
     }
 
     @Override
-    public void takeMoney(byte serise, int userId, float money) throws AccountException {
+    public void takeMoney(byte serise, int userId, float money) throws Exception {
 
         Map<String, Object> map = new HashMap<>();
         map.put("serise", serise);

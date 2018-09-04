@@ -22,10 +22,6 @@
     <script src="<%=path%>/js/respond.min.js"></script>
     <![endif]-->
 </head>
-<style>
-
-
-</style>
 <script>
     const TYPE_MAP = {
         '1': '格丽缇',

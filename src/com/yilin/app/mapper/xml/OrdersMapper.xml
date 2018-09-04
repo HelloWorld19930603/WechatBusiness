@@ -33,8 +33,6 @@
         <result column="com" jdbcType="VARCHAR" property="com"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="money" jdbcType="VARCHAR" property="money"/>
-        <result column="serise" jdbcType="TINYINT" property="serise" />
-        <result column="totals" jdbcType="REAL" property="totals" />
     </resultMap>
     <resultMap id="CountMap" type="HashMap">
         <result column="countNum" jdbcType="INTEGER" property="countNum"/>
@@ -227,6 +225,8 @@
 
     <select id="selectById" parameterType="java.lang.String" resultMap="PageMap">
         select
+        o.id, o.user_id, addr_id,  o.status, o.time,o.description
+        ,a.name addr_name,
         o.id, o.user_id, addr_id,  o.status, time,o.description
         ,a.name addr_name,o.totals,o.serise,
         a.phone,a.ssq,a.addr,l.order_id no,l.com
@@ -240,7 +240,7 @@
         select
         status
         from orders o
-        where id = #{id,jdbcType=VARCHAR}
+        where id = #{orderId,jdbcType=VARCHAR}
     </select>
 
     <insert id="insert" parameterType="com.yilin.app.domain.Orders">

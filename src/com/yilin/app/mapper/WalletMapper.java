@@ -10,11 +10,13 @@ public interface WalletMapper extends IBaseMapper<Wallet> {
 
     void addMoney(Map<String, Object> map) throws Exception;
 
-    Float getMoney(Map<String, Object> map);
+    Float getMoney(Map<String, Object> map)throws Exception;
 
-    Float getMoney2(Map<String, Object> map);
+    Float getMoney2(Map<String, Object> map)throws Exception;
 
-    void takeMoney(Map<String, Object> map);
+    void takeMoney(Map<String, Object> map)throws Exception;
 
     List<Map<String,Object>> selectRecords(Map<String, Object> map) throws Exception;
+
+    void refundMoney(Map<String, Object> map)throws Exception;
 }

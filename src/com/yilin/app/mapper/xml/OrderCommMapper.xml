@@ -24,6 +24,7 @@
     values (#{orderId,jdbcType=VARCHAR}, #{commId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER},
     #{price,jdbcType=REAL})
   </insert>
+
   <insert id="insertSelective" parameterType="com.yilin.app.domain.OrderComm">
     insert into order_comm
     <trim prefix="(" suffix=")" suffixOverrides=",">

@@ -230,7 +230,7 @@
           left join price a on c.id = a.comm_id
           and a.role_id = (SELECT role_id from user_role where user_id = #{userId} and serise = c.serise)
         </if>
-        where id = #{id,jdbcType=INTEGER}
+        where id = #{commId,jdbcType=INTEGER}
     </select>
 
     <select id="selectPrice" parameterType="int" resultType="float">

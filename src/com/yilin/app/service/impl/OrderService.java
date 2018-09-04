@@ -1,13 +1,12 @@
 package com.yilin.app.service.impl;
 
+import com.yilin.app.domain.Commodity;
 import com.yilin.app.domain.OrderComm;
 import com.yilin.app.domain.Orders;
 import com.yilin.app.domain.Payment;
 import com.yilin.app.exception.AccountException;
-import com.yilin.app.mapper.OrderCommMapper;
-import com.yilin.app.mapper.OrdersMapper;
-import com.yilin.app.mapper.PaymentMapper;
-import com.yilin.app.mapper.WalletMapper;
+import com.yilin.app.exception.StatusException;
+import com.yilin.app.mapper.*;
 import com.yilin.app.service.IOrderService;
 import com.yilin.app.utils.OrderNumberBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +29,9 @@ public class OrderService implements IOrderService {
     OrderCommMapper orderCommMapper;
     @Autowired
     WalletMapper walletMapper;
+    @Autowired
+    CommodityMapper commodityMapper;
+
 
     @Override
     public List selectList(Integer userId, int start, int pageSize, Byte status) throws Exception {
@@ -107,6 +109,10 @@ public class OrderService implements IOrderService {
             orderComm.setOrderId(orderId);
             orderComm.setCommId((int) map.get("commId"));
             orderComm.setNum((int) map.get("num"));
+            map.put("userId",userId);
+            Commodity commodity = commodityMapper.selectOne(map);
+            orderComm.setPrice(commodity.getaPrice());
+            orderComm.setSerise(commodity.getSerise());
             orderCommMapper.insert(orderComm);
         }
         ordersMapper.insert(order);
@@ -119,7 +125,7 @@ public class OrderService implements IOrderService {
             set.add(map.get("serise"));
         }
         if(set.size()!=1){
-            throw new Exception();
+            throw new StatusException("请提交相同系列的商品");
         }
         return (int)set.toArray()[0];
     }
@@ -142,6 +148,10 @@ public class OrderService implements IOrderService {
 
     @Override
     public void payOrder(String orderId, int userId, String type) throws AccountException {
+        byte oldStatus = ordersMapper.selectStatus(orderId);
+        if(oldStatus != 1){
+            throw new AccountException("订单状态异常");
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);
         map.put("orderId", orderId);
@@ -172,18 +182,25 @@ public class OrderService implements IOrderService {
         map.put("userId", userId);
         map.put("id", id);
         ordersMapper.deleteById(map);
+        orderCommMapper.deleteAll(id);
     }
 
     @Override
     public void refund(String orderId, int userId, byte status) throws Exception {
         byte oldStatus = ordersMapper.selectStatus(orderId);
-        if(oldStatus != 1){
-            throw new Exception();
+        if(oldStatus != 2){
+            throw new StatusException("订单状态异常");
         }
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);
         map.put("status", status);
-        map.put("id", orderId);
+        map.put("orderId", orderId);
+        Float money = orderCommMapper.countMoney(map);
+        if(money == null){
+            throw new StatusException("订单金额异常");
+        }
         ordersMapper.updateStatus(map);
+        map.put("money",money);
+        walletMapper.refundMoney(map);
     }
 }

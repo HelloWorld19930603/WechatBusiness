@@ -36,7 +36,7 @@ public class MD5Util {
     }
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
-        System.out.println(encrypt("admin123"));
+        System.out.println(encrypt("aaa"));
     }
 
 }
