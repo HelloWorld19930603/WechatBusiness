@@ -8,6 +8,8 @@
         <result column="status" jdbcType="TINYINT" property="status"/>
         <result column="time" jdbcType="TIMESTAMP" property="time"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="serise" jdbcType="TINYINT" property="serise" />
+        <result column="totals" jdbcType="REAL" property="totals" />
     </resultMap>
     <resultMap id="PageMap" type="HashMap">
         <id column="id" jdbcType="VARCHAR" property="id"/>
@@ -31,17 +33,19 @@
         <result column="com" jdbcType="VARCHAR" property="com"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="money" jdbcType="VARCHAR" property="money"/>
+        <result column="serise" jdbcType="TINYINT" property="serise" />
+        <result column="totals" jdbcType="REAL" property="totals" />
     </resultMap>
     <resultMap id="CountMap" type="HashMap">
         <result column="countNum" jdbcType="INTEGER" property="countNum"/>
         <result column="status" jdbcType="TINYINT" property="status"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, user_id, addr_id, status, time, description
+        id, user_id, addr_id, status, time, description, serise, totals
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from orders
         where id = #{id,jdbcType=VARCHAR}
     </select>
@@ -49,14 +53,7 @@
         delete from orders
         where id = #{id,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" parameterType="com.yilin.app.domain.Orders">
-        insert into orders (id, user_id, addr_id,
-        status, time, description
-        )
-        values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{addrId,jdbcType=INTEGER},
-        #{status,jdbcType=TINYINT}, #{time,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
-        )
-    </insert>
+
     <insert id="insertSelective" parameterType="com.yilin.app.domain.Orders">
         insert into orders
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -78,6 +75,12 @@
             <if test="description != null">
                 description,
             </if>
+            <if test="serise != null">
+                serise,
+            </if>
+            <if test="totals != null">
+                totals,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -97,6 +100,12 @@
             </if>
             <if test="description != null">
                 #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="serise != null">
+                #{serise,jdbcType=TINYINT},
+            </if>
+            <if test="totals != null">
+                #{totals,jdbcType=REAL},
             </if>
         </trim>
     </insert>
@@ -118,6 +127,12 @@
             <if test="description != null">
                 description = #{description,jdbcType=VARCHAR},
             </if>
+            <if test="serise != null">
+                serise = #{serise,jdbcType=TINYINT},
+            </if>
+            <if test="totals != null">
+                totals = #{totals,jdbcType=REAL},
+            </if>
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>
@@ -127,7 +142,9 @@
       addr_id = #{addrId,jdbcType=INTEGER},
       status = #{status,jdbcType=TINYINT},
       time = #{time,jdbcType=TIMESTAMP},
-      description = #{description,jdbcType=VARCHAR}
+      description = #{description,jdbcType=VARCHAR},
+      serise = #{serise,jdbcType=TINYINT},
+      totals = #{totals,jdbcType=REAL}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 
@@ -153,7 +170,7 @@
     <select id="selectList2" parameterType="map" resultMap="PageMap">
         select
         o.id, o.user_id, addr_id,o.status, o.time,description
-        ,a.name addr_name,
+        ,a.name addr_name,o.totals,o.serise,
         a.phone,a.ssq,a.addr,l.id no,l.com,(select sum(price) from order_comm where order_id = o.id) money
         from orders o
         LEFT join address a on o.addr_id = a.id
@@ -211,7 +228,7 @@
     <select id="selectById" parameterType="java.lang.String" resultMap="PageMap">
         select
         o.id, o.user_id, addr_id,  o.status, time,o.description
-        ,a.name addr_name,
+        ,a.name addr_name,o.totals,o.serise,
         a.phone,a.ssq,a.addr,l.order_id no,l.com
         from orders o
         LEFT join address a on o.addr_id = a.id
@@ -225,4 +242,13 @@
         from orders o
         where id = #{id,jdbcType=VARCHAR}
     </select>
+
+    <insert id="insert" parameterType="com.yilin.app.domain.Orders">
+        insert into orders (id, user_id, addr_id,
+        status, time, description,
+        serise, totals)
+        values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{addrId,jdbcType=INTEGER},
+        #{status,jdbcType=TINYINT}, #{time,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR},
+        #{serise,jdbcType=TINYINT}, (select sum(price*num) from order_comm where order_id = #{id,jdbcType=VARCHAR}))
+    </insert>
 </mapper>

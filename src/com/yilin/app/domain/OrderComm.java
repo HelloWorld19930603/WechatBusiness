@@ -9,8 +9,6 @@ public class OrderComm {
 
     private Float price;
 
-    private Byte serise;
-
     public String getOrderId() {
         return orderId;
     }
@@ -41,13 +39,5 @@ public class OrderComm {
 
     public void setPrice(Float price) {
         this.price = price;
-    }
-
-    public Byte getSerise() {
-        return serise;
-    }
-
-    public void setSerise(Byte serise) {
-        this.serise = serise;
     }
 }

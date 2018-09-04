@@ -1,5 +1,7 @@
 package com.yilin.app.domain;
 
+import java.util.Date;
+
 public class AgentUpgrade {
     private Integer id;
 
@@ -18,6 +20,8 @@ public class AgentUpgrade {
     private Byte status;
 
     private Byte serise;
+
+    private Date time;
 
     public Integer getId() {
         return id;
@@ -89,5 +93,13 @@ public class AgentUpgrade {
 
     public void setSerise(Byte serise) {
         this.serise = serise;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 }

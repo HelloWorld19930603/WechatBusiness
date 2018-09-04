@@ -21,19 +21,15 @@ public class Commodity {
 
     private String qrCode;
 
-    private String quality;
-
     private Date start;
 
     private String img;
 
-    private String color;
-
-    private String size;
-
-    private Float mPrice;
+    private Byte status;
 
     private Float aPrice;
+
+    private Float mPrice;
 
     public Integer getId() {
         return id;
@@ -107,14 +103,6 @@ public class Commodity {
         this.qrCode = qrCode == null ? null : qrCode.trim();
     }
 
-    public String getQuality() {
-        return quality;
-    }
-
-    public void setQuality(String quality) {
-        this.quality = quality == null ? null : quality.trim();
-    }
-
     public Date getStart() {
         return start;
     }
@@ -131,28 +119,12 @@ public class Commodity {
         this.img = img == null ? null : img.trim();
     }
 
-    public String getColor() {
-        return color;
+    public Byte getStatus() {
+        return status;
     }
 
-    public void setColor(String color) {
-        this.color = color == null ? null : color.trim();
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size == null ? null : size.trim();
-    }
-
-    public Float getmPrice() {
-        return mPrice;
-    }
-
-    public void setmPrice(Float mPrice) {
-        this.mPrice = mPrice;
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 
     public Float getaPrice() {
@@ -161,5 +133,13 @@ public class Commodity {
 
     public void setaPrice(Float aPrice) {
         this.aPrice = aPrice;
+    }
+
+    public Float getmPrice() {
+        return mPrice;
+    }
+
+    public void setmPrice(Float mPrice) {
+        this.mPrice = mPrice;
     }
 }

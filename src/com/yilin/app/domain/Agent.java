@@ -1,5 +1,7 @@
 package com.yilin.app.domain;
 
+import java.util.Date;
+
 public class Agent {
     private Integer id;
 
@@ -20,6 +22,8 @@ public class Agent {
     private Integer autitor;
 
     private Integer inviter;
+
+    private Date time;
 
     public Integer getId() {
         return id;
@@ -99,5 +103,13 @@ public class Agent {
 
     public void setInviter(Integer inviter) {
         this.inviter = inviter;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 }

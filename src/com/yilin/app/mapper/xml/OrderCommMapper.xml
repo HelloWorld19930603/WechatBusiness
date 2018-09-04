@@ -6,7 +6,6 @@
     <result column="comm_id" jdbcType="INTEGER" property="commId" />
     <result column="num" jdbcType="INTEGER" property="num" />
     <result column="price" jdbcType="REAL" property="price" />
-    <result column="serise" jdbcType="TINYINT" property="serise" />
   </resultMap>
   <resultMap id="PageMap" type="HashMap">
     <result column="comm_id" jdbcType="INTEGER" property="commId" />
@@ -17,13 +16,13 @@
     <result column="aPrice" jdbcType="REAL" property="aPrice" />
     <result column="mPrice" jdbcType="REAL" property="mPrice" />
     <result column="num" jdbcType="INTEGER" property="num" />
-    <result column="serise" jdbcType="TINYINT" property="serise" />
   </resultMap>
+
   <insert id="insert" parameterType="com.yilin.app.domain.OrderComm">
-    insert into order_comm (order_id, comm_id, num, 
-      price, serise)
-    values (#{orderId,jdbcType=VARCHAR}, #{commId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, 
-      #{price,jdbcType=REAL}, #{serise,jdbcType=TINYINT})
+    insert into order_comm (order_id, comm_id, num,
+    price)
+    values (#{orderId,jdbcType=VARCHAR}, #{commId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER},
+    #{price,jdbcType=REAL})
   </insert>
   <insert id="insertSelective" parameterType="com.yilin.app.domain.OrderComm">
     insert into order_comm
@@ -40,9 +39,6 @@
       <if test="price != null">
         price,
       </if>
-      <if test="serise != null">
-        serise,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
@@ -57,14 +53,11 @@
       <if test="price != null">
         #{price,jdbcType=REAL},
       </if>
-      <if test="serise != null">
-        #{serise,jdbcType=TINYINT},
-      </if>
     </trim>
   </insert>
 
   <select id="selectList" parameterType="map" resultMap="PageMap">
-      SELECT oc.comm_id,name,oc.num,oc.price aPrice,m.price mPrice,a.price aPrice,oc.serise,scale,img,e_name
+      SELECT oc.comm_id,name,oc.num,oc.price aPrice,m.price mPrice,a.price aPrice,scale,img,e_name
       from order_comm oc
       LEFT JOIN commodity c on c.id = comm_id
       left join orders o on o.id = #{orderId}

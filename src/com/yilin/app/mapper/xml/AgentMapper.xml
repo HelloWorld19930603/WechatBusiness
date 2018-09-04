@@ -12,12 +12,14 @@
     <result column="serise" jdbcType="TINYINT" property="serise" />
     <result column="autitor" jdbcType="INTEGER" property="autitor" />
     <result column="inviter" jdbcType="INTEGER" property="inviter" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_id, apply_level, name, voucher, description, status, serise, autitor, inviter
+    id, user_id, apply_level, name, voucher, description, status, serise, autitor, inviter,
+    time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from agent
     where id = #{id,jdbcType=INTEGER}
@@ -27,14 +29,14 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yilin.app.domain.Agent">
-    insert into agent (id, user_id, apply_level, 
-      name, voucher, description, 
-      status, serise, autitor, 
-      inviter)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{applyLevel,jdbcType=INTEGER}, 
-      #{name,jdbcType=VARCHAR}, #{voucher,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{serise,jdbcType=TINYINT}, #{autitor,jdbcType=INTEGER}, 
-      #{inviter,jdbcType=INTEGER})
+    insert into agent (id, user_id, apply_level,
+    name, voucher, description,
+    status, serise, autitor,
+    inviter, time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{applyLevel,jdbcType=INTEGER},
+    #{name,jdbcType=VARCHAR}, #{voucher,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+    #{status,jdbcType=TINYINT}, #{serise,jdbcType=TINYINT}, #{autitor,jdbcType=INTEGER},
+    #{inviter,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.yilin.app.domain.Agent">
     insert into agent
@@ -69,6 +71,9 @@
       <if test="inviter != null">
         inviter,
       </if>
+      <if test="time != null">
+        time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -100,6 +105,9 @@
       </if>
       <if test="inviter != null">
         #{inviter,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -133,6 +141,9 @@
       <if test="inviter != null">
         inviter = #{inviter,jdbcType=INTEGER},
       </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -146,7 +157,8 @@
       status = #{status,jdbcType=TINYINT},
       serise = #{serise,jdbcType=TINYINT},
       autitor = #{autitor,jdbcType=INTEGER},
-      inviter = #{inviter,jdbcType=INTEGER}
+      inviter = #{inviter,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

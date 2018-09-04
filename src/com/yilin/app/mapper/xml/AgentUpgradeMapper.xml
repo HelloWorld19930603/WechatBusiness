@@ -11,9 +11,11 @@
     <result column="descript" jdbcType="VARCHAR" property="descript" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="serise" jdbcType="TINYINT" property="serise" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_id, current_level, apply_level, name, voucher, descript, status, serise
+    id, user_id, current_level, apply_level, name, voucher, descript, status, serise,
+    time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
@@ -26,14 +28,14 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yilin.app.domain.AgentUpgrade">
-    insert into agentupgrade (id, user_id, current_level, 
-      apply_level, name, voucher, 
-      descript, status, serise
-      )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{currentLevel,jdbcType=INTEGER}, 
-      #{applyLevel,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{voucher,jdbcType=VARCHAR}, 
-      #{descript,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{serise,jdbcType=TINYINT}
-      )
+    insert into agentupgrade (id, user_id, current_level,
+    apply_level, name, voucher,
+    descript, status, serise,
+    time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{currentLevel,jdbcType=INTEGER},
+    #{applyLevel,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{voucher,jdbcType=VARCHAR},
+    #{descript,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{serise,jdbcType=TINYINT},
+    #{time,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.yilin.app.domain.AgentUpgrade">
     insert into agentupgrade
@@ -65,6 +67,9 @@
       <if test="serise != null">
         serise,
       </if>
+      <if test="time != null">
+        time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -93,6 +98,9 @@
       </if>
       <if test="serise != null">
         #{serise,jdbcType=TINYINT},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -123,6 +131,9 @@
       <if test="serise != null">
         serise = #{serise,jdbcType=TINYINT},
       </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -135,7 +146,8 @@
       voucher = #{voucher,jdbcType=VARCHAR},
       descript = #{descript,jdbcType=VARCHAR},
       status = #{status,jdbcType=TINYINT},
-      serise = #{serise,jdbcType=TINYINT}
+      serise = #{serise,jdbcType=TINYINT},
+      time = #{time,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

@@ -92,8 +92,9 @@ public class OrderService implements IOrderService {
     @Override
     public String createOrder(int userId, Map<String, Object> ordersMap) throws Exception {
         List<Map<String, Object>> commIds = (List<Map<String, Object>>) ordersMap.get("commIds");
-        checkCommId(commIds);
+        int serise = checkCommId(commIds);
         Orders order = new Orders();
+        order.setSerise((byte)serise);
         order.setTime(new Date());
         order.setStatus((byte) 1);
         order.setUserId(userId);
@@ -112,7 +113,7 @@ public class OrderService implements IOrderService {
         return orderId;
     }
 
-    public void checkCommId(List<Map<String, Object>> commIds) throws Exception {
+    public int checkCommId(List<Map<String, Object>> commIds) throws Exception {
         Set<Object> set = new HashSet<>();
         for(Map<String, Object> map : commIds){
             set.add(map.get("serise"));
@@ -120,6 +121,7 @@ public class OrderService implements IOrderService {
         if(set.size()!=1){
             throw new Exception();
         }
+        return (int)set.toArray()[0];
     }
 
     @Override

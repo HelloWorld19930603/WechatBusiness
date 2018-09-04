@@ -15,6 +15,10 @@ public class Orders {
 
     private String description;
 
+    private Byte serise;
+
+    private Float totals;
+
     public String getId() {
         return id;
     }
@@ -61,5 +65,21 @@ public class Orders {
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    public Byte getSerise() {
+        return serise;
+    }
+
+    public void setSerise(Byte serise) {
+        this.serise = serise;
+    }
+
+    public Float getTotals() {
+        return totals;
+    }
+
+    public void setTotals(Float totals) {
+        this.totals = totals;
     }
 }
