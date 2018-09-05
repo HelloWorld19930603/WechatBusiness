@@ -52,8 +52,10 @@
                         </header>
                         <div class="panel-body">
                             <div class="form">
-                                <form class="cmxform form-horizontal adminex-form" id="signupForm" method="post" action="/applyAgent.do" enctype="multipart/form-data">
-                                    <input type="hidden" name = "" value="${userId}">
+                                <form class="cmxform form-horizontal adminex-form" id="signupForm"  method="post" action="/applyAgent.do" enctype="multipart/form-data">
+                                    <input type="hidden" name = "userId" value="${inviting}">
+                                    <input type="hidden" name = "serise" value="${serise}">
+                                    <input type="hidden" name = "level" value="${level}">
                                     <div class="form-group ">
                                         <label for="disabledInput" class="control-label col-lg-3">邀请人</label>
                                         <div class="col-lg-5">
@@ -61,45 +63,45 @@
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="lastname" class="control-label col-lg-3">申请人</label>
+                                        <label for="applyName" class="control-label col-lg-3">申请人</label>
                                         <div class="col-lg-5">
-                                            <input class=" form-control" id="lastname" name="applyName" type="text" value="${applyName}" disabled/>
+                                            <input class=" form-control" id="applyName" name="applyName" type="text" value="${applyName}" disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="username2" class="control-label col-lg-3">申请系列</label>
+                                        <label for="seriseName" class="control-label col-lg-3">申请系列</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="username2" name="serise" type="text" value="${serise}" disabled/>
+                                            <input class="form-control " id="seriseName" name="seriseName" type="text"  disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="username3" class="control-label col-lg-3">申请级别</label>
+                                        <label for="levelName" class="control-label col-lg-3">申请级别</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="username3" name="level" type="text" value="${level}"  disabled/>
+                                            <input class="form-control " id="levelName" name="levelName" type="text"   disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="username4" class="control-label col-lg-3">手机号</label>
+                                        <label for="phone" class="control-label col-lg-3">手机号</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="username4" name="phone" type="text" />
+                                            <input class="form-control " id="phone" name="phone" type="text" />
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="username5" class="control-label col-lg-3">微信号</label>
+                                        <label for="wxNum" class="control-label col-lg-3">微信号</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="username5" name="wxNum" type="text" />
+                                            <input class="form-control " id="wxNum" name="wxNum" type="text" />
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="username6" class="control-label col-lg-3">身份证号</label>
+                                        <label for="idNum" class="control-label col-lg-3">身份证号</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="username6" name="idNum" type="text" />
+                                            <input class="form-control " id="idNum" name="idNum" type="text" />
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="username7" class="control-label col-lg-3">备注</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="username7" name="idNum" type="text" />
+                                            <input class="form-control " id="username7" name="description" type="text" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -146,22 +148,103 @@
 </section>
 
 <!-- Placed js at the end of the document so the pages load faster -->
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
-<script src="js/jquery-migrate-1.2.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/modernizr.min.js"></script>
-<script src="js/jquery.nicescroll.js"></script>
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.nicescroll.js"></script>
 
-<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+
 <%--<script src="js/validation-init.js"></script>--%>
 
 <!--common scripts for all pages-->
-<script src="js/scripts.js"></script>
+<script src="/js/scripts.js"></script>
 
 </body>
 </html>
 <script type="text/javascript">
-    $(".${active}").addClass("active");
-    $(".${active}").parents("li").addClass("nav-active");
+
+    const TYPE_MAP = {
+        '1': '格丽缇',
+        '2': 'Utomorrow',
+        '3': 'Pslady'
+    };
+    const ROLE_MAP = [{
+        '1': '股东',
+        '2': '联创',
+        '3': '执行董事',
+        '4': '官方',
+        '5': '总代理',
+        '6': '一级代理',
+        '7': '二级代理',
+        '8': '特约'
+    },{
+        '1': '股东',
+        '2': '合伙人',
+        '3': '经理',
+        '4': '执行董事',
+        '5': '官方',
+        '6': '总代',
+        '7': '体验'
+    },{
+        '1': '股东',
+        '2': '合伙人',
+        '3': '执行董事',
+        '4': '官方',
+        '5': '总代理',
+        '6': '一级代理',
+        '7': '体验'
+    }];
+
+    $(function () {
+        $("#seriseName").val(TYPE_MAP[${serise}]);
+        $("#levelName").val(ROLE_MAP[${serise}][${level}]);
+
+        $("#submit").click(function () {
+            var serise = document.querySelector('[name="serise"]').value;
+            var name = document.querySelector('[name="name"]').value;
+            var roleId = document.querySelector('select[name="roleId"]').value;
+            var phone = document.querySelector('[name="phone"]').value;
+            var loginName = document.querySelector('[name="loginName"]').value;
+            var loginPwd = document.querySelector('[name="loginPwd"]').value;
+
+            $.ajax({
+                url: "/addDealer2.do",
+                type: "post",
+                data: "serise=" + serise + "&loginPwd=" + loginPwd + "&name=" + name + "&loginName=" + loginName + "&phone=" + phone+ "&roleId=" + roleId,
+                success: function (data) {
+                    if (data == 1) {
+                        alert("添加成功");
+                    } else if (data == 2) {
+                        alert("用户名已存在")
+                    } else {
+                        alert("添加失败");
+                    }
+                    console.log(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert("添加失败");
+                }
+            });
+        });
+    })
+
+
+    //html5实现图片预览功能
+    $(function () {
+        $("#file").change(function (e) {
+            var file = e.target.files[0] || e.dataTransfer.files[0];
+            $('#photoCover').val(document.getElementById("file").files[0].name);
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    $("#img").attr("src", this.result);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        });
+    })
 </script>

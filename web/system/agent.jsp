@@ -120,7 +120,7 @@
 <script src="js/scripts.js"></script>
 
 
-<script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
 
 <script type="text/javascript" src="<%=path%>/js/gm.js"></script>
@@ -235,15 +235,15 @@
                         return userId;
                     }
                 },{
-                    key: 'money',
+                    key: 'applyLevel',
                     remind: 'the title',
                     align: 'center',
                     width: '120px',
                     text: '申请等级',
                     sorting: '',
                     // 使用函数返回 dom node
-                    template: function(money, rowObject) {
-                        return  ROLE_MAP[serise][apply_level];
+                    template: function(applyLevel, rowObject) {
+                        return  ROLE_MAP[rowObject.serise][applyLevel];
                     }
                 },{
                     key: 'serise',
@@ -264,13 +264,13 @@
                         return STATUS_MAP[status];
                     }
                 },{
-                    key: 'status',
+                    key: 'name',
                     remind: 'the action',
                     width: '110px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
-                    template: function (status,rowObject) {
-                        if(status == 0)
+                    template: function (name,rowObject) {
+                        if(rowObject.status == 0)
                             return '<span class="plugin-action" gm-click="editRowData">通过</span><span class="plugin-action" gm-click="editRowData2">拒绝</span>'
                     }
                 }

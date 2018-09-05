@@ -64,7 +64,7 @@ public class AgentAuditController {
 
     @RequestMapping("applyAgent")
     @ResponseBody
-    public Integer applyAgent(int userId, String applyName, byte serise, int level, String phone, String wxNum,
+    public String applyAgent(int userId, String applyName, byte serise, int level, String phone, String wxNum,
                               String idNum, String description, @RequestParam(value = "file", required = false) MultipartFile file,
                               HttpServletRequest req) {
         User user = new User();
@@ -90,13 +90,14 @@ public class AgentAuditController {
                 agent.setVoucher(path);
             }
             userService.register(user);
-            agent.setInviter(user.getId());
+            agent.setUserId(user.getId());
+            agent.setInviter(userId);
             agentAuditService.addOne(agent);
         } catch (Exception e) {
             e.printStackTrace();
-            return 1;
+            return "提交失败！";
         }
-        return 0;
+        return "提交成功！";
     }
 
 }

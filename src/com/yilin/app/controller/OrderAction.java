@@ -5,10 +5,8 @@ import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
 import com.yilin.app.exception.AccountException;
 import com.yilin.app.exception.StatusException;
-import com.yilin.app.service.ICommodityService;
-import com.yilin.app.service.IOrderService;
-import com.yilin.app.service.IUserService;
-import com.yilin.app.service.IWalletService;
+import com.yilin.app.service.*;
+import com.yilin.app.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,8 +30,8 @@ public class OrderAction {
     IWalletService walletService;
     @Resource
     IUserService userService;
-    @Resource
-    ICommodityService commodityService;
+    @Autowired
+    ICartService cartService;
 
 
     @RequestMapping("findPage")
@@ -99,12 +97,15 @@ public class OrderAction {
      */
     @RequestMapping("createOrders")
     @ResponseBody
-    public ResultJson createOrders(@RequestBody Map<String, Object> orders) {
+    public ResultJson createOrders(@RequestBody Map<String, Object> orders,String cartId) {
         ResultJson result;
         try {
             int userId = Permission.getUserId((String) orders.get("token"));
             String orderId = orderService.createOrder(userId, orders);
             result = new ResultJson(true, "创建成功", orderId);
+            if(StringUtil.isNotEmpty(cartId)){
+                cartService.deleteCart(cartId,userId);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             result = new ResultJson(false, "创建失败");
