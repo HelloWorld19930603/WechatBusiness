@@ -137,6 +137,9 @@
         <if test="serise != null">
             and serise = #{serise}
         </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
         limit #{start},#{pageSize}
     </select>
 

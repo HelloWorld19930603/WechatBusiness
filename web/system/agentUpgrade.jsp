@@ -287,13 +287,15 @@
                         return STATUS_MAP[status];
                     }
                 },{
-                    key: 'action',
+                    key: 'status',
                     remind: 'the action',
                     width: '110px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
-                    // 直接返回 htmlString
-                    template: '<span class="plugin-action" gm-click="editRowData">通过</span><span class="plugin-action" gm-click="editRowData2">拒绝</span>'
+                    template: function (status,rowObject) {
+                        if(status == 0)
+                            return '<span class="plugin-action" gm-click="editRowData">通过</span><span class="plugin-action" gm-click="editRowData2">拒绝</span>'
+                    }
                 }
             ]
             // 排序后事件

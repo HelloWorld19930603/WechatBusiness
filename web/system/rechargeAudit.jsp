@@ -77,7 +77,7 @@
                 </div>
                 <div class="sa-ele">
                     <label class="se-title">经销商授权码:</label>
-                    <input class="se-con" name="id"/>
+                    <input class="se-con" name="userId"/>
                 </div>
                 <div class="sa-ele">
                     <label class="se-title">审核状态:</label>
@@ -249,13 +249,15 @@
                         return STATUS_MAP[status];
                     }
                 },{
-                    key: 'action',
+                    key: 'status',
                     remind: 'the action',
                     width: '110px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
-                    // 直接返回 htmlString
-                    template: '<span class="plugin-action" gm-click="editRowData">通过</span><span class="plugin-action" gm-click="editRowData2">拒绝</span>'
+                    template: function (status,rowObject) {
+                        if(status == 0)
+                            return '<span class="plugin-action" gm-click="editRowData">通过</span><span class="plugin-action" gm-click="editRowData2">拒绝</span>'
+                    }
                 }
             ]
             // 排序后事件
@@ -332,7 +334,7 @@
         // 绑定搜索事件
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
-                id: document.querySelector('[name="id"]').value,
+                id: document.querySelector('[name="userId"]').value,
                 status: document.querySelector('[name="status"]').value,
                 serise: document.querySelector('[name="serise"]').value,
                 index: 1
@@ -344,7 +346,7 @@
 
         // 绑定重置
         document.querySelector('.reset-action').addEventListener('click', function () {
-            document.querySelector('[id="id"]').value = '';
+            document.querySelector('[name="userId"]').value = '';
             document.querySelector('select[name="serise"]').value = '-1';
             document.querySelector('select[name="status"]').value = '1';
         });
