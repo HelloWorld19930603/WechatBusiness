@@ -3,22 +3,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="ThemeBucket">
-  <link rel="shortcut icon" href="#" type="image/png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
 
-  <title>邀请代理</title>
+    <title>邀请代理</title>
 
-  <link href="css/style.css" rel="stylesheet">
-  <link href="css/style-responsive.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet">
 
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-  <script src="js/html5shiv.js"></script>
-  <script src="js/respond.min.js"></script>
-  <![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        .div1 {
+            position: fixed;
+            left:40%;
+            z-index: 100;
+            margin: 0 auto;
+            display: none;
+            width: 200px;
+            height: 200px;
+            border: 2px solid rgba(55, 117, 206, 0.8);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 200px;
+            font-size: 18px;
+            font-family: "微软雅黑";
+        }
+
+        .bounceinDown {
+            -webkit-animation: bounceinDownAnimate .5s ease .5s infinite;
+            animation: bounceinDownAnimate 6s ease .1s infinite;
+        }
+
+        @-webkit-keyframes bounceinDownAnimate {
+            0% {
+                -webkit-transform: translateY(-200px);
+            }
+            30% {
+                -webkit-transform: translateY(350px);
+            }
+            70% {
+                -webkit-transform: translateY(-10px);
+            }
+            100% {
+                -webkit-transform: translateY(0px);
+            }
+        }
+    </style>
 </head>
 
 <body class="sticky-header">
@@ -26,9 +64,9 @@
 <section>
     <!-- left side start-->
     <!-- left side end-->
-    
+
     <!-- main content start-->
-    <div class="main-content" >
+    <div class="main-content">
 
         <!-- header section start-->
         <!-- header section end-->
@@ -41,7 +79,8 @@
 
         </div>
         <!-- page heading end-->
-
+        <div id="success" class="div1"><span style="color: #208fd2">恭喜您申请成功！</span></div>
+        <div id="failed" class="div1"><span style="color: #666e73">很抱歉，申请发生异常！</span></div>
         <!--body wrapper start-->
         <div class="wrapper">
             <div class="row">
@@ -52,71 +91,77 @@
                         </header>
                         <div class="panel-body">
                             <div class="form">
-                                <form class="cmxform form-horizontal adminex-form" id="signupForm"  method="post" action="/applyAgent.do" enctype="multipart/form-data">
-                                    <input type="hidden" name = "userId" value="${inviting}">
-                                    <input type="hidden" name = "serise" value="${serise}">
-                                    <input type="hidden" name = "level" value="${level}">
+                                <form class="cmxform form-horizontal adminex-form" id="signupForm" method="post"
+                                      action="/applyAgent.do" enctype="multipart/form-data">
+                                    <input type="hidden" id="userId" value="${inviting}">
+                                    <input type="hidden" id="serise" value="${serise}">
+                                    <input type="hidden" id="level" value="${level}">
                                     <div class="form-group ">
-                                        <label for="disabledInput" class="control-label col-lg-3">邀请人</label>
+                                        <label for="userName" class="control-label col-lg-3">邀请人</label>
                                         <div class="col-lg-5">
-                                            <input class=" form-control" id="disabledInput" name="userName" type="text" value="${invitationName}" disabled/>
+                                            <input class=" form-control"  id="userName" type="text"
+                                                   value="${invitationName}" disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="applyName" class="control-label col-lg-3">申请人</label>
                                         <div class="col-lg-5">
-                                            <input class=" form-control" id="applyName" name="applyName" type="text" value="${applyName}" disabled/>
+                                            <input class=" form-control" id="applyName" name="applyName" type="text"
+                                                   value="${applyName}" disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="seriseName" class="control-label col-lg-3">申请系列</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="seriseName" name="seriseName" type="text"  disabled/>
+                                            <input class="form-control " id="seriseName" name="seriseName" type="text"
+                                                   disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="levelName" class="control-label col-lg-3">申请级别</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="levelName" name="levelName" type="text"   disabled/>
+                                            <input class="form-control " id="levelName" name="levelName" type="text"
+                                                   disabled/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="phone" class="control-label col-lg-3">手机号</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="phone" name="phone" type="text" />
+                                            <input class="form-control " id="phone" name="phone" type="text"/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="wxNum" class="control-label col-lg-3">微信号</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="wxNum" name="wxNum" type="text" />
+                                            <input class="form-control " id="wxNum" name="wxNum" type="text"/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="idNum" class="control-label col-lg-3">身份证号</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="idNum" name="idNum" type="text" />
+                                            <input class="form-control " id="idNum" name="idNum" type="text"/>
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="username7" class="control-label col-lg-3">备注</label>
+                                        <label for="description" class="control-label col-lg-3">备注</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control " id="username7" name="description" type="text" />
+                                            <input class="form-control " id="description" name="description" type="text"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label span3"></label>
                                         <div class="col-md-5">
-                                            <img  id="img" src="/images/default.png" width="100px" height="100px">
+                                            <img id="img" src="/images/default.png" width="100px" height="100px">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label  class="col-md-3 control-label ">凭证上传</label>
+                                        <label class="col-md-3 control-label ">凭证上传</label>
                                         <div class="col-md-5">
                                             <div class="input-group">
                                                 <input id="photoCover" class="form-control" readonly type="text">
                                                 <label class="input-group-btn">
-                                                    <input id="file" type="file" name="file" style="left: -9999px; position: absolute;">
+                                                    <input id="file" type="file" name="file"
+                                                           style="left: -9999px; position: absolute;">
                                                     <span class="btn btn-default">Browse</span>
                                                 </label>
                                             </div>
@@ -124,9 +169,9 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <div class="col-lg-offset-3 col-lg-10">
-                                            <button class="btn btn-primary" type="submit">提交</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <button class="btn btn-default" type="button">取消</button>
+                                        <div class="col-lg-offset-4 col-lg-10">
+                                            <button class="btn btn-primary" type="button" id="submit">提交</button>&nbsp;&nbsp;&nbsp;&nbsp;
+
                                         </div>
                                     </div>
                                 </form>
@@ -179,7 +224,7 @@
         '6': '一级代理',
         '7': '二级代理',
         '8': '特约'
-    },{
+    }, {
         '1': '股东',
         '2': '合伙人',
         '3': '经理',
@@ -187,7 +232,7 @@
         '5': '官方',
         '6': '总代',
         '7': '体验'
-    },{
+    }, {
         '1': '股东',
         '2': '合伙人',
         '3': '执行董事',
@@ -200,35 +245,53 @@
     $(function () {
         $("#seriseName").val(TYPE_MAP[${serise}]);
         $("#levelName").val(ROLE_MAP[${serise}][${level}]);
-
         $("#submit").click(function () {
-            var serise = document.querySelector('[name="serise"]').value;
-            var name = document.querySelector('[name="name"]').value;
-            var roleId = document.querySelector('select[name="roleId"]').value;
-            var phone = document.querySelector('[name="phone"]').value;
-            var loginName = document.querySelector('[name="loginName"]').value;
-            var loginPwd = document.querySelector('[name="loginPwd"]').value;
+            var targetUrl = $("#signupForm").attr("action");
+            var userId = $("#userId").val().trim();
+            var applyName = $("#applyName").val().trim();
+            var serise = $("#serise").val().trim();
+            var phone = $("#phone").val().trim();
+            var wxNum = $("#wxNum").val().trim();
+            var idNum = $("#idNum").val().trim();
+            var level = $("#level").val().trim();
+            var description = $("#description").val().trim();
+            var file = document.getElementById("file").files[0];
+
+            var formData = new FormData();
+            formData.append('userId', userId);
+            formData.append('applyName', applyName);
+            formData.append('serise', serise);
+            formData.append('phone', phone);
+            formData.append('wxNum', wxNum);
+            formData.append('level', level);
+            formData.append('description', description);
+            if(file){
+                formData.append('file', file);
+            }else{
+                alert("请上传凭证");
+                return;
+            }
 
             $.ajax({
-                url: "/addDealer2.do",
-                type: "post",
-                data: "serise=" + serise + "&loginPwd=" + loginPwd + "&name=" + name + "&loginName=" + loginName + "&phone=" + phone+ "&roleId=" + roleId,
+                type: 'post',
+                url: targetUrl,
+                cache: false,
+                data: formData,
+                contentType: false, //禁止设置请求类型
+                processData: false, //禁止jquery对DAta数据的处理,默认会处理
                 success: function (data) {
-                    if (data == 1) {
-                        alert("添加成功");
-                    } else if (data == 2) {
-                        alert("用户名已存在")
-                    } else {
-                        alert("添加失败");
-                    }
-                    console.log(data);
+                    $("#success").fadeToggle(3000);
+                    $("#success").addClass("bounceinDown");
+                    $("#success").fadeToggle(3000);
+                    $("#submit").attr('disabled',true);
                 },
-                error: function (data) {
-                    console.log(data);
-                    alert("添加失败");
+                error: function () {
+                    $("#failed").fadeToggle(3000);
+                    $("#failed").addClass("bounceinDown");
+                    $("#failed").fadeToggle(3000);
                 }
-            });
-        });
+            })
+        })
     })
 
 

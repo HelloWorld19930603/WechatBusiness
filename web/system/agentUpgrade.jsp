@@ -235,13 +235,24 @@
                 {
                     key: 'userId',
                     remind: 'the pic',
-                    width: '120px',
+                    width: '80px',
                     align: 'center',
                     text: '经销商授权码',
                     // 使用函数返回 dom node
                     template: function(userId, rowObject) {
 
                         return userId;
+                    }
+                },{
+                    key: 'name',
+                    remind: 'the pic',
+                    width: '100px',
+                    align: 'center',
+                    text: '经销商名称',
+                    // 使用函数返回 dom node
+                    template: function(name, rowObject) {
+
+                        return name;
                     }
                 },{
                     key: 'applyLevel',
@@ -274,12 +285,12 @@
                         return STATUS_MAP[status];
                     }
                 },{
-                    key: 'name',
+                    key: 'action',
                     remind: 'the action',
                     width: '110px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
-                    template: function (name,rowObject) {
+                    template: function (action,rowObject) {
                         if(rowObject.status == 0)
                             return '<span class="plugin-action" gm-click="editRowData">通过</span><span class="plugin-action" gm-click="editRowData2">拒绝</span>'
                     }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -83,6 +84,7 @@ public class AgentAuditController {
         agent.setName(applyName);
         agent.setDescription(description);
         agent.setStatus((byte) 0);
+        agent.setTime(new Date());
         try {
             if (file != null) {
                 String path = PhotoUtil.photoUpload(file, "images/home/voucher/agent/", StringUtil.makeFileName(),

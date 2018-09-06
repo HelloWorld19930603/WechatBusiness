@@ -1,13 +1,20 @@
 package com.yilin.system.controller;
 
+import com.yilin.app.domain.AgentUpgrade;
+import com.yilin.app.utils.PhotoUtil;
+import com.yilin.app.utils.StringUtil;
 import com.yilin.system.common.SystemPage;
 import com.yilin.system.service.IAgentUpgradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +59,31 @@ public class AgentUpgradeAuditController {
         return "0";
     }
 
+    @RequestMapping("upgradeAgent")
+    @ResponseBody
+    public String upgradeAgent(int userId, String applyName, byte serise, int applyLevel,int currentLevel,
+                                @RequestParam(value = "file", required = false) MultipartFile file,HttpServletRequest req) {
 
+        AgentUpgrade agent = new AgentUpgrade();
+        agent.setApplyLevel(applyLevel);
+        agent.setCurrentLevel(currentLevel);
+        agent.setSerise(serise);
+        agent.setName(applyName);
+        agent.setStatus((byte) 0);
+        agent.setTime(new Date());
+        agent.setUserId(userId);
+        try {
+            if (file != null) {
+                String path = PhotoUtil.photoUpload(file, "images/home/voucher/agentUpgrade/", StringUtil.makeFileName(),
+                        req.getSession().getServletContext().getRealPath("/"));
+                agent.setVoucher(path);
+            }
+            agentUpgradeService.addOne(agent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "提交失败！";
+        }
+        return "提交成功！";
+    }
 
 }

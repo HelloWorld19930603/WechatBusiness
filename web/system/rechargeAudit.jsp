@@ -219,6 +219,28 @@
                         return userId;
                     }
                 },{
+                    key: 'userId',
+                    remind: 'the pic',
+                    width: '80px',
+                    align: 'center',
+                    text: '经销商授权码',
+                    // 使用函数返回 dom node
+                    template: function(userId, rowObject) {
+
+                        return userId;
+                    }
+                },{
+                    key: 'name',
+                    remind: 'the pic',
+                    width: '100px',
+                    align: 'center',
+                    text: '经销商名称',
+                    // 使用函数返回 dom node
+                    template: function(name, rowObject) {
+
+                        return name;
+                    }
+                },{
                     key: 'money',
                     remind: 'the title',
                     align: 'center',

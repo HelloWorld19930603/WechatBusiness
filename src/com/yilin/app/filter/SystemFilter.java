@@ -27,6 +27,7 @@ public class SystemFilter implements Filter {
         System.out.println("doFilter2 : " +url);
         if(url.indexOf("login") != -1 || url.indexOf("toLogin") != -1 || url.indexOf("invitingAgent") != -1|| url.indexOf("applyAgent") != -1){
             arg2.doFilter(arg0, arg1);
+            return;
         }
         Object object = request.getSession().getAttribute("user");
         if (object != null) {
