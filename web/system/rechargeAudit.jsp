@@ -92,11 +92,7 @@
                     <button class="search-action">搜索</button>
                     <button class="reset-action">重置</button>
                 </div>
-                <div class="btn-group" style="float:right;">
-                    <button id="editable-sample_new" class="btn btn-primary" style="font-size: 12px;padding: 4px 10px;">
-                        Add New <i class="fa fa-plus"></i>
-                    </button>
-                </div>
+
             </section>
 
             <section class="grid-main">
@@ -129,7 +125,7 @@
 <script src="js/scripts.js"></script>
 
 
-<script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
 
 <script type="text/javascript" src="<%=path%>/js/gm.js"></script>

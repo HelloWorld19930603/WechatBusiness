@@ -79,7 +79,7 @@
                                                 <input id="photoCover1" class="form-control" readonly type="text">
                                                 <label class="input-group-btn">
                                                     <input id="file1" type="file" name="file1" style="left: -9999px; position: absolute;">
-                                                    <span class="btn btn-default">Browse</span>
+                                                    <span class="btn btn-default">浏览</span>
                                                 </label>
                                             </div>
                                         </div>
@@ -98,7 +98,7 @@
                                                 <input id="photoCover2" class="form-control" readonly type="text">
                                                 <label class="input-group-btn">
                                                     <input id="file2" type="file" name="file2" style="left: -9999px; position: absolute;">
-                                                    <span class="btn btn-default">Browse</span>
+                                                    <span class="btn btn-default">浏览</span>
                                                 </label>
                                             </div>
                                         </div>

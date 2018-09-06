@@ -121,6 +121,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
 
 <script type="text/javascript" src="<%=path%>/js/gm.js"></script>
+
+
+<script src="js/sweetalert/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="js/sweetalert/sweetalert2.min.css">
+<!-- IE support -->
+<script src="js/sweetalert/es6-promise.min.js"></script>
 </body>
 </html>
 <script type="text/javascript">
@@ -249,8 +255,7 @@
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString
                     template: function (action,rowObjct) {
-                        var htmlString = '<span class="plugin-action" gm-click="editRowData">编辑商品</span><span class="plugin-action" gm-click="editRowData2">编辑价格</span>' +
-                            '<span class="plugin-action" gm-click="editRowData3">编辑详情</span>';
+                        var htmlString = '<span class="plugin-action" gm-click="editRowData">编辑商品</span>';
                         if(rowObjct.status == 1){
                             htmlString += '<span class="plugin-action" onclick="updateShelf('+rowObjct.id+',\''+rowObjct.name+'\','+rowObjct.status+')">下架</span>';
                         }else{
@@ -273,35 +278,66 @@
     // 上下架
     function updateShelf(commId,name,status){
         if(status == 1){
-            if(window.confirm('确认要下架['+name+']?')){
-                $.ajax({
-                    url: "/updateShelf.do?commId="+commId+"&status=0",
-                    type: "get",
-                    success: function (data) {
-                        alert("商品下架成功");
-                        console.log(data);
-                    },
-                    error: function (data) {
-                        alert("商品下架失败");
-                        console.log(data);
-                    }
-                });
-            }
+            swal({
+                title: '你确定吗?',
+                text: '你将会下架这件商品!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确认下架',
+                cancelButtonText:'点错了'
+            }).then(function(isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: "/updateShelf.do?commId="+commId+"&status=0",
+                        type: "get",
+                        success: function (data) {
+                            if(data == 0){
+                              swal('大功告成!', '好的，以后你将不会再商品列表中看到它了!', 'success');
+                            }else{
+                                swal('Oh no...', '商品下架异常!', 'error');
+                            }
+                            console.log(data);
+                        },
+                        error: function (data) {
+                            swal('Oh no...', '商品下架失败!', 'error');
+                            console.log(data);
+                        }
+                    });
+
+                }
+            });
         }else{
-            if(window.confirm('确认要上架['+name+']?')){
-                $.ajax({
-                    url: "/updateShelf.do?commId="+commId+"&status=1",
-                    type: "get",
-                    success: function (data) {
-                        alert("商品上架成功");
-                        console.log(data);
-                    },
-                    error: function (data) {
-                        alert("商品上架失败");
-                        console.log(data);
-                    }
-                });
-            }
+            swal({
+                title: '你确定吗?',
+                text: '你将会上架这件商品!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确认上架',
+                cancelButtonText:'点错了'
+            }).then(function(isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: "/updateShelf.do?commId="+commId+"&status=1",
+                        type: "get",
+                        success: function (data) {
+                            if(data == 0){
+                                swal('大功告成!', '好的，商品列表中又可以找到这件商品了!', 'success');
+                            }else{
+                                swal('Oh no...', '商品上架异常!', 'error');
+                            }
+                        },
+                        error: function (data) {
+                            alert("商品上架失败");
+                            console.log(data);
+                        }
+                    });
+
+                }
+            });
         }
     }
 
@@ -309,13 +345,7 @@
         window.location.href = "/editCommodity.do?commId="+rowData.id;
     }
 
-    function editRowData2(rowData){
-       window.location.href = "/editPrice.do?commId="+rowData.id+"&serise="+rowData.serise;
-    }
 
-    function editRowData3(rowData){
-        window.location.href = "/editCommDetail.do?commId="+rowData.id;
-    }
 
     /**
      * 渲染用户级别

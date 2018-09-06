@@ -140,6 +140,7 @@
         <if test="status != null">
             and status = #{status}
         </if>
+        order by time desc
         limit #{start},#{pageSize}
     </select>
 

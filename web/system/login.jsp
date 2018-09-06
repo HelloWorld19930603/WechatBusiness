@@ -77,6 +77,11 @@
 
 </body>
 </html>
+
+<script src="js/sweetalert/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="js/sweetalert/sweetalert2.min.css">
+<!-- IE support -->
+<script src="js/sweetalert/es6-promise.min.js"></script>
 <script type="text/javascript">
 
     $(function () {
@@ -97,10 +102,10 @@
                 processData: false,
                 mimeType: "multipart/form-data",
                 success: function (data) {
-                    if (data) {
+                    if (data == 0) {
                         window.location.href = "index.do";
                     } else {
-                        alert("用户名/密码错误！");
+                        swal('很抱歉', '您的账号密码有误，本系统不能让您进入!', 'warning');
                     }
                     console.log(data);
                 },

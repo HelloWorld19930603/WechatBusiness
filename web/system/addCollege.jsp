@@ -55,7 +55,7 @@
                             <div class="stepy-tab">
                             </div>
                             <form id="default" class="form-horizontal" onsubmit="javascript:confirm()">
-                                <fieldset title="商品详情">
+                                <fieldset title="学院详情">
                                     <legend></legend>
                                     <div class="form-group">
                                         <label class="col-md-2 col-sm-2 control-label">文章标题</label>
@@ -77,7 +77,7 @@
                                                 <input id="photoCover1" class="form-control" readonly type="text">
                                                 <label class="input-group-btn">
                                                     <input id="file1" type="file" name="file1" style="left: -9999px; position: absolute;">
-                                                    <span class="btn btn-default">Browse</span>
+                                                    <span class="btn btn-default">浏览</span>
                                                 </label>
                                             </div>
                                         </div>
@@ -96,7 +96,7 @@
                                                 <input id="photoCover2" class="form-control" readonly type="text">
                                                 <label class="input-group-btn">
                                                     <input id="file2" type="file" name="file2" style="left: -9999px; position: absolute;">
-                                                    <span class="btn btn-default">Browse</span>
+                                                    <span class="btn btn-default">浏览</span>
                                                 </label>
                                             </div>
                                         </div>

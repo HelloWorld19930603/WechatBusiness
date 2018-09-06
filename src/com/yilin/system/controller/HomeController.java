@@ -23,8 +23,9 @@ public class HomeController {
 
     @RequestMapping("index")
     public String index(Model model){
-        model.addAttribute("active","index");
-        return "system";
+        model.addAttribute("active","dealer1");
+
+        return "dealer1";
     }
 
     @RequestMapping("loginout")
@@ -67,13 +68,13 @@ public class HomeController {
                 user.setLoginTime(new Date());
                 systemUserService.editOne(user);
                 req.getSession().setAttribute("user", user);
-                return true;
+                return 0;
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return 1;
     }
 
 

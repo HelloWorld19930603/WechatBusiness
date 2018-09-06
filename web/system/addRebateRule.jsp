@@ -57,7 +57,7 @@
                             <div class="stepy-tab">
                             </div>
                             <form id="default" class="form-horizontal" onsubmit="javascript:confirm()">
-                                <fieldset title="商品信息">
+                                <fieldset title="返利规则信息">
                                     <legend></legend>
                                     <div class="form-group">
                                         <label class="col-md-2 col-sm-2 control-label">返利名称</label>

@@ -224,22 +224,22 @@
                     }
                 },
                 {
-                    key: 'userId',
+                    key: 'inviter',
                     remind: 'the pic',
                     width: '80px',
                     align: 'center',
-                    text: '经销商授权码',
+                    text: '邀请人授权码',
                     // 使用函数返回 dom node
-                    template: function(userId, rowObject) {
+                    template: function(inviter, rowObject) {
 
-                        return userId;
+                        return inviter;
                     }
                 },{
                     key: 'name',
                     remind: 'the pic',
                     width: '100px',
                     align: 'center',
-                    text: '经销商名称',
+                    text: '申请人名称',
                     // 使用函数返回 dom node
                     template: function(name, rowObject) {
 
@@ -264,6 +264,26 @@
                     align: 'center',
                     template: function(serise, rowObject){
                         return TYPE_MAP[serise];
+                    }
+                },{
+                    key: 'description',
+                    remind: 'the type',
+                    text: '备注',
+                    width: '100px',
+                    align: 'center',
+                    template: function(description, rowObject){
+                        return description;
+                    }
+                }, {
+                    key: 'time',
+                    remind: 'the createDate',
+                    width: '100px',
+                    align: 'center',
+                    text: '申请时间',
+                    sorting: 'DESC',
+                    // 使用函数返回 htmlString
+                    template: function (time, rowObject) {
+                        return dateFtt("yyyy-MM-dd hh:mm:ss",new Date(time));
                     }
                 },{
                     key: 'status',

@@ -92,11 +92,7 @@
                     <button class="search-action">搜索</button>
                     <button class="reset-action">重置</button>
                 </div>
-                <div class="btn-group" style="float:right;">
-                    <button id="editable-sample_new" class="btn btn-primary" style="font-size: 12px;padding: 4px 10px;">
-                        Add New <i class="fa fa-plus"></i>
-                    </button>
-                </div>
+
             </section>
 
             <section class="grid-main">
@@ -237,7 +233,7 @@
                     remind: 'the pic',
                     width: '80px',
                     align: 'center',
-                    text: '经销商授权码',
+                    text: '申请人授权码',
                     // 使用函数返回 dom node
                     template: function(userId, rowObject) {
 
@@ -248,7 +244,7 @@
                     remind: 'the pic',
                     width: '100px',
                     align: 'center',
-                    text: '经销商名称',
+                    text: '申请人名称',
                     // 使用函数返回 dom node
                     template: function(name, rowObject) {
 
@@ -269,11 +265,31 @@
                 },{
                     key: 'serise',
                     remind: 'the type',
-                    text: '系列',
+                    text: '申请系列',
                     width: '100px',
                     align: 'center',
                     template: function(serise, rowObject){
                         return TYPE_MAP[serise];
+                    }
+                },{
+                    key: 'description',
+                    remind: 'the type',
+                    text: '备注',
+                    width: '100px',
+                    align: 'center',
+                    template: function(description, rowObject){
+                        return description;
+                    }
+                }, {
+                    key: 'time',
+                    remind: 'the createDate',
+                    width: '100px',
+                    align: 'center',
+                    text: '申请时间',
+                    sorting: 'DESC',
+                    // 使用函数返回 htmlString
+                    template: function (time, rowObject) {
+                        return dateFtt("yyyy-MM-dd hh:mm:ss",new Date(time));
                     }
                 },{
                     key: 'status',

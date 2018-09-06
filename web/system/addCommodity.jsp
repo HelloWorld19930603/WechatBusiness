@@ -101,7 +101,7 @@
                                                 <input id="photoCover" class="form-control" readonly type="text">
                                                 <label class="input-group-btn">
                                                     <input id="file" type="file" name="file" style="left: -9999px; position: absolute;">
-                                                    <span class="btn btn-default">Browse</span>
+                                                    <span class="btn btn-default">浏览</span>
                                                 </label>
                                             </div>
                                         </div>
@@ -141,7 +141,7 @@
                                                 <input id="photoCover2" class="form-control" readonly type="text">
                                                 <label class="input-group-btn">
                                                     <input id="file2" type="file" name="file2" style="left: -9999px; position: absolute;">
-                                                    <span class="btn btn-default">Browse</span>
+                                                    <span class="btn btn-default">浏览</span>
                                                 </label>
                                             </div>
                                         </div>
@@ -160,21 +160,14 @@
                                                 <input id="photoCover3" class="form-control" readonly type="text">
                                                 <label class="input-group-btn">
                                                     <input id="file3" type="file" name="file3" style="left: -9999px; position: absolute;">
-                                                    <span class="btn btn-default">Browse</span>
+                                                    <span class="btn btn-default">浏览</span>
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
 
                                 </fieldset>
-                                <fieldset title="确认提交">
-                                    <legend></legend>
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <p>最后一步，请确认提交</p>
-                                        </div>
-                                    </div>
-                                </fieldset>
+
 
                                 <button class="btn btn-info finish" id = 'finished'  type="button">
                                     完成 </button>

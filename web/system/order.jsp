@@ -27,15 +27,7 @@
 
 
 </style>
-<script>
-    const TYPE_MAP = {
-        '1': '未付款',
-        '2': '已付款',
-        '3': '已发货',
-        '4': '已完成'
-    };
 
-</script>
 <body class="sticky-header">
 
 <section>
@@ -126,6 +118,20 @@
     $(".${active}").parents("li").addClass("nav-active");
 
 
+    const TYPE_MAP = {
+        '1': '未付款',
+        '2': '已付款',
+        '3': '已发货',
+        '4': '已完成',
+        '5': '请求退款中',
+        '6': '已退款'
+
+    };
+    const TYPE_MAP2 = {
+        '1': '格丽缇',
+        '2': 'Utomorrow',
+        '3': 'Pslady'
+    };
     // GridManager 渲染
     var table = document.querySelector('table');
     function init() {
@@ -185,7 +191,7 @@
                 {
                     key: 'addrName',
                     remind: 'the pic',
-                    width: '120px',
+                    width: '110px',
                     align: 'center',
                     text: '购买人姓名',
                     // 使用函数返回 dom node
@@ -197,7 +203,7 @@
                     key: 'phone',
                     remind: 'the title',
                     align: 'center',
-                    width: '120px',
+                    width: '110px',
                     text: '购买人电话',
                     sorting: '',
                     // 使用函数返回 dom node
@@ -205,11 +211,32 @@
 
                         return phone;
                     }
+                },{
+                    key: 'totals',
+                    remind: 'the title',
+                    align: 'center',
+                    width: '100px',
+                    text: '总金额',
+                    sorting: '',
+                    // 使用函数返回 dom node
+                    template: function (totals, rowObject) {
+
+                        return totals;
+                    }
+                }, {
+                    key: 'serise',
+                    remind: 'the type',
+                    text: '系列',
+                    width: '80px',
+                    align: 'center',
+                    template: function (serise, rowObject) {
+                        return TYPE_MAP2[serise];
+                    }
                 }, {
                     key: 'status',
                     remind: 'the type',
                     text: '订单状态',
-                    width: '100px',
+                    width: '80px',
                     align: 'center',
                     template: function (status, rowObject) {
                         return TYPE_MAP[status];
@@ -228,7 +255,7 @@
                 }, {
                     key: 'action',
                     remind: 'the action',
-                    width: '110px',
+                    width: '120px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString

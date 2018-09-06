@@ -107,7 +107,7 @@
                                                 <input id="photoCover" class="form-control" readonly type="text">
                                                 <label class="input-group-btn">
                                                     <input id="file" type="file" name="file" style="left: -9999px; position: absolute;">
-                                                    <span class="btn btn-default">Browse</span>
+                                                    <span class="btn btn-default">浏览</span>
                                                     <span class="btn btn-default" onclick="clearFileInput()">清空</span>
                                                 </label>
                                             </div>

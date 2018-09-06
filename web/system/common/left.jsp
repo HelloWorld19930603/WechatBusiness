@@ -15,7 +15,7 @@
 
         <!--sidebar nav start-->
         <ul class="nav nav-pills nav-stacked custom-nav">
-            <li class="index"><a href="index.do"><i class="fa fa-home"></i> <span>系统管理</span></a></li>
+
             <li class="menu-list"><a href=""><i class="fa fa-users"></i> <span>经销商</span></a>
                 <ul class="sub-menu-list">
                     <li class="dealer1"><a href="/dealer1.do"> 格丽缇</a></li>
@@ -26,8 +26,8 @@
             <li class="menu-list"><a href=""><i class="fa fa-file-text"></i> <span>订单</span></a>
                 <ul class="sub-menu-list">
                     <li class="order"><a href="/order.do"> 订单管理</a></li>
-                    <li class=""><a href="/order.do"> 物流查询</a></li>
-                    <li class=""><a href="/order.do"> 扫码发货</a></li>
+                    <%--<li class=""><a href="/order.do"> 物流查询</a></li>
+                    <li class=""><a href="/order.do"> 扫码发货</a></li>--%>
 
                 </ul>
             </li>
@@ -49,7 +49,7 @@
                 <ul class="sub-menu-list">
                     <li class="commodity"><a href="/commodity.do"> 商品管理</a></li>
                     <li class="addCommodity"><a href="/addCommodity.do"> 添加商品</a></li>
-                    <li class=""><a href="/addCommodity.do"> 商品追溯</a></li>
+                    <%--<li class=""><a href="/addCommodity.do"> 商品追溯</a></li>--%>
 
                 </ul>
             </li>
@@ -67,7 +67,7 @@
                 </ul>
             </li>
          <%--   <li><a href="fontawesome.html"><i class="fa fa-bullhorn"></i> <span>Fontawesome</span></a></li>--%>
-
+            <li class="index"><a href="system.do"><i class="fa fa-cogs"></i> <span>系统管理</span></a></li>
         </ul>
         <!--sidebar nav end-->
 

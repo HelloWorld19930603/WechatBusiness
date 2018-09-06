@@ -70,7 +70,15 @@ public class CommodityController {
     public String editCommodity(Model model, int commId) {
         try {
             Commodity commodity = commodityService.selectById(commId, null);
-
+            List details = commodityService.selectDetails2(commId);
+            if(details.size() == 1)
+                model.addAttribute("detail1", details.get(0));
+            else if(details.size() == 2) {
+                model.addAttribute("detail1", details.get(0));
+                model.addAttribute("detail2", details.get(1));
+            }
+            Float[] price = priceService.findAllPrice(commId);
+            model.addAttribute("price", price);
             model.addAttribute("active", "commodity");
             model.addAttribute("commodity", commodity);
             return "editCommodity";
@@ -81,7 +89,7 @@ public class CommodityController {
 
     }
 
-    @RequestMapping("editCommDetail")
+/*    @RequestMapping("editCommDetail")
     public String editCommDetail(Model model, int commId) {
         try {
             List details = commodityService.selectDetails2(commId);
@@ -99,11 +107,11 @@ public class CommodityController {
             return "500";
         }
 
-    }
+    }*/
 
     @RequestMapping("editCommDetail2")
     @ResponseBody
-    public String editCommDetail2(int commId,Integer id1,Integer id2,String img1,String img2, @RequestParam(value = "file2", required = false) MultipartFile file2,
+    public Object editCommDetail2(int commId,Integer id1,Integer id2,String img1,String img2, @RequestParam(value = "file2", required = false) MultipartFile file2,
                                   @RequestParam(value = "file3", required = false) MultipartFile file3,
                                  HttpServletRequest req) {
         try {
@@ -149,14 +157,14 @@ public class CommodityController {
                     commodityService.addCommDetail(detail2);
                 }
             }
-            return "编辑成功";
+            return 0;
         } catch (Exception e) {
             e.printStackTrace();
-            return "编辑失败";
+            return 1;
         }
     }
 
-    @RequestMapping("editPrice")
+/*    @RequestMapping("editPrice")
     public String editCommodity(Model model,int commId, byte serise) {
         try {
             Float[] price = priceService.findAllPrice(commId);
@@ -174,25 +182,25 @@ public class CommodityController {
             return "500";
         }
         return "500";
-    }
+    }*/
 
     @RequestMapping("updatePrice")
     @ResponseBody
-    public String updatePrice(Float[] prices,int commId,HttpServletRequest req) {
+    public Object updatePrice(Float[] prices,int commId,HttpServletRequest req) {
         try {
             for(int i=0;i<prices.length;i++) {
                 priceService.editPrice(prices[i], commId,i);
             }
-            return "编辑成功";
+            return 0;
         } catch (Exception e) {
             e.printStackTrace();
-            return "编辑失败";
+            return 1;
         }
     }
 
     @RequestMapping("editCommodity2")
     @ResponseBody
-    public String editCommodity2(Commodity commodity, @RequestParam(value = "file", required = false) MultipartFile file,
+    public Object editCommodity2(Commodity commodity, @RequestParam(value = "file", required = false) MultipartFile file,
                                   HttpServletRequest req) {
         try {
             if (file != null) {
@@ -204,10 +212,10 @@ public class CommodityController {
                 commodity.setImg(imgPath);
             }
             commodityService.updateOne(commodity);
-            return "编辑成功";
+            return 0;
         } catch (Exception e) {
             e.printStackTrace();
-            return "编辑失败";
+            return 1;
         }
     }
 
@@ -225,7 +233,7 @@ public class CommodityController {
 
     @RequestMapping("addCommodity2")
     @ResponseBody
-    public String addCommodity2(Commodity commodity, Float[] prices, @RequestParam(value = "file", required = false) MultipartFile file
+    public Object addCommodity2(Commodity commodity, Float[] prices, @RequestParam(value = "file", required = false) MultipartFile file
             , @RequestParam(value = "file2", required = false) MultipartFile file2, @RequestParam(value = "file3", required = false) MultipartFile file3
             , HttpServletRequest req) {
         try {
@@ -253,31 +261,31 @@ public class CommodityController {
             if (img3 != null) {
                 commodityService.addCommDetail(new CommDetail(commodity.getId(), img3));
             }
-            return "商品添加成功";
+            return 0;
         } catch (IOException e) {
             e.printStackTrace();
-            return "图片上传异常";
+            return 1;
         } catch (FileException e) {
             e.printStackTrace();
-            return "图片上传异常";
+            return 2;
         } catch (Exception e) {
             e.printStackTrace();
-            return "商品添加异常";
+            return 3;
         }
     }
 
     @RequestMapping("updateShelf")
     @ResponseBody
-    public String updateShelf(int commId,byte status) {
+    public Object updateShelf(int commId,byte status) {
         try {
             Commodity commodity = new Commodity();
             commodity.setId(commId);
             commodity.setStatus(status);
             commodityService.updateOne(commodity);
-            return "删除成功";
+            return 0;
         } catch (Exception e) {
             e.printStackTrace();
-            return "删除失败";
+            return 1;
         }
     }
 }
