@@ -1,5 +1,6 @@
 package com.yilin.system.controller;
 
+import com.yilin.app.common.Configuration;
 import com.yilin.app.domain.Agent;
 import com.yilin.app.domain.User;
 import com.yilin.app.service.IUserService;
@@ -74,8 +75,8 @@ public class AgentAuditController {
         user.setPhone(phone);
         user.setWxNum(wxNum);
         user.setIdNum(idNum);
-        user.setLoginPwd("123456");
-        user.setPayPwd("123456");
+        user.setLoginPwd(Configuration.LOGIN_PWD_DEFAULT);
+        user.setPayPwd(Configuration.PAY_PWD_DEFAULT);
         user.setSupId(userId);
         user.setStatus((byte) 0);
         Agent agent = new Agent();

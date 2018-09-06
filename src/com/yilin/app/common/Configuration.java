@@ -19,6 +19,8 @@ public class Configuration {
     public static String MESSAGE_KEY;
     public static String LOGISTICS_KEY;
     public static String MESSAGE_MODEL;
+    public static String LOGIN_PWD_DEFAULT;
+    public static String PAY_PWD_DEFAULT;
 
     public static Map<String,Integer> urls;
 
@@ -58,6 +60,8 @@ public class Configuration {
             MESSAGE_KEY = prop.getProperty("message_key");
             LOGISTICS_KEY = prop.getProperty("logistics_key");
             MESSAGE_MODEL = prop.getProperty("message_model");
+            LOGIN_PWD_DEFAULT = prop.getProperty("login_pwd_default");
+            PAY_PWD_DEFAULT = prop.getProperty("pay_pwd_default");
             System.out.println(MESSAGE_KEY);
             System.out.println(LOGISTICS_KEY);
         } catch (IOException e) {
