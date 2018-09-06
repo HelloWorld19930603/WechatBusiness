@@ -128,11 +128,11 @@ public class CommodityService implements ICommodityService {
 
     @Override
     public void updateOne(Commodity commodity) throws Exception {
-        commodityMapper.updateByPrimaryKey(commodity);
+        commodityMapper.updateByPrimaryKeySelective(commodity);
     }
 
     @Override
     public void updateDetail(CommDetail detail1) throws Exception {
-        commDetailMapper.updateByPrimaryKey(detail1);
+        commDetailMapper.updateByPrimaryKeySelective(detail1);
     }
 }

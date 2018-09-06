@@ -265,4 +265,19 @@ public class CommodityController {
             return "商品添加异常";
         }
     }
+
+    @RequestMapping("updateShelf")
+    @ResponseBody
+    public String updateShelf(int commId,byte status) {
+        try {
+            Commodity commodity = new Commodity();
+            commodity.setId(commId);
+            commodity.setStatus(status);
+            commodityService.updateOne(commodity);
+            return "删除成功";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "删除失败";
+        }
+    }
 }

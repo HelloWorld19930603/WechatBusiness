@@ -248,8 +248,16 @@
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString
-                    template: '<span class="plugin-action" gm-click="editRowData">编辑商品</span><span class="plugin-action" gm-click="editRowData2">编辑价格</span>' +
-                    '<span class="plugin-action" gm-click="editRowData3">编辑详情</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
+                    template: function (action,rowObjct) {
+                        var htmlString = '<span class="plugin-action" gm-click="editRowData">编辑商品</span><span class="plugin-action" gm-click="editRowData2">编辑价格</span>' +
+                            '<span class="plugin-action" gm-click="editRowData3">编辑详情</span>';
+                        if(rowObjct.status == 1){
+                            htmlString += '<span class="plugin-action" onclick="updateShelf('+rowObjct.id+',\''+rowObjct.name+'\','+rowObjct.status+')">下架</span>';
+                        }else{
+                            htmlString += '<span class="plugin-action" onclick="updateShelf('+rowObjct.id+',\''+rowObjct.name+'\','+rowObjct.status+')">上架</span>';
+                        }
+                        return htmlString;
+                    }
                 }
             ]
             // 排序后事件
@@ -262,22 +270,38 @@
         });
     }
 
-    // 删除功能
-    function delectRowData(rowData){
-        // 执行删除操作
-        if(window.confirm('确认要删除['+rowData.name+']?')){
-            $.ajax({
-                url: "/removeCommodity.do?commId="+rowData.id,
-                type: "get",
-                success: function (data) {
-                    alert("商品删除成功");
-                    console.log(data);
-                },
-                error: function (data) {
-                    alert("商品删除失败");
-                    console.log(data);
-                }
-        });
+    // 上下架
+    function updateShelf(commId,name,status){
+        if(status == 1){
+            if(window.confirm('确认要下架['+name+']?')){
+                $.ajax({
+                    url: "/updateShelf.do?commId="+commId+"&status=0",
+                    type: "get",
+                    success: function (data) {
+                        alert("商品下架成功");
+                        console.log(data);
+                    },
+                    error: function (data) {
+                        alert("商品下架失败");
+                        console.log(data);
+                    }
+                });
+            }
+        }else{
+            if(window.confirm('确认要上架['+name+']?')){
+                $.ajax({
+                    url: "/updateShelf.do?commId="+commId+"&status=1",
+                    type: "get",
+                    success: function (data) {
+                        alert("商品上架成功");
+                        console.log(data);
+                    },
+                    error: function (data) {
+                        alert("商品上架失败");
+                        console.log(data);
+                    }
+                });
+            }
         }
     }
 

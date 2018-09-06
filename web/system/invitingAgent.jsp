@@ -246,11 +246,17 @@
         $("#seriseName").val(TYPE_MAP[${serise}]);
         $("#levelName").val(ROLE_MAP[${serise}][${level}]);
         $("#submit").click(function () {
+            var phone = $("#phone").val().trim();
+            if(!isPhoneAvailable(phone)){
+                alert("请输入合法的手机号！");
+                return;
+            }
+
             var targetUrl = $("#signupForm").attr("action");
             var userId = $("#userId").val().trim();
             var applyName = $("#applyName").val().trim();
             var serise = $("#serise").val().trim();
-            var phone = $("#phone").val().trim();
+
             var wxNum = $("#wxNum").val().trim();
             var idNum = $("#idNum").val().trim();
             var level = $("#level").val().trim();
@@ -310,4 +316,15 @@
             }
         });
     })
+
+
+    function isPhoneAvailable(str) {
+        var myreg=/^[1][0-9]{10}$/;
+        if (!myreg.test(str)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 </script>
