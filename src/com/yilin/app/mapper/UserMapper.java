@@ -18,4 +18,6 @@ public interface UserMapper  extends IBaseMapper<User> {
     int selectNumBySerise(Map<String, Object> map);
 
     void updateStatus(@Param("id")int id,@Param("status")byte status) throws Exception;
+
+    List<Map<String,Object>> selectTeam(Map<String, Object> map);
 }

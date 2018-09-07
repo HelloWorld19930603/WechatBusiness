@@ -2276,7 +2276,7 @@ ul.user-states li {
 
 .adv-table .dataTables_filter label {
     line-height: 33px;
-    width: 100%;
+    width: 50%;
 }
 
 .adv-table .dataTables_length select {
@@ -2287,11 +2287,11 @@ ul.user-states li {
 }
 
 .adv-table .dataTables_info, .dataTables_paginate {
-    padding: 15px 0;
+    padding: 0px 0;
 }
 
 .adv-table .dataTables_length, .adv-table .dataTables_filter {
-    padding: 15px 0;
+    padding: 0px 0;
 }
 
 .cke_chrome {
@@ -2299,7 +2299,7 @@ ul.user-states li {
 }
 
 .editable-table .dataTables_filter {
-    width: 80%;
+    width: 70%;
 }
 
 .dataTable tr.odd.gradeX td.sorting_1, .dataTable tr.even.gradeX td.sorting_1,

@@ -4,6 +4,7 @@ import com.yilin.app.domain.User;
 import com.yilin.app.mapper.UserMapper;
 import com.yilin.app.service.IUserService;
 import com.yilin.app.utils.MD5Util;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -119,5 +120,49 @@ public class UserService implements IUserService {
     @Override
     public User selectByLoginName(String loginName) throws Exception {
         return userMapper.selectForName(loginName);
+    }
+
+    @Override
+    public List<Map<String, Object>> selectTeam(int serise, int userId) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        map.put("serise",serise);
+        map.put("userId",userId);
+        return userMapper.selectTeam(map);
+    }
+
+
+    @Override
+    public String switchRole(int serise,int roleId){
+        switch (serise){
+            case 1:switch (roleId){
+                case 1: return "股东";
+                case 2: return "联创";
+                case 3: return "执行董事";
+                case 4: return "官方";
+                case 5: return "总代理";
+                case 6: return "一级代理";
+                case 7: return "二级代理";
+                case 8: return "特约";
+            };
+            case 2 : switch (roleId){
+                case 1: return "股东";
+                case 2: return "合伙人";
+                case 3: return "经理";
+                case 4: return "执行董事";
+                case 5: return "官方";
+                case 6: return "总代";
+                case 7: return "体验";
+            };
+            case 3:switch (roleId){
+                case 1: return "股东";
+                case 2: return "合伙人";
+                case 3: return "执行董事";
+                case 4: return "官方";
+                case 5: return "总代理";
+                case 6: return "一级代理";
+                case 7: return "体验";
+            };
+        }
+        return "";
     }
 }

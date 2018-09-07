@@ -76,7 +76,7 @@
                     </select>
                 </div>
                 <div class="sa-ele">
-                    <label class="se-title">经销商名称:</label>
+                    <label class="se-title">申请人名称:</label>
                     <input class="se-con" name="name" id="name"/>
                 </div>
                 <div class="sa-ele">
@@ -390,7 +390,7 @@
         // 绑定搜索事件
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
-                userId: document.querySelector('[name="userId"]').value,
+                userId: document.querySelector('[name="name"]').value,
                 status: document.querySelector('[name="status"]').value,
                 serise: document.querySelector('[name="serise"]').value,
                 index: 1
@@ -402,7 +402,7 @@
 
         // 绑定重置
         document.querySelector('.reset-action').addEventListener('click', function () {
-            document.querySelector('[id="userId"]').value = '';
+            document.querySelector('[id="inviter"]').value = '';
             document.querySelector('select[name="serise"]').value = '-1';
             document.querySelector('select[name="status"]').value = '1';
         });

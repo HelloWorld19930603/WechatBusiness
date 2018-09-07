@@ -34,4 +34,8 @@ public interface IUserService {
     int selectNumBySerise(Byte serise,String phone,String name, Byte status)throws Exception;
 
     User selectByLoginName(String loginName)throws Exception;
+
+    List<Map<String,Object>> selectTeam(int serise, int userId)throws Exception;
+
+    String switchRole(int serise, int roleId);
 }

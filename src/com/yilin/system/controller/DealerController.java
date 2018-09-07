@@ -55,6 +55,29 @@ public class DealerController {
         return "addDealer";
     }
 
+    @RequestMapping("showTeam")
+    public String showTeam(Model model,int serise,int userId,String userName){
+        model.addAttribute("active","dealer"+serise);
+        model.addAttribute("serise",serise);
+        model.addAttribute("userName",userName);
+        List<Map<String,Object>> data = null;
+        try {
+            data = userService.selectTeam(serise,userId);
+            double totals = 0;
+            for(Map map : data){
+                totals += (double)map.get("money");
+                map.put("roleId",userService.switchRole(serise, (Integer) map.get("roleId")));
+            }
+            model.addAttribute("totals",totals);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("data",data);
+        return "showTeam";
+    }
+
+
+
     @RequestMapping(value = "addDealer2")
     @ResponseBody
     public Object addDealer2(User user,int roleId,int serise){

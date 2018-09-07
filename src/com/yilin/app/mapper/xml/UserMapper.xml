@@ -14,6 +14,20 @@
         <result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>
         <result column="status" jdbcType="TINYINT" property="status"/>
     </resultMap>
+    <resultMap id="TeamMap" type="HashMap">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <id column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
+        <result column="sex" jdbcType="CHAR" property="sex"/>
+        <result column="sup_id" jdbcType="INTEGER" property="supId"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="wx_num" jdbcType="VARCHAR" property="wxNum"/>
+        <result column="id_num" jdbcType="VARCHAR" property="idNum"/>
+        <result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="money" jdbcType="REAL" property="money"/>
+    </resultMap>
     <resultMap id="BaseResultMap" type="com.yilin.app.domain.User">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
@@ -224,7 +238,7 @@
         inner join user_role r on serise = #{serise} and r.user_id = u.id
         where 1=1
         <if test="name != null and name != ''">
-            and name = #{name}
+            and name like %${name}%
         </if>
         <if test="phone != null and phone != ''">
             and phone = #{phone}
@@ -235,6 +249,44 @@
         limit #{start},#{pageSize}
     </select>
 
+    <select id="selectTeam" resultMap="TeamMap">
+        select
+        u.id,name,login_name,phone,login_time,role_id,u.status,sup_id,wx_num,id_num,sex,sum(money) money
+        from user u
+        left JOIN recharge c on
+        <if test="serise != null">
+            c.serise = #{serise} and
+        </if>
+        c.user_id = u.id
+        inner join user_role r on
+        <if test="serise != null">
+            r.serise = #{serise} and
+        </if>
+        r.user_id = u.id and role_id &gt; 0 and role_id &lt; 3
+        where 1=1
+        <if test="status != null">
+            and u.status = #{status}
+        </if>
+        and (sup_id = #{userId} or u.id = #{userId}
+        OR
+        sup_id in (
+        select
+        u.id
+        from user u
+        inner join user_role r on
+        <if test="serise != null">
+            serise = #{serise} and
+        </if>
+        r.user_id = u.id and role_id &gt; 0 and role_id &lt; 3
+        where 1=1
+        <if test="status != null">
+            and u.status = #{status}
+        </if>
+        and u.sup_id = #{userId}
+        ))
+        order by u.id
+    </select>
+
     <select id="selectNumBySerise" resultType="int">
         select
         count(*)
@@ -242,7 +294,7 @@
         inner join user_role r on serise = #{serise} and r.user_id = u.id
         where 1=1
         <if test="name != null and name != ''">
-            and name = #{name}
+            and name like %${name}%
         </if>
         <if test="phone != null and phone != ''">
             and phone = #{phone}

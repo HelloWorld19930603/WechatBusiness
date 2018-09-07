@@ -195,7 +195,7 @@
                     text: '缩略图',
                     // 使用函数返回 dom node
                     template: function(img, rowObject) {
-                        var picNode= '<a href="'+img+'" data-fancybox data-caption="My caption">'+
+                        var picNode= '<a href="'+img+'" data-fancybox data-caption="'+rowObject.name+'">'+
                         '<img src="'+img+'" width="100px" height="68px" alt="" />'
                             +'</a>';
                         return picNode;
