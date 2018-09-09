@@ -136,7 +136,7 @@
 select * from (
   select '采购商品' title1,concat(c.name,'×',num)as title2,price*num money,'-' symbol,o.time,'采购' mark from order_comm
   LEFT JOIN commodity c on comm_id = c.id
-  inner join orders o on o.id = order_id and status in (2,3,4)
+  inner join orders o on o.id = order_id and o.status in (2,3,4)
   where user_id = #{userId}
   union ALL
   SELECT '充值记录' title1,'' title2,money,'+' symbol,time,'充值' mark from recharge

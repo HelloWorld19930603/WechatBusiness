@@ -161,7 +161,7 @@
         <if test="status != null">
             and o.status = #{status}
         </if>
-        order by time desc
+        order by o.time desc
         limit #{start},#{pageSize}
     </select>
 
@@ -180,7 +180,7 @@
         <if test="status != null">
             and o.status = #{status}
         </if>
-        order by time desc
+        order by o.time desc
         limit #{start},#{pageSize}
     </select>
 
@@ -227,7 +227,7 @@
         select
         o.id, o.user_id, addr_id,  o.status, o.time,o.description
         ,a.name addr_name,
-        o.id, o.user_id, addr_id,  o.status, time,o.description
+        o.id, o.user_id, addr_id,  o.status,o.description
         ,a.name addr_name,o.totals,o.serise,
         a.phone,a.ssq,a.addr,l.order_id no,l.com
         from orders o

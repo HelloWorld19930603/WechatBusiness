@@ -192,7 +192,7 @@
                 }, {
                     key: 'voucher',
                     remind: 'the pic',
-                    width: '110px',
+                    width: '90px',
                     align: 'center',
                     text: '申请凭证',
                     // 使用函数返回 dom node
@@ -206,18 +206,7 @@
                 {
                     key: 'userId',
                     remind: 'the pic',
-                    width: '120px',
-                    align: 'center',
-                    text: '经销商授权码',
-                    // 使用函数返回 dom node
-                    template: function(userId, rowObject) {
-
-                        return userId;
-                    }
-                },{
-                    key: 'userId',
-                    remind: 'the pic',
-                    width: '80px',
+                    width: '50px',
                     align: 'center',
                     text: '经销商授权码',
                     // 使用函数返回 dom node
@@ -237,10 +226,32 @@
                         return name;
                     }
                 },{
+                    key: 'loginName',
+                    remind: 'the pic',
+                    width: '100px',
+                    align: 'center',
+                    text: '经销商账号',
+                    // 使用函数返回 dom node
+                    template: function(loginName, rowObject) {
+
+                        return loginName;
+                    }
+                },{
+                    key: 'phone',
+                    remind: 'the pic',
+                    width: '100px',
+                    align: 'center',
+                    text: '电话',
+                    // 使用函数返回 dom node
+                    template: function(phone, rowObject) {
+
+                        return phone;
+                    }
+                },{
                     key: 'money',
                     remind: 'the title',
                     align: 'center',
-                    width: '120px',
+                    width: '100px',
                     text: '充值金额',
                     sorting: '',
                     // 使用函数返回 dom node
@@ -252,7 +263,7 @@
                     key: 'serise',
                     remind: 'the type',
                     text: '系列',
-                    width: '100px',
+                    width: '70px',
                     align: 'center',
                     template: function(serise, rowObject){
                         return TYPE_MAP[serise];
@@ -261,20 +272,22 @@
                     key: 'status',
                     remind: 'the type',
                     text: '审核状态',
-                    width: '100px',
+                    width: '70px',
                     align: 'center',
                     template: function(status, rowObject){
                         return STATUS_MAP[status];
                     }
                 },{
-                    key: 'status',
+                    key: 'action',
                     remind: 'the action',
-                    width: '110px',
+                    width: '100px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
-                    template: function (status,rowObject) {
-                        if(status == 0)
+                    template: function (action,rowObject) {
+                        if(rowObject.status == 0)
                             return '<span class="plugin-action" gm-click="editRowData">通过</span><span class="plugin-action" gm-click="editRowData2">拒绝</span>'
+                        else
+                            return '<span class="plugin-action" >已审核</span>';
                     }
                 }
             ]

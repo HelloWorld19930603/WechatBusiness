@@ -251,13 +251,12 @@
 
     <select id="selectTeam" resultMap="TeamMap">
         select
-        u.id,name,login_name,phone,login_time,role_id,u.status,sup_id,wx_num,id_num,sex,sum(money) money
-        from user u
-        left JOIN recharge c on
+        u.id,name,login_name,phone,login_time,role_id,u.status,sup_id,wx_num,id_num,sex,
+        (select sum(money) from recharge re where re.user_id = u.id
         <if test="serise != null">
-            c.serise = #{serise} and
-        </if>
-        c.user_id = u.id
+            and re.serise = #{serise}
+         </if>)  money
+        from user u
         inner join user_role r on
         <if test="serise != null">
             r.serise = #{serise} and

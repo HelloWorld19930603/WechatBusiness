@@ -97,12 +97,13 @@ public class OrderAction {
      */
     @RequestMapping("createOrders")
     @ResponseBody
-    public ResultJson createOrders(@RequestBody Map<String, Object> orders,String cartId) {
+    public ResultJson createOrders(@RequestBody Map<String, Object> orders) {
         ResultJson result;
         try {
             int userId = Permission.getUserId((String) orders.get("token"));
             String orderId = orderService.createOrder(userId, orders);
             result = new ResultJson(true, "创建成功", orderId);
+            String cartId = (String)orders.get("cartId");
             if(StringUtil.isNotEmpty(cartId)){
                 cartService.deleteCart(cartId,userId);
             }

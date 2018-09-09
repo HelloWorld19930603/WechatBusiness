@@ -11,6 +11,19 @@
         <result column="voucher" jdbcType="VARCHAR" property="voucher" />
         <result column="auditor" jdbcType="INTEGER" property="auditor" />
     </resultMap>
+    <resultMap id="PageMap" type="HashMap">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="serise" jdbcType="TINYINT" property="serise" />
+        <result column="money" jdbcType="REAL" property="money" />
+        <result column="time" jdbcType="TIMESTAMP" property="time" />
+        <result column="status" jdbcType="TINYINT" property="status" />
+        <result column="voucher" jdbcType="VARCHAR" property="voucher" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+        <result column="auditor" jdbcType="INTEGER" property="auditor" />
+    </resultMap>
     <sql id="Base_Column_List">
         id, user_id, serise, money, time, status, voucher, auditor
     </sql>
@@ -126,10 +139,11 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-    <select id="selectPage" parameterType="map" resultMap="BaseResultMap">
+    <select id="selectPage" parameterType="map" resultMap="PageMap">
         select
-        <include refid="Base_Column_List"/>
-        from recharge
+         r.id, user_id, serise, money, r.time, r.status, voucher, auditor,name,phone,login_name
+        from recharge r
+        LEFT join user u on r.user_id = u.id
         where 1=1
         <if test="userId != null">
             and user_id = #{userId}
@@ -138,7 +152,7 @@
             and serise = #{serise}
         </if>
         <if test="status != null">
-            and status = #{status}
+            and r.status = #{status}
         </if>
         order by time desc
         limit #{start},#{pageSize}

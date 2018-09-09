@@ -55,7 +55,7 @@ public class SqlUtils {
 		try {
 			Class.forName(driverClassName);
 			Connection con = DriverManager.getConnection(dbUrl, username, password);
-			System.out.println("Connection Successful! "); // 如果连接成功
+			//System.out.println("Connection Successful! "); // 如果连接成功
 			return con;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -3,7 +3,9 @@ package com.yilin.system.controller;
 import com.yilin.app.common.Configuration;
 import com.yilin.app.domain.Agent;
 import com.yilin.app.domain.User;
+import com.yilin.app.domain.Wallet;
 import com.yilin.app.service.IUserService;
+import com.yilin.app.service.IWalletService;
 import com.yilin.app.utils.PhotoUtil;
 import com.yilin.app.utils.StringUtil;
 import com.yilin.system.common.SystemPage;
@@ -32,6 +34,8 @@ public class AgentAuditController {
     IAgentAuditService agentAuditService;
     @Autowired
     IUserService userService;
+    @Autowired
+    IWalletService walletService;
 
     @RequestMapping("/agent")
     public String agentAudit(Model model) {
@@ -86,6 +90,7 @@ public class AgentAuditController {
         agent.setDescription(description);
         agent.setStatus((byte) 0);
         agent.setTime(new Date());
+
         try {
             if (file != null) {
                 String path = PhotoUtil.photoUpload(file, "images/home/voucher/agent/", StringUtil.makeFileName(),
@@ -95,7 +100,12 @@ public class AgentAuditController {
             userService.register(user);
             agent.setUserId(user.getId());
             agent.setInviter(userId);
+            Wallet wallet = new Wallet();
+            wallet.setMoney((float)0);
+            wallet.setUserId(user.getId());
+            wallet.setSerise(serise);
             agentAuditService.addOne(agent);
+            walletService.addWallet(wallet);
         } catch (Exception e) {
             e.printStackTrace();
             return "提交失败！";

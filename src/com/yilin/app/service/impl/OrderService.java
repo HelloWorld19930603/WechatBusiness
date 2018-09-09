@@ -186,15 +186,15 @@ public class OrderService implements IOrderService {
 
     @Override
     public void refund(String orderId, int userId, byte status) throws Exception {
-        byte oldStatus = ordersMapper.selectStatus(orderId);
-        if(oldStatus != 2){
+        Map<String,Object> order = ordersMapper.selectById(orderId);
+        if(order.get("status") != 2){
             throw new StatusException("订单状态异常");
         }
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);
         map.put("status", status);
         map.put("orderId", orderId);
-        Float money = orderCommMapper.countMoney(map);
+        Float money = (Float) order.get("totals");
         if(money == null){
             throw new StatusException("订单金额异常");
         }

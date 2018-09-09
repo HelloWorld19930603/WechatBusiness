@@ -65,7 +65,8 @@ public class DealerController {
             data = userService.selectTeam(serise,userId);
             double totals = 0;
             for(Map map : data){
-                totals += (double)map.get("money");
+                Double money = (Double)map.get("money");
+                totals += money != null?money:0;
                 map.put("roleId",userService.switchRole(serise, (Integer) map.get("roleId")));
             }
             model.addAttribute("totals",totals);
