@@ -1,10 +1,8 @@
 package com.yilin.system.controller;
 
 import com.yilin.app.common.JuHelogistics;
-import com.yilin.app.common.ResultJson;
 import com.yilin.app.domain.Address;
 import com.yilin.app.domain.Logistics;
-import com.yilin.app.exception.RequestException;
 import com.yilin.app.service.IAddressService;
 import com.yilin.app.service.IOrderService;
 import com.yilin.system.common.SystemPage;
@@ -99,6 +97,18 @@ public class OrderController {
         try {
             logisticsService.addOne(logistics);
             orderService.updateStatus(orderId,null,3,2);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @RequestMapping("editMoney")
+    @ResponseBody
+    public Object editMoney(String orderId,float money){
+        try {
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();

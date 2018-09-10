@@ -63,6 +63,11 @@ public class OrderService implements IOrderService {
         return list;
     }
 
+    @Override
+    public void editMoney(String id, float money) throws Exception {
+
+    }
+
 
     @Override
     public List<Map<String, Object>> selectDetails(String orderId) throws Exception {

@@ -1,6 +1,5 @@
 package com.yilin.app.service;
 
-import com.yilin.app.common.Page;
 import com.yilin.app.exception.AccountException;
 
 import java.util.List;
@@ -32,4 +31,6 @@ public interface IOrderService {
     void refund(String orderId, int userId, byte i) throws Exception;
 
     List selectList2(Integer userId, Byte status, Byte serise, int start, int pageSize) throws Exception;
+
+    void editMoney(String id,float money) throws Exception;
 }
