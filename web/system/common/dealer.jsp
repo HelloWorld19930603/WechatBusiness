@@ -193,15 +193,6 @@
                         return TYPE_MAP[roleId];
                     }
                 },{
-                    key: 'sex',
-                    remind: 'the type',
-                    text: '性别',
-                    width: '50px',
-                    align: 'center',
-                    template: function(sex, rowObject){
-                        return sex;
-                    }
-                },{
                     key: 'wxNum',
                     remind: 'the type',
                     text: '微信号',
@@ -209,15 +200,6 @@
                     align: 'center',
                     template: function(wxNum, rowObject){
                         return wxNum;
-                    }
-                },{
-                    key: 'idNum',
-                    remind: 'the type',
-                    text: '身份证号',
-                    width: '130px',
-                    align: 'center',
-                    template: function(idNum, rowObject){
-                        return idNum;
                     }
                 }, {
                     key: 'loginTime',
@@ -242,11 +224,11 @@
                     // 直接返回 htmlString
                     template: function (status, rowObject) {
                         var htmlString = '<span class="plugin-action" gm-click="showTeam">查看团队</span>';
-                        if (status == 1) {
+/*                        if (status == 1) {
                             return htmlString +='<span class="plugin-action" gm-click="closeUser">关闭账号</span>';
                         } else if (status == 0) {
                             return htmlString +='<span class="plugin-action" gm-click="openUser">开启账号</span>';
-                        }
+                        }*/
                     }
                 }
             ]
