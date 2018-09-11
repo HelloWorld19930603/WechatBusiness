@@ -220,7 +220,12 @@
                                                 <div class="com-info">快递公司：<span class="info1" id="showName">${logistics.company}</span>
                                                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;快递单号：<span class="info2" id="showNumber">${logistics.no}</span></div>
                                                 <div class="result-success" id="success">
+                                                    <c:if test="${error != null}">
+                                                    <div class="col-sm-4"><span style="color: red">${error}</span></div>
+                                                    </c:if>
                                                     <ul id="result" class="result-list">
+
+
                                                         <c:forEach items="${logistics.list}" var="l" varStatus="i">
 
                                                         <li class="first">

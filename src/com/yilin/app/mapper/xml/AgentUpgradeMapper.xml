@@ -7,6 +7,7 @@
     <result column="current_level" jdbcType="INTEGER" property="currentLevel" />
     <result column="apply_level" jdbcType="INTEGER" property="applyLevel" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="voucher" jdbcType="VARCHAR" property="voucher" />
     <result column="descript" jdbcType="VARCHAR" property="descript" />
     <result column="status" jdbcType="TINYINT" property="status" />
@@ -153,7 +154,9 @@
 
 
   <select id="selectList" parameterType="map" resultMap="BaseResultMap">
-    SELECT * from agentupgrade
+    SELECT     a.id, user_id, current_level, apply_level, a.name, voucher, a.descript, a.status, serise,
+    a.time,u.phone from agentupgrade a
+    LEFT JOIN user u on user_id = u.id
     where 1=1
     <if test="status != null">
       and status = #{status}

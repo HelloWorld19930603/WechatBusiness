@@ -13,6 +13,8 @@ public class AgentUpgrade {
 
     private String name;
 
+    private String phone;
+
     private String voucher;
 
     private String descript;
@@ -102,4 +104,13 @@ public class AgentUpgrade {
     public void setTime(Date time) {
         this.time = time;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
 }

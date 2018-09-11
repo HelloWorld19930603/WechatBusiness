@@ -23,6 +23,7 @@
         <result column="time" jdbcType="TIMESTAMP" property="time"/>
         <result column="comm_name" jdbcType="VARCHAR" property="commName"/>
         <result column="addr_name" jdbcType="VARCHAR" property="addrName"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="scale" jdbcType="VARCHAR" property="scale"/>
         <result column="img" jdbcType="VARCHAR" property="img"/>
         <result column="serise" jdbcType="INTEGER" property="serise"/>
@@ -225,12 +226,11 @@
 
     <select id="selectById" parameterType="java.lang.String" resultMap="PageMap">
         select
-        o.id, o.user_id, addr_id,  o.status, o.time,o.description
-        ,a.name addr_name,
-        o.id, o.user_id, addr_id,  o.status,o.description
-        ,a.name addr_name,o.totals,o.serise,
+        o.id, o.user_id, addr_id,  o.status, o.time,o.description,
+        a.name addr_name,o.totals,o.serise,u.name,
         a.phone,a.ssq,a.addr,l.order_id no,l.com
         from orders o
+        LEFT join user u on u.id= o.user_id
         LEFT join address a on o.addr_id = a.id
         left join logistics l on l.order_id = o.id
         where o.id = #{id,jdbcType=VARCHAR}

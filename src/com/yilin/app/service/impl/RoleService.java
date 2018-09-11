@@ -1,5 +1,6 @@
 package com.yilin.app.service.impl;
 
+import com.yilin.app.domain.Role;
 import com.yilin.app.domain.UserRole;
 import com.yilin.app.mapper.UserRoleMapper;
 import com.yilin.app.service.IRoleService;
@@ -29,5 +30,13 @@ public class RoleService implements IRoleService {
     @Override
     public void addOne(UserRole userRole) throws Exception {
         userRoleMapper.insert(userRole);
+    }
+
+    @Override
+    public UserRole selectRole(int userId, int serise) throws Exception {
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("serise",serise);
+        return userRoleMapper.selectOne(map);
     }
 }

@@ -39,4 +39,9 @@ public class LogisticsService implements ILogisticsService {
     public void editOne(Logistics logistics) throws Exception {
         logisticsMapper.updateByPrimaryKey(logistics);
     }
+
+    @Override
+    public void removeByOrder(String orderId) throws Exception {
+        logisticsMapper.deleteByOrder(orderId);
+    }
 }

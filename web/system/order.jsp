@@ -124,8 +124,6 @@
         '3': '已付款已发货',
         '4': '已完成',
         '5': '已退款'
-
-
     };
     const TYPE_MAP2 = {
         '1': '格丽缇',
@@ -266,10 +264,10 @@
                             option += '<span class="plugin-action" onclick="receivingAddress(\'' + rowObject.addrId + '\');">收货人详情</span>';
                         } else if (status == 2) {
                             option += '&nbsp<span class="plugin-action" onclick="deliverGoods(\'' + rowObject.id + '\');">我要发货</span>&nbsp&nbsp';
-                        } else if (status == 3 || status == 4 || status == 5) {
+                        } else if (status == 3 || status == 4 || status == 5 && rowObject.no != null) {
                             option += '<span class="plugin-action" onclick="getLogistics(\'' + rowObject.com+'\',\''+rowObject.no + '\');">查看物流</span>';
                         }
-                        option += '<span class="plugin-action" onclick="listOfGoods(\'' + rowObject.id + '\');">商品信息</span>';
+                        option += '<span class="plugin-action" onclick="editOrder(\'' + rowObject.id + '\');">订单详情</span>';
                         return option;
                     }
                 }
@@ -316,8 +314,8 @@
         window.open("/getLogistics.do?com=" + com+"&no="+no);
     }
 
-    function listOfGoods(orderId) {
-        window.open("/listOfGoods.do?orderId=" + orderId);
+    function editOrder(orderId) {
+        window.open("/editOrder.do?orderId=" + orderId);
     }
 
     /**

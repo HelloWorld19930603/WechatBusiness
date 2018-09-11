@@ -226,7 +226,7 @@
                 {
                     key: 'inviter',
                     remind: 'the pic',
-                    width: '80px',
+                    width: '70px',
                     align: 'center',
                     text: '邀请人授权码',
                     // 使用函数返回 dom node
@@ -244,6 +244,17 @@
                     template: function(name, rowObject) {
 
                         return name;
+                    }
+                },{
+                    key: 'phone',
+                    remind: 'the pic',
+                    width: '100px',
+                    align: 'center',
+                    text: '申请人电话',
+                    // 使用函数返回 dom node
+                    template: function(phone, rowObject) {
+
+                        return phone;
                     }
                 },{
                     key: 'applyLevel',

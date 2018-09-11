@@ -284,7 +284,7 @@
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     template: function (action,rowObject) {
-                        if(rowObject.status == 0)
+                        if(rowObject.status == 1)
                             return '<span class="plugin-action" gm-click="editRowData">通过</span><span class="plugin-action" gm-click="editRowData2">拒绝</span>'
                         else
                             return '<span class="plugin-action" >已审核</span>';

@@ -229,6 +229,7 @@
                         } else if (status == 0) {
                             return htmlString +='<span class="plugin-action" gm-click="openUser">开启账号</span>';
                         }*/
+                        return htmlString;
                     }
                 }
             ]

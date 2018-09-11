@@ -90,4 +90,9 @@
       time = #{time,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <delete id="deleteByOrder" parameterType="java.lang.String">
+    delete from logistics
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
 </mapper>

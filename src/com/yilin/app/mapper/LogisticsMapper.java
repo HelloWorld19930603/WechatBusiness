@@ -6,5 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 public interface LogisticsMapper extends IBaseMapper<Logistics> {
 
-    public Logistics selectByPrimaryKey(@Param(value = "id") String id);
+     Logistics selectByPrimaryKey(@Param(value = "id") String id);
+
+    void deleteByOrder(@Param(value = "orderId")String orderId);
 }

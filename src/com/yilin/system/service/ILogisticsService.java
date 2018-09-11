@@ -16,4 +16,6 @@ public interface ILogisticsService {
     void addOne(Logistics logistics) throws Exception;
 
     void editOne(Logistics logistics) throws Exception;
+
+    void removeByOrder(String orderId)throws Exception;
 }
