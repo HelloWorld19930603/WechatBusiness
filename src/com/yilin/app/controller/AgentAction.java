@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,27 +39,7 @@ public class AgentAction {
     @Autowired
     IAgentUpgradeService agentUpgradeService;
 
-    /**
-     * 代理升级
-     *
-     * @param agentUpgrade
-     * @return
-     */
-    @RequestMapping("upgrade")
-    @ResponseBody
-    public ResultJson upgrade(AgentUpgrade agentUpgrade,String token) {
-        ResultJson result;
-        try {
-            Integer userId = Permission.getUserId(token);
-            agentUpgrade.setUserId(userId);
-            agentService.addUpgrade(agentUpgrade);
-            result = new ResultJson(true, "提交申请成功");
-        } catch (Exception e) {
-            result = new ResultJson(false, "提交申请失败");
-            e.printStackTrace();
-        }
-        return result;
-    }
+
 
     /**
      * 获取当前用户级别
@@ -73,7 +53,7 @@ public class AgentAction {
     public ResultJson findLevel(String token, byte serise) {
         ResultJson result;
         try {
-            Integer userId = Permission.getUserId(token);
+            int userId = Permission.getUserId(token);
             int level = agentService.findLevel(userId,serise);
             result = new ResultJson(true, "查询代理等级成功",level);
         } catch (Exception e) {
@@ -128,22 +108,38 @@ public class AgentAction {
     }
 
 
-    @RequestMapping("applyAgentUpgrade")
+    @RequestMapping("upgrade")
     @ResponseBody
-    public ResultJson applyAgent(int userId, String userName, String applyName, byte serise, int applyLevel, int currentLevel,
+    public ResultJson upgrade(String token,String name, byte serise, int applyLev, int currentLev,
                                  String description, @RequestParam(value = "voucher", required = false) MultipartFile voucher,
-                                 HttpServletRequest req) throws Exception {
+                                 HttpServletRequest req) {
+        int userId = Permission.getUserId(token);
         AgentUpgrade agentUpgrade = new AgentUpgrade();
         agentUpgrade.setUserId(userId);
-        agentUpgrade.setApplyLevel(applyLevel);
+        agentUpgrade.setName(name);
+        agentUpgrade.setApplyLevel(applyLev);
         agentUpgrade.setSerise(serise);
         agentUpgrade.setStatus((byte)0);
-        agentUpgrade.setCurrentLevel(currentLevel);
-        String url = PhotoUtil.photoUpload(voucher,"images/home/voucher/recharge/",""+userId+System.currentTimeMillis(),req.getSession().getServletContext().getRealPath("/"));
+        agentUpgrade.setCurrentLevel(currentLev);
+        agentUpgrade.setTime(new Date());
+        String url = null;
+        ResultJson result = new ResultJson(true, "成功");
+        try {
+            url = PhotoUtil.photoUpload(voucher,"images/home/voucher/recharge/",""+userId+System.currentTimeMillis(),req.getSession().getServletContext().getRealPath("/"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FileException e) {
+            e.printStackTrace();
+            result = new ResultJson(false, "失败");
+        }
         agentUpgrade.setDescript(description);
         agentUpgrade.setVoucher(url);
-        agentUpgradeService.addOne(agentUpgrade);
-        ResultJson result = new ResultJson(true, "成功");
+        try {
+            agentUpgradeService.addOne(agentUpgrade);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = new ResultJson(false, "失败");
+        }
         return result;
     }
 }

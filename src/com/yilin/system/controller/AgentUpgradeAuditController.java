@@ -29,21 +29,22 @@ public class AgentUpgradeAuditController {
     IAgentUpgradeService agentUpgradeService;
 
     @RequestMapping("/agentUpgrade")
-    public String agentAudit(Model model){
-        model.addAttribute("active","agentUpgrade");
+    public String agentAudit(Model model) {
+        model.addAttribute("active", "agentUpgrade");
         return "agentUpgrade";
     }
 
 
     @RequestMapping("getAgentUpgradeAudits")
     @ResponseBody
-    public SystemPage getAgentAudits(Byte status,Byte serise,String phone,String name,int start,int pageSize){
+    public SystemPage getAgentAudits(Byte status, Byte serise, String phone, String name, int start, int pageSize) {
         int totals = 0;
         SystemPage systemPage = null;
         try {
-            serise = serise == -1 ? null : serise;
-            totals = agentUpgradeService.getCount(status,serise,phone,name);
-            List<Map<String, Object>> data = agentUpgradeService.selectList(status,serise,phone,name,start,pageSize);
+            if (serise != null)
+                serise = serise == -1 ? null : serise;
+            totals = agentUpgradeService.getCount(status, serise, phone, name);
+            List<Map<String, Object>> data = agentUpgradeService.selectList(status, serise, phone, name, start, pageSize);
             systemPage = new SystemPage(totals, data);
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,15 +55,15 @@ public class AgentUpgradeAuditController {
 
     @RequestMapping("decideAgentUpgrade")
     @ResponseBody
-    public String decideAgent(int id,byte status,int userId,int level,int serise) throws Exception {
-        agentUpgradeService.audit(id,status,userId,level,serise);
+    public String decideAgent(int id, byte status, int userId, int level, int serise) throws Exception {
+        agentUpgradeService.audit(id, status, userId, level, serise);
         return "0";
     }
 
     @RequestMapping("upgradeAgent")
     @ResponseBody
-    public String upgradeAgent(int userId, String applyName, byte serise, int applyLevel,int currentLevel,
-                                @RequestParam(value = "file", required = false) MultipartFile file,HttpServletRequest req) {
+    public String upgradeAgent(int userId, String applyName, byte serise, int applyLevel, int currentLevel,
+                               @RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest req) {
 
         AgentUpgrade agent = new AgentUpgrade();
         agent.setApplyLevel(applyLevel);
