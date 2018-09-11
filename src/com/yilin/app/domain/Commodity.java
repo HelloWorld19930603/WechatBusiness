@@ -15,7 +15,7 @@ public class Commodity {
 
     private String descript;
 
-    private String type;
+    private Byte type;
 
     private String scale;
 
@@ -79,12 +79,12 @@ public class Commodity {
         this.descript = descript == null ? null : descript.trim();
     }
 
-    public String getType() {
+    public Byte getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+    public void setType(Byte type) {
+        this.type = type;
     }
 
     public String getScale() {

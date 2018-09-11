@@ -255,7 +255,8 @@
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString
                     template: function (action,rowObjct) {
-                        var htmlString = '<span class="plugin-action" gm-click="editRowData">编辑商品</span>';
+                        var htmlString = '<span class="plugin-action" gm-click="editRowData">编辑</span>';
+                         htmlString += '<span class="plugin-action" gm-click="activities">参加活动</span>';
                         if(rowObjct.status == 1){
                             htmlString += '<span class="plugin-action" onclick="updateShelf('+rowObjct.id+',\''+rowObjct.name+'\','+rowObjct.status+')">下架</span>';
                         }else{
@@ -339,6 +340,33 @@
                 }
             });
         }
+    }
+
+    function activities() {
+        swal({
+            title: '请选择',
+            input: 'select',
+            inputOptions: {
+                'SRB': 'Serbia',
+                'UKR': 'Ukraine',
+                'HRV': 'Croatia'
+            },
+            inputPlaceholder: '无',
+            showCancelButton: true,
+            inputValidator: function(value) {
+                return new Promise(function(resolve, reject) {
+                    resolve();
+                    alert(value)
+                });
+            }
+        }).then(function(result) {
+            if (result) {
+                swal({
+                    type: 'success',
+                    html: 'You selected: ' + result
+                });
+            }
+        })
     }
 
     function editRowData(rowData){

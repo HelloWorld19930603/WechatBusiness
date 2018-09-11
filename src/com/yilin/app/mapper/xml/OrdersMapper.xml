@@ -32,7 +32,7 @@
         <result column="no" jdbcType="VARCHAR" property="no"/>
         <result column="com" jdbcType="VARCHAR" property="com"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
-        <result column="money" jdbcType="VARCHAR" property="money"/>
+        <result column="totals" jdbcType="VARCHAR" property="totals"/>
     </resultMap>
     <resultMap id="CountMap" type="HashMap">
         <result column="countNum" jdbcType="INTEGER" property="countNum"/>
@@ -149,7 +149,7 @@
     <select id="selectList" parameterType="map" resultMap="PageMap">
         select
         o.id, o.user_id, addr_id,o.status, o.time,description
-        ,a.name addr_name,
+        ,a.name addr_name,o.totals,
         a.phone,a.ssq,a.addr,l.id no,l.com
         from orders o
         LEFT join address a on o.addr_id = a.id
@@ -168,8 +168,8 @@
     <select id="selectList2" parameterType="map" resultMap="PageMap">
         select
         o.id, o.user_id, addr_id,o.status, o.time,description
-        ,a.name addr_name,o.totals,o.serise,
-        a.phone,a.ssq,a.addr,l.id no,l.com,(select sum(price) from order_comm where order_id = o.id) money
+        ,a.name addr_name,o.serise,
+        a.phone,a.ssq,a.addr,l.id no,l.com,o.totals
         from orders o
         LEFT join address a on o.addr_id = a.id
         left join logistics l on l.order_id = o.id

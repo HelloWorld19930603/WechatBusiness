@@ -65,7 +65,10 @@ public class OrderService implements IOrderService {
 
     @Override
     public void editMoney(String id, float money) throws Exception {
-
+        Orders orders = new Orders();
+        orders.setId(id);
+        orders.setTotals(money);
+        ordersMapper.updateByPrimaryKeySelective(orders);
     }
 
 

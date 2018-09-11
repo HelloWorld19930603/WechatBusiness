@@ -8,7 +8,7 @@
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="e_name" jdbcType="VARCHAR" property="eName" />
         <result column="descript" jdbcType="VARCHAR" property="descript" />
-        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="type" jdbcType="TINYINT" property="type" />
         <result column="scale" jdbcType="VARCHAR" property="scale" />
         <result column="qr_code" jdbcType="VARCHAR" property="qrCode" />
         <result column="start" jdbcType="TIMESTAMP" property="start" />
@@ -39,7 +39,7 @@
             )
             values (#{id,jdbcType=INTEGER}, #{serise,jdbcType=TINYINT}, #{stock,jdbcType=INTEGER},
             #{name,jdbcType=VARCHAR}, #{eName,jdbcType=VARCHAR}, #{descript,jdbcType=VARCHAR},
-            #{type,jdbcType=VARCHAR}, #{scale,jdbcType=VARCHAR}, #{qrCode,jdbcType=VARCHAR},
+            #{type,jdbcType=TINYINT}, #{scale,jdbcType=VARCHAR}, #{qrCode,jdbcType=VARCHAR},
             #{start,jdbcType=TIMESTAMP}, #{img,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}
             )
         </insert>
@@ -103,7 +103,7 @@
                     #{descript,jdbcType=VARCHAR},
                 </if>
                 <if test="type != null">
-                    #{type,jdbcType=VARCHAR},
+                    #{type,jdbcType=TINYINT},
                 </if>
                 <if test="scale != null">
                     #{scale,jdbcType=VARCHAR},
@@ -141,7 +141,7 @@
                     descript = #{descript,jdbcType=VARCHAR},
                 </if>
                 <if test="type != null">
-                    type = #{type,jdbcType=VARCHAR},
+                    type = #{type,jdbcType=TINYINT},
                 </if>
                 <if test="scale != null">
                     scale = #{scale,jdbcType=VARCHAR},
@@ -168,7 +168,7 @@
       name = #{name,jdbcType=VARCHAR},
       e_name = #{eName,jdbcType=VARCHAR},
       descript = #{descript,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
       scale = #{scale,jdbcType=VARCHAR},
       qr_code = #{qrCode,jdbcType=VARCHAR},
       start = #{start,jdbcType=TIMESTAMP},

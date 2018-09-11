@@ -288,4 +288,20 @@ public class CommodityController {
             return 1;
         }
     }
+
+
+    @RequestMapping("activities")
+    @ResponseBody
+    public Object activities(int commId,byte type) {
+        try {
+            Commodity commodity = new Commodity();
+            commodity.setId(commId);
+            commodity.setType(type);
+            commodityService.updateOne(commodity);
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 1;
+        }
+    }
 }

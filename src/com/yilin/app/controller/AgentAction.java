@@ -111,7 +111,7 @@ public class AgentAction {
     @RequestMapping("upgrade")
     @ResponseBody
     public ResultJson upgrade(String token,String name, byte serise, int applyLev, int currentLev,
-                                 String description, @RequestParam(value = "voucher", required = false) MultipartFile voucher,
+                                 String description, @RequestParam(value = "voucher") MultipartFile voucher,
                                  HttpServletRequest req) {
         int userId = Permission.getUserId(token);
         AgentUpgrade agentUpgrade = new AgentUpgrade();
@@ -123,14 +123,14 @@ public class AgentAction {
         agentUpgrade.setCurrentLevel(currentLev);
         agentUpgrade.setTime(new Date());
         String url = null;
-        ResultJson result = new ResultJson(true, "成功");
+        ResultJson result = new ResultJson(true, "提交申请成功");
         try {
-            url = PhotoUtil.photoUpload(voucher,"images/home/voucher/recharge/",""+userId+System.currentTimeMillis(),req.getSession().getServletContext().getRealPath("/"));
+            url = PhotoUtil.photoUpload(voucher,"images/home/voucher/upgrade/",""+userId+System.currentTimeMillis(),req.getSession().getServletContext().getRealPath("/"));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (FileException e) {
             e.printStackTrace();
-            result = new ResultJson(false, "失败");
+            result = new ResultJson(false, "图片上传异常");
         }
         agentUpgrade.setDescript(description);
         agentUpgrade.setVoucher(url);
@@ -138,7 +138,7 @@ public class AgentAction {
             agentUpgradeService.addOne(agentUpgrade);
         } catch (Exception e) {
             e.printStackTrace();
-            result = new ResultJson(false, "失败");
+            result = new ResultJson(false, "申请失败");
         }
         return result;
     }

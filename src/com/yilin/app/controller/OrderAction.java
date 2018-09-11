@@ -177,4 +177,20 @@ public class OrderAction {
         }
         return result;
     }
+
+
+    @RequestMapping("confirm")
+    @ResponseBody
+    public ResultJson confirm(String orderId, String token) {
+        ResultJson result;
+        try {
+            int userId = Permission.getUserId(token);
+            orderService.updateStatus(orderId, userId, (byte) 4,3);
+            result = new ResultJson(true, "订单已完成");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = new ResultJson(false, "订单确认失败");
+        }
+        return result;
+    }
 }

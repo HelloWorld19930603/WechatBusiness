@@ -29,14 +29,14 @@
     <!-- visible to small devices only -->
     <div class="visible-xs hidden-sm hidden-md hidden-lg">
         <div class="media logged-user">
-            <img alt="" src="<%=path%>/images/photos/user-avatar.png" class="media-object">
+            <img alt="" src="<%=path%>/images/photos/user.jpg" class="media-object">
             <div class="media-body">
-                <h4><a href="#">管理员</a></h4>
-                <span>"Hello There..."</span>
+                <h4><a href="#">欢迎您，管理员${user.name}</a></h4>
+                <span></span>
             </div>
         </div>
 
-        <h5 class="left-nav-title">Account Information</h5>
+        <h5 class="left-nav-title"></h5>
         <ul class="nav nav-pills nav-stacked custom-nav">
             <li onclick="modifyPassword()"><a href="#" ><i class="fa fa-cog"></i>  修改密码</a></li>
             <li><a href="loginout.do"><i class="fa fa-sign-out"></i> 注销</a></li>

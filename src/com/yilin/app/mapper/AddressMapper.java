@@ -6,9 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 public interface AddressMapper extends IBaseMapper<Address>{
 
-    Address selectDefault(@Param("user_id") int user_id);
+    Address selectDefault(@Param("userId") int userId);
 
-    void updateByUserId(@Param("user_id") int user_id);
+    void updateByUserId(@Param("userId") int userId);
 
-    void deleteOne(@Param("id")int id,@Param("user_id")int user_id);
+    void deleteOne(@Param("id")int id,@Param("userId")int userId);
 }

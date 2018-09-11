@@ -22,7 +22,7 @@ public class AddressService implements IAddressService {
     @Override
     public List<Address> findAllByUserId(Integer userId) throws Exception {
         Map<String, Object> map = new HashMap<>();
-        map.put("user_id", userId);
+        map.put("userId", userId);
         return addressMapper.selectAll(map);
     }
 
