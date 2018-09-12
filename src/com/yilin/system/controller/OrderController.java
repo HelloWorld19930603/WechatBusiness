@@ -8,8 +8,6 @@ import com.yilin.app.domain.UserRole;
 import com.yilin.app.service.IAddressService;
 import com.yilin.app.service.IOrderService;
 import com.yilin.app.service.IRoleService;
-import com.yilin.app.service.IUserService;
-import com.yilin.app.service.impl.UserService;
 import com.yilin.system.common.SystemPage;
 import com.yilin.system.service.ILogisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,11 +113,11 @@ public class OrderController {
 
     }
 
-    @RequestMapping("editMoney")
+    @RequestMapping("editOrder")
     @ResponseBody
-    public Object editMoney(String orderId,float money){
+    public Object editOrder(Orders orders){
         try {
-            orderService.editMoney(orderId,money);
+            orderService.editOrder(orders);
             return 0;
         } catch (Exception e) {
             e.printStackTrace();

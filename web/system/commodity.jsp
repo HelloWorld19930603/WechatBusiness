@@ -347,9 +347,9 @@
             title: '请选择',
             input: 'select',
             inputOptions: {
-                'SRB': 'Serbia',
-                'UKR': 'Ukraine',
-                'HRV': 'Croatia'
+                '1': '明星产品',
+                '2': '人气爆款',
+                '3': '人气推荐'
             },
             inputPlaceholder: '无',
             showCancelButton: true,

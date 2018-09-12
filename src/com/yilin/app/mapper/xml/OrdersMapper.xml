@@ -228,7 +228,7 @@
         select
         o.id, o.user_id, addr_id,  o.status, o.time,o.description,
         a.name addr_name,o.totals,o.serise,u.name,
-        a.phone,a.ssq,a.addr,l.order_id no,l.com
+        a.phone,a.ssq,a.addr,l.id no,l.com
         from orders o
         LEFT join user u on u.id= o.user_id
         LEFT join address a on o.addr_id = a.id

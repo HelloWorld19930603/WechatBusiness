@@ -285,7 +285,7 @@
 
         $("#logistics").click(function () {
 
-            var orderId = ${order.id};
+            var orderId = '${order.id}';
             var com = $("#com").val();
             var no = $("#no").val();
             var name = '${user.name}';
@@ -335,6 +335,7 @@
             title: '请输入新的价格',
             input: 'text',
             showCancelButton: true,
+            animation: "slide-from-top",
             inputValidator: function(value) {
                 return new Promise(function(resolve, reject) {
                     if (value && !isNaN(value) && value >= 0) {
@@ -351,8 +352,8 @@
                     //几个参数需要注意一下
                     type: "POST",//方法类型
                     dataType: "json",//预期服务器返回的数据类型
-                    url: "/editMoney.do" ,//url
-                    data: "money="+result+"&orderId="+orderId,
+                    url: "/editOrder.do" ,//url
+                    data: "totals="+result+"&id="+orderId,
                     success: function (data) {
                         console.log(data);//打印服务端返回的数据(调试用)
                         if (data == 0) {
@@ -375,8 +376,6 @@
                     }
                 })
 
-
-
             }
         })
     }
@@ -385,6 +384,7 @@
         swal({
             title: '收货人信息',
             showCancelButton: true,
+            animation: "slide-from-top",
             html:
             '收货人名称<input id="swal-input1" class="swal2-input" autofocus value=${address.name}>' +
             '收货人电话<input id="swal-input2" class="swal2-input" value=${address.phone}>' +

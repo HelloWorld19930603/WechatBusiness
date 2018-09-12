@@ -1,5 +1,6 @@
 package com.yilin.app.service;
 
+import com.yilin.app.domain.Orders;
 import com.yilin.app.exception.AccountException;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.Map;
 public interface IOrderService {
 
     List selectList(Integer userId, int index, int pageSize, Byte status) throws Exception;
+
+    void editOrder(Orders orders) throws Exception;
 
     List<Map<String, Object>> selectDetails(String orderId) throws Exception;
 
@@ -32,5 +35,4 @@ public interface IOrderService {
 
     List selectList2(Integer userId, Byte status, Byte serise, int start, int pageSize) throws Exception;
 
-    void editMoney(String id,float money) throws Exception;
 }
