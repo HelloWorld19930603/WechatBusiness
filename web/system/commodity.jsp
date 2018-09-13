@@ -32,7 +32,12 @@
         '2': 'Utomorrow',
         '3': 'Pslady'
     };
-
+    const TYPE_MAP2 = {
+        '0':'无',
+        '1': '明星产品',
+        '2': '人气爆款',
+        '3': '人气推荐'
+    };
 </script>
 <body class="sticky-header">
 
@@ -82,7 +87,7 @@
                 </div>
                 <div class="btn-group" style="float:right;">
                     <button id="editable-sample_new" class="btn btn-primary" style="font-size: 12px;padding: 4px 10px;">
-                        Add New <i class="fa fa-plus"></i>
+                        新增 <i class="fa fa-plus"></i>
                     </button>
                 </div>
             </section>
@@ -228,7 +233,7 @@
                     key: 'serise',
                     remind: 'the type',
                     text: '系列',
-                    width: '100px',
+                    width: '80px',
                     align: 'center',
                     template: function(serise, rowObject){
                         return TYPE_MAP[serise];
@@ -238,15 +243,27 @@
                     remind: 'the info',
                     text: '规格',
                     isShow: true,
-                    width: '100px',
+                    width: '80px',
                     align: 'center'
                 },{
                     key: 'mPrice',
                     remind: 'the info',
                     text: '市场价',
                     isShow: true,
-                    width: '100px',
+                    width: '70px',
                     align: 'center'
+                },{
+                    key: 'type',
+                    remind: 'the type',
+                    text: '活动',
+                    width: '70px',
+                    align: 'center',
+                    template: function(type, rowObject){
+                        if(type == null){
+                            type = 0;
+                        }
+                        return TYPE_MAP2[type];
+                    }
                 },{
                     key: 'action',
                     remind: 'the action',
@@ -277,7 +294,7 @@
     }
 
     // 上下架
-    function updateShelf(commId,name,status){
+    function updateShelf(commId,status){
         if(status == 1){
             swal({
                 title: '你确定吗?',
@@ -342,29 +359,55 @@
         }
     }
 
-    function activities() {
+    function activities(rowData) {
         swal({
-            title: '请选择',
+            title: '请选择要参加的活动',
             input: 'select',
             inputOptions: {
+                '0':'无',
                 '1': '明星产品',
                 '2': '人气爆款',
                 '3': '人气推荐'
             },
-            inputPlaceholder: '无',
+            inputPlaceholder: '',
             showCancelButton: true,
             inputValidator: function(value) {
                 return new Promise(function(resolve, reject) {
                     resolve();
-                    alert(value)
+
                 });
             }
         }).then(function(result) {
             if (result) {
-                swal({
-                    type: 'success',
-                    html: 'You selected: ' + result
-                });
+                $.ajax({
+                    //几个参数需要注意一下
+                    type: "POST",//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: "/activities.do" ,//url
+                    data: "type="+result+"&commId="+rowData.id,
+                    success: function (data) {
+                        console.log(data);//打印服务端返回的数据(调试用)
+                        if (data == 0) {
+                            swal({
+                                type: 'success',
+                                html: '提交成功 '
+                            });
+                        }else {
+                            swal({
+                                type: 'warning',
+                                html: '提交失败'
+                            });
+                        }
+                    },
+                    error : function(data) {
+                        console.log(data);//打印服务端返回的数据(调试用)
+                        swal({
+                            type: 'warning',
+                            html: '提交异常'
+                        });
+                    }
+                })
+
             }
         })
     }

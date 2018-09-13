@@ -140,7 +140,7 @@ select * from (
   where user_id = #{userId}
   union ALL
   SELECT '充值记录' title1,'' title2,money,'+' symbol,time,'充值' mark from recharge
-  where user_id = #{userId}
+  where user_id = #{userId} and status = 2
 )a order by time desc limit #{start},#{pageSize}
     </select>
 </mapper>

@@ -55,14 +55,19 @@ public class AgentUpgradeAuditController {
 
     @RequestMapping("decideAgentUpgrade")
     @ResponseBody
-    public String decideAgent(int id, byte status, int userId, int level, int serise) throws Exception {
-        agentUpgradeService.audit(id, status, userId, level, serise);
+    public Object decideAgent(int id, byte status, int userId, int level, int serise)  {
+        try {
+            agentUpgradeService.audit(id, status, userId, level, serise);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 1;
+        }
         return "0";
     }
 
     @RequestMapping("upgradeAgent")
     @ResponseBody
-    public String upgradeAgent(int userId, String applyName, byte serise, int applyLevel, int currentLevel,
+    public Object upgradeAgent(int userId, String applyName, byte serise, int applyLevel, int currentLevel,
                                @RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest req) {
 
         AgentUpgrade agent = new AgentUpgrade();
@@ -82,9 +87,9 @@ public class AgentUpgradeAuditController {
             agentUpgradeService.addOne(agent);
         } catch (Exception e) {
             e.printStackTrace();
-            return "提交失败！";
+            return 1;
         }
-        return "提交成功！";
+        return 0;
     }
 
 }

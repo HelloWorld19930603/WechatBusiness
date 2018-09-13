@@ -164,21 +164,21 @@
   </update>
 
   <select id="selectList" parameterType="map" resultMap="BaseResultMap">
-    SELECT     a.id, user_id, apply_level, a.name, voucher, a.description, a.status, serise, autitor, inviter,
+    SELECT     a.id, user_id, apply_level, a.name, voucher, a.description, a.status, a.serise, autitor, inviter,
     a.time,u.phone from agent a
     LEFT JOIN user u on u.id = user_id
     where 1=1
     <if test="status != null">
-      and status = #{status}
+      and a.status = #{status}
     </if>
     <if test="phone != null">
-      and phone = #{phone}
+      and u.phone = #{phone}
     </if>
     <if test="serise != null">
-      and serise = #{serise}
+      and a.serise = #{serise}
     </if>
     <if test="name != null">
-      and name = #{name}
+      and a.name = #{name}
     </if>
     order by time desc
     limit #{start},#{pageSize}

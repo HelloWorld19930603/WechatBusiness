@@ -29,6 +29,7 @@ public class DealerController {
     @RequestMapping("dealer1")
     public String dealer1(Model model){
         model.addAttribute("active","dealer1");
+        model.addAttribute("serise","1");
 
         return "dealer1";
     }
@@ -36,6 +37,7 @@ public class DealerController {
     @RequestMapping("dealer2")
     public String dealer2(Model model){
         model.addAttribute("active","dealer2");
+        model.addAttribute("serise","2");
 
         return "dealer2";
     }
@@ -43,6 +45,7 @@ public class DealerController {
     @RequestMapping("dealer3")
     public String dealer3(Model model){
         model.addAttribute("active","dealer3");
+        model.addAttribute("serise","3");
 
         return "dealer3";
     }

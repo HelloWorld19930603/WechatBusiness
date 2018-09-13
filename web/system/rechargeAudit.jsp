@@ -268,6 +268,17 @@
                     template: function(serise, rowObject){
                         return TYPE_MAP[serise];
                     }
+                }, {
+                    key: 'time',
+                    remind: 'the createDate',
+                    width: '100px',
+                    align: 'center',
+                    text: '充值时间',
+                    sorting: 'DESC',
+                    // 使用函数返回 htmlString
+                    template: function (time, rowObject) {
+                        return dateFtt("yyyy-MM-dd hh:mm:ss",new Date(time));
+                    }
                 },{
                     key: 'status',
                     remind: 'the type',
@@ -287,7 +298,7 @@
                         if(rowObject.status == 1)
                             return '<span class="plugin-action" gm-click="editRowData">通过</span><span class="plugin-action" gm-click="editRowData2">拒绝</span>'
                         else
-                            return '<span class="plugin-action" >已审核</span>';
+                            return '<span class="plugin-action" style="color:#c5c5c5">已审核</span>';
                     }
                 }
             ]

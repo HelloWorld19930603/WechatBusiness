@@ -58,7 +58,7 @@
                             <div class="stepy-tab">
                             </div>
                             <form id="default" class="form-horizontal" onsubmit="javascript:confirm()">
-                                <fieldset title="订单商品列表">
+                                <fieldset title="">
                                     <legend></legend>
                                     <div class="col-sm-12">
                                         <section class="panel">
@@ -100,7 +100,7 @@
 
 
                                 </fieldset>
-                                <fieldset title="收货人信息">
+                                <fieldset title="">
                                     <legend></legend>
                                     <div class="col-sm-12">
                                         <section class="panel">
@@ -138,7 +138,7 @@
 
 
                                 </fieldset>
-                                <fieldset title="订单商品列表">
+                                <fieldset title="">
                                     <legend></legend>
                                     <div class="col-sm-12">
                                         <section class="panel">
@@ -179,7 +179,25 @@
                                     </div>
 
                                 </fieldset>
-                                <fieldset title="订单商品列表">
+                                <fieldset title="">
+                                    <legend></legend>
+                                    <div class="col-sm-12">
+                                        <section class="panel">
+
+                                            <div class="panel-body">
+                                                <form method="get" class="form-horizontal bucket-form">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-1 control-label">留言</label>
+                                                        <div class="col-sm-7">
+                                                            <textarea rows="6" class="form-control">${description}</textarea>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </fieldset>
+                                <fieldset title="">
                                     <legend></legend>
                                     <div class="col-sm-12">
                                         <section class="panel">
@@ -289,34 +307,53 @@
             var com = $("#com").val();
             var no = $("#no").val();
             var name = '${user.name}';
-            if(window.confirm('确认要提交物流信息?')){
-                $.ajax({
-                    //几个参数需要注意一下
-                    type: "POST",//方法类型
-                    dataType: "json",//预期服务器返回的数据类型
-                    url: "/deliverGoods2.do" ,//url
-                    data: "name="+name+"&com="+com+"&orderId="+orderId+"&no="+no,
-                    success: function (result) {
-                        console.log(result);//打印服务端返回的数据(调试用)
-                        if(result == 0)
-                            swal({
-                                type: 'success',
-                                html: '提交成功 '
-                            });
-                        else
-                            swal({
-                                type: 'warning',
-                                html: '提交失败'
-                            });
-                    },
-                    error : function() {
-                        swal({
-                            type: 'warning',
-                            html: '提交异常'
-                        });
-                    }
-                })
+            if(no == null || no == ""){
+                swal({
+                    type: 'info',
+                    html: '请填写物流单号！'
+                });
+                return;
             }
+            swal({
+                title: '你确定吗?',
+                text: '确认要提交物流信息?',
+                type: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确认提交',
+                cancelButtonText:'我再看看'
+            }).then(function(isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        //几个参数需要注意一下
+                        type: "POST",//方法类型
+                        dataType: "json",//预期服务器返回的数据类型
+                        url: "/deliverGoods2.do" ,//url
+                        data: "name="+name+"&com="+com+"&orderId="+orderId+"&no="+no,
+                        success: function (result) {
+                            console.log(result);//打印服务端返回的数据(调试用)
+                            if(result == 0)
+                                swal({
+                                    type: 'success',
+                                    html: '提交成功 '
+                                });
+                            else
+                                swal({
+                                    type: 'warning',
+                                    html: '提交失败'
+                                });
+                        },
+                        error : function(data) {
+                            console.log(data);//打印服务端返回的数据(调试用)
+                        }
+                    })
+;
+
+                }
+            })
+
+
         })
     })
 
@@ -352,7 +389,7 @@
                     //几个参数需要注意一下
                     type: "POST",//方法类型
                     dataType: "json",//预期服务器返回的数据类型
-                    url: "/editOrder.do" ,//url
+                    url: "/editOrder2.do" ,//url
                     data: "totals="+result+"&id="+orderId,
                     success: function (data) {
                         console.log(data);//打印服务端返回的数据(调试用)
@@ -407,6 +444,15 @@
                 });
             }
         }).then(function(result) {
+            var status = ${order.status};
+            if(status != 2){
+                swal({
+                    type: 'warning',
+                    html: '只有已付款状态的订单才能修改哦！'
+                });
+                return;
+            }
+            if(result)
             $.ajax({
                 //几个参数需要注意一下
                 type: "POST",//方法类型
@@ -427,11 +473,8 @@
                         });
                     }
                 },
-                error : function() {
-                    swal({
-                        type: 'warning',
-                        html: '收获人信息修改异常'
-                    });
+                error : function(data) {
+                    console.log(data);//打印服务端返回的数据(调试用)
                 }
             })
 

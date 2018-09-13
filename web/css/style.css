@@ -21,6 +21,11 @@ body {
 input, select, textarea {
     font-family: 'Open Sans', sans-serif;
     color: #767676;
+
+}
+
+input:hover, select:hover, textarea:hover,button:hover{
+    box-shadow: 0 0 10px #c3c3c3;
 }
 
 a {

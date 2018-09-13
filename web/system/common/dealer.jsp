@@ -40,7 +40,7 @@
             </div>
             <div class="btn-group" style="float:right;">
                 <button id="editable-sample_new" class="btn btn-primary" style="font-size: 12px;padding: 4px 10px;">
-                    Add New <i class="fa fa-plus"></i>
+                    新增 <i class="fa fa-plus"></i>
                 </button>
             </div>
         </section>
@@ -114,7 +114,7 @@
             , ajax_error: function (error) {
                 console.log('ajax_error');
             }
-            , query: {serise: 1}
+            , query: {serise: ${serise}}
             , dataKey: 'list'  // 注意: 这里是用来测试responseHandler 是否生效; 数据本身返回为data, 而在这里我把数据名模拟为list, 再通过responseHandler去更改
             , pageSize: 10
 

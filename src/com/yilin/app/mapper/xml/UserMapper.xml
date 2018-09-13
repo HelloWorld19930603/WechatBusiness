@@ -238,7 +238,7 @@
         inner join user_role r on serise = #{serise} and r.user_id = u.id
         where 1=1
         <if test="name != null and name != ''">
-            and name like %${name}%
+            and name like '%${name}%'
         </if>
         <if test="phone != null and phone != ''">
             and phone = #{phone}
@@ -293,7 +293,7 @@
         inner join user_role r on serise = #{serise} and r.user_id = u.id
         where 1=1
         <if test="name != null and name != ''">
-            and name like %${name}%
+            and name like '%${name}%'
         </if>
         <if test="phone != null and phone != ''">
             and phone = #{phone}

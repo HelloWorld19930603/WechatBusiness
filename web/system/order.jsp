@@ -259,12 +259,7 @@
                     // 直接返回 htmlString
                     template: function (action, rowObject) {
                         var option = '';
-                        var status = rowObject.status;
-                        if (status == 1) {
-                            option += '<span class="plugin-action" onclick="receivingAddress(\'' + rowObject.addrId + '\');">收货人详情</span>';
-                        }/* else if (status == 2) {
-                            option += '&nbsp<span class="plugin-action" onclick="deliverGoods(\'' + rowObject.id + '\');">我要发货</span>&nbsp&nbsp';
-                        }*/ else if (rowObject.no != null) {
+                        if (rowObject.no != null) {
                             option += '<span class="plugin-action" onclick="getLogistics(\'' + rowObject.com+'\',\''+rowObject.no + '\');">查看物流</span>';
                         }
                         option += '<span class="plugin-action" onclick="editOrder(\'' + rowObject.id + '\');">订单详情</span>';

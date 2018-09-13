@@ -113,9 +113,9 @@ public class OrderController {
 
     }
 
-    @RequestMapping("editOrder")
+    @RequestMapping("editOrder2")
     @ResponseBody
-    public Object editOrder(Orders orders){
+    public Object editOrder2(Orders orders){
         try {
             orderService.editOrder(orders);
             return 0;

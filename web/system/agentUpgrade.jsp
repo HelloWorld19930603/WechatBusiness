@@ -128,6 +128,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
 
 <script type="text/javascript" src="<%=path%>/js/gm.js"></script>
+
+<script src="js/sweetalert/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="js/sweetalert/sweetalert2.min.css">
+<!-- IE support -->
+<script src="js/sweetalert/es6-promise.min.js"></script>
 </body>
 </html>
 <script type="text/javascript">
@@ -280,7 +285,7 @@
                     width: '100px',
                     align: 'center',
                     template: function(serise, rowObject){
-                        return TYPE_MAP[serise];
+                        return TYPE_MAP[serise-1];
                     }
                 },{
                     key: 'description',
@@ -318,8 +323,10 @@
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     template: function (action,rowObject) {
-                        if(rowObject.status == 0)
+                        if(rowObject.status == 1)
                             return '<span class="plugin-action" gm-click="editRowData">通过</span><span class="plugin-action" gm-click="editRowData2">拒绝</span>'
+                        else
+                            return '<span class="plugin-action" style="color:#c5c5c5">已审核</span>';
                     }
                 }
             ]
@@ -335,48 +342,73 @@
 
     // 删除功能
     function editRowData(rowData) {
-        // 执行删除操作
-        if (window.confirm('确认要通过授权码为[' + rowData.userId + ']的用户的充值审核?')) {
-            $.ajax({
-                url: "/decideAgentUpgrade.do?id=" + rowData.id + "&status=2&userId="+rowData.userId,
-                type: "get",
-                success: function (data) {
-                    if (data == 0) {
-                       alert("通过成功");
-                    }else{
-                        alert("审核异常");
+
+        swal({
+            title: '你确定吗?',
+            text: '确认要通过授权码为[' + rowData.userId + ']的用户的升级审核?',
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '确认通过',
+            cancelButtonText:'我再想想'
+        }).then(function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url: "/decideAgentUpgrade.do?id=" + rowData.id + "&status=2&userId="+rowData.userId+"&level="+rowData.applyLevel+"&serise="+rowData.serise,
+                    type: "get",
+                    success: function (data) {
+                        if(data == 0){
+                            swal('成功!', '该用户升级成功!', 'success');
+                        }else{
+                            swal('Oh no...', '该用户升级失败!', 'error');
+                        }
+                        console.log(data);
+                    },
+                    error: function (data) {
+                        swal('Oh no...', '该用户升级异常!', 'error');
+                        console.log(data);
                     }
-                    console.log(data);
-                },
-                error: function (data) {
-                    alert("审核异常");
-                    console.log(data);
-                }
-            });
-        }
+                });
+
+            }
+        })
+
     }
 
     function editRowData2(rowData) {
-        // 执行删除操作
-        if (window.confirm('确认要拒绝授权码为[' + rowData.userId + ']的用户的充值审核?')) {
-            $.ajax({
-                url: "/decideAgentUpgrade.do?id=" + rowData.id + "&status=3&userId="+rowData.userId,
-                type: "get",
-                success: function (data) {
-                    if (data == 0) {
-                    alert("拒绝成功");
-                     }
-                    else{
-                        alert("审核异常");
+
+        swal({
+            title: '你确定吗?',
+            text: '确认要拒绝授权码为[' + rowData.userId + ']的用户的升级审核?',
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '果断拒绝',
+            cancelButtonText:'我再想想'
+        }).then(function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url: "/decideAgentUpgrade.do?id=" + rowData.id + "&status=3&userId="+rowData.userId,
+                    type: "get",
+                    success: function (data) {
+                        if(data == 0){
+                            swal('成功!', '此用户这次不能完成升级!', 'success');
+                        }else{
+                            swal('Oh no...', '拒绝的请求失败!', 'error');
+                        }
+                        console.log(data);
+                    },
+                    error: function (data) {
+                        swal('Oh no...', '拒绝的请求异常!', 'error');
+                        console.log(data);
                     }
-                    console.log(data);
-                },
-                error: function (data) {
-                    alert("审核异常");
-                    console.log(data);
-                }
-            });
-        }
+                });
+
+            }
+        })
+
     }
 
     /**

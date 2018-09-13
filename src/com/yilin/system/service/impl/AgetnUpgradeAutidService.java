@@ -62,7 +62,7 @@ public class AgetnUpgradeAutidService implements IAgentUpgradeService {
 
     @Override
     public void audit(int id, byte status,int userId,int level,int serise) throws Exception {
-        if(status == 1){
+        if(status == 2){
             userRoleMapper.updateLevel(userId,serise,level);
         }
         agentUpgradeMapper.updateStatus(id,status);
