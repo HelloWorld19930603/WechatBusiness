@@ -1,10 +1,7 @@
 package com.yilin.system.controller;
 
 import com.yilin.app.common.JuHelogistics;
-import com.yilin.app.domain.Address;
-import com.yilin.app.domain.Logistics;
-import com.yilin.app.domain.Orders;
-import com.yilin.app.domain.UserRole;
+import com.yilin.app.domain.*;
 import com.yilin.app.service.IAddressService;
 import com.yilin.app.service.IOrderService;
 import com.yilin.app.service.IRoleService;
@@ -164,5 +161,15 @@ public class OrderController {
         return "editOrder";
     }
 
-
+    @RequestMapping("reviewCode")
+    @ResponseBody
+    public Object reviewCode(OrderComm orderComm) {
+        try {
+            orderService.editOrderComm(orderComm);
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 1;
+        }
+    }
 }
