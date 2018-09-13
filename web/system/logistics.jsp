@@ -79,12 +79,13 @@
     }
 
     .result-list li .col1 {
-        width: 5rem;
+        width: 7rem;
         padding: 0 0.5rem;
         text-align: center;
-        font-size: 0.875rem;
+        font-size: 0.975rem;
         font-weight: bold;
         font-family: Helvetica, Arial, sans-serif;
+
     }
 
     .result-list li .col1, .result-list li .col2, .result-list li .col3 {
@@ -214,7 +215,7 @@
                                 <fieldset title="订单商品列表">
                                     <legend></legend>
                                     <div class="col-sm-2"></div>
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-10">
                                         <section class="result-box" id="resultBox" hidden="" style="margin-top: 2rem; display: block;">
 
                                                 <div class="com-info">快递公司：<span class="info1" id="showName">${logistics.company}</span>

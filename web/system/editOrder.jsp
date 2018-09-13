@@ -90,7 +90,7 @@
                                                             <td>余额支付</td>
                                                             <td>${order.totals}</td>
                                                             <td class="status">${order.status}</td>
-                                                            <td><a href="#" onclick="updateTotals(${order.status})">修改价格</a></td>
+                                                            <td><div class="btn btn-info" onclick="updateTotals(${order.status})">修改价格</div></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -128,7 +128,7 @@
                                                             <td>${address.phone}</td>
                                                             <td>${address.ssq}</td>
                                                             <td>${address.addr}</td>
-                                                            <td><a href="#" onclick="updateAddress()">修改</a></td>
+                                                            <td><div  class="btn btn-info" onclick="updateAddress()">修改地址</div></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -159,6 +159,8 @@
                                                         <th>商品规格</th>
                                                         <th>数量</th>
                                                         <th>小计</th>
+                                                        <th>追溯码</th>
+                                                        <th>操作</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -170,6 +172,8 @@
                                                         <td>${comm.scale}</td>
                                                         <td>${comm.num}<c:if test="${userRole.roleId == 1 || userRole.roleId == 2}">(箱）</c:if><c:if test="${userRole.roleId != 1 && userRole.roleId != 2}">(盒）</c:if></td>
                                                         <td>${comm.aPrice}</td>
+                                                        <td class="code${comm.commId}">${comm.code}</td>
+                                                        <td><div  class="btn btn-info" onclick="reviewCode('${order.id}',${comm.commId})">扫码</div></td>
                                                     </tr>
                                                     </c:forEach>
                                                     </tbody>
@@ -189,7 +193,7 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-1 control-label">留言</label>
                                                         <div class="col-sm-7">
-                                                            <textarea rows="6" class="form-control">${description}</textarea>
+                                                            <textarea rows="4" class="form-control">${description}</textarea>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -208,18 +212,19 @@
                                 <a href="javascript:;" class="fa fa-times"></a>
                              </span>
                                             </header>
+                                            <div class="panel-body">
                                             <div class="form-group" style="margin-top: 5px;">
 
-                                                <label class="col-md-1 control-label span3">物流公司：</label>
-                                                <div class="col-md-3">
+                                                <label class="col-md-1 control-label span3" for="div1">&nbsp;&nbsp;物流公司：</label>
+                                                <div class="col-md-3" id="div1">
 
                                                     <select class="form-control m-bot15" id = "com">
 
                                                     </select>
                                                 </div>
                                                 <label class="col-md-1 control-label span3"></label>
-                                                <label class="col-md-1 control-label span3">物流单号：</label>
-                                                <div class="col-md-3">
+                                                <label class="col-md-1 control-label span3" for="div2">&nbsp;&nbsp;物流单号：</label>
+                                                <div class="col-md-3" id="div2">
                                                     <input type="text" id="no" placeholder="物流单号" class="form-control"
                                                            value="${order.no}">
                                                 </div>
@@ -228,6 +233,7 @@
                                                             提交
                                                         </button>
                                                 </div>
+                                            </div>
                                             </div>
                                         </section>
                                     </div>
@@ -481,5 +487,50 @@
         })
     }
 
+    function reviewCode(orderId,commId) {
+        swal({
+            title: '请输入商品追溯码',
+            input: 'text',
+            showCancelButton: true,
+            animation: "slide-from-top",
+            inputValidator: function(value) {
+                return new Promise(function(resolve, reject) {
+                    resolve();
+                });
+            }
+        }).then(function(result) {
+            if (result) {
+                $.ajax({
+                    //几个参数需要注意一下
+                    type: "POST",//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: "/reviewCode.do" ,//url
+                    data: "commId="+commId+"&orderId="+orderId+"&code="+result,
+                    success: function (data) {
+                        console.log(data);//打印服务端返回的数据(调试用)
+                        if (data == 0) {
+                            swal({
+                                type: 'success',
+                                html: '您提交的追溯码为: ' + result
+                            });
+                            $(".code"+commId).text(result);
+                        }else {
+                            swal({
+                                type: 'warning',
+                                html: '提交失败'
+                            });
+                        }
+                    },
+                    error : function() {
+                        swal({
+                            type: 'warning',
+                            html: '提交异常'
+                        });
+                    }
+                })
+
+            }
+        })
+    }
 
 </script>

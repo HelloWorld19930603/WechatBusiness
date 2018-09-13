@@ -49,7 +49,7 @@
                 <ul class="sub-menu-list">
                     <li class="commodity"><a href="/commodity.do"> 商品管理</a></li>
                     <li class="addCommodity"><a href="/addCommodity.do"> 添加商品</a></li>
-                    <%--<li class=""><a href="/addCommodity.do"> 商品追溯</a></li>--%>
+                    <li class="traceability"><a href="traceability.do"> 商品追溯</a></li>
 
                 </ul>
             </li>
