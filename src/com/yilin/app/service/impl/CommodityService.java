@@ -110,8 +110,8 @@ public class CommodityService implements ICommodityService {
     public List<Commodity> selectRecommend(Integer userId) throws Exception {
         Map<String,Object> map = new HashMap<>();
         map.put("userId",userId);
-        map.put("start",5);
-        map.put("pageSize",5);
+        map.put("start",0);
+        map.put("type",3);
         return commodityMapper.selectPage(map);
     }
 
