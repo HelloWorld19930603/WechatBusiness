@@ -10,7 +10,6 @@ import com.yilin.app.mapper.*;
 import com.yilin.app.service.IOrderService;
 import com.yilin.app.utils.OrderNumberBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -68,6 +67,12 @@ public class OrderService implements IOrderService {
     public void editOrder(Orders orders) throws Exception {
 
         ordersMapper.updateByPrimaryKeySelective(orders);
+    }
+
+    @Override
+    public void editOrderComm(OrderComm orderComm) throws Exception {
+
+        orderCommMapper.updateByPrimaryKeySelective(orderComm);
     }
 
 

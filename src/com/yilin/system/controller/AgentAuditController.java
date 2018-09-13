@@ -88,7 +88,7 @@ public class AgentAuditController {
         agent.setSerise(serise);
         agent.setName(applyName);
         agent.setDescription(description);
-        agent.setStatus((byte) 0);
+        agent.setStatus((byte) 1);
         agent.setTime(new Date());
 
         try {
