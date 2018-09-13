@@ -135,4 +135,9 @@ public class CommodityService implements ICommodityService {
     public void updateDetail(CommDetail detail1) throws Exception {
         commDetailMapper.updateByPrimaryKeySelective(detail1);
     }
+
+    @Override
+    public Map selectByCode(String code) throws Exception {
+        return commodityMapper.selectByCode(code);
+    }
 }

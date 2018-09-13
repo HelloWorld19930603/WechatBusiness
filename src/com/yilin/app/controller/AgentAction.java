@@ -119,7 +119,7 @@ public class AgentAction {
         agentUpgrade.setName(name);
         agentUpgrade.setApplyLevel(applyLev);
         agentUpgrade.setSerise(serise);
-        agentUpgrade.setStatus((byte)0);
+        agentUpgrade.setStatus((byte)1);
         agentUpgrade.setCurrentLevel(currentLev);
         agentUpgrade.setTime(new Date());
         String url = null;

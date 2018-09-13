@@ -5,6 +5,7 @@ import com.yilin.app.domain.CommDetail;
 import com.yilin.app.domain.Commodity;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cc on 2018/7/17.
@@ -41,4 +42,6 @@ public interface ICommodityService {
     void updateOne(Commodity commodity) throws Exception;
 
     void updateDetail(CommDetail detail1)throws Exception;
+
+    Map selectByCode(String code)throws Exception;
 }

@@ -9,6 +9,8 @@ public class OrderComm {
 
     private Float price;
 
+    private String code;
+
     public String getOrderId() {
         return orderId;
     }
@@ -39,5 +41,13 @@ public class OrderComm {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code == null ? null : code.trim();
     }
 }

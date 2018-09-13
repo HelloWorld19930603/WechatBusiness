@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yilin.app.mapper.OrderCommMapper">
-  <resultMap id="BaseResultMap" type="com.yilin.app.domain.OrderComm">
-    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
-    <result column="comm_id" jdbcType="INTEGER" property="commId" />
-    <result column="num" jdbcType="INTEGER" property="num" />
-    <result column="price" jdbcType="REAL" property="price" />
-  </resultMap>
   <resultMap id="PageMap" type="HashMap">
     <result column="comm_id" jdbcType="INTEGER" property="commId" />
     <result column="name" jdbcType="VARCHAR" property="commName" />
@@ -16,15 +10,49 @@
     <result column="aPrice" jdbcType="REAL" property="aPrice" />
     <result column="mPrice" jdbcType="REAL" property="mPrice" />
     <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
   </resultMap>
 
+  <resultMap id="PageMap" type="HashMap">
+    <result column="comm_id" jdbcType="INTEGER" property="commId" />
+    <result column="name" jdbcType="VARCHAR" property="commName" />
+    <result column="e_name" jdbcType="VARCHAR" property="eName" />
+    <result column="scale" jdbcType="VARCHAR" property="scale" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="aPrice" jdbcType="REAL" property="aPrice" />
+    <result column="mPrice" jdbcType="REAL" property="mPrice" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+  </resultMap>
+
+  <resultMap id="BaseResultMap" type="com.yilin.app.domain.OrderComm">
+    <id column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <id column="comm_id" jdbcType="INTEGER" property="commId" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_id, comm_id, num, price, code
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.yilin.app.domain.OrderComm" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from order_comm
+    where order_id = #{orderId,jdbcType=VARCHAR}
+    and comm_id = #{commId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.yilin.app.domain.OrderComm">
+    delete from order_comm
+    where order_id = #{orderId,jdbcType=VARCHAR}
+    and comm_id = #{commId,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.yilin.app.domain.OrderComm">
     insert into order_comm (order_id, comm_id, num,
-    price)
+    price, code)
     values (#{orderId,jdbcType=VARCHAR}, #{commId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER},
-    #{price,jdbcType=REAL})
+    #{price,jdbcType=REAL}, #{code,jdbcType=VARCHAR})
   </insert>
-
   <insert id="insertSelective" parameterType="com.yilin.app.domain.OrderComm">
     insert into order_comm
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -40,6 +68,9 @@
       <if test="price != null">
         price,
       </if>
+      <if test="code != null">
+        code,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
@@ -54,11 +85,38 @@
       <if test="price != null">
         #{price,jdbcType=REAL},
       </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.OrderComm">
+    update order_comm
+    <set>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=VARCHAR}
+    and comm_id = #{commId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.OrderComm">
+    update order_comm
+    set num = #{num,jdbcType=INTEGER},
+    price = #{price,jdbcType=REAL},
+    code = #{code,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=VARCHAR}
+    and comm_id = #{commId,jdbcType=INTEGER}
+  </update>
 
   <select id="selectList" parameterType="map" resultMap="PageMap">
-      SELECT oc.comm_id,name,oc.num,oc.price aPrice,m.price mPrice,a.price aPrice,scale,img,e_name
+      SELECT oc.comm_id,name,oc.num,oc.price aPrice,m.price mPrice,a.price aPrice,scale,img,e_name,code
       from order_comm oc
       LEFT JOIN commodity c on c.id = comm_id
       left join orders o on o.id = #{orderId}
