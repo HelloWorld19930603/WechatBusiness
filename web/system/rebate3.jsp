@@ -63,14 +63,17 @@
             <section class="search-area panel">
                 <input type="hidden" name="serise" value="1">
                 <div class="sa-ele">
-                    <label class="se-title">返利名称:</label>
+                    <label class="se-title">经销商名称:</label>
                     <input class="se-con" name="name"/>
+                    <input class="se-con" name="serise" value="3" type="hidden"/>
                 </div>
                 <div class="sa-ele">
-                    <label class="se-title">系列:</label>
-                    <select class="se-con" name="serise">
-                        <option value="-1">请选择</option>
-                        <!--通过js增加-->
+                    <label class="se-title">返利类型:</label>
+                    <select class="se-con" name="type">
+                        <option value="">请选择</option>
+                        <option value="1">推荐董事返利</option>
+                        <option value="2">推荐创始人返利</option>
+                        <option value="3">推荐合伙人返利</option>
                     </select>
                 </div>
 
@@ -110,7 +113,7 @@
 
 
 <!--common scripts for all pages-->
-<script src="js/scripts.js"></script>
+<script src="/js/scripts.js"></script>
 
 
 
@@ -121,11 +124,6 @@
 <script type="text/javascript">
     $(".${active}").addClass("active");
     $(".${active}").parents("li").addClass("nav-active");
-    const TYPE_MAP = {
-        '1': '格丽缇',
-        '2': 'Utomorrow',
-        '3': 'Pslady'
-    };
 
     // GridManager 渲染
     var table = document.querySelector('table');
@@ -143,7 +141,7 @@
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
             ,ajax_data: function () {
-                return '/getRebateRules.do';
+                return '/getRebates.do';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
             ,ajax_type: 'POST'
@@ -154,7 +152,7 @@
             ,ajax_error: function(error){
                 console.log('ajax_error');
             }
-            ,query: {serise: -1}
+            ,query: {serise: 3}
             ,dataKey: 'list'  // 注意: 这里是用来测试responseHandler 是否生效; 数据本身返回为data, 而在这里我把数据名模拟为list, 再通过responseHandler去更改
             ,pageSize:10
 
@@ -178,77 +176,108 @@
                 {
                     key: 'name',
                     remind: 'the pic',
-                    width: '130px',
+                    width: '100px',
                     align: 'center',
-                    text: '返利名称',
+                    text: '经销商名称',
                     template: function(name, rowObject) {
 
                         return name;
                     }
                 },
                 {
-                    key: 'serise',
+                    key: 'level',
                     remind: 'the pic',
-                    width: '130px',
+                    width: '80px',
                     align: 'center',
-                    text: '系列',
-                    template: function(serise, rowObject) {
-
-                        return serise;
+                    text: '级别',
+                    template: function(level, rowObject) {
+                        return ROLE_MAP[rowObject.serise-1][level];
                     }
                 },
                 {
-                    key: 'roleId',
+                    key: 'phone',
                     remind: 'the pic',
-                    width: '130px',
+                    width: '110px',
                     align: 'center',
-                    text: '返利等级',
-                    template: function(roleId, rowObject) {
+                    text: '电话',
+                    template: function(phone, rowObject) {
 
-                        return roleId;
+                        return phone;
+                    }
+                },{
+                    key: 'type',
+                    remind: 'the pic',
+                    width: '110px',
+                    align: 'center',
+                    text: '返利类型',
+                    template: function(type, rowObject) {
+
+                        return type;
+                    }
+                },{
+                    key: 'ratio',
+                    remind: 'the title',
+                    align: 'center',
+                    width: '80px',
+                    text: '返利比例',
+                    sorting: '',
+                    template: function(ratio, rowObject) {
+
+                        return ratio+'%';
+                    }
+                },{
+                    key: 'money',
+                    remind: 'the title',
+                    align: 'center',
+                    width: '100px',
+                    text: '返利金额',
+                    sorting: '',
+                    template: function(money, rowObject) {
+
+                        return money;
+                    }
+                },{
+                    key: 'operator',
+                    remind: 'the title',
+                    align: 'center',
+                    width: '80px',
+                    text: '操作人编号',
+                    sorting: '',
+                    template: function(operator, rowObject) {
+
+                        return operator;
+                    }
+                },{
+                    key: 'sName',
+                    remind: 'the title',
+                    align: 'center',
+                    width: '90px',
+                    text: '操作人名称',
+                    sorting: '',
+                    template: function(sName, rowObject) {
+
+                        return sName;
+                    }
+                }, {
+                    key: 'time',
+                    remind: 'the createDate',
+                    width: '110px',
+                    align: 'center',
+                    text: '返利时间',
+                    sorting: 'DESC',
+                    // 使用函数返回 htmlString
+                    template: function (time, rowObject) {
+                        return dateFtt("yyyy-MM-dd hh:mm:ss",new Date(time));
                     }
                 }
-                ,
-                {
-                    key: 'first',
-                    remind: 'the pic',
-                    width: '130px',
-                    align: 'center',
-                    text: '一级返利比例',
-                    template: function(first, rowObject) {
-
-                        return first;
-                    }
-                },{
-                    key: 'second',
-                    remind: 'the title',
-                    align: 'center',
-                    width: '120px',
-                    text: '二级返利比例',
-                    sorting: '',
-                    template: function(second, rowObject) {
-
-                        return second;
-                    }
-                },{
-                    key: 'description',
-                    remind: 'the title',
-                    align: 'center',
-                    width: '120px',
-                    text: '返利说明',
-                    sorting: '',
-                    template: function(description, rowObject) {
-
-                        return description;
-                    }
-                },{
+                /*,{
                     key: 'action',
                     remind: 'the action',
                     width: '110px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     template: '<span class="plugin-action" gm-click="editRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
-                }
+                }*/
             ]
             // 排序后事件
             ,sortingAfter: function (data) {
@@ -291,19 +320,13 @@
      * 提供demo中的搜索, 重置
      */
     (function(){
-        var typeSelect2 = document.querySelector('.search-area select[name="serise"]');
 
-        for(var key in TYPE_MAP){
-            var option = document.createElement('option');
-            option.value = key;
-            option.innerText = TYPE_MAP[key];
-            typeSelect2.appendChild(option);
-        }
         // 绑定搜索事件
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
                 name: document.querySelector('[name="name"]').value,
-                serise: document.querySelector('[name="serise"]').value,
+                type: document.querySelector('[name="type"]').value,
+                serise: 3,
                 index: 1
             };
             table.GM('setQuery', _query, function(){
@@ -314,11 +337,11 @@
         // 绑定重置
         document.querySelector('.reset-action').addEventListener('click', function () {
             document.querySelector('[name="name"]').value = '';
-            document.querySelector('[name="serise"]').value = '-1';
+            document.querySelector('[name="type"]').value = '';
         });
 
         $("#editable-sample_new").click(function () {
-            window.open("/addRebateRule.do");
+            window.open("/addRebate.do?serise=3");
         })
     })();
 

@@ -113,6 +113,12 @@ public class DealerController {
         return page;
     }
 
+    @RequestMapping("getUsersByRole")
+    @ResponseBody
+    public Object getUsers(Byte serise,int roleId,Byte status) throws Exception {
+        List<Map<String,Object>> data = userService.selectByRole(serise,roleId,status);
+        return data;
+    }
 
     @RequestMapping("updateStatus")
     @ResponseBody

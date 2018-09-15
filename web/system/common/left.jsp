@@ -18,9 +18,9 @@
 
             <li class="menu-list"><a href=""><i class="fa fa-users"></i> <span>经销商</span></a>
                 <ul class="sub-menu-list">
-                    <li class="dealer1"><a href="/dealer1.do"> 格丽缇</a></li>
-                    <li class="dealer2"><a href="/dealer2.do"> Utomorrow</a></li>
-                    <li class="dealer3"><a href="/dealer3.do"> Pslady</a></li>
+                    <li class="dealer1"><a href="/dealer1.do"> 格丽缇经销商</a></li>
+                    <li class="dealer2"><a href="/dealer2.do"> Utomorrow经销商</a></li>
+                    <li class="dealer3"><a href="/dealer3.do"> Pslady经销商</a></li>
                 </ul>
             </li>
             <li class="menu-list"><a href=""><i class="fa fa-file-text"></i> <span>订单</span></a>
@@ -55,8 +55,9 @@
             </li>
             <li class="menu-list"><a href=""><i class="fa fa-jpy"></i> <span>返利</span></a>
                 <ul class="sub-menu-list">
-                    <li class="rebateRule"><a href="/rebateRule.do"> 返利详情</a></li>
-                    <li class="addRebateRule"><a href="/addRebateRule.do"> 添加规则</a></li>
+                    <li class="rebate1"><a href="/rebate1.do"> 格丽缇返利</a></li>
+                    <li class="rebate2"><a href="/rebate2.do"> Utomorrow返利</a></li>
+                    <li class="rebate3"><a href="/rebate3.do"> Pslady返利</a></li>
 
                 </ul>
             </li>

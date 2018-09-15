@@ -165,4 +165,13 @@ public class UserService implements IUserService {
         }
         return "";
     }
+
+    @Override
+    public List<Map<String, Object>> selectByRole(Byte serise, int roleId, Byte status) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("serise",serise);
+        map.put("roleId",roleId);
+        map.put("status",status);
+        return userMapper.selectByRole(map);
+    }
 }

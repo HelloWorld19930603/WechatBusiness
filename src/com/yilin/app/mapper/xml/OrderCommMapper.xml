@@ -13,17 +13,6 @@
     <result column="code" jdbcType="VARCHAR" property="code" />
   </resultMap>
 
-  <resultMap id="PageMap" type="HashMap">
-    <result column="comm_id" jdbcType="INTEGER" property="commId" />
-    <result column="name" jdbcType="VARCHAR" property="commName" />
-    <result column="e_name" jdbcType="VARCHAR" property="eName" />
-    <result column="scale" jdbcType="VARCHAR" property="scale" />
-    <result column="img" jdbcType="VARCHAR" property="img" />
-    <result column="aPrice" jdbcType="REAL" property="aPrice" />
-    <result column="mPrice" jdbcType="REAL" property="mPrice" />
-    <result column="num" jdbcType="INTEGER" property="num" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
-  </resultMap>
 
   <resultMap id="BaseResultMap" type="com.yilin.app.domain.OrderComm">
     <id column="order_id" jdbcType="VARCHAR" property="orderId" />

@@ -178,11 +178,11 @@
         });
 
         $("#finished").click(function (e) {
-            saveCommodity();
+            savePoster();
         });
     })
     //方式一 Jquery实现
-    function saveCommodity() {
+    function savePoster() {
 
         var name = $("#name").val().trim();
         var page = $("#page").val().trim();

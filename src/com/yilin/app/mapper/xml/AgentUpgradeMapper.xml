@@ -156,7 +156,7 @@
   <select id="selectList" parameterType="map" resultMap="BaseResultMap">
     SELECT     a.id, user_id, current_level, apply_level, a.name, voucher, a.descript, a.status, a.serise,
     a.time,u.phone from agentupgrade a
-    LEFT JOIN user u on user_id = u.id
+    LEFT JOIN user u on a.user_id = u.id
     where 1=1
     <if test="status != null">
       and a.status = #{status}

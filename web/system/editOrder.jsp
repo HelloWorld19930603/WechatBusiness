@@ -124,10 +124,10 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td>${address.name}</td>
-                                                            <td>${address.phone}</td>
-                                                            <td>${address.ssq}</td>
-                                                            <td>${address.addr}</td>
+                                                            <td>${order.addr_name}</td>
+                                                            <td>${order.phone}</td>
+                                                            <td>${order.ssq}</td>
+                                                            <td>${order.addr}</td>
                                                             <td><div  class="btn btn-info" onclick="updateAddress()">修改地址</div></td>
                                                         </tr>
                                                     </tbody>
@@ -428,13 +428,14 @@
             title: '收货人信息',
             showCancelButton: true,
             animation: "slide-from-top",
+            confirmButtonText: '确认',
+            cancelButtonText:'取消',
             html:
-            '收货人名称<input id="swal-input1" class="swal2-input" autofocus value=${address.name}>' +
-            '收货人电话<input id="swal-input2" class="swal2-input" value=${address.phone}>' +
-            '所在省市区<input id="swal-input3" class="swal2-input" value=${address.ssq}>' +
-            '详细地址<input id="swal-input4" class="swal2-input" value=${address.addr}>' +
-            '<input id="swal-input5" class="swal2-input" type="hidden" value="${address.id}">'+
-            '<input id="swal-input6" class="swal2-input" type="hidden" value="${address.userId}">',
+            '收货人名称<input id="swal-input1" class="swal2-input" autofocus value=${order.addrName}>' +
+            '收货人电话<input id="swal-input2" class="swal2-input" value=${order.phone}>' +
+            '所在省市区<input id="swal-input3" class="swal2-input" value=${order.ssq}>' +
+            '详细地址<input id="swal-input4" class="swal2-input" value=${order.addr}>' +
+            '<input id="swal-input5" class="swal2-input" type="hidden" value="${order.id}">',
             preConfirm: function(result) {
                 return new Promise(function(resolve) {
                     if (result) {
@@ -464,7 +465,7 @@
                 type: "POST",//方法类型
                 dataType: "json",//预期服务器返回的数据类型
                 url: "/editAddress.do" ,//url
-                data: "name="+result[0]+"&phone="+result[1]+"&ssq="+result[2]+"&addr="+result[3]+"&id="+result[4]+"&userId="+result[5],
+                data: "addrName="+result[0]+"&phone="+result[1]+"&ssq="+result[2]+"&addr="+result[3]+"&id="+result[4],
                 success: function (data) {
                     console.log(data);//打印服务端返回的数据(调试用)
                     if (data == 0) {
@@ -493,6 +494,8 @@
             input: 'text',
             showCancelButton: true,
             animation: "slide-from-top",
+            confirmButtonText: '确认',
+            cancelButtonText:'取消',
             inputValidator: function(value) {
                 return new Promise(function(resolve, reject) {
                     resolve();

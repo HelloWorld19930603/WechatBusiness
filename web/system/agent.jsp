@@ -135,32 +135,6 @@
     $(".${active}").addClass("active");
     $(".${active}").parents("li").addClass("nav-active");
 
-    const ROLE_MAP = [{
-        '1': '股东',
-        '2': '联创',
-        '3': '执行董事',
-        '4': '官方',
-        '5': '总代理',
-        '6': '一级代理',
-        '7': '二级代理',
-        '8': '特约'
-    },{
-        '1': '股东',
-        '2': '合伙人',
-        '3': '经理',
-        '4': '执行董事',
-        '5': '官方',
-        '6': '总代',
-        '7': '体验'
-    },{
-        '1': '股东',
-        '2': '合伙人',
-        '3': '执行董事',
-        '4': '官方',
-        '5': '总代理',
-        '6': '一级代理',
-        '7': '体验'
-    }];
     // GridManager 渲染
     var table = document.querySelector('table');
     function init() {
@@ -270,7 +244,7 @@
                     sorting: '',
                     // 使用函数返回 dom node
                     template: function(applyLevel, rowObject) {
-                        return  ROLE_MAP[rowObject.serise][applyLevel];
+                        return  ROLE_MAP[rowObject.serise-1][applyLevel];
                     }
                 },{
                     key: 'serise',
@@ -328,9 +302,9 @@
             ,sortingAfter: function (data) {
                 console.log('sortAfter', data);
             }
-        }, function(query){
+        }, function(){
             // 渲染完成后的回调函数
-            console.log('渲染完成后的回调函数:', query);
+            console.log('渲染完成后的回调函数:', "query");
         });
     }
 

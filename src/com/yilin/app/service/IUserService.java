@@ -38,4 +38,6 @@ public interface IUserService {
     List<Map<String,Object>> selectTeam(int serise, int userId)throws Exception;
 
     String switchRole(int serise, int roleId);
+
+    List<Map<String,Object>> selectByRole(Byte serise, int roleId, Byte status);
 }

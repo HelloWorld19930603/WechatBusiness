@@ -30,19 +30,7 @@
 
 
 </style>
-<script>
-    const TYPE_MAP = {
-        '1': '股东',
-        '2': '联创',
-        '3': '执行董事',
-        '4': '官方',
-        '5': '总代理',
-        '6': '一级代理',
-        '7': '二级代理',
-        '8': '特约'
-    };
 
-</script>
 <body class="sticky-header">
 
 <section>
@@ -62,8 +50,9 @@
 
             <ul class="breadcrumb">
                 <li>
-                    <a href="#">系统管理</a>
+                    <a href="#">返利</a>
                 </li>
+                <li class="active"> 返利详情</li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -74,13 +63,20 @@
             <section class="search-area panel">
                 <input type="hidden" name="serise" value="1">
                 <div class="sa-ele">
-                    <label class="se-title">管理员名称:</label>
+                    <label class="se-title">经销商名称:</label>
                     <input class="se-con" name="name"/>
+                    <input class="se-con" name="serise" value="2" type="hidden"/>
                 </div>
                 <div class="sa-ele">
-                    <label class="se-title">管理员账号:</label>
-                    <input class="se-con" name="loginName"/>
+                    <label class="se-title">返利类型:</label>
+                    <select class="se-con" name="type">
+                        <option value="">请选择</option>
+                        <option value="1">推荐董事返利</option>
+                        <option value="2">推荐创始人返利</option>
+                        <option value="3">推荐合伙人返利</option>
+                    </select>
                 </div>
+
                 <div class="sa-ele">
                     <button class="search-action">搜索</button>
                     <button class="reset-action">重置</button>
@@ -129,7 +125,6 @@
     $(".${active}").addClass("active");
     $(".${active}").parents("li").addClass("nav-active");
 
-
     // GridManager 渲染
     var table = document.querySelector('table');
     function init() {
@@ -146,7 +141,7 @@
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
             ,ajax_data: function () {
-                return '/getSystemUsers.do';
+                return '/getRebates.do';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
             ,ajax_type: 'POST'
@@ -157,7 +152,7 @@
             ,ajax_error: function(error){
                 console.log('ajax_error');
             }
-            ,query: {serise: 1}
+            ,query: {serise: 2}
             ,dataKey: 'list'  // 注意: 这里是用来测试responseHandler 是否生效; 数据本身返回为data, 而在这里我把数据名模拟为list, 再通过responseHandler去更改
             ,pageSize:10
 
@@ -179,68 +174,110 @@
             }
             ,columnData: [
                 {
-                    key: 'id',
-                    remind: 'the id',
-                    width: '100px',
-                    align: 'center',
-                    text: '编号',
-                    // 使用函数返回 dom node
-                    template: function(id, rowObject) {
-
-                        return id;
-                    }
-                },
-                {
                     key: 'name',
                     remind: 'the pic',
-                    width: '130px',
+                    width: '100px',
                     align: 'center',
-                    text: '管理员名称',
-                    // 使用函数返回 dom node
-                    template: function(loginName, rowObject) {
-
-                        return loginName;
-                    }
-                },{
-                    key: 'loginName',
-                    remind: 'the title',
-                    align: 'center',
-                    width: '120px',
-                    text: '管理员账号',
-                    sorting: '',
-                    // 使用函数返回 dom node
+                    text: '经销商名称',
                     template: function(name, rowObject) {
 
                         return name;
                     }
-                },{
-                    key: 'phone',
-                    remind: 'the info',
-                    text: '手机号',
-                    isShow: false
-                },{
-                    key: 'loginTime',
-                    remind: 'the createDate',
-                    width: '100px',
+                },
+                {
+                    key: 'level',
+                    remind: 'the pic',
+                    width: '80px',
                     align: 'center',
-                    text: '最近登录时间',
-                    sorting: 'DESC',
-                    // 使用函数返回 htmlString
-                    template: function(loginTime, rowObject){
-                        if(loginTime == null){
-                            return "";
-                        }
-                        return (new Date(loginTime)).Format("yyyy-MM-dd hh:mm:ss");
+                    text: '级别',
+                    template: function(level, rowObject) {
+                        return ROLE_MAP[rowObject.serise-1][level];
+                    }
+                },
+                {
+                    key: 'phone',
+                    remind: 'the pic',
+                    width: '110px',
+                    align: 'center',
+                    text: '电话',
+                    template: function(phone, rowObject) {
+
+                        return phone;
                     }
                 },{
+                    key: 'type',
+                    remind: 'the pic',
+                    width: '110px',
+                    align: 'center',
+                    text: '返利类型',
+                    template: function(type, rowObject) {
+
+                        return type;
+                    }
+                },{
+                    key: 'ratio',
+                    remind: 'the title',
+                    align: 'center',
+                    width: '80px',
+                    text: '返利比例',
+                    sorting: '',
+                    template: function(ratio, rowObject) {
+
+                        return ratio+'%';
+                    }
+                },{
+                    key: 'money',
+                    remind: 'the title',
+                    align: 'center',
+                    width: '100px',
+                    text: '返利金额',
+                    sorting: '',
+                    template: function(money, rowObject) {
+
+                        return money;
+                    }
+                },{
+                    key: 'operator',
+                    remind: 'the title',
+                    align: 'center',
+                    width: '80px',
+                    text: '操作人编号',
+                    sorting: '',
+                    template: function(operator, rowObject) {
+
+                        return operator;
+                    }
+                },{
+                    key: 'sName',
+                    remind: 'the title',
+                    align: 'center',
+                    width: '90px',
+                    text: '操作人名称',
+                    sorting: '',
+                    template: function(sName, rowObject) {
+
+                        return sName;
+                    }
+                }, {
+                    key: 'time',
+                    remind: 'the createDate',
+                    width: '110px',
+                    align: 'center',
+                    text: '返利时间',
+                    sorting: 'DESC',
+                    // 使用函数返回 htmlString
+                    template: function (time, rowObject) {
+                        return dateFtt("yyyy-MM-dd hh:mm:ss",new Date(time));
+                    }
+                }
+                /*,{
                     key: 'action',
                     remind: 'the action',
                     width: '110px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
-                    // 直接返回 htmlString
-                    template: '<span class="plugin-action" gm-click="delectRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
-                }
+                    template: '<span class="plugin-action" gm-click="editRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
+                }*/
             ]
             // 排序后事件
             ,sortingAfter: function (data) {
@@ -252,29 +289,12 @@
         });
     }
 
-    // 删除功能
-    function delectRowData(rowData){
+    function editRowData(rowData){
         // 执行删除操作
-        if(window.confirm('确认要删除['+rowData.name+']?')){
-            $.ajax({
-                url: "/removeSystemUser.do?id="+rowData.id,
-                type: "get",
-                success: function (data) {
-                    alert("删除成功");
-                    console.log(data);
-                },
-                error: function (data) {
-                    alert("删除失败");
-                    console.log(data);
-                }
-            });
+        if(window.confirm('确认要修改['+rowData.name+']?')){
+
         }
     }
-
-    /**
-     * 渲染用户级别
-     */
-
 
     /**
      * 提供demo中的搜索, 重置
@@ -285,7 +305,8 @@
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
                 name: document.querySelector('[name="name"]').value,
-                loginName: document.querySelector('[name="loginName"]').value,
+                type: document.querySelector('[name="type"]').value,
+                serise: 2,
                 index: 1
             };
             table.GM('setQuery', _query, function(){
@@ -296,35 +317,15 @@
         // 绑定重置
         document.querySelector('.reset-action').addEventListener('click', function () {
             document.querySelector('[name="name"]').value = '';
-            document.querySelector('[name="code"]').value = '';
+            document.querySelector('[name="type"]').value = '';
         });
 
         $("#editable-sample_new").click(function () {
-            window.open("/addSystemUser.do");
+            window.open("/addRebate.do?serise=2");
         })
     })();
 
     (function(){
         init();
     })();
-
-
-    Date.prototype.Format = function(fmt)
-    { //author: meizz
-        var o = {
-            "M+" : this.getMonth()+1,                 //月份
-            "d+" : this.getDate(),                    //日
-            "h+" : this.getHours(),                   //小时
-            "m+" : this.getMinutes(),                 //分
-            "s+" : this.getSeconds(),                 //秒
-            "q+" : Math.floor((this.getMonth()+3)/3), //季度
-            "S"  : this.getMilliseconds()             //毫秒
-        };
-        if(/(y+)/.test(fmt))
-            fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
-        for(var k in o)
-            if(new RegExp("("+ k +")").test(fmt))
-                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
-        return fmt;
-    }
 </script>
