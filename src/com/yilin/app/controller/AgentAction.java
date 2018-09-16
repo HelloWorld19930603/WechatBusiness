@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +39,6 @@ public class AgentAction {
     IAgentUpgradeService agentUpgradeService;
 
 
-
     /**
      * 获取当前用户级别
      *
@@ -54,8 +52,8 @@ public class AgentAction {
         ResultJson result;
         try {
             int userId = Permission.getUserId(token);
-            int level = agentService.findLevel(userId,serise);
-            result = new ResultJson(true, "查询代理等级成功",level);
+            int level = agentService.findLevel(userId, serise);
+            result = new ResultJson(true, "查询代理等级成功", level);
         } catch (Exception e) {
             result = new ResultJson(false, "查询代理等级失败");
             e.printStackTrace();
@@ -68,7 +66,6 @@ public class AgentAction {
      * 查询订货价
      *
      * @param token
-
      * @return
      */
     @RequestMapping("findPrice")
@@ -78,12 +75,12 @@ public class AgentAction {
         try {
             Integer userId = Permission.getUserId(token);
             List<UserRole> list = roleService.selectRoles(userId);
-            Map<Integer,String> map = new HashMap<>();
-            String[] agent = {"glt","ut","ps"};
-            for(UserRole userRole : list){
-                map.put(userRole.getSerise(),"/images/home/agent/"+agent[userRole.getSerise()-1]+"/"+userRole.getRoleId()+".jpg");
+            Map<Integer, String> map = new HashMap<>();
+            String[] agent = {"glt", "ut", "ps"};
+            for (UserRole userRole : list) {
+                map.put(userRole.getSerise(), "/images/home/agent/" + agent[userRole.getSerise() - 1] + "/" + userRole.getRoleId() + ".jpg");
             }
-            result = new ResultJson(true, "查询订货价成功",map);
+            result = new ResultJson(true, "查询订货价成功", map);
         } catch (Exception e) {
             result = new ResultJson(false, "查询订货价失败");
             e.printStackTrace();
@@ -93,13 +90,13 @@ public class AgentAction {
 
     @RequestMapping("invitingAgent")
     @ResponseBody
-    public ResultJson invitingAgent(String token,String name,byte serise,int level) {
+    public ResultJson invitingAgent(String token, String name, byte serise, int level) {
         ResultJson result;
         try {
             UserInfo userInfo = Permission.getUserInfo(token);
-            String url = "http://www.twrzu.cn/invitingAgent.do?inviting="+userInfo.getId()
-                    +"&invitationName="+userInfo.getName()+"&applyName="+name+"&serise="+serise+"&level="+level;
-            result = new ResultJson(true, "成功",url);
+            String url = "http://www.twrzu.cn/invitingAgent.do?inviting=" + userInfo.getId()
+                    + "&invitationName=" + userInfo.getName() + "&applyName=" + name + "&serise=" + serise + "&level=" + level;
+            result = new ResultJson(true, "成功", url);
         } catch (Exception e) {
             result = new ResultJson(false, "失败");
             e.printStackTrace();
@@ -110,32 +107,27 @@ public class AgentAction {
 
     @RequestMapping("upgrade")
     @ResponseBody
-    public ResultJson upgrade(String token,String name, byte serise, int applyLev, int currentLev,
-                                 String description, @RequestParam(value = "voucher") MultipartFile voucher,
-                                 HttpServletRequest req) {
+    public ResultJson upgrade(String token, String name, byte serise, int applyLev, int currentLev,
+                              String description, @RequestParam(value = "voucher") MultipartFile voucher,
+                              HttpServletRequest req) {
         int userId = Permission.getUserId(token);
         AgentUpgrade agentUpgrade = new AgentUpgrade();
         agentUpgrade.setUserId(userId);
         agentUpgrade.setName(name);
         agentUpgrade.setApplyLevel(applyLev);
         agentUpgrade.setSerise(serise);
-        agentUpgrade.setStatus((byte)1);
+        agentUpgrade.setStatus((byte) 1);
         agentUpgrade.setCurrentLevel(currentLev);
         agentUpgrade.setTime(new Date());
-        String url = null;
         ResultJson result = new ResultJson(true, "提交申请成功");
         try {
-            url = PhotoUtil.photoUpload(voucher,"images/home/voucher/upgrade/",""+userId+System.currentTimeMillis(),req.getSession().getServletContext().getRealPath("/"));
-        } catch (IOException e) {
-            e.printStackTrace();
+            String url = PhotoUtil.photoUpload(voucher, "images/home/voucher/upgrade/", "" + userId + System.currentTimeMillis(), req.getSession().getServletContext().getRealPath("/"));
+            agentUpgrade.setDescript(description);
+            agentUpgrade.setVoucher(url);
+            agentUpgradeService.addOne(agentUpgrade);
         } catch (FileException e) {
             e.printStackTrace();
             result = new ResultJson(false, "图片上传异常");
-        }
-        agentUpgrade.setDescript(description);
-        agentUpgrade.setVoucher(url);
-        try {
-            agentUpgradeService.addOne(agentUpgrade);
         } catch (Exception e) {
             e.printStackTrace();
             result = new ResultJson(false, "申请失败");

@@ -99,9 +99,9 @@ public class DealerController {
             roleService.addOne(userRole);
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return 1;
         }
-        return 1;
+        return 0;
     }
 
     @RequestMapping("getUsers")

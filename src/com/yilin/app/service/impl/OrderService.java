@@ -161,8 +161,8 @@ public class OrderService implements IOrderService {
 
     @Override
     public void payOrder(String orderId, int userId, String type) throws AccountException {
-        byte oldStatus = ordersMapper.selectStatus(orderId);
-        if(oldStatus != 1){
+        Byte oldStatus = ordersMapper.selectStatus(orderId);
+        if(oldStatus ==null || oldStatus != 1){
             throw new AccountException("订单状态异常");
         }
         Map<String, Object> map = new HashMap<>();

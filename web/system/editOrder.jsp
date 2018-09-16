@@ -172,7 +172,7 @@
                                                         <td>${comm.scale}</td>
                                                         <td>${comm.num}<c:if test="${userRole.roleId == 1 || userRole.roleId == 2}">(箱）</c:if><c:if test="${userRole.roleId != 1 && userRole.roleId != 2}">(盒）</c:if></td>
                                                         <td>${comm.aPrice}</td>
-                                                        <td class="code${comm.commId}">${comm.code}</td>
+                                                        <td ><input type="text" value="${comm.code}" class="code${comm.commId}" onclick="reviewCode('${order.id}',${comm.commId})"/></td>
                                                         <td><div  class="btn btn-info" onclick="reviewCode('${order.id}',${comm.commId})">扫码</div></td>
                                                     </tr>
                                                     </c:forEach>
@@ -187,11 +187,17 @@
                                     <legend></legend>
                                     <div class="col-sm-12">
                                         <section class="panel">
-
+                                            <header class="panel-heading">
+                                                买家订单备注
+                                                <span class="tools pull-right">
+                                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                                <a href="javascript:;" class="fa fa-times"></a>
+                             </span>
+                                            </header>
                                             <div class="panel-body">
                                                 <form method="get" class="form-horizontal bucket-form">
                                                     <div class="form-group">
-                                                        <label class="col-sm-1 control-label">留言</label>
+                                                        <label class="col-sm-1 control-label"></label>
                                                         <div class="col-sm-7">
                                                             <textarea rows="4" class="form-control">${description}</textarea>
                                                         </div>
@@ -516,7 +522,7 @@
                                 type: 'success',
                                 html: '您提交的追溯码为: ' + result
                             });
-                            $(".code"+commId).text(result);
+                            $(".code"+commId).val(result);
                         }else {
                             swal({
                                 type: 'warning',
