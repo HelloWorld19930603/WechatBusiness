@@ -174,4 +174,9 @@ public class UserService implements IUserService {
         map.put("status",status);
         return userMapper.selectByRole(map);
     }
+
+    @Override
+    public User selectById(Integer userId) throws Exception {
+        return userMapper.selectByPrimaryKey(userId);
+    }
 }

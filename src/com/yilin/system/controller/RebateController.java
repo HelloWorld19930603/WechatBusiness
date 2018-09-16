@@ -29,18 +29,21 @@ public class RebateController {
     @RequestMapping("rebate1")
     public String rebate1(Model model) {
         model.addAttribute("active", "rebate1");
+        model.addAttribute("serise", 1);
         return "rebate1";
     }
 
     @RequestMapping("rebate2")
     public String rebate2(Model model) {
         model.addAttribute("active", "rebate2");
+        model.addAttribute("serise", 2);
         return "rebate2";
     }
 
     @RequestMapping("rebate3")
     public String rebate3(Model model) {
         model.addAttribute("active", "rebate3");
+        model.addAttribute("serise", 3);
         return "rebate3";
     }
 

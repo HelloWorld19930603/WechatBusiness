@@ -40,4 +40,6 @@ public interface IUserService {
     String switchRole(int serise, int roleId);
 
     List<Map<String,Object>> selectByRole(Byte serise, int roleId, Byte status);
+
+    User selectById(Integer userId) throws Exception;
 }

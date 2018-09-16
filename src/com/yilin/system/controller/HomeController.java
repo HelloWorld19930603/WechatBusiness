@@ -62,10 +62,10 @@ public class HomeController {
     @RequestMapping("toLogin")
     @ResponseBody
     public Object toLogin(String loginName, String loginPwd, HttpServletRequest req){
-        if(loginName == null || "".equals(loginName.trim())){
+/*        if(loginName == null || "".equals(loginName.trim())){
             req.getSession().setAttribute("user", new SystemUser());
             return 0;
-        }
+        }*/
         try {
             SystemUser user = systemUserService.selectForLogin(loginName,loginPwd);
             if(user != null) {
