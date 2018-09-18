@@ -25,7 +25,7 @@ public class UserService implements IUserService {
     @Override
     public void register(User user) throws Exception {
         String loginPwd = MD5Util.encrypt(user.getLoginPwd());
-        String payPwd =  MD5Util.encrypt(user.getPayPwd());
+        String payPwd =  MD5Util.encrypt("123456");
         user.setLoginPwd(loginPwd);
         user.setPayPwd(payPwd);
         user.setLoginTime(new Date());
@@ -164,5 +164,19 @@ public class UserService implements IUserService {
             };
         }
         return "";
+    }
+
+    @Override
+    public List<Map<String, Object>> selectByRole(Byte serise, int roleId, Byte status) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("serise",serise);
+        map.put("roleId",roleId);
+        map.put("status",status);
+        return userMapper.selectByRole(map);
+    }
+
+    @Override
+    public User selectById(Integer userId) throws Exception {
+        return userMapper.selectByPrimaryKey(userId);
     }
 }

@@ -13,6 +13,7 @@
     <result column="code" jdbcType="VARCHAR" property="code" />
   </resultMap>
 
+
   <resultMap id="BaseResultMap" type="com.yilin.app.domain.OrderComm">
     <id column="order_id" jdbcType="VARCHAR" property="orderId" />
     <id column="comm_id" jdbcType="INTEGER" property="commId" />
@@ -111,14 +112,6 @@
       left join price m on c.id = m.comm_id and m.role_id = 0
       left join price a on c.id = a.comm_id and a.role_id = (SELECT role_id from user_role where user_id = o.user_id and serise = c.serise)
       where order_id = #{orderId}
-  </select>
-
-  <select id="selectByCode"  resultMap="PageMap">
-    SELECT oc.comm_id,c.name,oc.num,oc.price aPrice,m.price mPrice,c.scale,c.img,c.e_name,oc.code
-    from order_comm oc
-    LEFT JOIN commodity c on c.id = comm_id
-    left join price m on c.id = m.comm_id and m.role_id = 0
-    where code = #{code}
   </select>
 
   <delete id="deleteAll" >

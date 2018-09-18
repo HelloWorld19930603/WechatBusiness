@@ -7,8 +7,6 @@ public class Orders {
 
     private Integer userId;
 
-    private Integer addrId;
-
     private Byte status;
 
     private Date time;
@@ -18,6 +16,14 @@ public class Orders {
     private Byte serise;
 
     private Float totals;
+
+    private String addrName;
+
+    private String phone;
+
+    private String ssq;
+
+    private String addr;
 
     public String getId() {
         return id;
@@ -33,14 +39,6 @@ public class Orders {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public Integer getAddrId() {
-        return addrId;
-    }
-
-    public void setAddrId(Integer addrId) {
-        this.addrId = addrId;
     }
 
     public Byte getStatus() {
@@ -81,5 +79,37 @@ public class Orders {
 
     public void setTotals(Float totals) {
         this.totals = totals;
+    }
+
+    public String getAddrName() {
+        return addrName;
+    }
+
+    public void setAddrName(String addrName) {
+        this.addrName = addrName == null ? null : addrName.trim();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
+    public String getSsq() {
+        return ssq;
+    }
+
+    public void setSsq(String ssq) {
+        this.ssq = ssq == null ? null : ssq.trim();
+    }
+
+    public String getAddr() {
+        return addr;
+    }
+
+    public void setAddr(String addr) {
+        this.addr = addr == null ? null : addr.trim();
     }
 }

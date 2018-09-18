@@ -122,7 +122,7 @@
 
 
 <!--common scripts for all pages-->
-<script src="js/scripts.js"></script>
+<script src="/js/scripts.js"></script>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
@@ -138,33 +138,6 @@
 <script type="text/javascript">
     $(".${active}").addClass("active");
     $(".${active}").parents("li").addClass("nav-active");
-
-    const ROLE_MAP = [{
-        '1': '股东',
-        '2': '联创',
-        '3': '执行董事',
-        '4': '官方',
-        '5': '总代理',
-        '6': '一级代理',
-        '7': '二级代理',
-        '8': '特约'
-    },{
-        '1': '股东',
-        '2': '合伙人',
-        '3': '经理',
-        '4': '执行董事',
-        '5': '官方',
-        '6': '总代',
-        '7': '体验'
-    },{
-        '1': '股东',
-        '2': '合伙人',
-        '3': '执行董事',
-        '4': '官方',
-        '5': '总代理',
-        '6': '一级代理',
-        '7': '体验'
-    }];
 
     // GridManager 渲染
     var table = document.querySelector('table');
@@ -222,7 +195,7 @@
                 }, {
                     key: 'voucher',
                     remind: 'the pic',
-                    width: '110px',
+                    width: '100px',
                     align: 'center',
                     text: '申请凭证',
                     // 使用函数返回 dom node
@@ -247,7 +220,7 @@
                 },{
                     key: 'name',
                     remind: 'the pic',
-                    width: '100px',
+                    width: '90px',
                     align: 'center',
                     text: '申请人名称',
                     // 使用函数返回 dom node
@@ -270,22 +243,34 @@
                     key: 'applyLevel',
                     remind: 'the title',
                     align: 'center',
-                    width: '120px',
+                    width: '100px',
                     text: '申请等级',
                     sorting: '',
                     // 使用函数返回 dom node
                     template: function(applyLevel, rowObject) {
 
-                        return  ROLE_MAP[rowObject.serise][applyLevel];
+                        return  ROLE_MAP[rowObject.serise-1][applyLevel];
+                    }
+                },{
+                    key: 'currentLevel',
+                    remind: 'the title',
+                    align: 'center',
+                    width: '100px',
+                    text: '起始等级',
+                    sorting: '',
+                    // 使用函数返回 dom node
+                    template: function(currentLevel, rowObject) {
+
+                        return  ROLE_MAP[rowObject.serise-1][currentLevel];
                     }
                 },{
                     key: 'serise',
                     remind: 'the type',
                     text: '申请系列',
-                    width: '100px',
+                    width: '80px',
                     align: 'center',
                     template: function(serise, rowObject){
-                        return TYPE_MAP[serise-1];
+                        return TYPE_MAP[serise];
                     }
                 },{
                     key: 'description',
@@ -311,7 +296,7 @@
                     key: 'status',
                     remind: 'the type',
                     text: '审核状态',
-                    width: '100px',
+                    width: '80px',
                     align: 'center',
                     template: function(status, rowObject){
                         return STATUS_MAP[status];
@@ -319,7 +304,7 @@
                 },{
                     key: 'action',
                     remind: 'the action',
-                    width: '110px',
+                    width: '100px',
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     template: function (action,rowObject) {
@@ -334,9 +319,9 @@
             ,sortingAfter: function (data) {
                 console.log('sortAfter', data);
             }
-        }, function(query){
+        }, function(){
             // 渲染完成后的回调函数
-            console.log('渲染完成后的回调函数:', query);
+            console.log('渲染完成后的回调函数:', "query");
         });
     }
 

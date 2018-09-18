@@ -99,9 +99,9 @@ public class DealerController {
             roleService.addOne(userRole);
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return 1;
         }
-        return 1;
+        return 0;
     }
 
     @RequestMapping("getUsers")
@@ -113,6 +113,12 @@ public class DealerController {
         return page;
     }
 
+    @RequestMapping("getUsersByRole")
+    @ResponseBody
+    public Object getUsers(Byte serise,int roleId,Byte status) throws Exception {
+        List<Map<String,Object>> data = userService.selectByRole(serise,roleId,status);
+        return data;
+    }
 
     @RequestMapping("updateStatus")
     @ResponseBody

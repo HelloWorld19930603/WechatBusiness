@@ -5,8 +5,10 @@ import com.yilin.app.common.ResultJson;
 import com.yilin.app.common.UserInfo;
 import com.yilin.app.domain.User;
 import com.yilin.app.exception.FileException;
+import com.yilin.app.service.IUserService;
 import com.yilin.app.service.impl.UserService;
 import com.yilin.app.utils.PhotoUtil;
+import com.yilin.app.utils.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 public class UserAction {
 
     @Resource
-    UserService userService;
+    IUserService userService;
 
 /*    @RequestMapping("register")
     @ResponseBody
@@ -133,7 +135,12 @@ public class UserAction {
         ResultJson result;
         try {
             Integer userId = Permission.getUserId(token);
-            String haedUrl = PhotoUtil.photoUpload(headImg, "images/home/head/" ,userId.toString(), req.getSession().getServletContext().getRealPath("/"));
+            User user = userService.selectById(userId);
+            String context = req.getSession().getServletContext().getRealPath("/");
+            String haedUrl = PhotoUtil.photoUpload(headImg, "images/home/head/" , StringUtil.makeFileName(), context);
+            if(haedUrl != null) {
+                PhotoUtil.removePhoto(context + user.getHeadImg().substring(1));
+            }
             userService.updateHead(userId, haedUrl);
             result = new ResultJson(true, "上传成功",haedUrl);
         } catch (FileException e) {

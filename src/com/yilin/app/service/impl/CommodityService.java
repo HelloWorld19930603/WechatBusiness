@@ -111,6 +111,7 @@ public class CommodityService implements ICommodityService {
         Map<String,Object> map = new HashMap<>();
         map.put("userId",userId);
         map.put("start",0);
+        map.put("pageSize",30);
         map.put("type",3);
         return commodityMapper.selectPage(map);
     }

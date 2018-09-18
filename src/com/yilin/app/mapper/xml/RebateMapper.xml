@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yilin.app.mapper.RebateMapper">
-    <resultMap id="BaseResultMap" type="com.yilin.app.domain.Rebate">
-        <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="user_id" jdbcType="INTEGER" property="userId"/>
-        <result column="serise" jdbcType="TINYINT" property="serise"/>
-        <result column="money" jdbcType="REAL" property="money"/>
-        <result column="time" jdbcType="TIMESTAMP" property="time"/>
-    </resultMap>
+
     <resultMap id="PageMap" type="HashMap">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
@@ -15,25 +9,53 @@
         <result column="money" jdbcType="REAL" property="money"/>
         <result column="month" jdbcType="INTEGER" property="month"/>
     </resultMap>
+    <resultMap id="BaseResultMap" type="com.yilin.app.domain.Rebate">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="serise" jdbcType="TINYINT" property="serise" />
+        <result column="money" jdbcType="REAL" property="money" />
+        <result column="time" jdbcType="TIMESTAMP" property="time" />
+        <result column="ratio" jdbcType="REAL" property="ratio" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+        <result column="operator" jdbcType="INTEGER" property="operator" />
+        <result column="level" jdbcType="INTEGER" property="level" />
+    </resultMap>
+    <resultMap id="PageMap2" type="HashMap">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="sName" jdbcType="VARCHAR" property="sName"/>
+        <result column="serise" jdbcType="TINYINT" property="serise" />
+        <result column="money" jdbcType="REAL" property="money" />
+        <result column="time" jdbcType="TIMESTAMP" property="time" />
+        <result column="ratio" jdbcType="REAL" property="ratio" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+        <result column="operator" jdbcType="INTEGER" property="operator" />
+        <result column="level" jdbcType="INTEGER" property="level" />
+    </resultMap>
     <sql id="Base_Column_List">
-    id, user_id, serise, money, time
-  </sql>
+        id, user_id, serise, money, time, ratio, type, operator, level
+    </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from rebate
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from rebate
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete from rebate
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="com.yilin.app.domain.Rebate">
-    insert into rebate (id, user_id, serise,
-      money, time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{serise,jdbcType=TINYINT},
-      #{money,jdbcType=REAL}, #{time,jdbcType=TIMESTAMP})
-  </insert>
+        insert into rebate (id, user_id, serise,
+        money, time, ratio, type,
+        operator, level)
+        values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{serise,jdbcType=TINYINT},
+        #{money,jdbcType=REAL}, #{time,jdbcType=TIMESTAMP}, #{ratio,jdbcType=REAL}, #{type,jdbcType=INTEGER},
+        #{operator,jdbcType=INTEGER}, #{level,jdbcType=INTEGER})
+    </insert>
     <insert id="insertSelective" parameterType="com.yilin.app.domain.Rebate">
         insert into rebate
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -52,6 +74,18 @@
             <if test="time != null">
                 time,
             </if>
+            <if test="ratio != null">
+                ratio,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="operator != null">
+                operator,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -68,6 +102,18 @@
             </if>
             <if test="time != null">
                 #{time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ratio != null">
+                #{ratio,jdbcType=REAL},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="operator != null">
+                #{operator,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -86,6 +132,18 @@
             <if test="time != null">
                 time = #{time,jdbcType=TIMESTAMP},
             </if>
+            <if test="ratio != null">
+                ratio = #{ratio,jdbcType=REAL},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="operator != null">
+                operator = #{operator,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                level = #{level,jdbcType=INTEGER},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -94,7 +152,11 @@
     set user_id = #{userId,jdbcType=INTEGER},
       serise = #{serise,jdbcType=TINYINT},
       money = #{money,jdbcType=REAL},
-      time = #{time,jdbcType=TIMESTAMP}
+      time = #{time,jdbcType=TIMESTAMP},
+      ratio = #{ratio,jdbcType=REAL},
+      type = #{type,jdbcType=INTEGER},
+      operator = #{operator,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -113,16 +175,40 @@
         order by time desc
     </select>
 
-    <select id="count" parameterType="map" resultType="int">
+
+    <select id="selectList2" parameterType="map" resultMap="PageMap2">
         SELECT
-        count(*)
-        from rebate
+        r.id, user_id, serise, money, r.time, ratio, type, operator,s.name sName, level,u.name,u.login_name,u.phone
+        from rebate r
+        LEFT JOIN user u on u.id = r.user_id
+        LEFT JOIN SYSTEM_USER s on s.id = operator
         where 1=1
-        <if test="userId != null">
-            and user_id = #{userId}
+        <if test="name != null">
+            and u.name like '%${name}%'
         </if>
         <if test="serise != null">
             and serise = #{serise}
+        </if>
+        <if test="type != null">
+            and type = #{type}
+        </if>
+        order by time desc
+        limit #{start},#{pageSize}
+    </select>
+    <select id="count" parameterType="map" resultType="int">
+        SELECT
+        count(*)
+        from rebate r
+        LEFT JOIN user u on u.id = r.user_id
+        where 1=1
+        <if test="name != null">
+            and u.name like '%${name}%'
+        </if>
+        <if test="serise != null">
+            and serise = #{serise}
+        </if>
+        <if test="type != null">
+            and type = #{type}
         </if>
     </select>
 </mapper>

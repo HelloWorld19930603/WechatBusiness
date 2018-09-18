@@ -139,7 +139,7 @@ public class OrderAction {
             result = new ResultJson(false, e.getMsg(), orderId);
         } catch (Exception e) {
             e.printStackTrace();
-            result = new ResultJson(false, "支付密码校验异常", orderId);
+            result = new ResultJson(false, "支付异常", orderId);
         }
         return result;
     }

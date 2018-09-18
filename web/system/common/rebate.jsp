@@ -1,103 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
-<%@include file="common/path.jsp" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="description" content="">
-    <link rel="shortcut icon" href="#" type="image/png">
-    <title><%=title%></title>
+<!-- page heading start-->
+<div class="page-heading">
 
-    <!--common-->
-    <link href="<%=path%>/css/style.css" rel="stylesheet">
-    <link href="<%=path%>/css/style-responsive.css" rel="stylesheet">
-    <link href="<%=path%>/css/gm.css" rel="stylesheet">
-    <link href="<%=path%>/css/grid.css" rel="stylesheet">
-    <!--dashboard calendar-->
-    <link href="/css/clndr.css" rel="stylesheet">
-    <!--Morris Chart CSS -->
-    <link rel="stylesheet" href="/js/morris-chart/morris.css">
+    <ul class="breadcrumb">
+        <li>
+            <a href="#">返利</a>
+        </li>
+        <li class="active"> 返利详情</li>
+    </ul>
+</div>
+<!-- page heading end-->
 
-    <link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/css/jquery-ui.css" />
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="<%=path%>/js/html5shiv.js"></script>
-    <script src="<%=path%>/js/respond.min.js"></script>
-    <![endif]-->
-</head>
-<style>
+<!--body wrapper start-->
+<div class="wrapper">
 
-
-</style>
-
-<body class="sticky-header">
-
-<section>
-    <!-- left side start-->
-    <%@include file="common/left.jsp" %>
-    <!-- left side end-->
-
-    <!-- main content start-->
-    <div class="main-content">
-
-        <!-- header section start-->
-        <%@include file="common/header.jsp" %>
-        <!-- header section end-->
-
-        <!-- page heading start-->
-        <div class="page-heading">
-
-            <ul class="breadcrumb">
-                <li>
-                    <a href="#">返利</a>
-                </li>
-                <li class="active"> 返利详情</li>
-            </ul>
+    <section class="search-area panel">
+        <input type="hidden" name="serise" value="1">
+        <div class="sa-ele">
+            <label class="se-title">经销商名称:</label>
+            <input class="se-con" name="name"/>
+            <input class="se-con" name="serise" value="${serise}" type="hidden"/>
         </div>
-        <!-- page heading end-->
-
-        <!--body wrapper start-->
-        <div class="wrapper">
-
-            <section class="search-area panel">
-                <input type="hidden" name="serise" value="1">
-                <div class="sa-ele">
-                    <label class="se-title">返利名称:</label>
-                    <input class="se-con" name="name"/>
-                </div>
-                <div class="sa-ele">
-                    <label class="se-title">系列:</label>
-                    <select class="se-con" name="serise">
-                        <option value="-1">请选择</option>
-                        <!--通过js增加-->
-                    </select>
-                </div>
-
-                <div class="sa-ele">
-                    <button class="search-action">搜索</button>
-                    <button class="reset-action">重置</button>
-                </div>
-                <div class="btn-group" style="float:right;">
-                    <button id="editable-sample_new" class="btn btn-primary" style="font-size: 12px;padding: 4px 10px;">
-                        新增 <i class="fa fa-plus"></i>
-                    </button>
-                </div>
-            </section>
-
-            <section class="grid-main">
-                <table></table>
-            </section>
+        <div class="sa-ele">
+            <label class="se-title">返利类型:</label>
+            <select class="se-con" name="type">
+                <option value="">请选择</option>
+                <option value="1">推荐董事返利</option>
+                <option value="2">推荐创始人返利</option>
+                <option value="3">推荐合伙人返利</option>
+            </select>
         </div>
-        <!--body wrapper end-->
 
-        <!--footer section start-->
-        <%@include file="common/footer.jsp" %>
-        <!--footer section end-->
+        <div class="sa-ele">
+            <button class="search-action">搜索</button>
+            <button class="reset-action">重置</button>
+        </div>
+        <div class="btn-group" style="float:right;">
+            <button id="editable-sample_new" class="btn btn-primary" style="font-size: 12px;padding: 4px 10px;">
+                新增 <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="grid-main">
+        <table></table>
+    </section>
+</div>
+<!--body wrapper end-->
+
+<!--footer section start-->
+<%@include file="footer.jsp" %>
+<!--footer section end-->
 
 
-    </div>
-    <!-- main content end-->
+</div>
+<!-- main content end-->
 </section>
 
 <!-- Placed js at the end of the document so the pages load faster -->
@@ -110,7 +67,7 @@
 
 
 <!--common scripts for all pages-->
-<script src="js/scripts.js"></script>
+<script src="/js/scripts.js"></script>
 
 
 
@@ -121,10 +78,12 @@
 <script type="text/javascript">
     $(".${active}").addClass("active");
     $(".${active}").parents("li").addClass("nav-active");
+
+
     const TYPE_MAP = {
-        '1': '格丽缇',
-        '2': 'Utomorrow',
-        '3': 'Pslady'
+        '1': '推荐董事返利',
+        '2': '推荐创始人返利',
+        '3': '推荐合伙人返利'
     };
 
     // GridManager 渲染
@@ -143,7 +102,7 @@
             // ajax_url 将在v2.6.0以上版本废弃，请不要再使用
             // ,ajax_url: 'http://www.lovejavascript.com/blogManager/getBlogList'
             ,ajax_data: function () {
-                return '/getRebateRules.do';
+                return '/getRebates.do';
             }
             // ,firstLoading: false // 初始渲染时是否加载数据
             ,ajax_type: 'POST'
@@ -154,7 +113,7 @@
             ,ajax_error: function(error){
                 console.log('ajax_error');
             }
-            ,query: {serise: -1}
+            ,query: {serise: ${serise}}
             ,dataKey: 'list'  // 注意: 这里是用来测试responseHandler 是否生效; 数据本身返回为data, 而在这里我把数据名模拟为list, 再通过responseHandler去更改
             ,pageSize:10
 
@@ -178,77 +137,108 @@
                 {
                     key: 'name',
                     remind: 'the pic',
-                    width: '130px',
+                    width: '100px',
                     align: 'center',
-                    text: '返利名称',
+                    text: '经销商名称',
                     template: function(name, rowObject) {
 
                         return name;
                     }
                 },
                 {
-                    key: 'serise',
+                    key: 'level',
                     remind: 'the pic',
-                    width: '130px',
+                    width: '80px',
                     align: 'center',
-                    text: '系列',
-                    template: function(serise, rowObject) {
-
-                        return serise;
+                    text: '级别',
+                    template: function(level, rowObject) {
+                        return ROLE_MAP[rowObject.serise-1][level];
                     }
                 },
                 {
-                    key: 'roleId',
+                    key: 'phone',
                     remind: 'the pic',
-                    width: '130px',
-                    align: 'center',
-                    text: '返利等级',
-                    template: function(roleId, rowObject) {
-
-                        return roleId;
-                    }
-                }
-                ,
-                {
-                    key: 'first',
-                    remind: 'the pic',
-                    width: '130px',
-                    align: 'center',
-                    text: '一级返利比例',
-                    template: function(first, rowObject) {
-
-                        return first;
-                    }
-                },{
-                    key: 'second',
-                    remind: 'the title',
-                    align: 'center',
-                    width: '120px',
-                    text: '二级返利比例',
-                    sorting: '',
-                    template: function(second, rowObject) {
-
-                        return second;
-                    }
-                },{
-                    key: 'description',
-                    remind: 'the title',
-                    align: 'center',
-                    width: '120px',
-                    text: '返利说明',
-                    sorting: '',
-                    template: function(description, rowObject) {
-
-                        return description;
-                    }
-                },{
-                    key: 'action',
-                    remind: 'the action',
                     width: '110px',
                     align: 'center',
-                    text: '<span style="color: red">操作</span>',
-                    template: '<span class="plugin-action" gm-click="editRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
+                    text: '电话',
+                    template: function(phone, rowObject) {
+
+                        return phone;
+                    }
+                },{
+                    key: 'type',
+                    remind: 'the pic',
+                    width: '110px',
+                    align: 'center',
+                    text: '返利类型',
+                    template: function(type, rowObject) {
+
+                        return TYPE_MAP[type];
+                    }
+                },{
+                    key: 'ratio',
+                    remind: 'the pic',
+                    align: 'center',
+                    width: '80px',
+                    text: '返利比例',
+                    sorting: '',
+                    template: function(ratio, rowObject) {
+
+                        return ratio+'%';
+                    }
+                },{
+                    key: 'money',
+                    remind: 'the pic',
+                    align: 'center',
+                    width: '100px',
+                    text: '返利金额',
+                    sorting: '',
+                    template: function(money, rowObject) {
+
+                        return money;
+                    }
+                },{
+                    key: 'operator',
+                    remind: 'the pic',
+                    align: 'center',
+                    width: '80px',
+                    text: '操作人编号',
+                    sorting: '',
+                    template: function(operator, rowObject) {
+
+                        return operator;
+                    }
+                },{
+                    key: 'sName',
+                    remind: 'the title',
+                    align: 'center',
+                    width: '90px',
+                    text: '操作人名称',
+                    sorting: '',
+                    template: function(sName, rowObject) {
+
+                        return sName;
+                    }
+                }, {
+                    key: 'time',
+                    remind: 'the createDate',
+                    width: '110px',
+                    align: 'center',
+                    text: '返利时间',
+                    sorting: 'DESC',
+                    // 使用函数返回 htmlString
+                    template: function (time, rowObject) {
+                        return dateFtt("yyyy-MM-dd hh:mm:ss",new Date(time));
+                    }
                 }
+                /*,{
+                 key: 'action',
+                 remind: 'the action',
+                 width: '110px',
+                 align: 'center',
+                 text: '<span style="color: red">操作</span>',
+                 template: '<span class="plugin-action" gm-click="editRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
+                 }*/
             ]
             // 排序后事件
             ,sortingAfter: function (data) {
@@ -291,19 +281,13 @@
      * 提供demo中的搜索, 重置
      */
     (function(){
-        var typeSelect2 = document.querySelector('.search-area select[name="serise"]');
 
-        for(var key in TYPE_MAP){
-            var option = document.createElement('option');
-            option.value = key;
-            option.innerText = TYPE_MAP[key];
-            typeSelect2.appendChild(option);
-        }
         // 绑定搜索事件
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
                 name: document.querySelector('[name="name"]').value,
-                serise: document.querySelector('[name="serise"]').value,
+                type: document.querySelector('[name="type"]').value,
+                serise: ${serise},
                 index: 1
             };
             table.GM('setQuery', _query, function(){
@@ -314,11 +298,11 @@
         // 绑定重置
         document.querySelector('.reset-action').addEventListener('click', function () {
             document.querySelector('[name="name"]').value = '';
-            document.querySelector('[name="serise"]').value = '-1';
+            document.querySelector('[name="type"]').value = '';
         });
 
         $("#editable-sample_new").click(function () {
-            window.open("/addRebateRule.do");
+            window.open("/addRebate.do?serise=${serise}");
         })
     })();
 

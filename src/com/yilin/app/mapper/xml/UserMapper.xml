@@ -303,6 +303,16 @@
         </if>
     </select>
 
+    <select id="selectByRole" parameterType="map" resultMap="PageMap">
+
+        SELECT u.id,login_name,name,phone,role_id from user u
+        INNER JOIN user_role r on r.user_id = u.id and role_id = #{roleId}
+        <if test="serise != null">
+            and serise = #{serise}
+        </if>
+
+    </select>
+
     <update id="updateStatus">
 
         update user set status = #{status}

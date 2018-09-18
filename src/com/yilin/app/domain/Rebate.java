@@ -13,6 +13,14 @@ public class Rebate {
 
     private Date time;
 
+    private Float ratio;
+
+    private Integer type;
+
+    private Integer operator;
+
+    private Integer level;
+
     public Integer getId() {
         return id;
     }
@@ -51,5 +59,37 @@ public class Rebate {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public Float getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(Float ratio) {
+        this.ratio = ratio;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getOperator() {
+        return operator;
+    }
+
+    public void setOperator(Integer operator) {
+        this.operator = operator;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }

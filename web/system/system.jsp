@@ -78,10 +78,6 @@
                     <input class="se-con" name="name"/>
                 </div>
                 <div class="sa-ele">
-                    <label class="se-title">手机号:</label>
-                    <input class="se-con" name="phone"/>
-                </div>
-                <div class="sa-ele">
                     <label class="se-title">管理员账号:</label>
                     <input class="se-con" name="loginName"/>
                 </div>
@@ -289,7 +285,6 @@
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
                 name: document.querySelector('[name="name"]').value,
-                phone: document.querySelector('[name="phone"]').value,
                 loginName: document.querySelector('[name="loginName"]').value,
                 index: 1
             };
@@ -301,7 +296,6 @@
         // 绑定重置
         document.querySelector('.reset-action').addEventListener('click', function () {
             document.querySelector('[name="name"]').value = '';
-            document.querySelector('[name="phone"]').value = '';
             document.querySelector('[name="code"]').value = '';
         });
 

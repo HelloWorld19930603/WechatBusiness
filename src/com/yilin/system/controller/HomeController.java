@@ -24,7 +24,7 @@ public class HomeController {
     @RequestMapping("index")
     public String index(Model model){
         model.addAttribute("active","dealer1");
-
+        model.addAttribute("serise","1");
         return "dealer1";
     }
 
@@ -62,6 +62,10 @@ public class HomeController {
     @RequestMapping("toLogin")
     @ResponseBody
     public Object toLogin(String loginName, String loginPwd, HttpServletRequest req){
+/*        if(loginName == null || "".equals(loginName.trim())){
+            req.getSession().setAttribute("user", new SystemUser());
+            return 0;
+        }*/
         try {
             SystemUser user = systemUserService.selectForLogin(loginName,loginPwd);
             if(user != null) {

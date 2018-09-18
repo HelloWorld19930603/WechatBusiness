@@ -20,4 +20,6 @@ public interface UserMapper  extends IBaseMapper<User> {
     void updateStatus(@Param("id")int id,@Param("status")byte status) throws Exception;
 
     List<Map<String,Object>> selectTeam(Map<String, Object> map);
+
+    List<Map<String,Object>> selectByRole(Map<String, Object> map);
 }

@@ -20,7 +20,7 @@ public interface OrdersMapper extends IBaseMapper<Orders>{
 
     List<Map<String,Integer>> countAll(Map<String, Object> map);
 
-    byte selectStatus(@Param(value = "orderId") String orderId);
+    Byte selectStatus(@Param(value = "orderId") String orderId);
 
     List<Map<String,Object>> selectList2(Map<String, Object> map);
 }

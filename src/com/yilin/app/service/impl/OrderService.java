@@ -1,9 +1,6 @@
 package com.yilin.app.service.impl;
 
-import com.yilin.app.domain.Commodity;
-import com.yilin.app.domain.OrderComm;
-import com.yilin.app.domain.Orders;
-import com.yilin.app.domain.Payment;
+import com.yilin.app.domain.*;
 import com.yilin.app.exception.AccountException;
 import com.yilin.app.exception.StatusException;
 import com.yilin.app.mapper.*;
@@ -31,7 +28,8 @@ public class OrderService implements IOrderService {
     WalletMapper walletMapper;
     @Autowired
     CommodityMapper commodityMapper;
-
+    @Autowired
+    AddressMapper addressMapper;
 
     @Override
     public List selectList(Integer userId, int start, int pageSize, Byte status) throws Exception {
@@ -112,12 +110,16 @@ public class OrderService implements IOrderService {
     public String createOrder(int userId, Map<String, Object> ordersMap) throws Exception {
         List<Map<String, Object>> commIds = (List<Map<String, Object>>) ordersMap.get("commIds");
         int serise = checkCommId(commIds);
+        Address address = addressMapper.selectByPrimaryKey((Integer) ordersMap.get("addrId"));
         Orders order = new Orders();
         order.setSerise((byte)serise);
         order.setTime(new Date());
         order.setStatus((byte) 1);
         order.setUserId(userId);
-        order.setAddrId((int) ordersMap.get("addrId"));
+        order.setAddr(address.getAddr());
+        order.setAddrName(address.getName());
+        order.setPhone(address.getPhone());
+        order.setSsq(order.getSsq());
         order.setDescription((String) ordersMap.get("description"));
         String orderId = OrderNumberBuilder.getOrderIdByUUId();
         for (Map<String, Object> map : commIds) {
@@ -164,8 +166,8 @@ public class OrderService implements IOrderService {
 
     @Override
     public void payOrder(String orderId, int userId, String type) throws AccountException {
-        byte oldStatus = ordersMapper.selectStatus(orderId);
-        if(oldStatus != 1){
+        Byte oldStatus = ordersMapper.selectStatus(orderId);
+        if(oldStatus ==null || oldStatus != 1){
             throw new AccountException("订单状态异常");
         }
         Map<String, Object> map = new HashMap<>();

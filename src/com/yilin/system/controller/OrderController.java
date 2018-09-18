@@ -125,9 +125,9 @@ public class OrderController {
 
     @RequestMapping("editAddress")
     @ResponseBody
-    public Object editAddress(Address address){
+    public Object editAddress(Orders order){
         try {
-            addressService.updateAddress(address);
+            orderService.editOrder(order);
             return 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,13 +148,11 @@ public class OrderController {
     public Object editOrder(String orderId,Model model){
         try {
             Map map = orderService.findOrder(orderId);
-            Address address = addressService.findAddress((Integer) map.get("addrId"));
             List list = orderService.selectDetails(orderId);
             UserRole userRole = roleService.selectRole((int)map.get("userId"),(int)map.get("serise"));
             model.addAttribute("list",list);
             model.addAttribute("order",map);
             model.addAttribute("userRole",userRole);
-            model.addAttribute("address",address);
             model.addAttribute("active","order");
         } catch (Exception e) {
             e.printStackTrace();

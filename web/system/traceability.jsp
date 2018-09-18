@@ -32,12 +32,7 @@
         '2': 'Utomorrow',
         '3': 'Pslady'
     };
-    const TYPE_MAP2 = {
-        '0':'无',
-        '1': '明星产品',
-        '2': '人气爆款',
-        '3': '人气推荐'
-    };
+
 </script>
 <body class="sticky-header">
 
@@ -82,24 +77,23 @@
                 </div>
             </section>
 
-            <section class="grid-main" id="comm" style="display:block ;">
-                <div class="col-md-8">
+            <section class="grid-main" id="comm" style="display:none ;">
+                <div class="col-md-7">
                 <div class="panel">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="blog-img-sm">
-                                    <img src="images/blog/blog-sm-img.jpg" alt="">
+                                    <img src="images/default.png" alt="" id="img">
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <h1 class=""><a href="#" id="name">comm name</a></h1>
                                 <h3 class=""><a href="#" id="eName">english name</a></h3>
                                 <p class=" auth-row">
-                                    By <a href="#">Anthony Jones</a>   |   27 December 2014   | <a href="#">5 Comments</a>
+                                    规格： <a href="#" id="scale">scale</a>   |   价格： <a href="#" id="price">price</a>   |   数量： <a href="#" id="num">num</a>
                                 </p>
 
-                                <a href="#" class="more">Continue Reading</a>
                             </div>
                         </div>
                     </div>
@@ -160,27 +154,30 @@
                 //几个参数需要注意一下
                 type: "POST",//方法类型
                 dataType: "json",//预期服务器返回的数据类型
-                url: "/reviewCode.do" ,//url
-                data: "commId="+commId+"&orderId="+orderId+"&code="+result,
+                url: "/traceability2.do" ,//url
+                data: "code="+code,
                 success: function (data) {
                     console.log(data);//打印服务端返回的数据(调试用)
-                    if (data == 0) {
-                        swal({
-                            type: 'success',
-                            html: '您提交的追溯码为: ' + result
-                        });
-                        $(".code"+commId).text(result);
-                    }else {
+                    if (data == null || data.commName == undefined) {
                         swal({
                             type: 'warning',
-                            html: '提交失败'
+                            html: '查询不到此条记录'
                         });
+                        $("#comm").css("display","none");
+                    }else{
+                        $("#comm").css("display","block");
+                        $("#name").text(data.commName);
+                        $("#eName").text(data.eName);
+                        $("#scale").text(data.scale);
+                        $("#price").text(data.aPrice);
+                        $("#num").text(data.num);
+                        $("#img").attr("src",data.img);
                     }
                 },
                 error : function() {
                     swal({
                         type: 'warning',
-                        html: '提交异常'
+                        html: '查询异常'
                     });
                 }
             })
@@ -189,9 +186,7 @@
 
     })();
 
-    (function(){
-        init();
-    })();
+
 
     $("[data-fancybox]").fancybox({
         // Options will go here

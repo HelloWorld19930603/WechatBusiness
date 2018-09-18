@@ -87,17 +87,24 @@
                                         </div>
                                     </div>
                                     <div class="form-group ">
+                                        <label for="wxNum" class="control-label col-lg-3">微信号</label>
+                                        <div class="col-lg-5">
+                                            <input class="form-control " id="wxNum" name="wxNum" type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
                                         <label for="password" class="control-label col-lg-3">密码</label>
                                         <div class="col-lg-5">
                                             <input class="form-control " id="password" name="loginPwd" type="password"/>
                                         </div>
                                     </div>
-                                    <%--                                    <div class="form-group ">
-                                                                            <label for="confirm_password" class="control-label col-lg-3">确认密码</label>
-                                                                            <div class="col-lg-5">
-                                                                                <input class="form-control " id="confirm_password" name="confirm_password" type="password" />
-                                                                            </div>
-                                                                        </div>--%>
+                                    <div class="form-group ">
+                                        <label for="confirm_password" class="control-label col-lg-3">确认密码</label>
+                                        <div class="col-lg-5">
+                                            <input class="form-control " id="confirm_password" name="confirm_password"
+                                                   type="password"/>
+                                        </div>
+                                    </div>
 
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-10">
@@ -173,26 +180,40 @@
             var name = document.querySelector('[name="name"]').value;
             var roleId = document.querySelector('select[name="roleId"]').value;
             var phone = document.querySelector('[name="phone"]').value;
+            var wxNum = document.querySelector('[name="wxNum"]').value;
             var loginName = document.querySelector('[name="loginName"]').value;
             var loginPwd = document.querySelector('[name="loginPwd"]').value;
+            var confirm_password = document.querySelector('[name="confirm_password"]').value;
+            if(name==''||name==null||loginName==''||loginName==null){
+                alert("请填写完整经销商信息！");
+                return;
+            }
+            if(roleId == ''){
+                alert('请选择经销商级别!');
+                return;
+            }
+            if(loginPwd != confirm_password){
+                alert("两次输入密码不一致！")
+                return;
+            }
 
             $.ajax({
                 url: "/addDealer2.do",
                 type: "post",
-                data: "serise=" + serise + "&loginPwd=" + loginPwd + "&name=" + name + "&loginName=" + loginName + "&phone=" + phone+ "&roleId=" + roleId,
+                data: "serise=" + serise + "&loginPwd=" + loginPwd + "&name=" + name + "&loginName=" + loginName + "&phone=" + phone+ "&wxNum=" + wxNum+ "&roleId=" + roleId,
                 success: function (data) {
-                    if (data == 1) {
-                        alert("添加成功");
+                    if (data == 0) {
+                        alert("添加成功！");
                     } else if (data == 2) {
-                        alert("用户名已存在")
-                    } else {
-                        alert("添加失败");
+                        alert("该用户名已存在！")
+                    } else if (data == 1){
+                        alert("添加异常！");
                     }
                     console.log(data);
                 },
                 error: function (data) {
                     console.log(data);
-                    alert("添加失败");
+                    alert("添加失败！");
                 }
             });
         });

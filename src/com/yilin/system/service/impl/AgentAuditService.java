@@ -1,6 +1,10 @@
 package com.yilin.system.service.impl;
 
+import com.yilin.app.common.Configuration;
+import com.yilin.app.common.JuHeMessage;
 import com.yilin.app.domain.Agent;
+import com.yilin.app.domain.User;
+import com.yilin.app.exception.RequestException;
 import com.yilin.app.mapper.AgentMapper;
 import com.yilin.app.mapper.UserMapper;
 import com.yilin.system.service.IAgentAuditService;
@@ -63,8 +67,15 @@ public class AgentAuditService implements IAgentAuditService {
     public void audit(int id, byte status,int userId) throws Exception {
         if(status == 2){
             userMapper.updateStatus(userId,(byte)1);
+            User user = userMapper.selectByPrimaryKey(userId);
+            try {
+                JuHeMessage.getRequest2(user.getPhone(),user.getLoginName(), Configuration.MESSAGE_MODEL_3);
+            } catch (Exception e) {
+                throw new RequestException("短信发送异常");
+            }
         }
         agentMapper.updateStatus(id,status);
+        userMapper.deleteByPrimaryKey(userId);
     }
 
     @Override

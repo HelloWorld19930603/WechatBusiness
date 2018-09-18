@@ -273,7 +273,7 @@
                     // 直接返回 htmlString
                     template: function (action,rowObjct) {
                         var htmlString = '<span class="plugin-action" gm-click="editRowData">编辑</span>';
-                         htmlString += '<span class="plugin-action" gm-click="activities">参加活动</span>';
+                         htmlString += '<span class="plugin-action" gm-click="activities">活动</span>';
                         if(rowObjct.status == 1){
                             htmlString += '<span class="plugin-action" onclick="updateShelf('+rowObjct.id+',\''+rowObjct.name+'\','+rowObjct.status+')">下架</span>';
                         }else{
@@ -361,7 +361,7 @@
 
     function activities(rowData) {
         swal({
-            title: '请选择要参加的活动',
+            title: '请选择['+rowData.name+']要参加的活动',
             input: 'select',
             inputOptions: {
                 '0':'无',
@@ -371,6 +371,8 @@
             },
             inputPlaceholder: '',
             showCancelButton: true,
+            confirmButtonText: '确认',
+            cancelButtonText:'取消',
             inputValidator: function(value) {
                 return new Promise(function(resolve, reject) {
                     resolve();

@@ -124,10 +124,10 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td>${address.name}</td>
-                                                            <td>${address.phone}</td>
-                                                            <td>${address.ssq}</td>
-                                                            <td>${address.addr}</td>
+                                                            <td>${order.addr_name}</td>
+                                                            <td>${order.phone}</td>
+                                                            <td>${order.ssq}</td>
+                                                            <td>${order.addr}</td>
                                                             <td><div  class="btn btn-info" onclick="updateAddress()">修改地址</div></td>
                                                         </tr>
                                                     </tbody>
@@ -172,7 +172,7 @@
                                                         <td>${comm.scale}</td>
                                                         <td>${comm.num}<c:if test="${userRole.roleId == 1 || userRole.roleId == 2}">(箱）</c:if><c:if test="${userRole.roleId != 1 && userRole.roleId != 2}">(盒）</c:if></td>
                                                         <td>${comm.aPrice}</td>
-                                                        <td class="code${comm.commId}">${comm.code}</td>
+                                                        <td ><input type="text" value="${comm.code}" class="code${comm.commId}" onclick="reviewCode('${order.id}',${comm.commId})"/></td>
                                                         <td><div  class="btn btn-info" onclick="reviewCode('${order.id}',${comm.commId})">扫码</div></td>
                                                     </tr>
                                                     </c:forEach>
@@ -187,11 +187,17 @@
                                     <legend></legend>
                                     <div class="col-sm-12">
                                         <section class="panel">
-
+                                            <header class="panel-heading">
+                                                买家订单备注
+                                                <span class="tools pull-right">
+                                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                                <a href="javascript:;" class="fa fa-times"></a>
+                             </span>
+                                            </header>
                                             <div class="panel-body">
                                                 <form method="get" class="form-horizontal bucket-form">
                                                     <div class="form-group">
-                                                        <label class="col-sm-1 control-label">留言</label>
+                                                        <label class="col-sm-1 control-label"></label>
                                                         <div class="col-sm-7">
                                                             <textarea rows="4" class="form-control">${description}</textarea>
                                                         </div>
@@ -428,13 +434,14 @@
             title: '收货人信息',
             showCancelButton: true,
             animation: "slide-from-top",
+            confirmButtonText: '确认',
+            cancelButtonText:'取消',
             html:
-            '收货人名称<input id="swal-input1" class="swal2-input" autofocus value=${address.name}>' +
-            '收货人电话<input id="swal-input2" class="swal2-input" value=${address.phone}>' +
-            '所在省市区<input id="swal-input3" class="swal2-input" value=${address.ssq}>' +
-            '详细地址<input id="swal-input4" class="swal2-input" value=${address.addr}>' +
-            '<input id="swal-input5" class="swal2-input" type="hidden" value="${address.id}">'+
-            '<input id="swal-input6" class="swal2-input" type="hidden" value="${address.userId}">',
+            '收货人名称<input id="swal-input1" class="swal2-input" autofocus value=${order.addrName}>' +
+            '收货人电话<input id="swal-input2" class="swal2-input" value=${order.phone}>' +
+            '所在省市区<input id="swal-input3" class="swal2-input" value=${order.ssq}>' +
+            '详细地址<input id="swal-input4" class="swal2-input" value=${order.addr}>' +
+            '<input id="swal-input5" class="swal2-input" type="hidden" value="${order.id}">',
             preConfirm: function(result) {
                 return new Promise(function(resolve) {
                     if (result) {
@@ -464,7 +471,7 @@
                 type: "POST",//方法类型
                 dataType: "json",//预期服务器返回的数据类型
                 url: "/editAddress.do" ,//url
-                data: "name="+result[0]+"&phone="+result[1]+"&ssq="+result[2]+"&addr="+result[3]+"&id="+result[4]+"&userId="+result[5],
+                data: "addrName="+result[0]+"&phone="+result[1]+"&ssq="+result[2]+"&addr="+result[3]+"&id="+result[4],
                 success: function (data) {
                     console.log(data);//打印服务端返回的数据(调试用)
                     if (data == 0) {
@@ -493,6 +500,8 @@
             input: 'text',
             showCancelButton: true,
             animation: "slide-from-top",
+            confirmButtonText: '确认',
+            cancelButtonText:'取消',
             inputValidator: function(value) {
                 return new Promise(function(resolve, reject) {
                     resolve();
@@ -513,7 +522,7 @@
                                 type: 'success',
                                 html: '您提交的追溯码为: ' + result
                             });
-                            $(".code"+commId).text(result);
+                            $(".code"+commId).val(result);
                         }else {
                             swal({
                                 type: 'warning',
