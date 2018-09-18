@@ -109,21 +109,7 @@
                                 </fieldset>
                                 <fieldset title="销售属性" >
                                     <legend></legend>
-                                    <div id="jiage">
-
-                                    <div class="form-group">
-                                        <label class="col-md-2 col-sm-2 control-label">Phone</label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 col-sm-2 control-label">Mobile</label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input type="text"  class="form-control">
-                                        </div>
-                                    </div>
-                                    </div>
+                                    <div id="jiage"></div>
                                 </fieldset>
                                 <fieldset title="商品详情">
                                     <legend></legend>
@@ -207,32 +193,7 @@
 <script type="text/javascript">
     $(".${active}").addClass("active");
     $(".${active}").parents("li").addClass("nav-active");
-    const TYPE_MAP = [{
-        '1': '股东',
-        '2': '联创',
-        '3': '执行董事',
-        '4': '官方',
-        '5': '总代理',
-        '6': '一级代理',
-        '7': '二级代理',
-        '8': '特约'
-    },{
-        '1': '股东',
-        '2': '合伙人',
-        '3': '经理',
-        '4': '执行董事',
-        '5': '官方',
-        '6': '总代',
-        '7': '体验'
-    },{
-        '1': '股东',
-        '2': '合伙人',
-        '3': '执行董事',
-        '4': '官方',
-        '5': '总代理',
-        '6': '一级代理',
-        '7': '体验'
-    }];
+
 
     /*=====STEPY WIZARD====*/
     $(function() {
@@ -258,7 +219,7 @@
         jiage.html("");
         var html = ' <legend></legend>';
         var serise = $("#serise").val();
-        var map = TYPE_MAP[serise-1];
+        var map = ROLE_MAP[serise-1];
 
         for(var key in map){
             html += '        <div class="form-group"> <label class="col-md-2 col-sm-2 control-label">'+map[key]+

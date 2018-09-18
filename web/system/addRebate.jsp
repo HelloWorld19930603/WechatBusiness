@@ -99,20 +99,16 @@
                                         <div class="col-md-6 col-sm-6">
                                             <select class="form-control m-bot15" name="type" id="type">
                                                 <option value="">请选择</option>
-                                                <option value="1">推荐董事返利</option>
-                                                <option value="2">推荐创始人返利</option>
-                                                <option value="3">推荐合伙人返利</option>
+                                                <option value="1">推荐返利</option>
+                                                <option value="2">补货返利</option>
+                                                <option value="3">其它</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 col-sm-2 control-label">返利比例:</label>
                                         <div class="col-lg-6">
-                                            <select class="form-control m-bot15" name="ratio" id="ratio">
-                                                <option value="">请选择</option>
-                                                <option value="4">4%</option>
-                                                <option value="2">2%</option>
-                                            </select>
+                                            <input class="form-control " id="ratio" name="ratio" type="text" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -238,6 +234,13 @@
             swal({
                 type: 'info',
                 html: '请选择返利信息！'
+            });
+            return;
+        }
+        if (!(ratio && !isNaN(ratio) && ratio >= 0)) {
+            swal({
+                type: 'info',
+                html: '请输入数字！'
             });
             return;
         }

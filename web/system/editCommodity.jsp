@@ -79,22 +79,22 @@
                                                    value="${commodity.eName}">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <%--<div class="form-group">
                                         <label class="col-md-2 col-sm-2 control-label">系列</label>
                                         <div class="col-lg-6">
                                             <select class="form-control m-bot15" name="serise" id="serise">
-                                                <option value="1" <c:if test="${commodity.serise == 1}">checked</c:if>>
+                                                <option value="1"  checked>
                                                     格丽缇
                                                 </option>
-                                                <option value="2" <c:if test="${commodity.serise == 2}">checked</c:if>>
+                                                <option value="2" >
                                                     Utomorrow
                                                 </option>
-                                                <option value="3" <c:if test="${commodity.serise == 3}">checked</c:if>>
+                                                <option value="3" >
                                                     Pslady
                                                 </option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div>--%>
                                     <div class="form-group">
                                         <label class="col-md-2 col-sm-2 control-label">规格</label>
                                         <div class="col-md-6 col-sm-6">
@@ -163,7 +163,7 @@
 
 
 <!--common scripts for all pages-->
-<script src="js/scripts.js"></script>
+<script src="/js/scripts.js"></script>
 
 <script src="js/sweetalert/sweetalert2.min.js"></script>
 <link rel="stylesheet" href="js/sweetalert/sweetalert2.min.css">
@@ -231,7 +231,7 @@
         var id = $("#id").val().trim();
         var name = $("#name").val().trim();
         var eName = $("#eName").val().trim();
-        var serise = $("#serise").val().trim();
+        var serise = ${commodity.serise};
         var scale = $("#scale").val().trim();
         var img = $("#img").val().trim();
 

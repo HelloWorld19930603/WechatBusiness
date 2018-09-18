@@ -42,7 +42,12 @@ public class PriceService implements IPriceService {
 
     @Override
     public void editPrice(Float price, int commId,int roleId) throws Exception {
-        priceMapper.updateByPrimaryKeySelective(new Price(commId,roleId,price));
+
+        try {
+            priceMapper.updateByPrimaryKeySelective(new Price(commId,roleId,price == null? 0 : price));
+        } catch (Exception e) {
+            priceMapper.insertSelective(new Price(commId,roleId,price));
+        }
     }
 
 

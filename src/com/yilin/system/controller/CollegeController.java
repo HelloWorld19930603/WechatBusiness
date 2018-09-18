@@ -4,6 +4,7 @@ import com.yilin.app.domain.College;
 import com.yilin.app.domain.Commodity;
 import com.yilin.app.exception.FileException;
 import com.yilin.app.service.ICollegeService;
+import com.yilin.app.service.impl.CollegeService;
 import com.yilin.app.utils.PhotoUtil;
 import com.yilin.app.utils.StringUtil;
 import com.yilin.system.common.SystemPage;
@@ -39,16 +40,21 @@ public class CollegeController {
 
     @RequestMapping("showCollege")
     public String showCollege(Model model,int id) {
+        try {
+            College college = collegeService.selectOne(id);
+            model.addAttribute("college",college);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "showCollege";
     }
 
     @RequestMapping("getColleges")
     @ResponseBody
-    public SystemPage getColleges(Byte type, String titile, int start, int pageSize, String title) {
-        int totals = 0;
+    public SystemPage getColleges(Byte type, String title, int start, int pageSize) {
         SystemPage page = new SystemPage();
         try {
-            totals = collegeService.getCount(type);
+            int totals = collegeService.getCount(type);
             List<Commodity> data = collegeService.findList(type, title, start, pageSize);
             page = new SystemPage(totals, data);
         } catch (Exception e) {

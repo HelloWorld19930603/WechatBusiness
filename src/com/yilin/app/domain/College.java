@@ -9,7 +9,7 @@ public class College {
 
     private String video;
 
-    private Integer readnum;
+    private Integer readNum;
 
     private Integer forward;
 
@@ -45,12 +45,12 @@ public class College {
         this.video = video == null ? null : video.trim();
     }
 
-    public Integer getReadnum() {
-        return readnum;
+    public Integer getReadNum() {
+        return readNum;
     }
 
-    public void setReadnum(Integer readnum) {
-        this.readnum = readnum;
+    public void setReadNum(Integer readNum) {
+        this.readNum = readNum;
     }
 
     public Integer getForward() {

@@ -1,6 +1,7 @@
 package com.yilin.system.controller;
 
 import com.yilin.app.common.Configuration;
+import com.yilin.app.common.JuHeMessage;
 import com.yilin.app.domain.Agent;
 import com.yilin.app.domain.User;
 import com.yilin.app.domain.Wallet;

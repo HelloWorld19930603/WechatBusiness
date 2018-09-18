@@ -25,9 +25,9 @@
             <label class="se-title">返利类型:</label>
             <select class="se-con" name="type">
                 <option value="">请选择</option>
-                <option value="1">推荐董事返利</option>
-                <option value="2">推荐创始人返利</option>
-                <option value="3">推荐合伙人返利</option>
+                <option value="1">推荐返利</option>
+                <option value="2">补货返利</option>
+                <option value="3">其它返利</option>
             </select>
         </div>
 

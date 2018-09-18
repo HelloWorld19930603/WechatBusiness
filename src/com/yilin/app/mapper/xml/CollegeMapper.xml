@@ -5,7 +5,7 @@
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
         <result column="video" jdbcType="VARCHAR" property="video" />
-        <result column="readNum" jdbcType="INTEGER" property="readnum" />
+        <result column="readNum" jdbcType="INTEGER" property="readNum" />
         <result column="forward" jdbcType="INTEGER" property="forward" />
         <result column="time" jdbcType="TIMESTAMP" property="time" />
         <result column="img" jdbcType="VARCHAR" property="img" />

@@ -16,25 +16,25 @@
             </div>
         </div>
         <div class="form-group"><label
-                class="col-md-2 col-sm-2 control-label">经理</label>
+                class="col-md-2 col-sm-2 control-label">执行董事</label>
             <div class="col-md-6 col-sm-6"><input type="text" id="3"
                                                   class="form-control" placeholder="0" value="${price[3]}">
             </div>
         </div>
         <div class="form-group"><label
-                class="col-md-2 col-sm-2 control-label">执行董事</label>
+                class="col-md-2 col-sm-2 control-label">官方</label>
             <div class="col-md-6 col-sm-6"><input type="text" id="4"
                                                   class="form-control" placeholder="0" value="${price[4]}">
             </div>
         </div>
         <div class="form-group"><label
-                class="col-md-2 col-sm-2 control-label">官方</label>
+                class="col-md-2 col-sm-2 control-label">总代理</label>
             <div class="col-md-6 col-sm-6"><input type="text" id="5"
                                                   class="form-control" placeholder="0" value="${price[5]}">
             </div>
         </div>
         <div class="form-group"><label
-                class="col-md-2 col-sm-2 control-label">总代</label>
+                class="col-md-2 col-sm-2 control-label">一级代理</label>
             <div class="col-md-6 col-sm-6"><input type="text" id="6"
                                                   class="form-control" placeholder="0" value="${price[6]}">
             </div>
