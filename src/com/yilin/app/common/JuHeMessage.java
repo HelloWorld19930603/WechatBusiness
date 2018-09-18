@@ -62,7 +62,7 @@ public class JuHeMessage {
 
 
     public static void main(String[] args) throws Exception {
-        getRequest2("16657102793", "#code#=16657102793&#pwd#=123456", Configuration.MESSAGE_MODEL);
+        getRequest2("16657102793", "#phone#=16657102793&#", Configuration.MESSAGE_MODEL_3);
     }
 
     /**

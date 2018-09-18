@@ -32,9 +32,14 @@ public class CollegeController {
     ICollegeService collegeService;
 
     @RequestMapping("college")
-    public String College(Model model) {
+    public String college(Model model) {
         model.addAttribute("active", "college");
         return "college";
+    }
+
+    @RequestMapping("showCollege")
+    public String showCollege(Model model,int id) {
+        return "showCollege";
     }
 
     @RequestMapping("getColleges")
@@ -44,7 +49,7 @@ public class CollegeController {
         SystemPage page = new SystemPage();
         try {
             totals = collegeService.getCount(type);
-            List<Commodity> data = collegeService.findList(type,title, start, pageSize);
+            List<Commodity> data = collegeService.findList(type, title, start, pageSize);
             page = new SystemPage(totals, data);
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,12 +68,12 @@ public class CollegeController {
     public String removeCollege(int id, HttpServletRequest req) {
         try {
             College college = collegeService.selectOne(id);
-            String servletContext =  req.getSession().getServletContext().getRealPath("/");
-            if(StringUtil.isNotEmpty(college.getImg())) {
-                PhotoUtil.removePhoto(servletContext+college.getImg().substring(1));
+            String servletContext = req.getSession().getServletContext().getRealPath("/");
+            if (StringUtil.isNotEmpty(college.getImg())) {
+                PhotoUtil.removePhoto(servletContext + college.getImg().substring(1));
             }
-            if(StringUtil.isNotEmpty(college.getVideo())) {
-                PhotoUtil.removePhoto(servletContext+college.getVideo().substring(1));
+            if (StringUtil.isNotEmpty(college.getVideo())) {
+                PhotoUtil.removePhoto(servletContext + college.getVideo().substring(1));
             }
             collegeService.removeOne(id);
         } catch (Exception e) {
@@ -79,36 +84,36 @@ public class CollegeController {
 
 
     @RequestMapping("editCollege")
-    public String editCollege(Model model,int id) throws Exception {
+    public String editCollege(Model model, int id) throws Exception {
         College college = collegeService.selectOne(id);
-        model.addAttribute("college",college);
-        model.addAttribute("active","college");
+        model.addAttribute("college", college);
+        model.addAttribute("active", "college");
         return "editCollege";
     }
 
     @RequestMapping("editCollege2")
     @ResponseBody
-    public String editCollege2(College college,String oldImg,String oldVideo,@RequestParam(value = "file1", required = false) MultipartFile file1,
+    public String editCollege2(College college, String oldImg, String oldVideo, @RequestParam(value = "file1", required = false) MultipartFile file1,
                                @RequestParam(value = "file2", required = false) MultipartFile file2, HttpServletRequest req) {
         try {
 
-            String img = null, video = null;
-            String servletContext =  req.getSession().getServletContext().getRealPath("/");
+            String img, video;
+            String servletContext = req.getSession().getServletContext().getRealPath("/");
             if (file1 != null) {
                 img = PhotoUtil.photoUpload(file1, "images/home/college/",
-                        file1.getOriginalFilename().substring(0,file1.getOriginalFilename().lastIndexOf(".")),
+                        file1.getOriginalFilename().substring(0, file1.getOriginalFilename().lastIndexOf(".")),
                         req.getSession().getServletContext().getRealPath("/"));
-                if(StringUtil.isNotEmpty(oldImg)) {
-                    PhotoUtil.removePhoto(servletContext+oldImg.substring(1));
+                if (StringUtil.isNotEmpty(oldImg)) {
+                    PhotoUtil.removePhoto(servletContext + oldImg.substring(1));
                 }
                 college.setImg(img);
             }
             if (file2 != null) {
                 video = PhotoUtil.photoUpload(file2, "images/home/college/video/",
-                        file2.getOriginalFilename().substring(0,file2.getOriginalFilename().lastIndexOf(".")),
+                        file2.getOriginalFilename().substring(0, file2.getOriginalFilename().lastIndexOf(".")),
                         req.getSession().getServletContext().getRealPath("/"));
-                if(StringUtil.isNotEmpty(oldVideo)) {
-                    PhotoUtil.removePhoto(servletContext+oldVideo.substring(1));
+                if (StringUtil.isNotEmpty(oldVideo)) {
+                    PhotoUtil.removePhoto(servletContext + oldVideo.substring(1));
                 }
                 college.setVideo(video);
             }
@@ -123,18 +128,18 @@ public class CollegeController {
     @RequestMapping("addCollege2")
     @ResponseBody
     public Object addCollege2(String title, String content, byte type, @RequestParam(value = "file1", required = false) MultipartFile file1,
-                               @RequestParam(value = "file2", required = false) MultipartFile file2, HttpServletRequest req) {
+                              @RequestParam(value = "file2", required = false) MultipartFile file2, HttpServletRequest req) {
 
         try {
             String img = null, video = null;
             if (file1 != null) {
                 img = PhotoUtil.photoUpload(file1, "images/home/college/",
-                        file1.getOriginalFilename().substring(0,file1.getOriginalFilename().lastIndexOf(".")),
+                        file1.getOriginalFilename().substring(0, file1.getOriginalFilename().lastIndexOf(".")),
                         req.getSession().getServletContext().getRealPath("/"));
             }
             if (file2 != null) {
                 video = PhotoUtil.photoUpload(file2, "images/home/college/video/",
-                        file2.getOriginalFilename().substring(0,file2.getOriginalFilename().lastIndexOf(".")),
+                        file2.getOriginalFilename().substring(0, file2.getOriginalFilename().lastIndexOf(".")),
                         req.getSession().getServletContext().getRealPath("/"));
             }
             collegeService.addOne(title, content, img, video, type);
@@ -160,12 +165,12 @@ public class CollegeController {
         String[] fileType = {".gif", ".png", ".jpg", ".jpeg", ".bmp"};
         up.setAllowFiles(fileType);
         up.setMaxSize(10000); //单位KB
-        up.upload(upfile, req.getSession().getServletContext().getRealPath("/") ,"images/home/college");
+        up.upload(upfile, req.getSession().getServletContext().getRealPath("/"), "images/home/college");
 
-        String callback = req.getParameter("callback");
+        //String callback = req.getParameter("callback");
 
         //String result = "{\"name\":\"" + up.getFileName() + "\", \"originalName\": \"" + up.getOriginalName()+ "\", \"size\": " + up.getSize() + ", \"state\": \"" + up.getState() + "\", \"type\": \"" + up.getType() + "\", \"url\": \"" +up.getUrl() + "\"}";
-        String result = "{\"errno\":0, \"data\": [\"/" +up.getUrl() + "\"]}";
+        String result = "{\"errno\":0, \"data\": [\"/" + up.getUrl() + "\"]}";
 
         response.getWriter().print(result);
 

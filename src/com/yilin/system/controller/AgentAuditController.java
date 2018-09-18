@@ -4,6 +4,7 @@ import com.yilin.app.common.Configuration;
 import com.yilin.app.domain.Agent;
 import com.yilin.app.domain.User;
 import com.yilin.app.domain.Wallet;
+import com.yilin.app.exception.RequestException;
 import com.yilin.app.service.IUserService;
 import com.yilin.app.service.IWalletService;
 import com.yilin.app.utils.PhotoUtil;
@@ -63,8 +64,16 @@ public class AgentAuditController {
 
     @RequestMapping("decideAgent")
     @ResponseBody
-    public Integer decideAgent(int id, byte status, int userId) throws Exception {
-        agentAuditService.audit(id, status, userId);
+    public Integer decideAgent(int id, byte status, int userId) {
+        try {
+            agentAuditService.audit(id, status, userId);
+        }catch (RequestException re){
+            re.printStackTrace();
+            return 2;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return 1;
+        }
         return 0;
     }
 

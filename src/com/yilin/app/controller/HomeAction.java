@@ -73,7 +73,7 @@ public class HomeAction {
                 return new ResultJson(false,"短信发送间隔60秒/次，请稍后尝试！");
             }
             String code = JuHeMessage.createCode();
-            JuHeMessage.getRequest2(phone,"#code#="+code, Configuration.MESSAGE_MODEL);
+            JuHeMessage.getRequest2(phone,"#code#="+code, Configuration.MESSAGE_MODEL_1);
             result = new ResultJson(true,"发送成功!");
             userInfo.setMessage_code(code);
             userInfo.setMessage_time(System.currentTimeMillis());
