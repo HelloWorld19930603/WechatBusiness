@@ -12,5 +12,8 @@ public interface CommodityMapper  extends IBaseMapper<Commodity> {
 
     Float[] selectAllPrice(Map<String, Object> map);
 
-    Map selectByCode(@Param("code") String code);
+
+    int selectByType(@Param("type") int type);
+
+    void updateByType(@Param("type")byte type);
 }

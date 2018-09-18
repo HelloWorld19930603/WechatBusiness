@@ -4,7 +4,6 @@ import com.yilin.app.common.Permission;
 import com.yilin.app.common.ResultJson;
 import com.yilin.app.domain.Commodity;
 import com.yilin.app.service.ICommodityService;
-import com.yilin.app.service.IPriceService;
 import com.yilin.system.service.IPosterService;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +36,10 @@ public class PosterAction {
             map.put("1",banner);
             map.put("2","/images/home/commodity/popularity.png");
             map.put("3","/images/home/commodity/star.png");
-            map.put("popularity",2);
-            map.put("star",3);
+            int start = commodityService.selectByType(1);
+            int popularity = commodityService.selectByType(2);
+            map.put("popularity",popularity);
+            map.put("star",start);
             result = new ResultJson(true,"查询成功",map);
         } catch (Exception e) {
             e.printStackTrace();

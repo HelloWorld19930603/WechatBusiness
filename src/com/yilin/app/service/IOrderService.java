@@ -38,4 +38,5 @@ public interface IOrderService {
 
     List selectList2(Integer userId, Byte status, Byte serise, int start, int pageSize) throws Exception;
 
+    Map selectByCode(String code)throws Exception;
 }

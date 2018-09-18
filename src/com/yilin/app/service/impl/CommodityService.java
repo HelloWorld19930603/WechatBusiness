@@ -137,7 +137,14 @@ public class CommodityService implements ICommodityService {
     }
 
     @Override
-    public Map selectByCode(String code) throws Exception {
-        return commodityMapper.selectByCode(code);
+    public int selectByType(int type) {
+        return commodityMapper.selectByType(type);
     }
+
+    @Override
+    public void updateByteType(byte type) {
+        commodityMapper.updateByType(type);
+    }
+
+
 }

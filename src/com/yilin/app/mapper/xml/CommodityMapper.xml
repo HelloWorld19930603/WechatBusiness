@@ -247,4 +247,17 @@
         where comm_id = #{commId}
 
     </select>
+
+    <select id="selectByType"  resultType="int">
+        select
+        id
+        from commodity
+        where type = #{type}
+        limit 1
+
+    </select>
+
+    <update id="updateByType" >
+        update commodity set type = 0 where type = #{type}
+    </update>
 </mapper>

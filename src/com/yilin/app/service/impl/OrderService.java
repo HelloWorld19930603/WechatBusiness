@@ -64,6 +64,11 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public Map selectByCode(String code) throws Exception {
+        return orderCommMapper.selectByCode(code);
+    }
+
+    @Override
     public void editOrder(Orders orders) throws Exception {
 
         ordersMapper.updateByPrimaryKeySelective(orders);

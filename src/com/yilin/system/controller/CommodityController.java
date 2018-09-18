@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -67,24 +66,7 @@ public class CommodityController {
         return "addCommodity";
     }
 
-    @RequestMapping("traceability")
-    public String traceability(Model model) {
-        model.addAttribute("active", "traceability");
 
-        return "traceability";
-    }
-    @RequestMapping("traceability2")
-    @ResponseBody
-    public Object traceability2(String code) {
-        try {
-            Map commMap = commodityService.selectByCode(code);
-            return commMap;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
-    }
 
     @RequestMapping("editCommodity")
     public String editCommodity(Model model, int commId) {
@@ -317,6 +299,9 @@ public class CommodityController {
             Commodity commodity = new Commodity();
             commodity.setId(commId);
             commodity.setType(type);
+            if(type == 1 || type == 2){
+                commodityService.updateByteType(type);
+            }
             commodityService.updateOne(commodity);
             return 0;
         } catch (Exception e) {

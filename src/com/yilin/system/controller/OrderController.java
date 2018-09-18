@@ -7,6 +7,7 @@ import com.yilin.app.service.IOrderService;
 import com.yilin.app.service.IRoleService;
 import com.yilin.system.common.SystemPage;
 import com.yilin.system.service.ILogisticsService;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -171,5 +172,26 @@ public class OrderController {
             e.printStackTrace();
             return 1;
         }
+    }
+
+
+    @RequestMapping("traceability")
+    public String traceability(Model model) {
+        model.addAttribute("active", "traceability");
+
+        return "traceability";
+    }
+    @RequestMapping("traceability2")
+    @ResponseBody
+    public Object traceability2(String code) {
+        try {
+            Map commMap = orderService.selectByCode(code);
+            JSONObject jsonObject = JSONObject.fromObject(commMap);
+            return jsonObject;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 }

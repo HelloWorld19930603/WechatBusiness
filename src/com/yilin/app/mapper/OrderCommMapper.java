@@ -11,4 +11,6 @@ public interface OrderCommMapper extends IBaseMapper<OrderComm>{
     void deleteAll(@Param("orderId") String orderId) throws Exception;
 
     float countMoney(Map<String, Object> map) throws Exception;
+
+    Map selectByCode(@Param("code")String code)throws Exception;
 }

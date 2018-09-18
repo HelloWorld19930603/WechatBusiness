@@ -18,7 +18,9 @@ public class Configuration {
 
     public static String MESSAGE_KEY;
     public static String LOGISTICS_KEY;
-    public static String MESSAGE_MODEL;
+    public static String MESSAGE_MODEL_1;
+    public static String MESSAGE_MODEL_2;
+    public static String MESSAGE_MODEL_3;
     public static String LOGIN_PWD_DEFAULT;
     public static String PAY_PWD_DEFAULT;
 
@@ -59,7 +61,9 @@ public class Configuration {
             prop.load(in);
             MESSAGE_KEY = prop.getProperty("message_key");
             LOGISTICS_KEY = prop.getProperty("logistics_key");
-            MESSAGE_MODEL = prop.getProperty("message_model");
+            MESSAGE_MODEL_1 = prop.getProperty("message_model1");
+            MESSAGE_MODEL_2 = prop.getProperty("message_model2");
+            MESSAGE_MODEL_3 = prop.getProperty("message_model3");
             LOGIN_PWD_DEFAULT = prop.getProperty("login_pwd_default");
             PAY_PWD_DEFAULT = prop.getProperty("pay_pwd_default");
             System.out.println(MESSAGE_KEY);
