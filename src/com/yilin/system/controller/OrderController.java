@@ -44,12 +44,12 @@ public class OrderController {
 
     @RequestMapping("getOrders")
     @ResponseBody
-    public SystemPage getOrders(Integer userId,Byte status,Byte serise,int start,int pageSize){
+    public SystemPage getOrders(String orderId,String name,String phone,Byte status,Byte serise,int start,int pageSize){
         int totals = 0;
         SystemPage page = new SystemPage();
         try {
-            totals = orderService.getCount(userId,status,serise);
-            List data = orderService.selectList2(userId,status,serise,start,pageSize);
+            totals = orderService.getCount(orderId,name,phone,status,serise);
+            List data = orderService.selectList2(orderId,name,phone,status,serise,start,pageSize);
             page = new SystemPage(totals, data);
         } catch (Exception e) {
             e.printStackTrace();

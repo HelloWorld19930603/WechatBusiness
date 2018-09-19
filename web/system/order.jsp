@@ -61,7 +61,7 @@
                 <div class="sa-ele">
                     <label class="se-title">订单状态:</label>
                     <select class="se-con" name="status">
-                        <option value="-1">请选择</option>
+                        <option value="">请选择</option>
                         <!--通过js增加-->
                     </select>
                 </div>
@@ -70,8 +70,12 @@
                     <input class="se-con" name="orderId"/>
                 </div>
                 <div class="sa-ele">
-                    <label class="se-title">收货人姓名:</label>
-                    <input class="se-con" name="name"/>
+                <label class="se-title">收货人姓名:</label>
+                <input class="se-con" name="name"/>
+            </div>
+                <div class="sa-ele">
+                    <label class="se-title">收货人电话:</label>
+                    <input class="se-con" name="phone"/>
                 </div>
                 <div class="sa-ele">
                     <button class="search-action">搜索</button>
@@ -336,7 +340,9 @@
         document.querySelector('.search-action').addEventListener('click', function () {
             var _query = {
                 name: document.querySelector('[name="name"]').value,
-                serise: document.querySelector('[name="status"]').value,
+                status: document.querySelector('[name="status"]').value,
+                phone: document.querySelector('[name="phone"]').value,
+                orderId: document.querySelector('[name="orderId"]').value,
                 index: 1
             };
             table.GM('setQuery', _query, function () {

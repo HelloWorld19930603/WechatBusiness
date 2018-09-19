@@ -49,9 +49,11 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public List selectList2(Integer userId, Byte status, Byte serise, int start, int pageSize) throws Exception {
+    public List selectList2(String orderId,String addrName, String phone, Byte status, Byte serise, int start, int pageSize) throws Exception {
         Map<String, Object> map = new HashMap<>();
-        map.put("userId", userId);
+        map.put("orderId", orderId);
+        map.put("addrName", addrName);
+        map.put("phone", phone);
         map.put("start", (start - 1) * pageSize);
         map.put("pageSize", pageSize);
         map.put("status", status);
@@ -149,9 +151,11 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public int getCount(Integer userId, Byte status, Byte serise) throws Exception {
+    public int getCount(String orderId,String addrName, String phone, Byte status, Byte serise) throws Exception {
         Map<String, Object> map = new HashMap<>();
-        map.put("userId", userId);
+        map.put("addrName", addrName);
+        map.put("orderId", orderId);
+        map.put("phone", phone);
         map.put("status", status);
         map.put("serise", serise);
         return ordersMapper.count(map);

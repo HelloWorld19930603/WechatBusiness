@@ -144,6 +144,10 @@
 <!--common scripts for all pages-->
 <script src="js/scripts.js"></script>
 
+<script src="js/sweetalert/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="js/sweetalert/sweetalert2.min.css">
+<!-- IE support -->
+<script src="js/sweetalert/es6-promise.min.js"></script>
 </body>
 </html>
 <script type="text/javascript">
@@ -185,15 +189,24 @@
             var loginPwd = document.querySelector('[name="loginPwd"]').value;
             var confirm_password = document.querySelector('[name="confirm_password"]').value;
             if(name==''||name==null||loginName==''||loginName==null){
-                alert("请填写完整经销商信息！");
+                swal({
+                    type: 'info',
+                    html: '请填写完整经销商信息！'
+                });
                 return;
             }
             if(roleId == ''){
-                alert('请选择经销商级别!');
+                swal({
+                    type: 'info',
+                    html: '请选择经销商级别！'
+                });
                 return;
             }
             if(loginPwd != confirm_password){
-                alert("两次输入密码不一致！")
+                swal({
+                    type: 'info',
+                    html: '两次输入密码不一致！'
+                });
                 return;
             }
 
@@ -203,17 +216,29 @@
                 data: "serise=" + serise + "&loginPwd=" + loginPwd + "&name=" + name + "&loginName=" + loginName + "&phone=" + phone+ "&wxNum=" + wxNum+ "&roleId=" + roleId,
                 success: function (data) {
                     if (data == 0) {
-                        alert("添加成功！");
+                        swal({
+                            type: 'success',
+                            html: '添加成功！'
+                        });
                     } else if (data == 2) {
-                        alert("该用户名已存在！")
+                        swal({
+                            type: 'warning',
+                            html: '该用户名已存在！'
+                        });
                     } else if (data == 1){
-                        alert("添加异常！");
+                        swal({
+                            type: 'warning',
+                            html: '添加失败！'
+                        });
                     }
                     console.log(data);
                 },
                 error: function (data) {
                     console.log(data);
-                    alert("添加失败！");
+                    swal({
+                        type: 'error',
+                        html: '添加异常！'
+                    });
                 }
             });
         });

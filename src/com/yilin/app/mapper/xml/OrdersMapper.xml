@@ -205,12 +205,18 @@
         o.phone,o.ssq,o.addr,l.id no,l.com,o.totals
         from orders o
         left join logistics l on l.order_id = o.id
-        where 1=1
-        <if test="userId != null">
-            and o.user_id = #{userId}
+        where o.status != 1
+        <if test="orderId != null and orderId != ''">
+            and o.id = #{orderId}
         </if>
         <if test="status != null">
             and o.status = #{status}
+        </if>
+        <if test="addrName != null and addrName != '' ">
+            and o.addr_name like '%${addrName}%'
+        </if>
+        <if test="phone != null and phone != ''">
+            and o.phone = #{phone}
         </if>
         order by o.time desc
         limit #{start},#{pageSize}
@@ -219,13 +225,19 @@
     <select id="count" parameterType="map" resultType="int">
         select
         count(*)
-        from orders
-        where 1=1
-        <if test="userId != null">
-            and user_id = #{userId}
+        from orders o
+        where o.status != 1
+        <if test="orderId != null">
+            and id = #{orderId}
         </if>
         <if test="status != null">
             and status = #{status}
+        </if>
+        <if test="addrName != null">
+            and o.addr_name like '%${addrName}%'
+        </if>
+        <if test="phone != null">
+            and o.phone = #{phone}
         </if>
 
     </select>

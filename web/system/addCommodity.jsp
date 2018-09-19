@@ -235,7 +235,7 @@
 
     function getPrices() {
         var serise = $("#serise").val();
-        var mp = TYPE_MAP[serise-1];
+        var mp = ROLE_MAP[serise-1];
         var prices = [];
         prices.push($("#0").val());
         for(var key in mp){

@@ -26,7 +26,6 @@ public interface IOrderService {
 
     String createOrder(int userId,Map<String,Object> orders) throws Exception;
 
-    int getCount(Integer userId, Byte status, Byte serise) throws Exception;
 
     List<Map<String,Integer>> getAllCount(Integer userId) throws Exception;
 
@@ -36,7 +35,10 @@ public interface IOrderService {
 
     void refund(String orderId, int userId, byte i) throws Exception;
 
-    List selectList2(Integer userId, Byte status, Byte serise, int start, int pageSize) throws Exception;
 
     Map selectByCode(String code)throws Exception;
+
+    int getCount(String orderId,String addrName, String phone, Byte status, Byte serise) throws Exception;
+
+    List selectList2(String orderId,String addrName, String phone, Byte status, Byte serise, int start, int pageSize) throws Exception;
 }

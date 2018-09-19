@@ -89,13 +89,18 @@ public class DealerController {
         try {
             User diskUser = userService.selectByLoginName(user.getLoginName());
             if(diskUser != null ){
-                return 2;
+                UserRole userRole = roleService.selectRole(diskUser.getId(),serise);
+                if(userRole != null) {
+                    return 2;
+                }
+            }else {
+                user.setStatus((byte)1);
+                userService.register(user);
             }
-            userService.register(user);
             UserRole userRole = new UserRole();
             userRole.setRoleId(roleId);
             userRole.setSerise(serise);
-            userRole.setUserId(user.getId());
+            userRole.setUserId(diskUser.getId());
             roleService.addOne(userRole);
         } catch (Exception e) {
             e.printStackTrace();
