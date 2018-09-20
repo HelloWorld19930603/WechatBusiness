@@ -1,0 +1,819 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0047)http://47.96.7.71:2114/jsp/datacenter/xm/zt.jsp -->
+<html><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>缙云县智慧农业云平台</title>
+    <link href="./缙云县智慧农业云平台_files/baseNew.css" rel="stylesheet">
+    <link href="./缙云县智慧农业云平台_files/xm.css" rel="stylesheet">
+    <script type="text/javascript" src="./缙云县智慧农业云平台_files/jquery-1.8.3.js.下载"></script>
+    <script src="./缙云县智慧农业云平台_files/echartsUtil.js.下载"></script>
+    <script src="./缙云县智慧农业云平台_files/echarts.js.下载"></script>
+    <style>
+        .tops .wrap{
+            width:auto;
+        }
+        .yearBox {
+            height: 40px;
+            text-align: center;
+            background: #F4F5F9;
+            display: inline-block;
+        }
+        .prew {
+            padding-left: 20px;
+            background: #F4F5F9 url(images/leftArrow.png) 15px center no-repeat;
+        }
+        .prew, .next {
+            width: 80px;
+            cursor: pointer;
+        }
+        .prew, .now, .next {
+            height: 38px;
+            line-height: 38px;
+            border: 1px solid #E0E0E0;
+            font-size: 16px;
+            font-family: "Microsoft YaHei";
+            color: #5D5D5D;
+            display: inline-block;
+        }
+        .next {
+            padding-right: 20px;
+            background: #F4F5F9 url(images/rightArrow.png) 80px center no-repeat;
+        }
+        .now {
+            width: 132px;
+            background: #F4F5F9;
+        }
+    </style>
+</head>
+<body>
+<div class="top">
+    <div class="wrap">
+        <h1>缙云县智慧农业云平台<i class="chain"></i></h1>
+
+        <h2>畜牧业</h2>
+    </div>
+</div>
+<div class="wrap">
+    <div class="main-box clearfix">
+        <div class="content fl">
+            <div class="container">
+                <span class="item"><i class="item-line">监管主体</i></span>
+                <div class="lsbox">
+                    <div class="ls clearfix">
+                        <div class="fl s1">
+                            <p class="p1">总量</p>
+                            <p class="p2"><span id="ztzl">107</span>家</p>
+                        </div>
+                        <div class="fl s2 same">
+                            <p class="p2 ">规模场:<span id="zt01" style="color: red">95</span>家</p>
+                            <p class="p2 ">无害化厂:<span id="zt03" style="color: red">0</span>家</p>
+                            <p class="p2 ">兽药生产企业:<span id="zt05" style="color: red">0</span>家</p>
+                        </div>
+                        <div class="fl s2 same">
+                            <p class="p2 ">屠宰场:<span id="zt02" style="color: red">8</span>家</p>
+                            <p class="p2">饲料生产企业:<span id="zt04" style="color: red">0</span>家</p>
+                            <p class="p2">兽药经营企业:<span id="zt06" style="color: red">4</span>家</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div style="height:287px;overflow:auto;width:100%;">
+                    <table id="jgztTable" class="lightblue f16 l-blue" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><th>地区</th><th>规模场</th><th>屠宰场</th><th>无害化</th><th>饲料生产企业</th><th>兽药生产企业</th><th>兽药经营企业</th></tr><tr><td><i class="unit"><span>缙云县本级</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>8</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td></tr><tr><td><i class="unit"><span>五云街道</span></i></td><td><i class="unit"><span>15</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>1</span></i></td></tr><tr><td><i class="unit"><span>壶镇镇</span></i></td><td><i class="unit"><span>6</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>1</span></i></td></tr><tr><td><i class="unit"><span>新建镇</span></i></td><td><i class="unit"><span>11</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>2</span></i></td></tr><tr><td><i class="unit"><span>东渡镇</span></i></td><td><i class="unit"><span>26</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td></tr><tr><td><i class="unit"><span>东方镇</span></i></td><td><i class="unit"><span>9</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td></tr><tr><td><i class="unit"><span>舒洪镇</span></i></td><td><i class="unit"><span>9</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td></tr><tr><td><i class="unit"><span>大洋镇</span></i></td><td><i class="unit"><span>1</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td></tr><tr><td><i class="unit"><span>大源镇</span></i></td><td><i class="unit"><span>1</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td></tr><tr><td><i class="unit"><span>七里乡</span></i></td><td><i class="unit"><span>6</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td></tr><tr><td><i class="unit"><span>前路乡</span></i></td><td><i class="unit"><span>1</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td></tr><tr><td><i class="unit"><span>三溪乡</span></i></td><td><i class="unit"><span>3</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td></tr><tr><td><i class="unit"><span>溶江乡</span></i></td><td><i class="unit"><span>2</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td></tr><tr><td><i class="unit"><span>双溪口乡</span></i></td><td><i class="unit"><span>1</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td></tr><tr><td><i class="unit"><span>石笕乡</span></i></td><td><i class="unit"><span>1</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td></tr><tr><td><i class="unit"><span>新碧街道</span></i></td><td><i class="unit"><span>2</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td></tr><tr><td><i class="unit"><span>仙都街道</span></i></td><td><i class="unit"><span>1</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td><td><i class="unit"><span>0</span></i></td></tr></tbody></table>
+                </div>
+            </div>
+            <div class="container">
+                <span class="item">
+               		<i class="item-line">畜禽养殖</i>
+               		<div class="yearBox fr">
+						<span class="prew" onclick="changeYear1(-1)">上一年</span>
+						<span class="now" id="now1">2017年</span>
+						<span class="next" onclick="changeYear1(1)">下一年</span>
+					</div>
+                </span>
+
+                <div class="xqlsbox">
+                    <div class="xqls clearfix fl">
+                        <div class="fl s1">
+                            <p class="p1">规模场总量</p>
+                            <p class="p2"><span id="gmczl">43</span>家</p>
+                        </div>
+                    </div>
+                    <div class="echarts main1a fl" id="main1a" _echarts_instance_="ec_1537426987555" style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;"><div style="position: relative; overflow: hidden; width: 1020px; height: 300px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas width="1020" height="300" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 1020px; height: 300px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1); background-color: rgba(50, 50, 50, 0.7); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 14px/21px &quot;Microsoft YaHei&quot;; padding: 5px; left: 833px; top: 203px;">2018<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#F87A8B"></span>猪 : 3家<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#D4E28A"></span>肉牛 : 0家<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#83D3EC"></span>奶牛 : 0家<br></div></div>
+                </div>
+            </div>
+            <div class="container dwjy">
+                <span class="item">
+                	<i class="item-line">动物检疫</i>
+                	<div class="yearBox fr">
+						<span class="prew" onclick="changeYear2(-1)">上一年</span>
+						<span class="now" id="now2">2017年</span>
+						<span class="next" onclick="changeYear2(1)">下一年</span>
+					</div>
+                </span>
+                <div style="position: relative">
+                    <div class="total-radius" id="kztotal">开证总数量<br><sapn id="kztotat">3771</sapn>张</div>
+                    <dl class="total-details">
+                        <dt>动物A证</dt>
+                        <dd><i id="dwaz">18</i>张</dd>
+                        <dt>动物B证</dt>
+                        <dd><i id="dwbz">3716</i>张</dd>
+                        <dt>产品A证</dt>
+                        <dd><i id="cpaz">0</i>张</dd>
+                        <dt>产品B证</dt>
+                        <dd><i id="cpbz">37</i>张</dd>
+                    </dl>
+                    <div class="echarts con-l" id="main2a" _echarts_instance_="ec_1537426987552" style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;"><div style="position: relative; overflow: hidden; width: 560px; height: 300px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas width="560" height="300" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 560px; height: 300px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>
+                    <div class="echarts con-r" style="height: 414px; position: absolute; top: 0px; right: 0px; -webkit-tap-highlight-color: transparent; user-select: none; background: transparent;" id="main3a" _echarts_instance_="ec_1537426987551"><div style="position: relative; overflow: hidden; width: 560px; height: 414px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas width="560" height="414" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 560px; height: 414px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1); background-color: rgba(50, 50, 50, 0.7); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 14px/21px &quot;Microsoft YaHei&quot;; padding: 5px; left: 102px; top: 286px;">2017-04<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#F87A8B"></span>动物A证 : 0张<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#D4E28A"></span>动物B证 : 290张<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#83D3EC"></span>产品A证 : 0张<br></div></div>
+                </div>
+                <div class="con-l fl">
+                    <div class="second-title">
+                        <div>动物数量类型分析</div>
+                    </div>
+                    <table class="lightgreen con-l" cellspacing="0" cellpadding="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>猪<i>(万头)</i></th>
+                            <th>牛<i>(万头)</i></th>
+                            <th>羊<i>(万头)</i></th>
+                            <th>兔<i>(万只)</i></th>
+                            <th>鸡<i>(万只)</i></th>
+                            <th>鸭<i>(万只)</i></th>
+                            <th>鹅<i>(万只)</i></th>
+                            <th>鹌鹑<i>(万羽)</i></th>
+                            <th>鸽子<i>(万羽)</i></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td id="zhu">3.3</td>
+                            <td id="niu">0.0</td>
+                            <td id="yang">0.1</td>
+                            <td id="tu">0.0</td>
+                            <td id="ji">14.6</td>
+                            <td id="ya">36.4</td>
+                            <td id="e">0.0</td>
+                            <td id="anchun">0.0</td>
+                            <td id="gezi">15.3</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="echarts" id="main4a" _echarts_instance_="ec_1537426987553" style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;"><div style="position: relative; overflow: hidden; width: 560px; height: 300px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas width="560" height="300" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 560px; height: 300px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1); background-color: rgba(50, 50, 50, 0.7); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 14px/21px &quot;Microsoft YaHei&quot;; padding: 5px; left: 377px; top: 160px;">2017-12<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#F87A8B"></span>猪 : 4196头/只<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#D4E28A"></span>牛 : 0头/只<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#83D3EC"></span>羊 : 341头/只<br></div></div>
+                </div>
+                <div class="con-r fr">
+                    <div class="second-title">
+                        <div>产品数量类型分析</div>
+                    </div>
+                    <table class="lightgreen con-l" cellspacing="0" cellpadding="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>猪肉<i>(万公斤)</i></th>
+                            <th>牛肉<i>(万公斤)</i></th>
+                            <th>羊肉<i>(万公斤)</i></th>
+                            <th>兔肉<i>(万公斤)</i></th>
+                            <th>禽肉<i>(万公斤)</i></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td id="zhurou">16.4</td>
+                            <td id="niurou">0.0</td>
+                            <td id="yangrou">0.0</td>
+                            <td id="turou">0.0</td>
+                            <td id="qinrou">0.0</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="echarts" id="main5a" _echarts_instance_="ec_1537426987554" style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;"><div style="position: relative; overflow: hidden; width: 560px; height: 300px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas width="560" height="300" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 560px; height: 300px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1), top 0.4s cubic-bezier(0.23, 1, 0.32, 1); background-color: rgba(50, 50, 50, 0.7); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 14px/21px &quot;Microsoft YaHei&quot;; padding: 5px; left: 346px; top: 160px;">2017-11<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#F87A8B"></span>猪肉 : 0万公斤<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#D4E28A"></span>牛肉 : 0万公斤<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#83D3EC"></span>羊肉 : 0万公斤<br></div></div>
+                </div>
+            </div>
+            </div>
+    </div>
+</div>
+<div class="footer">版权所有：缙云县农业局 技术支持：浙江森特信息技术有限公司</div>
+
+
+<script>
+    var user_areaCode = '331122';
+    var year1 = 2017;
+    var year2 = 2017;
+    var year3 = 2017;
+    changData1();
+    changData2();
+    changData3();
+    //控制年度
+    $(function () {
+        //监管主体
+        var colsArr = ['zt01','zt02','zt03','zt04','zt05','zt06'];
+        $.ajax({
+            url: '/xmNew/xmztInfo.action',
+            data : "&user_areaCode=" + user_areaCode+"&a="+Math.random(),
+            dataType: 'json',
+            success: function(data){
+                var xmztInfo = data;
+                if(xmztInfo.length>0){
+                    var sum = 0;
+                    for(var i=0;i<xmztInfo.length;i++){
+                        var result = xmztInfo[i];
+                        var num = result['sl'];
+                        num = typeof(num)=="undefined"?0:num;
+                        sum +=(parseFloat(num));
+                        $('#zt0'+result['lx']).html(num);
+                    }
+                    $('#ztzl').html(sum);
+                }else{
+                    for(var i=0;i<colsArr.length;i++){
+                        $('#'+colsArr[i]).html(0);
+                    }
+                    $('#ztzl').html(0);
+                }
+            }
+        });
+
+        $.ajax({
+            url: '/xmNew/xmztInfoTwo.action',
+            data : "&user_areaCode=" + user_areaCode+"&a="+Math.random(),
+            dataType: 'json',
+            success: function(data){
+                var xmztInfo = data;
+                var html = "";
+                var areaname = "";
+                html += "<tr>";
+                html += "<th>地区</th>";
+                html += "<th>规模场</th>";
+                html += "<th>屠宰场</th>";
+                html += "<th>无害化</th>";
+                html += "<th>饲料生产企业</th>";
+                html += "<th>兽药生产企业</th>";
+                html += "<th>兽药经营企业</th>";
+                html += "</tr>";
+                if(xmztInfo.length>0){
+                    for(var i=0;i<xmztInfo.length;i++){
+                        var result = xmztInfo[i];
+                        areaname = result['areaname'];
+                        areaname = typeof(areaname)=="undefined"?"":areaname;
+                        if(result['areacode']==user_areaCode){
+                            areaname+="本级";
+                        }
+                        html += "<tr>";
+                        html += "<td><i class='unit'><span>"+areaname+"</span></i></td>";
+                        html += "<td><i class='unit'><span>"+result['sum1']+"</span></i></td>";
+                        html += "<td><i class='unit'><span>"+result['sum2']+"</span></i></td>";
+                        html += "<td><i class='unit'><span>"+result['sum3']+"</span></i></td>";
+                        html += "<td><i class='unit'><span>"+result['sum4']+"</span></i></td>";
+                        html += "<td><i class='unit'><span>"+result['sum5']+"</span></i></td>";
+                        html += "<td><i class='unit'><span>"+result['sum6']+"</span></i></td>";
+                        html += "</tr>";
+                    }
+                    $('#jgztTable').html(html);
+                }
+            }
+        });
+        //畜禽养殖
+        $.ajax({
+            url: '/xmNew/xqyzInfoTwo.action',
+            data : "&user_areaCode=" + user_areaCode+"&a="+Math.random(),
+            dataType: 'json',
+            success: function(data){
+                var xqyzInfo = data;
+                var chartData02="";var year="";
+                var pz1="";var pz2063="";var pz2064="";
+                var pz3="";var pz4="";var pz5="";var pz6="";
+                var pz7="";var pz8="";var pz9="";var pz10=""
+                if(xqyzInfo.length>0){
+                    for(var i=0;i<xqyzInfo.length;i++){
+                        var result = xqyzInfo[i];
+                        if(i==0){
+                            year +=(result.year);
+                            pz1 +=('猪,'+result.pz1);
+                            pz2063 +=('肉牛,'+result.pz2063);
+                            pz2064 +=('奶牛,'+result.pz2064);
+                            pz3 +=('羊,'+result.pz3);
+                            pz4 +=('鸡,'+result.pz4);
+                            pz5 +=('鸭,'+result.pz5);
+                            pz6 +=('鹅,'+result.pz6);
+                            pz7 +=('兔,'+result.pz7);
+                            pz8 +=('鹌鹑,'+result.pz8);
+                            pz9 +=('蜜蜂,'+result.pz9);
+                            pz10 +=('鸽子,'+result.pz10);
+                        }else{
+                            year +=(','+result.year);
+                            pz1 +=(','+result.pz1);
+                            pz2063 +=(','+result.pz2063);
+                            pz2064 +=(','+result.pz2064);
+                            pz3 +=(','+result.pz3);
+                            pz4 +=(','+result.pz4);
+                            pz5 +=(','+result.pz5);
+                            pz6 +=(','+result.pz6);
+                            pz7 +=(','+result.pz7);
+                            pz8 +=(','+result.pz8);
+                            pz9 +=(','+result.pz9);
+                            pz10 +=(','+result.pz10);
+                        }
+                    }
+
+                    chartData02 = year+";"+pz1+";"+pz2063+";"+pz2064+";"+pz3+";"+pz4
+                        +";"+pz5+";"+pz6+";"+pz7+";"+pz8+";"+pz9+";"+pz10
+                    chartData02 = chartData02.split("undefined").join("0");
+
+                    new EchartsUtils("main1a",{
+                        "colorType": "qxzr",
+                        "data": chartData02,
+                        "yAxisTitle": "家"
+                    });
+
+                }else{
+                }
+            }
+        });
+
+    });
+    function changData1(){
+        //畜禽养殖
+        $.ajax({
+            url: '/xmNew/xqyzInfo.action',
+            data : "&user_areaCode=" + user_areaCode+"&year=" + year1+"&a="+Math.random(),
+            dataType: 'json',
+            success: function(data){
+                var xqyzInfo = data;
+                var num = 0;
+                if(xqyzInfo.length>0){
+                    num = xqyzInfo[0]['sl'];
+                    num = typeof(num)=="undefined"?0:num;
+                    $('#gmczl').html(num);
+                }else{
+                    $('#gmczl').html("0");
+                }
+            }
+        });
+    }
+    function changData2(){
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url:'/xmNew/dwjyInfo.action',
+            data : "&user_areaCode=" + user_areaCode+"&year=" + year2+"&a="+Math.random(),
+            dataType: "JSON",
+            success: function(data) {
+                var dwjyInfo = data;
+                var dwjyData=[];var cpjyData=[];var chartData01='';var chartData02='';
+                var kzSum =0;var dwA=0;var dwB=0;var cpA=0;var cpB=0;
+
+                var dwSum =0;var zhu=0;var niu=0;var yang=0;var tu=0;var ji=0;
+                var ya=0;var e=0;var anchun=0;var gezi=0;
+
+                var cpSum=0;var zhurou=0;var niurou=0;var yangrou=0;var turou=0;var qinrou=0;
+                if(dwjyInfo.length>0){
+                    dwjyData = dwjyInfo[0];
+                    cpjyData = dwjyInfo[1];
+                    if(dwjyData.length>0){
+                        for(var i=0;i<dwjyData.length;i++){
+                            var result = dwjyData[i];
+                            var dwType = result.animalType_id;
+                            var zsCount = result.dwcount;
+                            var dwCount = result.dwsl;
+                            var zzlx = result.zzlx;
+                            if(zzlx=='1'){
+                                //动物A证
+                                dwA += (parseInt(zsCount));
+                            }else if(zzlx=='3'){
+                                //动物B证
+                                dwB += (parseInt(zsCount));
+                            }
+                            if(dwType=='82'){
+                                //猪
+                                zhu += (parseInt(dwCount));
+                            }else if(dwType=='83'){
+                                //牛
+                                niu += (parseInt(dwCount));
+                            }else if(dwType=='84'){
+                                //羊
+                                yang += (parseInt(dwCount));
+                            }else if(dwType=='85'){
+                                //兔
+                                tu += (parseInt(dwCount));
+                            }else if(dwType=='86'){
+                                //鸡
+                                ji += (parseInt(dwCount));
+                            }else if(dwType=='87'){
+                                //鸭
+                                ya += (parseInt(dwCount));
+                            }else if(dwType=='88'){
+                                //鹅
+                                e += (parseInt(dwCount));
+                            }else if(dwType=='89'){
+                                //鹌鹑
+                                anchun += (parseInt(dwCount));
+                            }else if(dwType=='91'){
+                                //鸽子
+                                gezi += (parseInt(dwCount));
+                            }
+                            kzSum += (parseInt(zsCount));
+                            dwSum += (parseInt(dwCount));
+                        }
+                    }
+                    if(cpjyData.length>0){
+                        for(var i=0;i<cpjyData.length;i++){
+                            var result = cpjyData[i];
+                            var cpType = result.animalType_id;
+                            var zsCount = result.cpcount;
+                            var cpCount = result.cpsl;
+                            var zzlx = result.zzlx;
+                            if(zzlx=='2'){
+                                //产品A证
+                                cpA += (parseInt(zsCount));
+                            }else if(zzlx=='4'){
+                                //产品B证
+                                cpB += (parseInt(zsCount));
+                            }
+                            if(cpType=='114'){
+                                //猪肉
+                                zhurou += (parseFloat(cpCount));
+                            }else if(cpType=='118'){
+                                //牛肉
+                                niurou += (parseFloat(cpCount));
+                            }else if(cpType=='122'){
+                                //羊肉
+                                yangrou += (parseFloat(cpCount));
+                            }else if(cpType=='126'){
+                                //兔肉
+                                turou += (parseFloat(cpCount));
+                            }else if(cpType=='130'||cpType=='133'||cpType=='136'||
+                                cpType=='139'||cpType=='133'){
+                                //禽肉
+                                qinrou += (parseFloat(cpCount));
+                            }
+                            kzSum += (parseInt(zsCount));
+                            cpSum += (parseFloat(cpCount));
+                        }
+                    }
+
+                    $("#kztotat").text(kzSum);
+                    $("#dwaz").text(dwA);
+                    $("#dwbz").text(dwB);
+                    $("#cpaz").text(cpA);
+                    $("#cpbz").text(cpB);
+                    //$("#dwtotal").text((dwSum/10000).toFixed(1));
+                    $("#zhu").text((zhu/10000).toFixed(1));
+                    $("#niu").text((niu/10000).toFixed(1));
+                    $("#yang").text((yang/10000).toFixed(1));
+                    $("#tu").text((tu/10000).toFixed(1));
+                    $("#ji").text((ji/10000).toFixed(1));
+                    $("#ya").text((ya/10000).toFixed(1));
+                    $("#e").text((e/10000).toFixed(1));
+                    $("#anchun").text((anchun/10000).toFixed(1));
+                    $("#gezi").text((gezi/10000).toFixed(1));
+                    //$("#cptotal").text((cpSum/10000).toFixed(1));
+                    $("#zhurou").text((zhurou/10000).toFixed(1));
+                    $("#niurou").text((niurou/10000).toFixed(1));
+                    $("#yangrou").text((yangrou/10000).toFixed(1));
+                    $("#turou").text((turou/10000).toFixed(1));
+                    $("#qinrou").text((qinrou/10000).toFixed(1));
+
+                }
+                chartData01 = '证书,动物A证,'+dwA+',动物B证,'+dwB+',产品A证,'+cpA+',产品B证,'+cpB;
+                chartData02 = '数量,猪,'+zhu+',牛,'+niu+',羊,'+yang+',兔,'+tu
+                    +',鸡,'+ji+',鸭,'+ya+',鹅,'+e+',鹌鹑,'+anchun+',鸽子,'+gezi;
+                new EchartsUtils("main2a",{
+                    "colorType": "qxzr",
+                    "chartType": "pie",
+                    "innerSize": "60%",
+                    "data": chartData01,
+                    "yAxisTitle": "张"
+                });
+            }
+        });
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url:'/xmNew/dwjyInfoTwo.action',
+            data : "&user_areaCode=" + user_areaCode+ "&year=" + year2+"&a="+Math.random(),
+            dataType: "JSON",
+            success:function(data) {
+                var dwjyInfo = data;var chartData03='';var year='';
+                var dwA='';var dwB='';var cpA='';var cpB='';
+                if(dwjyInfo.length>0){
+                    for(var i=0;i<dwjyInfo.length;i++){
+                        var result = dwjyInfo[i];
+                        if(i==0){
+                            year += (result.year);
+                            dwA += ('动物A证,'+result.dwA);
+                            dwB += ('动物B证,'+result.dwB);
+                            cpA += ('产品A证,'+result.cpA);
+                            cpB += ('产品B证,'+result.cpB);
+                        }else{
+                            year += (','+result.year);
+                            dwA += (','+result.dwA);
+                            dwB += (','+result.dwB);
+                            cpA += (','+result.cpA);
+                            cpB += (','+result.cpB);
+                        }
+                    }
+                    chartData03 = year+";"+dwA+";"+dwB+";"+cpA+";"+cpB;
+                    new EchartsUtils("main3a",{
+                        "colorType": "qxzr",
+                        "data": chartData03,
+                        "yAxisTitle": "张",
+                        "gridLeft":"50"
+                    });
+                }else{
+                    new EchartsUtils("main3a",{
+                        "colorType": "qxzr",
+                        "data": "暂无数据;暂无数据,0",
+                        "yAxisTitle": "张",
+                        "gridLeft":"50"
+                    });
+                }
+            }
+        });
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url:'/xmNew/dwjyInfoThree.action',
+            data : "&user_areaCode=" + user_areaCode+ "&year=" + year2+"&a="+Math.random(),
+            dataType: "JSON",
+            success:function(data) {
+                dwCountallData = data;
+
+                //var codeArr = ['zhu','niu','yang','tu','ji','ya','e','anchun','gezi'];
+                //var nameArr =['猪','牛','羊','兔','鸡','鸭','鹅','鹌鹑','鸽子'];
+                var codeArr = ['zhu','niu','yang','tu','ji'];
+                var nameArr =['猪','牛','羊','兔','鸡'];
+                var dwjyInfo = data;var chartData04='';var year='';
+                //var tempArr=['','','','','','','','',''];
+                var tempArr=['','','','',''];
+                if(dwjyInfo.length>0&&codeArr.length>0){
+                    for(var i=0;i<dwjyInfo.length;i++){
+                        var result = dwjyInfo[i];
+                        if(i==0){
+                            year += (result.year);
+                            for(var j=0;j<codeArr.length;j++){
+                                tempArr[j] += (nameArr[j]+','+result[codeArr[j]]);
+                            }
+                        }else{
+                            year += (','+result.year);
+                            for(var j=0;j<codeArr.length;j++){
+                                tempArr[j] += (','+result[codeArr[j]]);
+                            }
+                        }
+                    }
+                    chartData04 += year;
+                    for(var i=0;i<codeArr.length;i++){
+                        chartData04+= (';'+tempArr[i]);
+                    }
+                    new EchartsUtils("main4a",{
+                        "colorType": "qxzr",
+                        "data": chartData04,
+                        "yAxisTitle": "头/只",
+                        "gridLeft":"50"
+                    });
+
+                }else{
+                    new EchartsUtils("main4a",{
+                        "colorType": "qxzr",
+                        "data": "暂无数据;暂无数据,0",
+                        "yAxisTitle": "头/只"
+                    });
+                }
+            }
+        });
+        //产品总重量趋势分析 历年数据曲线图
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url:'/xmNew/dwjyInfoFour.action',
+            data : "&user_areaCode=" + user_areaCode+"&year=" + year2+"&a="+Math.random(),
+            dataType: "JSON",
+            success:function(data) {
+                var dwjyInfo = data;var chartData05='';var year='';
+                var zhurou='';var niurou='';var yangrou='';var turou='';var jirou='';
+                if(dwjyInfo.length>0){
+                    for(var i=0;i<dwjyInfo.length;i++){
+                        var result = dwjyInfo[i];
+                        if(i==0){
+                            year += (result.year);
+                            zhurou += ('猪肉,'+parseFloat(result.zhurou).toFixed(2));
+                            niurou += ('牛肉,'+parseFloat(result.niurou).toFixed(2));
+                            yangrou += ('羊肉,'+parseFloat(result.yangrou).toFixed(2));
+                            turou += ('兔肉,'+parseFloat(result.turou).toFixed(2));
+                            jirou += ('鸡肉,'+parseFloat(result.jirou).toFixed(2));
+                        }else{
+                            year += (','+result.year);
+                            zhurou += (','+parseFloat(result.zhurou).toFixed(2));
+                            niurou += (','+parseFloat(result.niurou).toFixed(2));
+                            yangrou += (','+parseFloat(result.yangrou).toFixed(2));
+                            turou += (','+parseFloat(result.turou).toFixed(2));
+                            jirou += (','+parseFloat(result.jirou).toFixed(2));
+                        }
+                    }
+                    chartData05 = year+";"+zhurou+";"+niurou+";"+yangrou+";"+turou+";"+jirou;
+                    new EchartsUtils("main5a",{
+                        "colorType": "qxzr",
+                        "data": chartData05,
+                        "yAxisTitle": "万公斤"
+                    });
+
+                }else{
+                    new EchartsUtils("main5a",{
+                        "colorType": "qxzr",
+                        "data": "暂无数据;暂无数据,0",
+                        "yAxisTitle": "万公斤"
+                    });
+                }
+            }
+        });
+    }
+    function changData3(){
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url:'/xmNew/ltjgInfo.action',
+            data : "&user_areaCode=" + user_areaCode+"&year=" + year3+"&a="+Math.random(),
+            dataType: "JSON",
+            success: function(data) {
+                var ltjgInfo = data;
+                var pc1=0;
+                var tou1=0;var yu1=0;var dun1=0;
+                var pc2=0;
+                var tou2=0;var yu2=0;var dun2=0;
+                if(ltjgInfo.length>0){
+                    for(var i=0;i<ltjgInfo.length;i++){
+                        var result = ltjgInfo[i];
+                        var days = result.dys;
+                        var jldw = result.jldw;
+                        var sl = result.sl;
+                        var state = result.state;
+                        if(state=='0'){
+                            if(jldw=='头'){
+                                tou1 += sl;
+                            }else if(jldw=='羽'){
+                                yu1 += sl;
+                            }else if(jldw=='吨'){
+                                dun1 += sl;
+                            }
+                            pc1 += days;
+                        }else if(state=='1'){
+                            if(jldw=='头'){
+                                tou2 += sl;
+                            }else if(jldw=='羽'){
+                                yu2 += sl;
+                            }else if(jldw=='吨'){
+                                dun2 += sl;
+                            }
+                            pc2 += days;
+                        }
+                    }
+                }
+                $("#pt1").text(pc1);
+                $("#pt2").text(tou1);
+                $("#pt3").text(yu1);
+                $("#pt4").text(dun1.toFixed(2));
+                $("#zxq1").text(pc2);
+                $("#zxq2").text(tou2);
+                $("#zxq3").text(yu2);
+                $("#zxq4").text(dun2.toFixed(2));
+            }
+        });
+
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url:'/xmNew/ltjgInfoTwo.action',
+            data : "&user_areaCode=" + user_areaCode+"&year=" + year3+"&a="+Math.random(),
+            dataType: "JSON",
+            success: function(data) {
+                var ltjgInfo = data;
+                var pc1=0;
+                var tou1=0;var yu1=0;var dun1=0;
+                var pc2=0;
+                var tou2=0;var yu2=0;var dun2=0;
+                if(ltjgInfo.length>0){
+                    for(var i=0;i<ltjgInfo.length;i++){
+                        var result = ltjgInfo[i];
+                        var days = result.dys;
+                        var jldw = result.jldw;
+                        var sl = result.sl;
+                        var state = result.state;
+                        if(state=='0'){
+                            if(jldw=='头'){
+                                tou1 += sl;
+                            }else if(jldw=='羽'){
+                                yu1 += sl;
+                            }else if(jldw=='吨'){
+                                dun1 += sl;
+                            }
+                            pc1 += days;
+                        }else if(state=='1'){
+                            if(jldw=='头'){
+                                tou2 += sl;
+                            }else if(jldw=='羽'){
+                                yu2 += sl;
+                            }else if(jldw=='吨'){
+                                dun2 += sl;
+                            }
+                            pc2 += days;
+                        }
+                    }
+                }
+                $("#pt5").text(pc1);
+                $("#pt6").text(tou1);
+                $("#pt7").text(yu1);
+                $("#pt8").text(dun1);
+                $("#zxq5").text(pc2);
+                $("#zxq6").text(tou2);
+                $("#zxq7").text(yu2);
+                $("#zxq8").text(dun2);
+            }
+        });
+        sel();
+    }
+    function sel(){
+        var pz=$(".ptlx").val();
+        var type=$(".bals").val();
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url:'/xmNew/ltjgInfoThree.action',
+            data: "&pz="+pz+"&type="+type+"&state=0"+"&user_areaCode=" + user_areaCode+"&year=" + year3+"&a="+Math.random(),
+            dataType: "JSON",
+            success: function(data) {
+                var ltjgInfo = data;
+                var year = '';var temp='';var chartData01='';
+                if(ltjgInfo.length>0){
+                    for(var i=0;i<ltjgInfo.length;i++){
+                        var result = ltjgInfo[i];
+                        if(i==0){
+                            year += (result.year);
+                            temp += ('调入总批次,'+result.pc);
+                        }else{
+                            year += (','+result.year);
+                            temp += (','+result.pc);
+                        }
+                    }
+                    chartData01 = year+";"+temp;
+                    chartData01 = chartData01.split("undefined").join(0);
+                    new EchartsUtils("main6a",{
+                        "colorType": "qxzr",
+                        "data": chartData01,
+                        "yAxisTitle": "批次"
+                    });
+                }else{
+                    new EchartsUtils("main6a",{
+                        "colorType": "qxzr",
+                        "data": "暂无数据;暂无数据;0",
+                        "yAxisTitle": "批次"
+                    });
+                }
+            }
+        });
+    }
+
+    function changeYear1(i){
+        if((year1 + i) <1998){
+            alert("暂无数据！");
+            return;
+        }
+        if((year1 + i) > 2018){
+            alert("暂无数据！");
+            return;
+        }
+        year1 = year1 + i;
+        document.getElementById("now1").innerHTML = year1+"年";
+        changData1();
+    }
+
+    function changeYear2(i){
+        if((year2 + i) <2017){
+            alert("暂无数据！");
+            return;
+        }
+        if((year2 + i) > 2018){
+            alert("暂无数据！");
+            return;
+        }
+        year2 = year2 + i;
+        document.getElementById("now2").innerHTML = year2+"年";
+        changData2();
+    }
+
+    function changeYear3(i){
+        if((year3 + i) <2009){
+            alert("暂无数据！");
+            return;
+        }
+        if((year3 + i) > 2018){
+            alert("暂无数据！");
+            return;
+        }
+        year3 = year3 + i;
+        document.getElementById("now3").innerHTML = year3+"年";
+        changData3();
+    }
+
+
+
+
+
+</script>
+
+
+</body></html>
