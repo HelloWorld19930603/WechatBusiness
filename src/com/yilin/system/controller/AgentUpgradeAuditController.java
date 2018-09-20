@@ -1,6 +1,7 @@
 package com.yilin.system.controller;
 
 import com.yilin.app.domain.AgentUpgrade;
+import com.yilin.app.domain.SystemUser;
 import com.yilin.app.utils.PhotoUtil;
 import com.yilin.app.utils.StringUtil;
 import com.yilin.system.common.SystemPage;
@@ -55,9 +56,10 @@ public class AgentUpgradeAuditController {
 
     @RequestMapping("decideAgentUpgrade")
     @ResponseBody
-    public Object decideAgent(int id, byte status, int userId, int level, int serise)  {
+    public Object decideAgent(int id, byte status, int userId, int level, int serise, HttpServletRequest req)  {
         try {
-            agentUpgradeService.audit(id, status, userId, level, serise);
+            SystemUser user = (SystemUser) req.getSession().getAttribute("user");
+            agentUpgradeService.audit(id, status, userId, level, serise,user.getId());
         } catch (Exception e) {
             e.printStackTrace();
             return 1;
