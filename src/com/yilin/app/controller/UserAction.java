@@ -138,7 +138,7 @@ public class UserAction {
             User user = userService.selectById(userId);
             String context = req.getSession().getServletContext().getRealPath("/");
             String haedUrl = PhotoUtil.photoUpload(headImg, "images/home/head/" , StringUtil.makeFileName(), context);
-            if(haedUrl != null) {
+            if(StringUtil.isNotEmpty(haedUrl)) {
                 PhotoUtil.removePhoto(context + user.getHeadImg().substring(1));
             }
             userService.updateHead(userId, haedUrl);
