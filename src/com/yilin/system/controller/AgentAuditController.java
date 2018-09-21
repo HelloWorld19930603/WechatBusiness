@@ -1,7 +1,6 @@
 package com.yilin.system.controller;
 
 import com.yilin.app.common.Configuration;
-import com.yilin.app.common.JuHeMessage;
 import com.yilin.app.domain.Agent;
 import com.yilin.app.domain.User;
 import com.yilin.app.domain.Wallet;
@@ -80,7 +79,7 @@ public class AgentAuditController {
 
     @RequestMapping("applyAgent")
     @ResponseBody
-    public String applyAgent(int userId, String applyName, byte serise, int level, String phone, String wxNum,
+    public Integer applyAgent(int userId, String applyName, byte serise, int level, String phone, String wxNum,
                               String idNum, String description, @RequestParam(value = "file", required = false) MultipartFile file,
                               HttpServletRequest req) {
         User user = new User();
@@ -90,7 +89,6 @@ public class AgentAuditController {
         user.setWxNum(wxNum);
         user.setIdNum(idNum);
         user.setLoginPwd(Configuration.LOGIN_PWD_DEFAULT);
-        user.setPayPwd(Configuration.PAY_PWD_DEFAULT);
         user.setSupId(userId);
         user.setStatus((byte) 0);
         Agent agent = new Agent();
@@ -118,9 +116,9 @@ public class AgentAuditController {
             walletService.addWallet(wallet);
         } catch (Exception e) {
             e.printStackTrace();
-            return "提交失败！";
+            return 1;
         }
-        return "提交成功！";
+        return 0;
     }
 
 }

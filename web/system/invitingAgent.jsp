@@ -202,7 +202,10 @@
 
 
 <%--<script src="js/validation-init.js"></script>--%>
-
+<script src="js/sweetalert/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="js/sweetalert/sweetalert2.min.css">
+<!-- IE support -->
+<script src="js/sweetalert/es6-promise.min.js"></script>
 <!--common scripts for all pages-->
 <script src="/js/scripts.js"></script>
 
@@ -216,13 +219,28 @@
         '3': 'Pslady'
     };
 
+    var flag = true;
     $(function () {
         $("#seriseName").val(TYPE_MAP[${serise}]);
         $("#levelName").val(ROLE_MAP[${serise}][${level}]);
         $("#submit").click(function () {
+            if(flag){
+                flag= false;
+            }else{
+                swal({
+                    type: 'warning',
+                    html: '请勿重复提交表单！'
+                });
+                return;
+            }
+
+
             var phone = $("#phone").val().trim();
             if(!isPhoneAvailable(phone)){
-                alert("请输入合法的手机号！");
+                swal({
+                    type: 'warning',
+                    html: '请输入合法的手机号！'
+                });
                 return;
             }
 
@@ -251,7 +269,6 @@
                 alert("请上传凭证");
                 return;
             }
-
             $.ajax({
                 type: 'post',
                 url: targetUrl,
@@ -260,15 +277,23 @@
                 contentType: false, //禁止设置请求类型
                 processData: false, //禁止jquery对DAta数据的处理,默认会处理
                 success: function (data) {
+                    if(data == 0){
                     $("#success").fadeToggle(3000);
                     $("#success").addClass("bounceinDown");
                     $("#success").fadeToggle(3000);
-                    $("#submit").attr('disabled',true);
+                    }else{
+                        $("#failed").fadeToggle(3000);
+                        $("#failed").addClass("bounceinDown");
+                        $("#failed").fadeToggle(3000);
+                        flag = true;
+                    }
+
                 },
                 error: function () {
                     $("#failed").fadeToggle(3000);
                     $("#failed").addClass("bounceinDown");
                     $("#failed").fadeToggle(3000);
+                    flag = true;
                 }
             })
         })
