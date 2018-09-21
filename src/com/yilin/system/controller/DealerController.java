@@ -2,8 +2,10 @@ package com.yilin.system.controller;
 
 import com.yilin.app.domain.User;
 import com.yilin.app.domain.UserRole;
+import com.yilin.app.domain.Wallet;
 import com.yilin.app.service.IRoleService;
 import com.yilin.app.service.IUserService;
+import com.yilin.app.service.IWalletService;
 import com.yilin.system.common.SystemPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ public class DealerController {
     IUserService userService;
     @Autowired
     IRoleService roleService;
+    @Autowired
+    IWalletService walletService;
 
 
     @RequestMapping("dealer1")
@@ -85,7 +89,7 @@ public class DealerController {
     @RequestMapping(value = "addDealer2")
     @ResponseBody
     public Object addDealer2(User user,int roleId,int serise){
-
+        int userId;
         try {
             User diskUser = userService.selectByLoginName(user.getLoginName());
             if(diskUser != null ){
@@ -93,19 +97,31 @@ public class DealerController {
                 if(userRole != null) {
                     return 2;
                 }
+                userId = diskUser.getId();
             }else {
                 user.setStatus((byte)1);
                 userService.register(user);
+                userId=user.getId();
             }
             UserRole userRole = new UserRole();
             userRole.setRoleId(roleId);
             userRole.setSerise(serise);
-            userRole.setUserId(diskUser.getId());
+            userRole.setUserId(userId);
             roleService.addOne(userRole);
+            Wallet wallet = new Wallet();
+            wallet.setSerise((byte)serise);
+            wallet.setUserId(userId);
+            wallet.setMoney(0f);
+            try {
+                walletService.addWallet(wallet);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return 1;
         }
+
         return 0;
     }
 

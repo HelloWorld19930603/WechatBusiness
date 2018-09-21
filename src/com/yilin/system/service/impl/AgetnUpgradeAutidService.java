@@ -2,7 +2,6 @@ package com.yilin.system.service.impl;
 
 import com.yilin.app.domain.AgentUpgrade;
 import com.yilin.app.mapper.AgentUpgradeMapper;
-import com.yilin.app.mapper.UserMapper;
 import com.yilin.app.mapper.UserRoleMapper;
 import com.yilin.system.service.IAgentUpgradeService;
 import org.apache.commons.collections.map.HashedMap;
@@ -61,11 +60,14 @@ public class AgetnUpgradeAutidService implements IAgentUpgradeService {
     }
 
     @Override
-    public void audit(int id, byte status,int userId,int level,int serise) throws Exception {
+    public void audit(int id, byte status, int userId, int level, int serise, Integer integer) throws Exception {
         if(status == 2){
             userRoleMapper.updateLevel(userId,serise,level);
         }
-        agentUpgradeMapper.updateStatus(id,status);
+        AgentUpgrade agentUpgrade = new AgentUpgrade();
+        agentUpgrade.setStatus(status);
+        agentUpgrade.setId(id);
+        agentUpgradeMapper.updateByPrimaryKeySelective(agentUpgrade);
     }
 
     @Override

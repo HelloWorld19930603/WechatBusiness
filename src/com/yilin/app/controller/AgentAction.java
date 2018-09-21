@@ -122,6 +122,9 @@ public class AgentAction {
         ResultJson result = new ResultJson(true, "提交申请成功");
         try {
             String url = PhotoUtil.photoUpload(voucher, "images/home/voucher/upgrade/", "" + userId + System.currentTimeMillis(), req.getSession().getServletContext().getRealPath("/"));
+            if(url == null){
+                return new ResultJson(false, "凭证不能为空");
+            }
             agentUpgrade.setDescript(description);
             agentUpgrade.setVoucher(url);
             agentUpgradeService.addOne(agentUpgrade);

@@ -27,11 +27,10 @@
 
 <section>
     <!-- left side start-->
-    <div class="left-side sticky-left-side" style="background-color: #eff0f4;"></div>
     <!-- left side end-->
 
     <!-- main content start-->
-    <div class="main-content" >
+    <div class="main-content" style="padding-top:0px;margin-left: 0px;width: 100%;">
 
         <!-- header section start-->
         <!-- header section end-->
@@ -40,7 +39,7 @@
         <!-- page heading end-->
 
         <!--body wrapper start-->
-        <div class="wrapper"><div class="col-md-10">
+        <div class="wrapper" style="padding: 0;"><div class="col-md-12">
             <div class="blog">
                 <div class="single-blog">
                     <div class="panel">
@@ -50,7 +49,7 @@
                             <p class="text-center auth-row">
                                 <a href="#"> 阅读量:${college.readNum} </a> &nbsp;| &nbsp;  <a href="#">转发量:${college.forward} </a>   &nbsp; |  &nbsp;  上传时间:<fmt:formatDate value="${college.time}" pattern="yyyy-MM-dd HH:mm:ss" />
                             </p>
-                            <div class="blog-img-wide" style="width: 75%;margin-left: 20%;">
+                            <div style="text-align: center">
                                 <c:if test="${college.video != null && college.video != ''}">
                                 <video src="${college.video}" controls="controls">
                                     您的浏览器不支持 video 标签。
@@ -60,7 +59,7 @@
                                 <img src="${college.img}" alt="">
                                 </c:if>
                             </div>
-                            <div style="margin-left: 10%">
+                            <div style="text-align: center">
                             ${college.content}
                             </div>
 
@@ -74,7 +73,9 @@
         <!--body wrapper end-->
 
         <!--footer section start-->
+
         <%@include file="common/footer.jsp" %>
+
         <!--footer section end-->
 
 

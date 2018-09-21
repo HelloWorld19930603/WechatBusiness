@@ -20,7 +20,7 @@ public interface IAgentUpgradeService {
 
     void removeOne(int id)throws Exception;
 
-    void audit(int id,byte status,int userId,int level,int serise)throws Exception;
+    void audit(int id, byte status, int userId, int level, int serise, Integer integer)throws Exception;
 
     void addOne(AgentUpgrade agentUpgrade)throws Exception;
 }

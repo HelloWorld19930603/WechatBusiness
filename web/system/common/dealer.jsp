@@ -224,11 +224,11 @@
                     // 直接返回 htmlString
                     template: function (status, rowObject) {
                         var htmlString = '<span class="plugin-action" gm-click="showTeam">查看团队</span>';
-/*                        if (status == 1) {
+                        if (status == 1) {
                             return htmlString +='<span class="plugin-action" gm-click="closeUser">关闭账号</span>';
                         } else if (status == 0) {
                             return htmlString +='<span class="plugin-action" gm-click="openUser">开启账号</span>';
-                        }*/
+                        }
                         return htmlString;
                     }
                 }

@@ -4,6 +4,7 @@ import com.yilin.app.domain.User;
 import com.yilin.app.mapper.UserMapper;
 import com.yilin.app.service.IUserService;
 import com.yilin.app.utils.MD5Util;
+import com.yilin.app.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +26,7 @@ public class UserService implements IUserService {
     @Override
     public void register(User user) throws Exception {
         String loginPwd = MD5Util.encrypt(user.getLoginPwd());
-        String payPwd =  MD5Util.encrypt("123456");
         user.setLoginPwd(loginPwd);
-        user.setPayPwd(payPwd);
         user.setLoginTime(new Date());
         userMapper.insertSelective(user);
     }
@@ -90,6 +89,9 @@ public class UserService implements IUserService {
     @Override
     public boolean checkPayPwd(int userId, String payPwd) throws Exception {
         User user = userMapper.selectByPrimaryKey(userId);
+        if(StringUtil.isEmpty(user.getPayPwd())){
+            return false;
+        }
         if(MD5Util.encrypt(payPwd).equals(user.getPayPwd())){
             return true;
         }
