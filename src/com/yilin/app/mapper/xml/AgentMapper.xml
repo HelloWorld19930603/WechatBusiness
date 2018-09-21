@@ -11,12 +11,12 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="serise" jdbcType="TINYINT" property="serise" />
-    <result column="autitor" jdbcType="INTEGER" property="autitor" />
+    <result column="auditor" jdbcType="INTEGER" property="auditor" />
     <result column="inviter" jdbcType="INTEGER" property="inviter" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_id, apply_level, name, voucher, description, status, serise, autitor, inviter,
+    id, user_id, apply_level, name, voucher, description, status, serise, auditor, inviter,
     time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -32,11 +32,11 @@
   <insert id="insert" parameterType="com.yilin.app.domain.Agent">
     insert into agent (id, user_id, apply_level,
     name, voucher, description,
-    status, serise, autitor,
+    status, serise, auditor,
     inviter, time)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{applyLevel,jdbcType=INTEGER},
     #{name,jdbcType=VARCHAR}, #{voucher,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
-    #{status,jdbcType=TINYINT}, #{serise,jdbcType=TINYINT}, #{autitor,jdbcType=INTEGER},
+    #{status,jdbcType=TINYINT}, #{serise,jdbcType=TINYINT}, #{auditor,jdbcType=INTEGER},
     #{inviter,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.yilin.app.domain.Agent">
@@ -66,8 +66,8 @@
       <if test="serise != null">
         serise,
       </if>
-      <if test="autitor != null">
-        autitor,
+      <if test="auditor != null">
+        auditor,
       </if>
       <if test="inviter != null">
         inviter,
@@ -101,8 +101,8 @@
       <if test="serise != null">
         #{serise,jdbcType=TINYINT},
       </if>
-      <if test="autitor != null">
-        #{autitor,jdbcType=INTEGER},
+      <if test="auditor != null">
+        #{auditor,jdbcType=INTEGER},
       </if>
       <if test="inviter != null">
         #{inviter,jdbcType=INTEGER},
@@ -136,8 +136,8 @@
       <if test="serise != null">
         serise = #{serise,jdbcType=TINYINT},
       </if>
-      <if test="autitor != null">
-        autitor = #{autitor,jdbcType=INTEGER},
+      <if test="auditor != null">
+        auditor = #{auditor,jdbcType=INTEGER},
       </if>
       <if test="inviter != null">
         inviter = #{inviter,jdbcType=INTEGER},
@@ -157,14 +157,14 @@
       description = #{description,jdbcType=VARCHAR},
       status = #{status,jdbcType=TINYINT},
       serise = #{serise,jdbcType=TINYINT},
-      autitor = #{autitor,jdbcType=INTEGER},
+      auditor = #{auditor,jdbcType=INTEGER},
       inviter = #{inviter,jdbcType=INTEGER},
       time = #{time,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
   <select id="selectList" parameterType="map" resultMap="BaseResultMap">
-    SELECT     a.id, user_id, apply_level, a.name, voucher, a.description, a.status, a.serise, autitor, inviter,
+    SELECT     a.id, user_id, apply_level, a.name, voucher, a.description, a.status, a.serise, auditor, inviter,
     a.time,u.phone from agent a
     LEFT JOIN user u on u.id = user_id
     where 1=1

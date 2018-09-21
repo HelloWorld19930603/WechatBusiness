@@ -60,11 +60,12 @@ public class AgetnUpgradeAutidService implements IAgentUpgradeService {
     }
 
     @Override
-    public void audit(int id, byte status, int userId, int level, int serise, Integer integer) throws Exception {
+    public void audit(int id, byte status, int userId, int level, int serise, Integer auditor) throws Exception {
         if(status == 2){
             userRoleMapper.updateLevel(userId,serise,level);
         }
         AgentUpgrade agentUpgrade = new AgentUpgrade();
+        agentUpgrade.setAuditor(auditor);
         agentUpgrade.setStatus(status);
         agentUpgrade.setId(id);
         agentUpgradeMapper.updateByPrimaryKeySelective(agentUpgrade);

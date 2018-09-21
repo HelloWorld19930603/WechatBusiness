@@ -13,10 +13,11 @@
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="serise" jdbcType="TINYINT" property="serise" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="auditor" jdbcType="INTEGER" property="auditor" />
   </resultMap>
   <sql id="Base_Column_List">
     id, user_id, current_level, apply_level, name, voucher, descript, status, serise,
-    time
+    time, auditor
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
@@ -32,11 +33,11 @@
     insert into agentupgrade (id, user_id, current_level,
     apply_level, name, voucher,
     descript, status, serise,
-    time)
+    time, auditor)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{currentLevel,jdbcType=INTEGER},
     #{applyLevel,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{voucher,jdbcType=VARCHAR},
     #{descript,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{serise,jdbcType=TINYINT},
-    #{time,jdbcType=TIMESTAMP})
+    #{time,jdbcType=TIMESTAMP}, #{auditor,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.yilin.app.domain.AgentUpgrade">
     insert into agentupgrade
@@ -71,6 +72,9 @@
       <if test="time != null">
         time,
       </if>
+      <if test="auditor != null">
+        auditor,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -102,6 +106,9 @@
       </if>
       <if test="time != null">
         #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null">
+        #{auditor,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -135,23 +142,26 @@
       <if test="time != null">
         time = #{time,jdbcType=TIMESTAMP},
       </if>
+      <if test="auditor != null">
+        auditor = #{auditor,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.AgentUpgrade">
     update agentupgrade
     set user_id = #{userId,jdbcType=INTEGER},
-      current_level = #{currentLevel,jdbcType=INTEGER},
-      apply_level = #{applyLevel,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      voucher = #{voucher,jdbcType=VARCHAR},
-      descript = #{descript,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
-      serise = #{serise,jdbcType=TINYINT},
-      time = #{time,jdbcType=TIMESTAMP}
+    current_level = #{currentLevel,jdbcType=INTEGER},
+    apply_level = #{applyLevel,jdbcType=INTEGER},
+    name = #{name,jdbcType=VARCHAR},
+    voucher = #{voucher,jdbcType=VARCHAR},
+    descript = #{descript,jdbcType=VARCHAR},
+    status = #{status,jdbcType=TINYINT},
+    serise = #{serise,jdbcType=TINYINT},
+    time = #{time,jdbcType=TIMESTAMP},
+    auditor = #{auditor,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
 
   <select id="selectList" parameterType="map" resultMap="BaseResultMap">
     SELECT     a.id, user_id, current_level, apply_level, a.name, voucher, a.descript, a.status, a.serise,

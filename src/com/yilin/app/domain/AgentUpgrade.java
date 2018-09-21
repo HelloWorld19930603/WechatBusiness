@@ -13,8 +13,6 @@ public class AgentUpgrade {
 
     private String name;
 
-    private String phone;
-
     private String voucher;
 
     private String descript;
@@ -24,6 +22,8 @@ public class AgentUpgrade {
     private Byte serise;
 
     private Date time;
+
+    private Integer auditor;
 
     public Integer getId() {
         return id;
@@ -105,12 +105,11 @@ public class AgentUpgrade {
         this.time = time;
     }
 
-    public String getPhone() {
-        return phone;
+    public Integer getAuditor() {
+        return auditor;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setAuditor(Integer auditor) {
+        this.auditor = auditor;
     }
-
 }

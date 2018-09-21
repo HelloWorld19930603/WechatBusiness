@@ -22,7 +22,7 @@ public class Agent {
 
     private Byte serise;
 
-    private Integer autitor;
+    private Integer auditor;
 
     private Integer inviter;
 
@@ -92,12 +92,12 @@ public class Agent {
         this.serise = serise;
     }
 
-    public Integer getAutitor() {
-        return autitor;
+    public Integer getAuditor() {
+        return auditor;
     }
 
-    public void setAutitor(Integer autitor) {
-        this.autitor = autitor;
+    public void setAuditor(Integer auditor) {
+        this.auditor = auditor;
     }
 
     public Integer getInviter() {
