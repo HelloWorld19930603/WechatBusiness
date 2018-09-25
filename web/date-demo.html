@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/datepicker.css">
+    <style>
+
+      .mt20{
+        margin-top:20px;
+      }
+
+      body{
+        height:1000px;
+      }
+    </style>
+</head>
+<body >
+    <div class="p20">
+
+      <div class="mt40">
+        <div>年月日范围选择，无最大最小值</div>
+        <div class="c-datepicker-date-editor  J-datepicker-range-day mt10">
+          <i class="c-datepicker-range__icon kxiconfont icon-clock"></i>
+          <input placeholder="开始日期" name="" class="c-datepicker-data-input only-date" value="">
+          <span class="c-datepicker-range-separator">-</span>
+          <input placeholder="结束日期" name="" class="c-datepicker-data-input only-date" value="">
+        </div>
+      </div>
+
+       
+    </div>
+    <!-- <i class="c-datepicker-input__icon c-datepicker-range__close-icon"></i> -->
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="js/date/moment.min.js"></script>
+    <!-- <script src="js/datapicker-separate/api.js"></script>
+    <script src="js/datapicker-separate/year.js"></script>
+    <script src="js/datapicker-separate/month.js"></script>
+    <script src="js/datapicker-separate/day.js"></script>
+    <script src="js/datapicker-separate/time.js"></script>
+    <script src="js/datapicker-separate/datepicker.js"></script> -->
+
+    <script src="js/date/datepicker.all.js"></script>
+    <!-- <script src="js/datepicker.all.min.js"></script> -->
+    <script type="text/javascript">
+      $(function(){
+        var DATAPICKERAPI = {
+          // 默认input显示当前月,自己获取后填充
+          activeMonthRange: function () {
+            return {
+              begin: moment().set({ 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 }).format('YYYY-MM-DD HH:mm:ss'),
+              end: moment().set({ 'hour': 23, 'minute': 59, 'second': 59 }).format('YYYY-MM-DD HH:mm:ss')
+            }
+          },
+          shortcutMonth: function () {
+            // 当月
+            var nowDay = moment().get('date');
+            var prevMonthFirstDay = moment().subtract(1, 'months').set({ 'date': 1 });
+            var prevMonthDay = moment().diff(prevMonthFirstDay, 'days');
+            return {
+              now: '-' + (nowDay-1) + ',0',
+              prev: '-' + prevMonthDay + ',-' + nowDay
+            }
+          },
+          // 快捷选项option
+          rangeShortcutOption1: function () {
+            var result = DATAPICKERAPI.shortcutMonth();
+            return [{
+            name: '当前月',
+            day:  result.now
+          }, {
+            name: '最近一周',
+            day: '-7,0'
+          }, {
+            name: '最近一个月',
+            day: '-30,0'
+          }, {
+            name: '最近三个月',
+            day: '-90, 0'
+          }];
+
+          }
+        };
+
+          //年月日范围
+          $('.J-datepicker-range-day').datePicker({
+            hasShortcut: true,
+            format: 'YYYY-MM-DD',
+            isRange: true,
+            shortcutOptions: DATAPICKERAPI.rangeShortcutOption1()
+          });
+
+          $('.but').click(function () {
+              
+          }) 
+          
+      });
+    </script>
+</body>
+</html>
