@@ -114,6 +114,14 @@
       where order_id = #{orderId}
   </select>
 
+  <select id="selectByCode" parameterType="java.lang.String" resultMap="PageMap">
+    select
+    oc.order_id,oc.price aPrice,oc.num,c.name,c.e_name,c.serise,c.scale,c.img
+    from order_comm oc
+    left join commodity c on c.id = oc.comm_id
+    where oc.code = #{code,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteAll" >
 
     DELETE  from order_comm where order_id=#{orderId}

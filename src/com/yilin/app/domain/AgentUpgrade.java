@@ -25,6 +25,10 @@ public class AgentUpgrade {
 
     private Integer auditor;
 
+    private Date sTime;
+
+    private String remark;
+
     public Integer getId() {
         return id;
     }
@@ -111,5 +115,21 @@ public class AgentUpgrade {
 
     public void setAuditor(Integer auditor) {
         this.auditor = auditor;
+    }
+
+    public Date getsTime() {
+        return sTime;
+    }
+
+    public void setsTime(Date sTime) {
+        this.sTime = sTime;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

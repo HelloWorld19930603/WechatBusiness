@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<link href="<%=path%>/css/animate.min.css" rel="stylesheet">
 <div class="left-side sticky-left-side">
 
     <!--logo and iconic logo start-->
@@ -15,7 +16,7 @@
 
         <!--sidebar nav start-->
         <ul class="nav nav-pills nav-stacked custom-nav">
-
+            <li class="index"><a href="index.do"><i class="fa fa-home"></i> <span>首页</span></a></li>
             <li class="menu-list"><a href=""><i class="fa fa-users"></i> <span>经销商</span></a>
                 <ul class="sub-menu-list">
                     <li class="dealer1"><a href="/dealer1.do"> 格丽缇经销商</a></li>
@@ -68,7 +69,7 @@
                 </ul>
             </li>
          <%--   <li><a href="fontawesome.html"><i class="fa fa-bullhorn"></i> <span>Fontawesome</span></a></li>--%>
-            <li class="index"><a href="system.do"><i class="fa fa-cogs"></i> <span>系统管理</span></a></li>
+            <li class="system"><a href="system.do"><i class="fa fa-cogs"></i> <span>系统管理</span></a></li>
         </ul>
         <!--sidebar nav end-->
 

@@ -8,6 +8,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -60,7 +61,7 @@ public class AgetnUpgradeAutidService implements IAgentUpgradeService {
     }
 
     @Override
-    public void audit(int id, byte status, int userId, int level, int serise, Integer auditor) throws Exception {
+    public void audit(int id, byte status, int userId, int level, int serise, int auditor,String remark) throws Exception {
         if(status == 2){
             userRoleMapper.updateLevel(userId,serise,level);
         }
@@ -68,6 +69,8 @@ public class AgetnUpgradeAutidService implements IAgentUpgradeService {
         agentUpgrade.setAuditor(auditor);
         agentUpgrade.setStatus(status);
         agentUpgrade.setId(id);
+        agentUpgrade.setsTime(new Date());
+        agentUpgrade.setRemark(remark);
         agentUpgradeMapper.updateByPrimaryKeySelective(agentUpgrade);
     }
 

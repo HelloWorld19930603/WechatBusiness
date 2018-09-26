@@ -121,8 +121,8 @@
 </body>
 </html>
 <script type="text/javascript">
-    $(".${active}").addClass("active");
-    $(".${active}").parents("li").addClass("nav-active");
+    $(".${active}").addClass("active animated rubberBand");
+    $(".${active}").parents("li").addClass("nav-active animated pulse");
 
 
     // GridManager 渲染
@@ -196,7 +196,7 @@
                     // 使用函数返回 dom node
                     template: function(loginName, rowObject) {
 
-                        return loginName;
+                        return '<a href="/showCollege.do?id='+rowObject.id+'" target="_blank" title="查看内容">'+loginName+'</a>';
                     }
                 },{
                     key: 'type',
@@ -229,7 +229,7 @@
                     align: 'center',
                     text: '<span style="color: red">操作</span>',
                     // 直接返回 htmlString
-                    template: '<span class="plugin-action" gm-click="editRowData">编辑</span><span class="plugin-action" gm-click="delectRowData">删除</span>'
+                    template: '<span class="plugin-action" gm-click="editRowData">编辑</span><span class="plugin-action" style="color:#d9534f" gm-click="delectRowData">删除</span>'
                 }
             ]
             // 排序后事件

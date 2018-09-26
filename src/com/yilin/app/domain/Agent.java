@@ -9,10 +9,7 @@ public class Agent {
 
     private Integer applyLevel;
 
-
     private String name;
-
-    private String phone;
 
     private String voucher;
 
@@ -27,6 +24,10 @@ public class Agent {
     private Integer inviter;
 
     private Date time;
+
+    private Date sTime;
+
+    private String remark;
 
     public Integer getId() {
         return id;
@@ -116,12 +117,19 @@ public class Agent {
         this.time = time;
     }
 
-    public String getPhone() {
-        return phone;
+    public Date getsTime() {
+        return sTime;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setsTime(Date sTime) {
+        this.sTime = sTime;
     }
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
+    }
 }

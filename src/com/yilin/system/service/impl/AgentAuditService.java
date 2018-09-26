@@ -12,6 +12,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -64,7 +65,7 @@ public class AgentAuditService implements IAgentAuditService {
     }
 
     @Override
-    public void audit(int id, byte status,int userId) throws Exception {
+    public void audit(int id, byte status,int userId, int auditor,String remark) throws Exception {
         if(status == 2){
             userMapper.updateStatus(userId,(byte)1);
             User user = userMapper.selectByPrimaryKey(userId);
@@ -74,8 +75,13 @@ public class AgentAuditService implements IAgentAuditService {
                 throw new RequestException("短信发送异常");
             }
         }
-        agentMapper.updateStatus(id,status);
-        userMapper.deleteByPrimaryKey(userId);
+        Agent agent = new Agent();
+        agent.setId(id);
+        agent.setStatus(status);
+        agent.setAuditor(userId);
+        agent.setsTime(new Date());
+        agent.setRemark(remark);
+        agentMapper.updateByPrimaryKeySelective(agent);
     }
 
     @Override

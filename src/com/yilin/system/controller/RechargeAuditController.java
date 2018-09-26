@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -54,12 +55,14 @@ public class RechargeAuditController {
 
     @RequestMapping("decideRecharge")
     @ResponseBody
-    public Object decideRecharge(int id, Byte status, HttpServletRequest req)  {
+    public Object decideRecharge(int id, Byte status,String remark, HttpServletRequest req)  {
         Recharge recharge = new Recharge();
         recharge.setId(id);
         recharge.setStatus(status);
         SystemUser user = (SystemUser) req.getSession().getAttribute("user");
         recharge.setAuditor(user.getId());
+        recharge.setsTime(new Date());
+        recharge.setRemark(remark);
         try {
         if(status == 2){
             Recharge recharge2  = rechargeAuditService.selectOne(id);

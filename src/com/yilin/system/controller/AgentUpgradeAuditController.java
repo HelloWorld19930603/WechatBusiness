@@ -56,13 +56,13 @@ public class AgentUpgradeAuditController {
 
     @RequestMapping("decideAgentUpgrade")
     @ResponseBody
-    public Object decideAgent(int id, byte status, int userId, int level, int serise, HttpServletRequest req)  {
+    public Object decideAgent(int id, byte status, int userId, int level, int serise,String remark, HttpServletRequest req)  {
         try {
             SystemUser user = (SystemUser) req.getSession().getAttribute("user");
             if(user == null){
                 return 2;
             }
-            agentUpgradeService.audit(id, status, userId, level, serise,user.getId());
+            agentUpgradeService.audit(id, status, userId, level, serise,user.getId(),remark);
         } catch (Exception e) {
             e.printStackTrace();
             return 1;
