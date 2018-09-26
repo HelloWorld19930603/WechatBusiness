@@ -1,0 +1,53 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="ThemeBucket">
+  <link rel="shortcut icon" href="#" type="image/png">
+
+
+</head>
+
+<script src="/js/jquery-1.10.2.min.js"></script>
+    <script src="/js/chart-js/echartsUtil.js"></script>
+    <script src="/js/chart-js/echarts.js"></script>
+<body>
+<div  id="main1a" >aaaa</div>
+   </body>              
+</html>
+<script type="text/javascript">
+    $(function () {
+        
+get();
+    });
+
+    function get(){
+                $.ajax({
+
+            url:'http://localhost:8080/selectForDealer.do',
+            data :"&start=2018-8-1&end=2018-9-18",
+            dataType:'json',
+            success: function(data){
+
+                var num = '1,2,3,4,5';
+                var year = '11,22,33,44,55';
+                var chart = num+";"+year;
+                for(var i=0;i<data.length;i++){
+
+                }
+                new EchartsUtils("main1a",{
+                    "colorType": "qxzr",
+                    "data": chart,
+                    "yAxisTitle": "万公斤"
+                });
+
+            },
+            error:function(data){
+                alert("error")
+            }
+        });
+    }
+
+</script>
