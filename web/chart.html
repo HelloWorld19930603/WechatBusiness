@@ -7,7 +7,13 @@
   <meta name="author" content="ThemeBucket">
   <link rel="shortcut icon" href="#" type="image/png">
 
-
+<style>
+    #main1a{
+        min-height: 300px;
+        background-color: #eee;
+        margin-bottom: 24px;
+    }
+</style>
 </head>
 
 <script src="/js/jquery-1.10.2.min.js"></script>
@@ -31,16 +37,16 @@ get();
             dataType:'json',
             success: function(data){
 
-                var num = '1,2,3,4,5';
+                var num = '1,1,2,2,3,3,4,4,5,5';
                 var year = '11,22,33,44,55';
-                var chart = num+";"+year;
-                for(var i=0;i<data.length;i++){
+                var chart ="1995,2000,2002,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018;猪,1,3,2,1,1,3,4,7,2,5,2,1,3,2,1,21,3";
+                for(var i=0;i<data.obj.length;i++){
 
                 }
                 new EchartsUtils("main1a",{
                     "colorType": "qxzr",
                     "data": chart,
-                    "yAxisTitle": "万公斤"
+                    "yAxisTitle": "万"
                 });
 
             },
