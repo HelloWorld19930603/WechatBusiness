@@ -1,7 +1,9 @@
 package com.yilin.system.controller;
 
+import com.yilin.app.common.ResultJson;
 import com.yilin.app.domain.SystemUser;
 import com.yilin.app.utils.MD5Util;
+import com.yilin.system.service.IHomeService;
 import com.yilin.system.service.ISystemUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cc on 2018/8/10.
@@ -20,6 +24,8 @@ public class HomeController {
 
     @Autowired
     ISystemUserService systemUserService;
+    @Autowired
+    IHomeService homeService;
 
     @RequestMapping("index")
     public String index(Model model){
@@ -105,4 +111,28 @@ public class HomeController {
         return "invitingAgent";
     }
 
+
+    @RequestMapping("selectAll")
+    @ResponseBody
+    public ResultJson selectAll(String start,String end){
+        Integer[] obj = homeService.selectAll(start,end);
+        ResultJson result = new ResultJson(true,"success",obj);
+        return result;
+    }
+
+    @RequestMapping("selectForSale")
+    @ResponseBody
+    public ResultJson selectForSale(String start,String end){
+        List<Map<String,Object>> obj = homeService.selectForSale(start,end);
+        ResultJson result = new ResultJson(true,"success",obj);
+        return result;
+    }
+
+    @RequestMapping("selectForDealer")
+    @ResponseBody
+    public ResultJson selectForDealer(String start,String end){
+        List<Map<String,Object>> obj = homeService.selectForDealer(start,end);
+        ResultJson result = new ResultJson(true,"success",obj);
+        return result;
+    }
 }

@@ -34,5 +34,6 @@
         <mapper resource="com/yilin/app/mapper/xml/SystemUserMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/AgentMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/RebateRuleMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/HomeMapper.xml"/>
     </mappers>
 </configuration>

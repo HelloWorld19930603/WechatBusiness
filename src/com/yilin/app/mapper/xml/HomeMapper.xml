@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yilin.app.mapper.HomeMapper">
+
+    <select id="selectAll" resultType="int">
+        select count(*) num from orders o where o.status = 2  and time &lt;=  #{end} and time &gt;= #{start}
+        UNION ALL
+        select count(*) num from orders o where o.status = 3 and time &lt;= #{end} and time &gt;= #{start}
+        UNION ALL
+        select count(*) num from orders o where o.status = 4 and time &lt;= #{end} and time &gt;= #{start}
+        UNION ALL
+        SELECT count(*) num from recharge r where r.status = 1 and time &lt;= #{end} and time &gt;= #{start}
+        UNION ALL
+        SELECT count(*) num from recharge r where r.status = 2 and time &lt;= #{end} and time &gt;= #{start}
+        UNION ALL
+        SELECT count(*) num from recharge r where r.status = 3 and time &lt;= #{end} and time &gt;= #{start}
+        UNION ALL
+        SELECT count(*) num from agent a where a.status = 1 and time &lt;= #{end} and time &gt;= #{start}
+        UNION ALL
+        SELECT count(*) num from agent a where a.status = 2 and time &lt;= #{end} and time &gt;= #{start}
+        UNION ALL
+        SELECT count(*) num from agent a where a.status = 3 and time &lt;= #{end} and time &gt;= #{start}
+        UNION ALL
+        SELECT count(*) num from agentupgrade u where u.status = 1 and time &lt;= #{end} and time &gt;= #{start}
+        UNION ALL
+        SELECT count(*) num from agentupgrade u where u.status = 2 and time &lt;= #{end} and time &gt;= #{start}
+        UNION ALL
+        SELECT count(*) num from agentupgrade u where u.status = 3 and time &lt;= #{end} and time &gt;= #{start}
+  </select>
+
+    <select id="selectForSale" resultType="map">
+        SELECT
+          sum(num) n,t
+          from
+          (SELECT  1 num,0 n1,DATE_FORMAT(time,'%Y-%m-%d') t
+          from orders o where o.status in (2,3,4) and time  &lt;= #{end} and time &gt;= #{start}
+                   UNION ALL
+        SELECT
+        0 num,
+         @num :=@num + 1 n1,
+        date_format(
+        adddate(
+        #{start},
+        INTERVAL @num DAY
+        ),
+        '%Y-%m-%d'
+        ) t
+        FROM
+        user,
+        (SELECT @num := 0) t
+        WHERE
+        adddate(
+        #{start},
+        INTERVAL @num DAY
+        ) &lt;= #{end}
+        ORDER BY
+        t
+        )s
+           GROUP BY t
+    </select>
+
+    <select id="selectForDealer" resultType="map">
+        SELECT
+        sum(num) n,t
+        from
+        (SELECT  1 num,0 n1,DATE_FORMAT(time,'%Y-%m-%d') t
+        from agent a where a.status = 2 and time  &lt;= #{end} and time &gt;= #{start}
+        UNION ALL
+        SELECT
+        0 num,
+        @num :=@num + 1 n1,
+        date_format(
+        adddate(
+        #{start},
+        INTERVAL @num DAY
+        ),
+        '%Y-%m-%d'
+        ) t
+        FROM
+        user,
+        (SELECT @num := 0) t
+        WHERE
+        adddate(
+        #{start},
+        INTERVAL @num DAY
+        ) &lt;= #{end}
+        ORDER BY
+        t
+        )s
+        GROUP BY t
+    </select>
+</mapper>
