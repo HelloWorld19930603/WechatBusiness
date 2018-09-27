@@ -10,6 +10,7 @@
         <result column="status" jdbcType="TINYINT" property="status" />
         <result column="voucher" jdbcType="VARCHAR" property="voucher" />
         <result column="auditor" jdbcType="INTEGER" property="auditor" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
     </resultMap>
     <resultMap id="PageMap" type="HashMap">
         <id column="id" jdbcType="INTEGER" property="id" />
@@ -20,12 +21,14 @@
         <result column="status" jdbcType="TINYINT" property="status" />
         <result column="voucher" jdbcType="VARCHAR" property="voucher" />
         <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="sName" jdbcType="VARCHAR" property="sName" />
         <result column="phone" jdbcType="VARCHAR" property="phone" />
         <result column="login_name" jdbcType="VARCHAR" property="loginName" />
         <result column="auditor" jdbcType="INTEGER" property="auditor" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
     </resultMap>
     <sql id="Base_Column_List">
-        id, user_id, serise, money, time, status, voucher, auditor
+        id, user_id, serise, money, time, status, voucher, auditor, s_time, remark
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -40,10 +43,12 @@
     <insert id="insert" parameterType="com.yilin.app.domain.Recharge">
         insert into recharge (id, user_id, serise,
         money, time, status,
-        voucher, auditor)
+        voucher, auditor, s_time,
+        remark)
         values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{serise,jdbcType=TINYINT},
         #{money,jdbcType=REAL}, #{time,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT},
-        #{voucher,jdbcType=VARCHAR}, #{auditor,jdbcType=INTEGER})
+        #{voucher,jdbcType=VARCHAR}, #{auditor,jdbcType=INTEGER}, #{sTime,jdbcType=TIMESTAMP},
+        #{remark,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.yilin.app.domain.Recharge">
         insert into recharge
@@ -72,6 +77,12 @@
             <if test="auditor != null">
                 auditor,
             </if>
+            <if test="sTime != null">
+                s_time,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -97,6 +108,12 @@
             </if>
             <if test="auditor != null">
                 #{auditor,jdbcType=INTEGER},
+            </if>
+            <if test="sTime != null">
+                #{sTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -124,6 +141,12 @@
             <if test="auditor != null">
                 auditor = #{auditor,jdbcType=INTEGER},
             </if>
+            <if test="sTime != null">
+                s_time = #{sTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -135,15 +158,18 @@
       time = #{time,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=TINYINT},
       voucher = #{voucher,jdbcType=VARCHAR},
-      auditor = #{auditor,jdbcType=INTEGER}
+      auditor = #{auditor,jdbcType=INTEGER},
+      s_time = #{sTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
     <select id="selectPage" parameterType="map" resultMap="PageMap">
         select
-         r.id, user_id, serise, money, r.time, r.status, voucher, auditor,name,phone,login_name
+         r.id, user_id, serise, money, r.time, r.status, voucher, auditor,s_time,remark,u.name,u.phone,u.login_name,s.name sName
         from recharge r
         LEFT join user u on r.user_id = u.id
+        LEFT JOIN SYSTEM_USER s on s.id = auditor
         where 1=1
         <if test="userId != null">
             and user_id = #{userId}

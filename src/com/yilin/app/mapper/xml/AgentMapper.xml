@@ -14,10 +14,30 @@
     <result column="auditor" jdbcType="INTEGER" property="auditor" />
     <result column="inviter" jdbcType="INTEGER" property="inviter" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="s_time" jdbcType="TIMESTAMP" property="sTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+
+  <resultMap id="PageMap" type="HashMap">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="apply_level" jdbcType="INTEGER" property="applyLevel" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sName" jdbcType="VARCHAR" property="sName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="voucher" jdbcType="VARCHAR" property="voucher" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="serise" jdbcType="TINYINT" property="serise" />
+    <result column="auditor" jdbcType="INTEGER" property="auditor" />
+    <result column="inviter" jdbcType="INTEGER" property="inviter" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="s_time" jdbcType="TIMESTAMP" property="sTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Base_Column_List">
     id, user_id, apply_level, name, voucher, description, status, serise, auditor, inviter,
-    time
+    time, s_time, remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
@@ -33,11 +53,13 @@
     insert into agent (id, user_id, apply_level,
     name, voucher, description,
     status, serise, auditor,
-    inviter, time)
+    inviter, time, s_time,
+    remark)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{applyLevel,jdbcType=INTEGER},
     #{name,jdbcType=VARCHAR}, #{voucher,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
     #{status,jdbcType=TINYINT}, #{serise,jdbcType=TINYINT}, #{auditor,jdbcType=INTEGER},
-    #{inviter,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP})
+    #{inviter,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{sTime,jdbcType=TIMESTAMP},
+    #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yilin.app.domain.Agent">
     insert into agent
@@ -75,6 +97,12 @@
       <if test="time != null">
         time,
       </if>
+      <if test="sTime != null">
+        s_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -109,6 +137,12 @@
       </if>
       <if test="time != null">
         #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sTime != null">
+        #{sTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -145,6 +179,12 @@
       <if test="time != null">
         time = #{time,jdbcType=TIMESTAMP},
       </if>
+      <if test="sTime != null">
+        s_time = #{sTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -159,14 +199,17 @@
       serise = #{serise,jdbcType=TINYINT},
       auditor = #{auditor,jdbcType=INTEGER},
       inviter = #{inviter,jdbcType=INTEGER},
-      time = #{time,jdbcType=TIMESTAMP}
+      time = #{time,jdbcType=TIMESTAMP},
+      s_time = #{sTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectList" parameterType="map" resultMap="BaseResultMap">
-    SELECT     a.id, user_id, apply_level, a.name, voucher, a.description, a.status, a.serise, auditor, inviter,
+  <select id="selectList" parameterType="map" resultMap="PageMap">
+    SELECT     a.id, user_id, apply_level, a.name, voucher, a.description, a.status, a.serise, auditor,s_time,remark, inviter,s.name sName,
     a.time,u.phone from agent a
     LEFT JOIN user u on u.id = user_id
+    LEFT JOIN SYSTEM_USER s on s.id = a.auditor
     where 1=1
     <if test="status != null">
       and a.status = #{status}

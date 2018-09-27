@@ -86,6 +86,19 @@ public class ReadExcel {
         }
     }
 
+    static void insertWallet(){
+
+        String sql2 = "SELECT * from user_role r where r.user_id  in   (SELECT u.id from user u where u.id not in (select DISTINCT user_id from wallet))";
+        JSONArray jsonArray = SqlUtils.getInstance().search(sql2);
+        for(Object o : jsonArray){
+
+            JSONObject jsonObject = (JSONObject) o;
+            System.out.println(jsonObject.get("user_id")+" "+jsonObject.get("serise"));
+            String sql1 = "insert into wallet(serise,user_id,money) values("+jsonObject.get("serise")+","+jsonObject.get("user_id")+",0);";
+            SqlUtils.getInstance().insert(sql1);
+        }
+    }
+
     static void commoDetail() {
         for (int i = 1 ; i < 13; i++) {
             StringBuilder sql = new StringBuilder(" insert into comm_detail (comm_id,url ) values(  ");
@@ -123,7 +136,8 @@ public class ReadExcel {
        // String fileName = "D:\\weishang\\格丽缇\\工作簿1.xls";
        // domain( "D:\\weishang\\格丽缇\\工作簿1.xls");
       //  commoDetail();
-        inserExpress();
+        //inserExpress();
+            insertWallet();
             //    domain("e:\\agent.xls");
 
     }

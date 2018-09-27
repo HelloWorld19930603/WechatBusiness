@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="ThemeBucket">
     <link rel="shortcut icon" href="#" type="image/png">
-
+    <link href="<%=path%>/css/animate.min.css" rel="stylesheet">
     <title><%=title%>
     </title>
 
@@ -92,7 +92,7 @@
                                                         <td>${order.totals}</td>
                                                         <td class="status">${order.status}</td>
                                                         <td>
-                                                            <div class="btn btn-info"
+                                                            <div class="animated btn btn-info"
                                                                  onclick="updateTotals(${order.status})">修改价格
                                                             </div>
                                                         </td>
@@ -134,7 +134,7 @@
                                                         <td>${order.ssq}</td>
                                                         <td>${order.addr}</td>
                                                         <td>
-                                                            <div class="btn btn-info" onclick="updateAddress()">修改地址
+                                                            <div class="animated btn btn-info" onclick="updateAddress()">修改地址
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -183,11 +183,11 @@
                                                                 <c:if test="${userRole.roleId != 1 && userRole.roleId != 2}">(盒）</c:if></td>
                                                             <td>${comm.aPrice}</td>
                                                             <td><input type="text" value="${comm.code}"
-                                                                       class="code${comm.commId}"
+                                                                       class="animated code${comm.commId}"
                                                                        onclick="reviewCode('${order.id}',${comm.commId})"/>
                                                             </td>
                                                             <td>
-                                                                <div class="btn btn-info"
+                                                                <div class="animated btn btn-info"
                                                                      onclick="reviewCode('${order.id}',${comm.commId})">
                                                                     扫码
                                                                 </div>
@@ -254,7 +254,7 @@
                                                                class="form-control"
                                                                value="${order.no}">
                                                     </div>
-                                                    <div class="col-md-1">
+                                                    <div class="animated  col-md-1">
                                                         <button class="btn btn-info finish" id='logistics'
                                                                 type="button">
                                                             提交
@@ -264,7 +264,7 @@
                                             </div>
                                         </section>
                                     </div>
-                                    <button class="btn btn-info finish" id='finished' type="button">
+                                    <button class="animated btn btn-info finish" id='finished' type="button">
                                         关闭
                                     </button>
                                 </fieldset>
@@ -307,8 +307,8 @@
 </body>
 </html>
 <script type="text/javascript">
-    $(".${active}").addClass("active");
-    $(".${active}").parents("li").addClass("nav-active");
+    $(".${active}").addClass("active animated rubberBand");
+    $(".${active}").parents("li").addClass("nav-active animated pulse");
     const TYPE_MAP = {
         '1': '未付款',
         '2': '已付款',
@@ -422,10 +422,14 @@
 
                 }
             })
+        });
+
+        $(".animated").mouseover(function () {
+            $(this).addClass("flipInX");
+        });
 
 
-        })
-    })
+    });
 
     $(".status").text(TYPE_MAP[${order.status}]);
 

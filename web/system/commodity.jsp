@@ -135,8 +135,8 @@
 </body>
 </html>
 <script type="text/javascript">
-    $(".${active}").addClass("active");
-    $(".${active}").parents("li").addClass("nav-active");
+    $(".${active}").addClass("active animated rubberBand");
+    $(".${active}").parents("li").addClass("nav-active animated pulse");
 
 
     // GridManager 渲染
@@ -273,11 +273,11 @@
                     // 直接返回 htmlString
                     template: function (action,rowObjct) {
                         var htmlString = '<span class="plugin-action" gm-click="editRowData">编辑</span>';
-                         htmlString += '<span class="plugin-action" gm-click="activities">活动</span>';
+                         htmlString += '<span class="plugin-action" gm-click="activities" style="color:#f0ad4e">活动</span>';
                         if(rowObjct.status == 1){
-                            htmlString += '<span class="plugin-action" onclick="updateShelf('+rowObjct.id+',\''+rowObjct.name+'\','+rowObjct.status+')">下架</span>';
+                            htmlString += '<span class="plugin-action" style="color:#d9534f" onclick="updateShelf('+rowObjct.id+',\''+rowObjct.name+'\','+rowObjct.status+')">下架</span>';
                         }else{
-                            htmlString += '<span class="plugin-action" onclick="updateShelf('+rowObjct.id+',\''+rowObjct.name+'\','+rowObjct.status+')">上架</span>';
+                            htmlString += '<span class="plugin-action" style="color:#5bc0de" onclick="updateShelf('+rowObjct.id+',\''+rowObjct.name+'\','+rowObjct.status+')">上架</span>';
                         }
                         return htmlString;
                     }

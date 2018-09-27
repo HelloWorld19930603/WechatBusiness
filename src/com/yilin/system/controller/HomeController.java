@@ -29,9 +29,8 @@ public class HomeController {
 
     @RequestMapping("index")
     public String index(Model model){
-        model.addAttribute("active","dealer1");
-        model.addAttribute("serise","1");
-        return "dealer1";
+        model.addAttribute("active","index");
+        return "index";
     }
 
     @RequestMapping("loginout")

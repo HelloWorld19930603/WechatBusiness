@@ -268,15 +268,17 @@
   </delete>
 
     <select id="selectById" parameterType="java.lang.String" resultMap="PageMap">
-        select
-        o.id, o.user_id, o.status, o.time,o.description,
-        o.addr_name,o.totals,o.serise,u.name,
-        o.phone,o.ssq,o.addr,l.id no,l.com
-        from orders o
-        LEFT join user u on u.id= o.user_id
-        left join logistics l on l.order_id = o.id
-        where o.id = #{id,jdbcType=VARCHAR}
-    </select>
+    select
+    o.id, o.user_id, o.status, o.time,o.description,
+    o.addr_name,o.totals,o.serise,u.name,
+    o.phone,o.ssq,o.addr,l.id no,l.com
+    from orders o
+    LEFT join user u on u.id= o.user_id
+    left join logistics l on l.order_id = o.id
+    where o.id = #{id,jdbcType=VARCHAR}
+</select>
+
+
 
     <select id="selectStatus" parameterType="java.lang.String" resultType="byte">
         select

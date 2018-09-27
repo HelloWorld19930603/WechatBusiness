@@ -125,8 +125,8 @@
 </body>
 </html>
 <script type="text/javascript">
-    $(".${active}").addClass("active");
-    $(".${active}").parents("li").addClass("nav-active");
+    $(".${active}").addClass("active animated rubberBand");
+    $(".${active}").parents("li").addClass("nav-active animated pulse");
 
 
     $(function () {

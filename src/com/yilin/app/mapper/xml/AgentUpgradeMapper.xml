@@ -14,10 +14,28 @@
     <result column="serise" jdbcType="TINYINT" property="serise" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
     <result column="auditor" jdbcType="INTEGER" property="auditor" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <resultMap id="PageMap" type="HashMap">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="current_level" jdbcType="INTEGER" property="currentLevel" />
+    <result column="apply_level" jdbcType="INTEGER" property="applyLevel" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sName" jdbcType="VARCHAR" property="sName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="voucher" jdbcType="VARCHAR" property="voucher" />
+    <result column="descript" jdbcType="VARCHAR" property="descript" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="serise" jdbcType="TINYINT" property="serise" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="auditor" jdbcType="INTEGER" property="auditor" />
+    <result column="s_time" jdbcType="TIMESTAMP" property="sTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Base_Column_List">
     id, user_id, current_level, apply_level, name, voucher, descript, status, serise,
-    time, auditor
+    time, auditor, s_time, remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
@@ -33,11 +51,13 @@
     insert into agentupgrade (id, user_id, current_level,
     apply_level, name, voucher,
     descript, status, serise,
-    time, auditor)
+    time, auditor, s_time,
+    remark)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{currentLevel,jdbcType=INTEGER},
     #{applyLevel,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{voucher,jdbcType=VARCHAR},
     #{descript,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{serise,jdbcType=TINYINT},
-    #{time,jdbcType=TIMESTAMP}, #{auditor,jdbcType=INTEGER})
+    #{time,jdbcType=TIMESTAMP}, #{auditor,jdbcType=INTEGER}, #{sTime,jdbcType=TIMESTAMP},
+    #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yilin.app.domain.AgentUpgrade">
     insert into agentupgrade
@@ -75,6 +95,12 @@
       <if test="auditor != null">
         auditor,
       </if>
+      <if test="sTime != null">
+        s_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -109,6 +135,12 @@
       </if>
       <if test="auditor != null">
         #{auditor,jdbcType=INTEGER},
+      </if>
+      <if test="sTime != null">
+        #{sTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -145,28 +177,37 @@
       <if test="auditor != null">
         auditor = #{auditor,jdbcType=INTEGER},
       </if>
+      <if test="sTime != null">
+        s_time = #{sTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.AgentUpgrade">
     update agentupgrade
     set user_id = #{userId,jdbcType=INTEGER},
-    current_level = #{currentLevel,jdbcType=INTEGER},
-    apply_level = #{applyLevel,jdbcType=INTEGER},
-    name = #{name,jdbcType=VARCHAR},
-    voucher = #{voucher,jdbcType=VARCHAR},
-    descript = #{descript,jdbcType=VARCHAR},
-    status = #{status,jdbcType=TINYINT},
-    serise = #{serise,jdbcType=TINYINT},
-    time = #{time,jdbcType=TIMESTAMP},
-    auditor = #{auditor,jdbcType=INTEGER}
+      current_level = #{currentLevel,jdbcType=INTEGER},
+      apply_level = #{applyLevel,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      voucher = #{voucher,jdbcType=VARCHAR},
+      descript = #{descript,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      serise = #{serise,jdbcType=TINYINT},
+      time = #{time,jdbcType=TIMESTAMP},
+      auditor = #{auditor,jdbcType=INTEGER},
+      s_time = #{sTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectList" parameterType="map" resultMap="BaseResultMap">
-    SELECT     a.id, user_id, current_level, apply_level, a.name, voucher, a.descript, a.status, a.serise,
-    a.time,u.phone from agentupgrade a
+  <select id="selectList" parameterType="map" resultMap="PageMap">
+    SELECT     a.id, user_id, current_level, apply_level, a.name, voucher, a.descript, a.status, a.serise,s.name sName,
+    a.time,u.phone,auditor,s_time,remark from agentupgrade a
     LEFT JOIN user u on a.user_id = u.id
+    LEFT JOIN SYSTEM_USER s on s.id = a.auditor
     where 1=1
     <if test="status != null">
       and a.status = #{status}

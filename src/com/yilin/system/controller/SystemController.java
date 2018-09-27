@@ -24,13 +24,13 @@ public class SystemController {
 
     @RequestMapping("system")
     public String index(Model model){
-        model.addAttribute("active","index");
+        model.addAttribute("active","system");
         return "system";
     }
 
     @RequestMapping("addSystemUser")
     public String addSystemUser(Model model){
-        model.addAttribute("active","index");
+        model.addAttribute("active","system");
         return "addSystemUser";
     }
 

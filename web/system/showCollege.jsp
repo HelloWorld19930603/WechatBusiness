@@ -39,7 +39,7 @@
         <!-- page heading end-->
 
         <!--body wrapper start-->
-        <div class="wrapper" style="padding: 0;"><div class="col-md-12">
+        <div class="wrapper" style="padding: 0;"><div class="col-md-12" style="padding: 0 0">
             <div class="blog">
                 <div class="single-blog">
                     <div class="panel">
@@ -51,12 +51,12 @@
                             </p>
                             <div style="text-align: center">
                                 <c:if test="${college.video != null && college.video != ''}">
-                                <video src="${college.video}" controls="controls">
+                                <video src="${college.video}" controls="controls" style="width: 100%;">
                                     您的浏览器不支持 video 标签。
                                 </video>
                                 </c:if>
                                 <c:if test="${college.video == null || college.video == ''}">
-                                <img src="${college.img}" alt="">
+                                <img src="${college.img}" alt="" style="width: 100%;">
                                 </c:if>
                             </div>
                             <div style="text-align: center">

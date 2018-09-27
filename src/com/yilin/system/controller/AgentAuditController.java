@@ -2,6 +2,7 @@ package com.yilin.system.controller;
 
 import com.yilin.app.common.Configuration;
 import com.yilin.app.domain.Agent;
+import com.yilin.app.domain.SystemUser;
 import com.yilin.app.domain.User;
 import com.yilin.app.domain.Wallet;
 import com.yilin.app.exception.RequestException;
@@ -64,9 +65,13 @@ public class AgentAuditController {
 
     @RequestMapping("decideAgent")
     @ResponseBody
-    public Integer decideAgent(int id, byte status, int userId) {
+    public Integer decideAgent(int id, byte status, int userId,String remark, HttpServletRequest req) {
         try {
-            agentAuditService.audit(id, status, userId);
+            SystemUser user = (SystemUser) req.getSession().getAttribute("user");
+            if(user == null){
+                return 2;
+            }
+            agentAuditService.audit(id, status, userId,user.getId(),remark);
         }catch (RequestException re){
             re.printStackTrace();
             return 2;

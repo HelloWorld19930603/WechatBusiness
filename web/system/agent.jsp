@@ -15,6 +15,7 @@
     <link href="<%=path%>/css/gm.css" rel="stylesheet">
     <link href="<%=path%>/css/grid.css" rel="stylesheet">
 
+
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -132,8 +133,8 @@
 </body>
 </html>
 <script type="text/javascript">
-    $(".${active}").addClass("active");
-    $(".${active}").parents("li").addClass("nav-active");
+    $(".${active}").addClass("active animated rubberBand");
+    $(".${active}").parents("li").addClass("nav-active animated pulse");
 
     // GridManager 渲染
     var table = document.querySelector('table');
@@ -292,9 +293,9 @@
                     text: '<span style="color: red">操作</span>',
                     template: function (action,rowObject) {
                         if(rowObject.status == 1)
-                            return '<span class="plugin-action" gm-click="editRowData">通过</span><span class="plugin-action" gm-click="editRowData2">拒绝</span>'
+                            return '<span class="plugin-action" gm-click="editRowData">通过</span><span class="plugin-action" gm-click="editRowData2" style="color:#d9534f">拒绝</span>'
                         else
-                            return '<span class="plugin-action" style="color:#c5c5c5">已审核</span>';
+                            return '<span class="plugin-action" style="color:#c5c5c5" gm-click="showAuditor">审核人</span>';
                     }
                 }
             ]
@@ -339,6 +340,24 @@
                 });
 
             }
+        })
+
+    }
+
+
+
+    function showAuditor(rowData) {
+        swal({
+            title: '<div class="animated rubberBand"><span style="font-size: 20px;" >审核人信息</span></div> ',
+            html:
+            '<div class="animated rotateInDownLeft">' +
+            '<ul class="p-info">'+
+            '<li style="margin-left: 10%;width: 50%;"><div class="title" >审核人编号</div><div class="desk">'+(rowData.auditor==undefined?"":rowData.auditor)+'</div></li>'+
+            '<li style="margin-left: 10%;width: 50%;"><div class="title">审核人名称</div><div class="desk">'+(rowData.sName==undefined?"":rowData.sName)+'</div></li>'+
+            '<li style="margin-left: 10%;width: 50%;"><div class="title">审核的时间</div><div class="desk">'+(rowData.sTime==undefined?"":dateFtt("yyyy-MM-dd hh:mm:ss",new Date(rowData.sTime)))+'</div></li>'+
+            '</div>',
+            showCloseButton: true,
+            confirmButtonText: 'OK'
         })
 
     }
