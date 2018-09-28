@@ -52,7 +52,7 @@
         adddate(
         #{start},
         INTERVAL @num DAY
-        ) &lt;= date_format(#{end},'%Y-%m-%d')
+        ) &lt; date_format(#{end},'%Y-%m-%d')
         ORDER BY
         t
         )s
@@ -83,7 +83,7 @@
         adddate(
         #{start},
         INTERVAL @num DAY
-        ) &lt;=  date_format(#{end},'%Y-%m-%d')
+        ) &lt;  date_format(#{end},'%Y-%m-%d')
         ORDER BY
         t
         )s

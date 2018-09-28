@@ -5,12 +5,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="keywords" content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3">
+    <meta name="keywords"
+          content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3">
     <meta name="description" content="">
     <meta name="author" content="ThemeBucket">
     <link rel="shortcut icon" href="#" type="image/png">
 
-    <title>AdminX</title>
+    <title><%=title%>
+    </title>
 
 
     <!--Morris Chart CSS -->
@@ -22,8 +24,16 @@
     <link rel="stylesheet" href="css/datepicker.css">
 
     <style>
-        #main-chart{
+        #main-chart {
             min-height: 330px;
+        }
+
+        .state-overview {
+            cursor: pointer;
+        }
+        .fa:hover{
+            background-color: #2dd5bb;
+            border-radius:4px;
         }
     </style>
 
@@ -42,7 +52,7 @@
     <!-- left side end-->
 
     <!-- main content start-->
-    <div class="main-content" >
+    <div class="main-content">
 
         <!-- header section start-->
         <%@include file="common/header.jsp" %>
@@ -55,15 +65,21 @@
                     <a href="#">首页</a>
                 </li>
             </ul>
-            <div class="state-info" style="margin-right: 30%" >
+            <div class="state-info" style="margin-right: 30%">
+                <section class="panel"><i class="fa fa-check"
+                                          style="text-align: center; height: 33px;width: 24px;padding-top:10px;width: 52px;cursor: pointer;">确认</i>
+                </section>
+
                 <section class="panel">
-                    <div class="mt40" ><div class="c-datepicker-date-editor  J-datepicker-range-day mt10">
-                    <i class="c-datepicker-range__icon kxiconfont icon-clock"></i>
-                    <input placeholder="开始日期" name="" class="c-datepicker-data-input only-date" value="">
-                    <span class="c-datepicker-range-separator">-</span>
-                    <input placeholder="结束日期" name="" class="c-datepicker-data-input only-date" value="">
-                </div> </div></section>
-                <section class="panel"></section>
+                    <div class="mt40">
+                        <div class="c-datepicker-date-editor  J-datepicker-range-day mt10">
+                            <i class="c-datepicker-range__icon kxiconfont icon-clock"></i>
+                            <input placeholder="开始日期" name="" class="c-datepicker-data-input only-date start" value="">
+                            <span class="c-datepicker-range-separator">-</span>
+                            <input placeholder="结束日期" name="" class="c-datepicker-data-input only-date end" value="">
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
         <!-- page heading end-->
@@ -74,7 +90,7 @@
                 <div class="col-md-6">
                     <!--statistics start-->
                     <div class="row state-overview">
-                        <div class="col-md-6 col-xs-12 col-sm-6">
+                        <div class="col-md-6 col-xs-12 col-sm-6 r1">
                             <div class="panel purple">
                                 <div class="symbol">
                                     <i class="fa fa-gavel"></i>
@@ -85,7 +101,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-xs-12 col-sm-6">
+                        <div class="col-md-6 col-xs-12 col-sm-6 r2">
                             <div class="panel red">
                                 <div class="symbol">
                                     <i class="fa fa-tags"></i>
@@ -98,25 +114,25 @@
                         </div>
                     </div>
                     <div class="row state-overview">
-                        <div class="col-md-6 col-xs-12 col-sm-6">
+                        <div class="col-md-6 col-xs-12 col-sm-6 r3">
                             <div class="panel blue">
                                 <div class="symbol">
                                     <i class="fa fa-money"></i>
                                 </div>
                                 <div class="state-value">
                                     <div class="value v3"></div>
-                                    <div class="title"> 待升级审核</div>
+                                    <div class="title"> 待邀请审核</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-xs-12 col-sm-6">
+                        <div class="col-md-6 col-xs-12 col-sm-6 r4">
                             <div class="panel green">
                                 <div class="symbol">
                                     <i class="fa fa-eye"></i>
                                 </div>
                                 <div class="state-value">
                                     <div class="value v4"></div>
-                                    <div class="title"> 待邀请审核</div>
+                                    <div class="title"> 待升级审核</div>
                                 </div>
                             </div>
                         </div>
@@ -126,16 +142,52 @@
                 <div class="col-md-6">
                     <!--more statistics box start-->
                     <div class="panel deep-purple-box">
-                        <div class="panel-body">
-                            <div class="row">
+                        <div class="panel-body pie">
+                            <div class="row p1">
                                 <div class="col-md-7 col-sm-7 col-xs-7">
-                                    <div id="graph-donut" class="revenue-graph"></div>
+                                    <div id="graph-donut1" class="revenue-graph"></div>
                                 </div>
                                 <div class="col-md-5 col-sm-5 col-xs-5">
                                     <ul class="bar-legend">
-                                        <li><span style="background: #5187BA"></span> 待发货</li>
-                                        <li><span style="background: #DF585C"></span> 已发货</li>
-                                        <li><span style="background: #F0953A"></span> 已完成</li>
+                                        <li><span style="background: #38A9E0"></span> 待发货</li>
+                                        <li><span style="background: #4DE4C4"></span> 已发货</li>
+                                        <li><span style="background: #A280D6"></span> 已完成</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row p2">
+                                <div class="col-md-7 col-sm-7 col-xs-7">
+                                    <div id="graph-donut2" class="revenue-graph"></div>
+                                </div>
+                                <div class="col-md-5 col-sm-5 col-xs-5">
+                                    <ul class="bar-legend">
+                                        <li><span style="background: #5187BA"></span> 待审核</li>
+                                        <li><span style="background: #DF585C"></span> 已通过</li>
+                                        <li><span style="background: #F0953A"></span> 已拒绝</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row p3">
+                                <div class="col-md-7 col-sm-7 col-xs-7">
+                                    <div id="graph-donut3" class="revenue-graph"></div>
+                                </div>
+                                <div class="col-md-5 col-sm-5 col-xs-5">
+                                    <ul class="bar-legend">
+                                        <li><span style="background: #5187BA"></span> 待审核</li>
+                                        <li><span style="background: #DF585C"></span> 已通过</li>
+                                        <li><span style="background: #F0953A"></span> 已拒绝</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row p4">
+                                <div class="col-md-7 col-sm-7 col-xs-7">
+                                    <div id="graph-donut4" class="revenue-graph"></div>
+                                </div>
+                                <div class="col-md-5 col-sm-5 col-xs-5">
+                                    <ul class="bar-legend">
+                                        <li><span style="background: #5187BA"></span> 待审核</li>
+                                        <li><span style="background: #DF585C"></span> 已通过</li>
+                                        <li><span style="background: #F0953A"></span> 已拒绝</li>
                                     </ul>
                                 </div>
                             </div>
@@ -215,12 +267,10 @@
 <script src="js/jquery.nicescroll.js"></script>
 
 
-
 <!-- jQuery Flot Chart-->
 <script src="js/flot-chart/jquery.flot.js"></script>
 <script src="js/flot-chart/jquery.flot.tooltip.js"></script>
 <script src="js/flot-chart/jquery.flot.resize.js"></script>
-
 
 
 <!--Morris Chart-->
@@ -239,34 +289,31 @@
 </body>
 </html>
 <script src="js/date/moment.min.js"></script>
-<!-- <script src="js/datapicker-separate/api.js"></script>
-<script src="js/datapicker-separate/year.js"></script>
-<script src="js/datapicker-separate/month.js"></script>
-<script src="js/datapicker-separate/day.js"></script>
-<script src="js/datapicker-separate/time.js"></script>
-<script src="js/datapicker-separate/datepicker.js"></script> -->
+
 <script src="js/date/datepicker.all.js"></script>
-<!-- <script src="js/datepicker.all.min.js"></script> -->
 <script type="text/javascript">
     $(".${active}").addClass("active animated rubberBand");
     $(".${active}").parents("li").addClass("nav-active animated pulse");
-
-    $(function(){
+    var date1 = new Date();
+    var date2 = date1 - 3600 * 24 * 31 * 1000;
+    var start = dateFtt("yyyy-MM-dd", new Date(date2));
+    var end = dateFtt("yyyy-MM-dd", date1);
+    $(function () {
         var DATAPICKERAPI = {
             // 默认input显示当前月,自己获取后填充
             activeMonthRange: function () {
                 return {
-                    begin: moment().set({ 'date': 1, 'hour': 0, 'minute': 0, 'second': 0 }).format('YYYY-MM-DD HH:mm:ss'),
-                    end: moment().set({ 'hour': 23, 'minute': 59, 'second': 59 }).format('YYYY-MM-DD HH:mm:ss')
+                    begin: moment().set({'date': 1, 'hour': 0, 'minute': 0, 'second': 0}).format('YYYY-MM-DD'),
+                    end: moment().set({'hour': 23, 'minute': 59, 'second': 59}).format('YYYY-MM-DD')
                 }
             },
             shortcutMonth: function () {
                 // 当月
                 var nowDay = moment().get('date');
-                var prevMonthFirstDay = moment().subtract(1, 'months').set({ 'date': 1 });
+                var prevMonthFirstDay = moment().subtract(1, 'months').set({'date': 1});
                 var prevMonthDay = moment().diff(prevMonthFirstDay, 'days');
                 return {
-                    now: '-' + (nowDay-1) + ',0',
+                    now: '-' + (nowDay - 1) + ',0',
                     prev: '-' + prevMonthDay + ',-' + nowDay
                 }
             },
@@ -275,7 +322,7 @@
                 var result = DATAPICKERAPI.shortcutMonth();
                 return [{
                     name: '当前月',
-                    day:  result.now
+                    day: result.now
                 }, {
                     name: '最近一周',
                     day: '-7,0'
@@ -298,97 +345,161 @@
             shortcutOptions: DATAPICKERAPI.rangeShortcutOption1()
         });
 
-        $('.but').click(function () {
 
+        $(".fa").click(function () {
+            var date1 = $('.start').val();
+            var date2 = $(".end").val();
+            if(date1 == null || date1 == ''|| date2 == null || date2 == '' ){
+                return;
+            }
+            start = dateFtt("yyyy-MM-dd",new Date(new Date(date1)-3600*24*1000));
+            end =dateFtt("yyyy-MM-dd",new Date(new Date(date2)-3600*24*1000));
+            if (start && end) {
+                selectForDealer();
+                selectForSale();
+            }
         })
 
 
-        $.ajax({
+        $(".r1").click(function () {
+            $(".pie .row").hide();
+            $(".p1").show();
+        })
+        $(".r2").click(function () {
+            $(".pie .row").hide();
+            $(".p2").show();
+        })
+        $(".r3").click(function () {
+            $(".pie .row").hide();
+            $(".p3").show();
+        })
+        $(".r4").click(function () {
+            $(".pie .row").hide();
+            $(".p4").show();
+        })
 
-            url:'/selectAll.do',
-            data :"&start=2018-8-1&end=2018-9-18",
-            dataType:'json',
-            success: function(data){
+        $.ajax({
+            url: '/selectAll.do',
+            data: "&start=" + start + "&end=" + end,
+            async: false,
+            dataType: 'json',
+            success: function (data) {
 
                 $(".v1").text(data.obj[0]);
                 $(".v2").text(data.obj[3]);
                 $(".v3").text(data.obj[6]);
                 $(".v4").text(data.obj[9]);
-;               var charData = "订单,待发货,"+data.obj[0]+",已发货,"+data.obj[1]+",已完成,"+data.obj[2]
-
-                new EchartsUtils("graph-donut",{
+                ;
+                var charData1 = "订单,待发货," + data.obj[0] + ",已发货," + data.obj[1] + ",已完成," + data.obj[2];
+                ;
+                var charData2 = "充值审核,待审核," + data.obj[3] + ",已通过," + data.obj[4] + ",已拒绝," + data.obj[5];
+                ;
+                var charData3 = "代理邀请审核,待审核," + data.obj[6] + ",已通过," + data.obj[7] + ",已拒绝," + data.obj[8];
+                ;
+                var charData4 = "代理升级审核,待审核," + data.obj[9] + ",已通过," + data.obj[10] + ",已拒绝," + data.obj[11];
+                new EchartsUtils("graph-donut1", {
+                    "colorType": "slhd",
+                    "chartType": "pie",
+                    "innerSize": "60%",
+                    "data": charData1,
+                    "yAxisTitle": "个"
+                });
+                new EchartsUtils("graph-donut2", {
                     "colorType": "xdjy",
                     "chartType": "pie",
                     "innerSize": "60%",
-                    "data": charData,
+                    "data": charData2,
                     "yAxisTitle": "个"
                 });
+                new EchartsUtils("graph-donut3", {
+                    "colorType": "xdjy",
+                    "chartType": "pie",
+                    "innerSize": "60%",
+                    "data": charData3,
+                    "yAxisTitle": "个"
+                });
+                new EchartsUtils("graph-donut4", {
+                    "colorType": "xdjy",
+                    "chartType": "pie",
+                    "innerSize": "60%",
+                    "data": charData4,
+                    "yAxisTitle": "个"
+                });
+                $(".panel.deep-purple-box").show();
+                $(".pie .row").hide();
+                $(".p1").show();
             },
-            error:function(data){
+            error: function (data) {
 
             }
         })
 
+        selectForSale();
+        selectForDealer();
+        ;
+    });
 
+    function selectForSale() {
         $.ajax({
-
-            url:'/selectForSale.do',
-            data :"&start=2018-8-28&end=2018-9-28",
-            dataType:'json',
-            success: function(data){
+            url: '/selectForSale.do',
+            data: "&start=" + start + "&end=" + end,
+            dataType: 'json',
+            success: function (data) {
                 var num = '';
                 var year = '';
 
                 year += data.obj[0].t;
-                for(var i=1;i<data.obj.length;i++){
-                    year += ","+data.obj[i].t;
+                for (var i = 1; i < data.obj.length; i++) {
+                    year += "," + data.obj[i].t;
                 }
                 num += '销量';
-                for(var i=0;i<data.obj.length;i++){
-                    num += ","+data.obj[i].n;
+                for (var i = 0; i < data.obj.length; i++) {
+                    num += "," + data.obj[i].n;
                 }
-                var chart = year+";"+num;
-                new EchartsUtils("main-chart-container",{
+                var chart = year + ";" + num;
+                new EchartsUtils("main-chart-container", {
                     "colorType": "ldhp",
                     "data": chart,
                     "yAxisTitle": "个"
                 });
 
             },
-            error:function(data){
+            error: function (data) {
 
             }
         })
 
+    }
 
+    function selectForDealer() {
         $.ajax({
 
-            url:'/selectForDealer.do',
-            data :"&start=2018-8-28&end=2018-9-28",
-            dataType:'json',
-            success: function(data){
+            url: '/selectForDealer.do',
+            data: "&start=" + start + "&end=" + end,
+            dataType: 'json',
+            success: function (data) {
                 var num = '';
                 var year = '';
 
                 year += data.obj[0].t;
-                for(var i=1;i<data.obj.length;i++){
-                    year += ","+data.obj[i].t;
+                for (var i = 1; i < data.obj.length; i++) {
+                    year += "," + data.obj[i].t;
                 }
                 num += '新增代理';
-                for(var i=0;i<data.obj.length;i++){
-                    num += ","+data.obj[i].n;
+                for (var i = 0; i < data.obj.length; i++) {
+                    num += "," + data.obj[i].n;
                 }
-                var chart = year+";"+num;
-                new EchartsUtils("main-chart-container2",{
+                var chart = year + ";" + num;
+                new EchartsUtils("main-chart-container2", {
                     "colorType": "qxzr",
                     "data": chart,
                     "yAxisTitle": "位"
                 });
 
             },
-            error:function(data){
+            error: function (data) {
 
             }
-     });
-    });
+        })
+    }
 </script>

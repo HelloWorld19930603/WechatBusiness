@@ -62,7 +62,7 @@
 
     <welcome-file-list>
         <!-- <welcome-file>/jsp/index_x.jsp</welcome-file> -->
-        <!--<welcome-file>/system/login.jsp</welcome-file>-->
+        <welcome-file>/system/login.jsp</welcome-file>
     </welcome-file-list>
     <error-page>
         <error-code>404</error-code>
