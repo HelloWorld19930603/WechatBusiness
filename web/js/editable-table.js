@@ -53,7 +53,7 @@ var EditableTable = function () {
                     [5, 15, 20, "All"] // change per page values here
                 ],
                 // set the initial value
-
+                "iDisplayLength": 5,
                 "aoColumnDefs": [{
                         'bSortable': false,
                         'aTargets': [0,1]

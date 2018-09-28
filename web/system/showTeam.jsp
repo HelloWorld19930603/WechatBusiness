@@ -76,6 +76,7 @@
                                         <th class="center">电话</th>
                                         <th class="center">微信号</th>
                                         <th class="center">充值金额</th>
+                                        <th class="center">占比额</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -87,7 +88,14 @@
                                         <td class="center">${u.roleId}</td>
                                         <td class="center">${u.phone}</td>
                                         <td class="center">${u.wxNum}</td>
-                                        <td class="center">${u.money}</td>
+                                        <td class="center">${u.money==null?0:u.money}</td>
+                                        <td class="center">
+                                            <div class="progress progress-xs " style="background: #aeb3bf">
+                                            <div class="progress-bar progress-bar-info center" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="padding-right:0;width: ${u.money==null?0:u.money / totals * 100}%;">
+                                                <span class="center">${u.money==null?0:u.money / totals * 100}%</span>
+                                            </div>
+                                        </div>
+                                        </td>
                                     </tr>
                                     </c:forEach>
                                     </tbody>

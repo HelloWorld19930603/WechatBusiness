@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="ThemeBucket">
     <link rel="shortcut icon" href="#" type="image/png">
-
+    <link href="<%=path%>/css/animate.min.css" rel="stylesheet">
     <title><%=title%>
     </title>
 
@@ -89,7 +89,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <!--statistics start-->
-                    <div class="row state-overview">
+                    <div class="row state-overview ">
                         <div class="col-md-6 col-xs-12 col-sm-6 r1">
                             <div class="panel purple">
                                 <div class="symbol">
@@ -360,6 +360,18 @@
             }
         })
 
+        var $btn = $('.col-md-6.col-xs-12.col-sm-6').find('.panel');
+        $btn.click(function(){
+            var that = this;
+            $(this).addClass('active').siblings().removeClass('active');
+            $(this).addClass('flipInX animated infinite');
+            setTimeout(function () {
+                $(that).removeClass("flipInX animated infinite");
+            }, 1000);
+        });
+
+
+
 
         $(".r1").click(function () {
             $(".pie .row").hide();
@@ -378,6 +390,14 @@
             $(".p4").show();
         })
 
+
+        selectAll()();
+        selectForSale();
+        selectForDealer();
+        ;
+    });
+
+    function selectAll() {
         $.ajax({
             url: '/selectAll.do',
             data: "&start=" + start + "&end=" + end,
@@ -433,11 +453,7 @@
 
             }
         })
-
-        selectForSale();
-        selectForDealer();
-        ;
-    });
+    }
 
     function selectForSale() {
         $.ajax({
@@ -502,4 +518,6 @@
             }
         })
     }
+
+
 </script>
