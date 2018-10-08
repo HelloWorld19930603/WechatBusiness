@@ -23,4 +23,6 @@ public interface OrdersMapper extends IBaseMapper<Orders>{
     Byte selectStatus(@Param(value = "orderId") String orderId);
 
     List<Map<String,Object>> selectList2(Map<String, Object> map);
+
+    List<Map<String,Object>> selectList3(Map<String, Object> map);
 }

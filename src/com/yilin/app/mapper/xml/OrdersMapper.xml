@@ -4,27 +4,21 @@
     <resultMap id="PageMap" type="HashMap">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
-        <result column="comm_id" jdbcType="INTEGER" property="commId"/>
         <result column="addr_id" jdbcType="INTEGER" property="addrId"/>
-        <result column="num" jdbcType="INTEGER" property="num"/>
-        <result column="price" jdbcType="REAL" property="price"/>
-        <result column="mPrice" jdbcType="REAL" property="mPrice"/>
         <result column="status" jdbcType="TINYINT" property="status"/>
         <result column="time" jdbcType="TIMESTAMP" property="time"/>
-        <result column="comm_name" jdbcType="VARCHAR" property="commName"/>
+        <result column="serise" jdbcType="TINYINT" property="serise"/>
         <result column="addr_name" jdbcType="VARCHAR" property="addrName"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="scale" jdbcType="VARCHAR" property="scale"/>
-        <result column="img" jdbcType="VARCHAR" property="img"/>
-        <result column="serise" jdbcType="INTEGER" property="serise"/>
         <result column="phone" jdbcType="VARCHAR" property="phone"/>
         <result column="ssq" jdbcType="VARCHAR" property="ssq"/>
         <result column="addr" jdbcType="VARCHAR" property="addr"/>
         <result column="no" jdbcType="VARCHAR" property="no"/>
         <result column="com" jdbcType="VARCHAR" property="com"/>
+        <result column="express" jdbcType="VARCHAR" property="express"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="totals" jdbcType="VARCHAR" property="totals"/>
     </resultMap>
+
     <resultMap id="CountMap" type="HashMap">
         <result column="countNum" jdbcType="INTEGER" property="countNum"/>
         <result column="status" jdbcType="TINYINT" property="status"/>
@@ -220,6 +214,27 @@
         </if>
         order by o.time desc
         limit #{start},#{pageSize}
+    </select>
+
+    <select id="selectList3" parameterType="map" resultMap="PageMap">
+        select
+        o.id, o.user_id, o.status, o.time,description
+        ,o.addr_name,o.totals,e.name express,
+        o.phone,o.ssq,o.addr,l.id no,l.com
+        from orders o
+        left join logistics l on l.order_id = o.id
+        LEFT JOIN  express e on e.com = l.com
+        where 1=1
+        <if test="start != null">
+            and o.time &gt;= #{start}
+        </if>
+        <if test="end != null">
+            and o.time &lt;= #{end}
+        </if>
+        <if test="status != null">
+            and o.status = #{status}
+        </if>
+        order by o.time desc
     </select>
 
     <select id="count" parameterType="map" resultType="int">

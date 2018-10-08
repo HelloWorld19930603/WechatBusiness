@@ -6,6 +6,7 @@ import com.yilin.app.domain.Wallet;
 import com.yilin.app.service.IRoleService;
 import com.yilin.app.service.IUserService;
 import com.yilin.app.service.IWalletService;
+import com.yilin.app.utils.StringUtil;
 import com.yilin.system.common.SystemPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -63,13 +66,17 @@ public class DealerController {
     }
 
     @RequestMapping("showTeam")
-    public String showTeam(Model model,int serise,int userId,String userName){
+    public String showTeam(Model model, int serise, int userId, HttpServletRequest req) throws UnsupportedEncodingException {
+        req.setCharacterEncoding("utf-8");
         model.addAttribute("active","dealer"+serise);
         model.addAttribute("serise",serise);
-        model.addAttribute("userName",userName);
         List<Map<String,Object>> data = null;
+
         try {
             data = userService.selectTeam(serise,userId);
+            if(data.size() > 0){
+                model.addAttribute("userName",data.get(0).get("name"));
+            }
             double totals = 0;
             for(Map map : data){
                 Double money = (Double)map.get("money");

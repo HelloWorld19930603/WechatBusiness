@@ -15,7 +15,7 @@
     <link href="<%=path%>/css/style-responsive.css" rel="stylesheet">
     <link href="<%=path%>/css/gm.css" rel="stylesheet">
     <link href="<%=path%>/css/grid.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="css/datepicker.css">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -81,7 +81,11 @@
                     <button class="search-action">搜索</button>
                     <button class="reset-action">重置</button>
                 </div>
-
+                <div class="btn-group" style="float:right;">
+                    <button id="share" class="btn btn-primary" style="font-size: 12px;padding: 4px 4px;">
+                        导出 <i class="fa fa-share-square-o"></i>
+                    </button>
+                </div>
             </section>
 
             <section class="grid-main">
@@ -113,8 +117,15 @@
 <!--common scripts for all pages-->
 <script src="js/scripts.js"></script>
 
+<script src="js/sweetalert/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="js/sweetalert/sweetalert2.min.css">
+<!-- IE support -->
+<script src="js/sweetalert/es6-promise.min.js"></script>
 
 <script type="text/javascript" src="<%=path%>/js/gm.js"></script>
+
+<script src="js/date/moment.min.js"></script>
+<script src="js/date/datepicker.all.js"></script>
 </body>
 </html>
 <script type="text/javascript">
@@ -281,25 +292,6 @@
         });
     }
 
-    // 删除功能
-    function delectRowData(id) {
-        // 执行删除操作
-        if (window.confirm('确认要删除编号[' + id + ']?')) {
-            $.ajax({
-                url: "/removeOrder.do?commId=" + id,
-                type: "get",
-                success: function (data) {
-                    alert("商品删除成功");
-                    console.log(data);
-                },
-                error: function (data) {
-                    alert("商品删除失败");
-                    console.log(data);
-                }
-            });
-        }
-    }
-
 
     function receivingAddress(orderId) {
         window.open("/receivingAddress.do?addrId=" + orderId);
@@ -356,11 +348,94 @@
             document.querySelector('select[name="status"]').value = '-1';
         });
 
+        $("#share").click(function () {
+            initDatepicker();
+            swal({
+                title: '请选择要导出的时间段',
+                showCancelButton: true,
+                animation: "slide-from-top",
+                confirmButtonText: '确认',
+                cancelButtonText: '取消',
+                html: '<div class="mt40" onclick="initDatepicker()">'+
+                '<div class="c-datepicker-date-editor  J-datepicker-range-day mt10">'+
+                '<i class="c-datepicker-range__icon kxiconfont icon-clock"></i>'+
+                '<input placeholder="开始日期" name="" class="c-datepicker-data-input only-date start" value="">'+
+                '<span class="c-datepicker-range-separator">-</span>'+
+                '<input placeholder="结束日期" name="" class="c-datepicker-data-input only-date end" value="">'+
+                '</div>'+
+                '</div>',
+                preConfirm: function (result) {
+                    return new Promise(function (resolve) {
+                        if (result) {
+                            resolve([
+                                $('.start').val(),
+                                $('.end').val(),
+                            ]);
+                        }
+                    });
+                }
+            }).then(function (result) {
+                if (result){
+                    var start = new Date(new Date(result[0]).getTime() - 8 * 3600000);
+                    var end = new Date(new Date(result[1]).getTime() - 8 * 3600000);
+                   window.location.href="/writeOrders.do?start="+start.getTime()+"&end="+end.getTime();
+                }
+            })
+
+        })
+
     })();
 
     (function () {
         init();
     })();
 
+    function initDatepicker() {
+        var DATAPICKERAPI = {
+            // 默认input显示当前月,自己获取后填充
+            activeMonthRange: function () {
+                return {
+                    begin: moment().set({'date': 1, 'hour': 0, 'minute': 0, 'second': 0}).format('YYYY-MM-DD'),
+                    end: moment().set({'hour': 23, 'minute': 59, 'second': 59}).format('YYYY-MM-DD')
+                }
+            },
+            shortcutMonth: function () {
+                // 当月
+                var nowDay = moment().get('date');
+                var prevMonthFirstDay = moment().subtract(1, 'months').set({'date': 1});
+                var prevMonthDay = moment().diff(prevMonthFirstDay, 'days');
+                return {
+                    now: '-' + (nowDay - 1) + ',0',
+                    prev: '-' + prevMonthDay + ',-' + nowDay
+                }
+            },
+            // 快捷选项option
+            rangeShortcutOption1: function () {
+                var result = DATAPICKERAPI.shortcutMonth();
+                return [{
+                    name: '当前月',
+                    day: result.now
+                }, {
+                    name: '最近一周',
+                    day: '-7,0'
+                }, {
+                    name: '最近一个月',
+                    day: '-30,0'
+                }, {
+                    name: '最近三个月',
+                    day: '-90, 0'
+                }];
+
+            }
+        };
+
+        //年月日范围
+        $('.J-datepicker-range-day').datePicker({
+            hasShortcut: true,
+            format: 'YYYY-MM-DD',
+            isRange: true,
+            shortcutOptions: DATAPICKERAPI.rangeShortcutOption1()
+        });
+    }
 
 </script>

@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="js/morris-chart/morris.css">
 
     <!--common-->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet">
     <link rel="stylesheet" href="css/datepicker.css">
 
@@ -31,10 +31,18 @@
         .state-overview {
             cursor: pointer;
         }
-        .fa:hover{
-            background-color: #2dd5bb;
+        .fa-check:hover{
+            background-color: #ef579d;
+            color: white;
             border-radius:4px;
         }
+
+        .panel.active2{
+            box-shadow:10px 10px 5px #a5a9b7;
+        }
+
+
+
     </style>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -264,24 +272,12 @@
 <script src="js/jquery-migrate-1.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/modernizr.min.js"></script>
-<script src="js/jquery.nicescroll.js"></script>
-
-
-<!-- jQuery Flot Chart-->
-<script src="js/flot-chart/jquery.flot.js"></script>
-<script src="js/flot-chart/jquery.flot.tooltip.js"></script>
-<script src="js/flot-chart/jquery.flot.resize.js"></script>
-
-
-<!--Morris Chart-->
-<script src="js/morris-chart/morris.js"></script>
-<script src="js/morris-chart/raphael-min.js"></script>
+<script src="/js/jquery.nicescroll.js"></script>
 
 
 <!--common scripts for all pages-->
 <script src="js/scripts.js"></script>
 
-<script src="/js/jquery-1.10.2.min.js"></script>
 <script src="/js/chart-js/echartsUtil.js"></script>
 <script src="/js/chart-js/echarts.js"></script>
 
@@ -363,7 +359,7 @@
         var $btn = $('.col-md-6.col-xs-12.col-sm-6').find('.panel');
         $btn.click(function(){
             var that = this;
-            $(this).addClass('active').siblings().removeClass('active');
+            $(this).addClass('active2').siblings().removeClass('active2');
             $(this).addClass('flipInX animated infinite');
             setTimeout(function () {
                 $(that).removeClass("flipInX animated infinite");
@@ -371,37 +367,33 @@
         });
 
 
-
-
         $(".r1").click(function () {
             $(".pie .row").hide();
             $(".p1").show();
-        })
+        });
         $(".r2").click(function () {
             $(".pie .row").hide();
             $(".p2").show();
-        })
+        });
         $(".r3").click(function () {
             $(".pie .row").hide();
             $(".p3").show();
-        })
+        });
         $(".r4").click(function () {
             $(".pie .row").hide();
             $(".p4").show();
-        })
+        });
 
 
-        selectAll()();
         selectForSale();
         selectForDealer();
-        ;
+        selectAll();
     });
 
     function selectAll() {
         $.ajax({
             url: '/selectAll.do',
             data: "&start=" + start + "&end=" + end,
-            async: false,
             dataType: 'json',
             success: function (data) {
 

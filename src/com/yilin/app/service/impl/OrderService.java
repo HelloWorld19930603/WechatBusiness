@@ -64,6 +64,22 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public List selectList3(String start, String end, Byte status) throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put("start", start);
+        map.put("end", end);
+        map.put("status", status);
+        List<Map<String, Object>> list = ordersMapper.selectList3(map);
+        for (Map<String, Object> orderMap : list) {
+            map.clear();
+            map.put("orderId", orderMap.get("id"));
+            map.put("userId", orderMap.get("userId"));
+            orderMap.put("commList", orderCommMapper.selectList(map));
+        }
+        return list;
+    }
+
+    @Override
     public Map selectByCode(String code) throws Exception {
         return orderCommMapper.selectByCode(code);
     }

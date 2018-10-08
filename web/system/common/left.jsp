@@ -4,11 +4,11 @@
 
     <!--logo and iconic logo start-->
     <div class="logo">
-        <a href="index.html"><img src="<%=path%>/images/home/geriti.png" alt=""></a>
+        <a href="index.do"><div class="dv">GRI-KRITY</div></a>
     </div>
 
     <div class="logo-icon text-center">
-        <a href="index.html"><img src="<%=path%>/images/logo_icon.png" alt=""></a>
+        <a href="index.do"><img src="<%=path%>/images/home/login_logo.jpg" alt="" width="40px" height="40px"></a>
     </div>
     <!--logo and iconic logo end-->
 

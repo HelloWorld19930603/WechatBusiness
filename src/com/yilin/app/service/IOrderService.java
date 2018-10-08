@@ -36,6 +36,8 @@ public interface IOrderService {
     void refund(String orderId, int userId, byte i) throws Exception;
 
 
+    List selectList3(String start, String end, Byte status) throws Exception;
+
     Map selectByCode(String code)throws Exception;
 
     int getCount(String orderId,String addrName, String phone, Byte status, Byte serise) throws Exception;

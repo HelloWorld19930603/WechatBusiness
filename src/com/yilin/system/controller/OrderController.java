@@ -9,6 +9,7 @@ import com.yilin.app.utils.WriteExcel;
 import com.yilin.system.common.SystemPage;
 import com.yilin.system.service.ILogisticsService;
 import net.sf.json.JSONObject;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -199,13 +202,31 @@ public class OrderController {
 
 
     @RequestMapping("writeOrders")
-    public void writeOrders(HttpServletRequest req, HttpServletResponse resp) {
+    public void writeOrders(HttpServletRequest req, HttpServletResponse resp,long start,long end) {
         try {
+
+            Map<String,String> dic = new HashedMap();
+            dic.put("id","订单编号");
+            dic.put("addrName","购买人姓名");
+            dic.put("phone","购买人电话");
+            dic.put("totals","总金额");
+            dic.put("serise","系列");
+            dic.put("ssq","省市区");
+            dic.put("addr","详细地址");
+            dic.put("no","物流单号");
+            dic.put("express","物流公司");
+            dic.put("description","留言");
+            dic.put("time","下单时间");
             OutputStream out = resp.getOutputStream();
             resp.setContentType("application/vnd.ms-excel;charset=utf-8");
-            resp.setHeader("Content-disposition", "attachment; filename="+processFileName(req,"订单.xls"));
-            List<Map> list  = orderService.selectList(null, 1, 11, null);
-            WriteExcel.writeExcel(list, 3, out);
+            Date date1 = new Date(start);
+            Date date2 = new Date(end+3600000*24);
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String startDate = format.format(date1);
+            String endDate = format.format(date2);
+            resp.setHeader("Content-disposition", "attachment; filename="+processFileName(req,"订单"+startDate+"-"+endDate+".xls"));
+            List<Map> list  = orderService.selectList3(startDate, endDate, null);
+            WriteExcel.writeExcel(list, dic, out);
         } catch (Exception e) {
             e.printStackTrace();
         }

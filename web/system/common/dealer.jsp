@@ -244,7 +244,8 @@
     }
 
     function showTeam(rowData) {
-        openPostWindow("/showTeam.do",rowData.id,document.querySelector('[name="serise"]').value,rowData.name);
+        //openPostWindow("/showTeam.do",rowData.id,document.querySelector('[name="serise"]').value,rowData.name);
+        window.location.href = "/showTeam.do?serise="+document.querySelector('[name="serise"]').value+"&userId="+rowData.id;
     }
 
     function openPostWindow(url,userId,serise,name){  //url要跳转到的页面，data要传递的数据，name显示方式（可能任意命名）
@@ -399,4 +400,7 @@
     (function () {
         init();
     })();
+
+
+
 </script>

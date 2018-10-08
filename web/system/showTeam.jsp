@@ -1,32 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="common/path.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="ThemeBucket">
-  <link rel="shortcut icon" href="#" type="image/png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
 
-  <title><%=title%></title>
+    <title><%=title%>
+    </title>
 
     <!--data table-->
-    <link rel="stylesheet" href="/js/data-tables/DT_bootstrap.css" />
+    <link rel="stylesheet" href="/js/data-tables/DT_bootstrap.css"/>
 
     <link href="/css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet">
     <style>
-        .center{
+        .center {
             text-align: center;
         }
     </style>
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-  <script src="js/html5shiv.js"></script>
-  <script src="js/respond.min.js"></script>
-  <![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body class="sticky-header">
@@ -35,9 +36,9 @@
     <!-- left side start-->
     <%@include file="common/left.jsp" %>
     <!-- left side end-->
-    
+
     <!-- main content start-->
-    <div class="main-content" >
+    <div class="main-content">
 
         <!-- header section start-->
         <%@include file="common/header.jsp" %>
@@ -50,7 +51,7 @@
                 <li>
                     <a href="#">经销商</a>
                 </li>
-                <li class="active">团队列表 </li>
+                <li class="active">团队列表</li>
             </ul>
         </div>
         <!-- page heading end-->
@@ -77,26 +78,34 @@
                                         <th class="center">微信号</th>
                                         <th class="center">充值金额</th>
                                         <th class="center">占比额</th>
+                                        <th class="center">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <c:forEach items="${data}" var="u">
-                                    <tr class="">
-                                        <td class="center">${u.id}</td>
-                                        <td class="center">${u.name}</td>
-                                        <td class="center">${u.loginName}</td>
-                                        <td class="center">${u.roleId}</td>
-                                        <td class="center">${u.phone}</td>
-                                        <td class="center">${u.wxNum}</td>
-                                        <td class="center">${u.money==null?0:u.money}</td>
-                                        <td class="center">
-                                            <div class="progress progress-xs " style="background: #aeb3bf">
-                                            <div class="progress-bar progress-bar-info center" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="padding-right:0;width: ${u.money==null?0:u.money / totals * 100}%;">
-                                                <span class="center">${u.money==null?0:u.money / totals * 100}%</span>
-                                            </div>
-                                        </div>
-                                        </td>
-                                    </tr>
+                                        <tr class="">
+                                            <td class="center">${u.id}</td>
+                                            <td class="center">${u.name}</td>
+                                            <td class="center">${u.loginName}</td>
+                                            <td class="center">${u.roleId}</td>
+                                            <td class="center">${u.phone}</td>
+                                            <td class="center">${u.wxNum}</td>
+                                            <td class="center">${u.money==null?0:u.money}</td>
+                                            <td class="center">
+                                                <div class="progress progress-xs " style="background: #aeb3bf">
+                                                    <div class="progress-bar progress-bar-info center"
+                                                         role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                                         aria-valuemax="100"
+                                                         style="padding-right:0;width: ${u.money==null?0:u.money / totals * 100}%;">
+                                                        <span class="center">${u.money==null?0:u.money / totals * 100}%</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="center"><span class="btn-link"
+                                                                     onclick="showTeam(${serise},${u.id})">查看团队</span>
+                                            </td>
+
+                                        </tr>
                                     </c:forEach>
                                     </tbody>
                                 </table>
@@ -141,8 +150,11 @@
     $(".${active}").addClass("active animated rubberBand");
     $(".${active}").parents("li").addClass("nav-active animated pulse");
 
-    jQuery(document).ready(function() {
+    jQuery(document).ready(function () {
         EditableTable.init();
     });
 
+    function showTeam(serise, id, name) {
+        window.location.href = "/showTeam.do?serise=" + serise + "&userId=" + id;
+    }
 </script>
