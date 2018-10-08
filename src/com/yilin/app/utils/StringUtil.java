@@ -47,4 +47,8 @@ public class StringUtil {
     public static String makeFileName(){
         return "" + new Random().nextInt(1000)+ System.currentTimeMillis();
     }
+
+    public static String toString(Object obj) {
+        return obj == null?"":obj.toString();
+    }
 }
