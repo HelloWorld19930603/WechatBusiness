@@ -25,7 +25,7 @@ public class WriteExcel {
         dataMap.put("Phone", "Phone");
         List<Map> list=new ArrayList<Map>();
         list.add(dataMap);
-        writeExcel(list, 3, "D:/writeExcel.xlsx");
+        //writeExcel(list, 3, "D:/writeExcel.xlsx");
 
     }
 
@@ -33,31 +33,13 @@ public class WriteExcel {
     /**
      * 去写Excel的方法
      * @param dataList  需要写的数据集合
-     * @param cloumnCount  总列数
-     * @param finalXlsxPath  excel文件路径
+     * @param columnNumCount  总列数
      */
-    public static void writeExcel(List<Map> dataList, int cloumnCount,String finalXlsxPath){
-        OutputStream out = null;
+    public static void writeExcel(List<Map> dataList, int columnNumCount,OutputStream out){
         try {
-            // 获取总列数
-            int columnNumCount = cloumnCount;
-            // 读取Excel文档
-            File finalXlsxFile = new File(finalXlsxPath);
-            Workbook workBook = getWorkbok(finalXlsxFile);
+            Workbook workBook = new HSSFWorkbook();
             // sheet 对应一个工作页
-            Sheet sheet = workBook.getSheetAt(0);
-            /**
-             * 删除原有数据，除了属性列
-             */
-            int rowNumber = sheet.getLastRowNum();    // 第一行从0开始算
-            System.out.println("原始数据总行数，除属性列：" + rowNumber);
-            for (int i = 1; i <= rowNumber; i++) {
-                Row row = sheet.getRow(i);
-                sheet.removeRow(row);
-            }
-            // 创建文件输出流，输出电子表格：这个必须有，否则你在sheet上做的任何操作都不会有效
-            out =  new FileOutputStream(finalXlsxPath);
-            workBook.write(out);
+            Sheet sheet = workBook.createSheet();
             /**
              * 往Excel中写新数据
              */
@@ -66,9 +48,9 @@ public class WriteExcel {
                 Row row = sheet.createRow(j + 1);
                 // 得到要插入的每一条记录
                 Map dataMap = dataList.get(j);
-                String name = dataMap.get("BankName").toString();
-                String address = dataMap.get("Addr").toString();
-                String phone = dataMap.get("Phone").toString();
+                String name = StringUtil.toString(dataMap.get("name"));
+                String address = StringUtil.toString(dataMap.get("id"));
+                String phone = StringUtil.toString(dataMap.get("phone"));
                 for (int k = 0; k <= columnNumCount; k++) {
                     // 在一行内循环
                     Cell first = row.createCell(0);
@@ -82,7 +64,6 @@ public class WriteExcel {
                 }
             }
             // 创建文件输出流，准备输出电子表格：这个必须有，否则你在sheet上做的任何操作都不会有效
-            out =  new FileOutputStream(finalXlsxPath);
             workBook.write(out);
         } catch (Exception e) {
             e.printStackTrace();
