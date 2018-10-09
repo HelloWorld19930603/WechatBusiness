@@ -33,7 +33,7 @@ public class SystemFilter implements Filter {
         if (object != null) {
             arg2.doFilter(arg0, arg1);
         }else {
-            request.getRequestDispatcher("/system/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/login.html").forward(request, response);
         }
     }
 

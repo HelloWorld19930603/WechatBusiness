@@ -36,7 +36,7 @@ public class HomeController {
     @RequestMapping("loginout")
     public String loginout(HttpServletRequest req){
         req.getSession().invalidate();
-        return "login";
+        return "redirect:/login.html";
     }
 
     @RequestMapping("modifyPwd")
@@ -61,7 +61,7 @@ public class HomeController {
 
     @RequestMapping("login")
     public String login(){
-        return "login";
+        return "redirect:/login.html";
     }
 
     @RequestMapping("toLogin")

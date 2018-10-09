@@ -10,7 +10,7 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="0"> 
-	<title>登录界面</title>
+	<title>后台管理系统</title>
 	<!--必要样式-->
     <link href="css/login-styles.css" rel="stylesheet" type="text/css" />
     <link href="css/demo.css" rel="stylesheet" type="text/css" />
@@ -44,7 +44,7 @@ input {
 	      <div class='icon'>
 	        <img alt="" src='img/user_icon_copy.png'>
 	      </div>
-	      <input name="login" placeholder='用户名' maxlength="16" type='text' autocomplete="off" value="kbcxy"/>
+	      <input name="login" placeholder='用户名' maxlength="20" type='text' autocomplete="off" value="admin"/>
 	        <div class='validation'>
 	          <img alt="" src='img/tick.png'>
 	        </div>
@@ -53,7 +53,7 @@ input {
 	      <div class='icon'>
 	        <img alt="" src='img/lock_icon_copy.png'>
 	      </div>
-	      <input name="pwd" placeholder='密码' maxlength="16" type='text' autocomplete="off">
+	      <input name="pwd" placeholder='密码' maxlength="20" type='text' autocomplete="off">
 	      <div class='validation'>
 	        <img alt="" src='img/tick.png'>
 	      </div>
@@ -96,12 +96,6 @@ input {
     
 	<script type="text/javascript">
 		var canGetCookie = 0;//是否支持存储Cookie 0 不支持 1 支持
-		var ajaxmockjax = 0;//是否启用虚拟Ajax的请求响 0 不启用  1 启用
-		//默认账号密码
-		
-		var truelogin = "kbcxy";
-		var truepwd = "111";
-		
 		var CodeVal = 0;
 	    Code();
 	    function Code() {
@@ -162,7 +156,11 @@ input {
 	                ErroAlert('请输入您的账号');
 	            } else if (pwd == '') {
 	                ErroAlert('请输入密码');
-	            }else {
+	            } else if (code == '' || code.length != 4) {
+                    ErroAlert('输入验证码');
+                } else if(code.toUpperCase() != CodeVal.toUpperCase()){
+                    ErroAlert('验证码错误');
+                }else {
 	                //认证中..
 	                
 	                $('.login').addClass('test'); //倾斜特效
@@ -179,7 +177,7 @@ input {
 	                        duration: 200,
 	                        queue: false
 	                    }).addClass('visible');
-	                }, 500);
+	                }, 300);
 
 	                //登陆
 	                var JsonData = { loginName: login, loginPwd: pwd, code: code };
@@ -190,29 +188,28 @@ input {
             formData.append('loginName', login);
             formData.append('loginPwd', pwd);
             $.ajax({
-                url: "http://localhost:8080/toLogin.do",
+                url: "/toLogin.do",
                 type: "post",
                 data: formData,
                 contentType: false,
                 processData: false,
                 mimeType: "multipart/form-data",
                 success: function (data) {
+                    setTimeout(function () {
                     if (data == 0) {
-                        window.location.href = "http://localhost:8080/index.do";
+                        window.location.href = "/index.do";
                     } else {
-                    	setTimeout(function () {
-	                          alert("很抱歉, 您的账号或密码有误，本系统不能让您进入!！");                
-                                            $('.login').removeClass('testtwo');
-                    $('.authent').hide();
-	                }, 500);
-
-
+                        ErroAlert("很抱歉, 您的账号或密码有误，本系统不能让您进入!！");
+                        $('.login').removeClass('testtwo');
+                        $('.login').removeClass('test');
+                        $('.authent').hide();
                     }
+                    }, 750);
                     console.log(data);
                 },
                 error: function (data) {
 
-                    alert("后台错误，本系统不能让您进入!！");
+                    ErroAlert("后台错误，本系统不能让您进入!！");
                     $('.login').removeClass('testtwo');
                     $('.authent').hide();
                     console.log(data);

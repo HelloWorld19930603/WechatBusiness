@@ -22,7 +22,6 @@ import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -224,7 +223,7 @@ public class OrderController {
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             String startDate = format.format(date1);
             String endDate = format.format(date2);
-            resp.setHeader("Content-disposition", "attachment; filename="+processFileName(req,"订单"+startDate+"-"+endDate+".xls"));
+            resp.setHeader("Content-disposition", "attachment; filename="+processFileName(req,"订单"+startDate+"_"+endDate+".xls"));
             List<Map> list  = orderService.selectList3(startDate, endDate, null);
             WriteExcel.writeExcel(list, dic, out);
         } catch (Exception e) {

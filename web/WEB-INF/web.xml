@@ -33,8 +33,9 @@
 
     <servlet-mapping>
         <servlet-name>default</servlet-name>
-        <url-pattern>*.js</url-pattern>
+        <url-pattern>/js/*</url-pattern>
         <url-pattern>/css/*</url-pattern>
+        <url-pattern>/layui/*</url-pattern>
         <url-pattern>/images/*</url-pattern>
         <url-pattern>/img/*</url-pattern>
         <url-pattern>/fonts/*</url-pattern>
@@ -63,7 +64,7 @@
 
     <welcome-file-list>
         <!-- <welcome-file>/jsp/index_x.jsp</welcome-file> -->
-        <welcome-file>/system/login.jsp</welcome-file>
+        <welcome-file>/login.html</welcome-file>
     </welcome-file-list>
     <error-page>
         <error-code>404</error-code>
