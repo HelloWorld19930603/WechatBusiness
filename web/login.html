@@ -208,10 +208,11 @@ input {
                     console.log(data);
                 },
                 error: function (data) {
-
-                    ErroAlert("后台错误，本系统不能让您进入!！");
+                    setTimeout(function () {
+                    ErroAlert("后台发生未知错误，请联系管理者!！");
                     $('.login').removeClass('testtwo');
                     $('.authent').hide();
+                    }, 750);
                     console.log(data);
                 }
             })
