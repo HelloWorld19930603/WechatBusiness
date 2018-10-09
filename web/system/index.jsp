@@ -28,7 +28,7 @@
             min-height: 330px;
         }
 
-        .state-overview {
+        .state-value {
             cursor: pointer;
         }
         .fa-check:hover{
@@ -101,7 +101,7 @@
                         <div class="col-md-6 col-xs-12 col-sm-6 r1">
                             <div class="panel purple">
                                 <div class="symbol">
-                                    <i class="fa fa-gavel"></i>
+                                    <i class="fa fa-archive"></i>
                                 </div>
                                 <div class="state-value">
                                     <div class="value v1"></div>
@@ -112,7 +112,7 @@
                         <div class="col-md-6 col-xs-12 col-sm-6 r2">
                             <div class="panel red">
                                 <div class="symbol">
-                                    <i class="fa fa-tags"></i>
+                                    <i class="fa fa-cny"></i>
                                 </div>
                                 <div class="state-value">
                                     <div class="value v2"></div>
@@ -125,7 +125,7 @@
                         <div class="col-md-6 col-xs-12 col-sm-6 r3">
                             <div class="panel blue">
                                 <div class="symbol">
-                                    <i class="fa fa-money"></i>
+                                    <i class="fa fa-envelope"></i>
                                 </div>
                                 <div class="state-value">
                                     <div class="value v3"></div>
@@ -136,7 +136,7 @@
                         <div class="col-md-6 col-xs-12 col-sm-6 r4">
                             <div class="panel green">
                                 <div class="symbol">
-                                    <i class="fa fa-eye"></i>
+                                    <i class="fa fa-gavel"></i>
                                 </div>
                                 <div class="state-value">
                                     <div class="value v4"></div>
@@ -384,10 +384,24 @@
             $(".p4").show();
         });
 
-
+        selectAll();
         selectForSale();
         selectForDealer();
-        selectAll();
+
+
+        $(".state-value").eq(0).click(function () {
+            window.location.href = "/order.do?status=2";
+        })
+        $(".state-value").eq(1).click(function () {
+            window.location.href = "/rechargeAudit.do";
+        })
+        $(".state-value").eq(2).click(function () {
+            window.location.href = "/agent.do";
+        })
+        $(".state-value").eq(3).click(function () {
+            window.location.href = "/agentUpgrade.do";
+        })
+
     });
 
     function selectAll() {
