@@ -11,6 +11,7 @@
     <meta name="author" content="ThemeBucket">
     <link rel="shortcut icon" href="#" type="image/png">
     <link href="<%=path%>/css/animate.min.css" rel="stylesheet">
+    <link href="<%=path%>/css/hover-min.css" rel="stylesheet" media="all">
     <title><%=title%>
     </title>
 
@@ -388,6 +389,8 @@
         selectForSale();
         selectForDealer();
 
+
+        $(".state-value").addClass("hvr-grow-shadow");
 
         $(".state-value").eq(0).click(function () {
             window.location.href = "/order.do?status=2";

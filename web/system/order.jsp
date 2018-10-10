@@ -356,7 +356,7 @@
                 animation: "slide-from-top",
                 confirmButtonText: '确认',
                 cancelButtonText: '取消',
-                html: '<div class="mt40" onclick="initDatepicker()">'+
+                html: '<div class="mt40" onload="initDatepicker()">'+
                 '<div class="c-datepicker-date-editor  J-datepicker-range-day mt10">'+
                 '<i class="c-datepicker-range__icon kxiconfont icon-clock"></i>'+
                 '<input placeholder="开始日期" name="" class="c-datepicker-data-input only-date start" value="">'+
@@ -391,6 +391,7 @@
     })();
 
     function initDatepicker() {
+        $(this).click(function () {
         var DATAPICKERAPI = {
             // 默认input显示当前月,自己获取后填充
             activeMonthRange: function () {
@@ -435,6 +436,7 @@
             format: 'YYYY-MM-DD',
             isRange: true,
             shortcutOptions: DATAPICKERAPI.rangeShortcutOption1()
+        });
         });
     }
 
