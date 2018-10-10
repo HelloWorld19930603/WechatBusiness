@@ -212,6 +212,12 @@
         <if test="phone != null and phone != ''">
             and o.phone = #{phone}
         </if>
+        <if test="startDate != null">
+            and o.time &gt;= #{startDate}
+        </if>
+        <if test="endDate  != null">
+            and o.time &lt; #{endDate}
+        </if>
         order by o.time desc
         limit #{start},#{pageSize}
     </select>
@@ -229,7 +235,7 @@
             and o.time &gt;= #{start}
         </if>
         <if test="end != null">
-            and o.time &lt;= #{end}
+            and o.time &lt; #{end}
         </if>
         <if test="status != null">
             and o.status = #{status}
@@ -254,7 +260,12 @@
         <if test="phone != null">
             and o.phone = #{phone}
         </if>
-
+        <if test="startDate != null">
+            and o.time &gt;= #{startDate}
+        </if>
+        <if test="endDate  != null">
+            and o.time &lt; #{endDate}
+        </if>
     </select>
 
     <select id="countAll" parameterType="map" resultMap="CountMap">

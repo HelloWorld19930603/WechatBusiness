@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +38,27 @@ public class OrderController {
     @Autowired
     IRoleService roleService;
 
+    //解决设置名称时的乱码
+    public static String processFileName(HttpServletRequest request, String fileNames) {
+        String codedfilename = null;
+        try {
+            String agent = request.getHeader("USER-AGENT");
+            if (null != agent && -1 != agent.indexOf("MSIE") || null != agent
+                    && -1 != agent.indexOf("Trident")) {// ie
+
+                String name = java.net.URLEncoder.encode(fileNames, "UTF8");
+
+                codedfilename = name;
+            } else if (null != agent && -1 != agent.indexOf("Mozilla")) {// 火狐,chrome等
+
+
+                codedfilename = new String(fileNames.getBytes("UTF-8"), "iso-8859-1");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return codedfilename;
+    }
 
     @RequestMapping("order")
     public String order(Model model) {
@@ -50,12 +69,16 @@ public class OrderController {
 
     @RequestMapping("getOrders")
     @ResponseBody
-    public SystemPage getOrders(String orderId, String name, String phone, Byte status, Byte serise, int start, int pageSize) {
+    public SystemPage getOrders(String orderId, String name, String phone, Byte status, Byte serise, String startDate, String endDate,
+                                int start, int pageSize) {
         int totals = 0;
+        if (status == -1) {
+            status = null;
+        }
         SystemPage page = new SystemPage();
         try {
-            totals = orderService.getCount(orderId, name, phone, status, serise);
-            List data = orderService.selectList2(orderId, name, phone, status, serise, start, pageSize);
+            totals = orderService.getCount(orderId, name, phone, status, serise, startDate, endDate);
+            List data = orderService.selectList2(orderId, name, phone, status, serise, startDate, endDate, start, pageSize);
             page = new SystemPage(totals, data);
         } catch (Exception e) {
             e.printStackTrace();
@@ -178,7 +201,6 @@ public class OrderController {
         }
     }
 
-
     @RequestMapping("traceability")
     public String traceability(Model model) {
         model.addAttribute("active", "traceability");
@@ -199,59 +221,31 @@ public class OrderController {
         return null;
     }
 
-
     @RequestMapping("writeOrders")
-    public void writeOrders(HttpServletRequest req, HttpServletResponse resp,long start,long end) {
+    public void writeOrders(HttpServletRequest req, HttpServletResponse resp, String startDate, String endDate) {
         try {
 
-            Map<String,String> dic = new HashedMap();
-            dic.put("id","订单编号");
-            dic.put("addrName","购买人姓名");
-            dic.put("phone","购买人电话");
-            dic.put("totals","总金额");
-            dic.put("serise","系列");
-            dic.put("ssq","省市区");
-            dic.put("addr","详细地址");
-            dic.put("no","物流单号");
-            dic.put("express","物流公司");
-            dic.put("description","留言");
-            dic.put("time","下单时间");
+            Map<String, String> dic = new HashedMap();
+            dic.put("id", "订单编号");
+            dic.put("addrName", "购买人姓名");
+            dic.put("phone", "购买人电话");
+            dic.put("totals", "总金额");
+            dic.put("serise", "系列");
+            dic.put("ssq", "省市区");
+            dic.put("addr", "详细地址");
+            dic.put("no", "物流单号");
+            dic.put("express", "物流公司");
+            dic.put("description", "留言");
+            dic.put("time", "下单时间");
             OutputStream out = resp.getOutputStream();
             resp.setContentType("application/vnd.ms-excel;charset=utf-8");
-            Date date1 = new Date(start);
-            Date date2 = new Date(end+3600000*24);
-            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            String startDate = format.format(date1);
-            String endDate = format.format(date2);
-            resp.setHeader("Content-disposition", "attachment; filename="+processFileName(req,"订单"+startDate+"_"+endDate+".xls"));
-            List<Map> list  = orderService.selectList3(startDate, endDate, null);
+            resp.setHeader("Content-disposition", "attachment; filename=" + processFileName(req, "订单" + startDate + "_" + endDate + ".xls"));
+            List<Map> list = orderService.selectList3(startDate, endDate, null);
             WriteExcel.writeExcel(list, dic, out);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-    }
-
-    //解决设置名称时的乱码
-    public static String processFileName(HttpServletRequest request, String fileNames) {
-        String codedfilename = null;
-        try {
-            String agent = request.getHeader("USER-AGENT");
-            if (null != agent && -1 != agent.indexOf("MSIE") || null != agent
-                    && -1 != agent.indexOf("Trident")) {// ie
-
-                String name = java.net.URLEncoder.encode(fileNames, "UTF8");
-
-                codedfilename = name;
-            } else if (null != agent && -1 != agent.indexOf("Mozilla")) {// 火狐,chrome等
-
-
-                codedfilename = new String(fileNames.getBytes("UTF-8"), "iso-8859-1");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return codedfilename;
     }
 
 }
