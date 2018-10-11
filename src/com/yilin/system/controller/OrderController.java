@@ -72,9 +72,7 @@ public class OrderController {
     public SystemPage getOrders(String orderId, String name, String phone, Byte status, Byte serise, String startDate, String endDate,
                                 int start, int pageSize) {
         int totals = 0;
-        if (status == -1) {
-            status = null;
-        }
+
         SystemPage page = new SystemPage();
         try {
             totals = orderService.getCount(orderId, name, phone, status, serise, startDate, endDate);
