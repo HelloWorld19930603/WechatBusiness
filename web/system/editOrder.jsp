@@ -182,9 +182,11 @@
                                                                 <c:if test="${userRole.roleId == 1 || userRole.roleId == 2}">(箱）</c:if>
                                                                 <c:if test="${userRole.roleId != 1 && userRole.roleId != 2}">(盒）</c:if></td>
                                                             <td>${comm.aPrice}</td>
-                                                            <td><input type="text" value="${comm.code}"
+                                                            <td>
+                                                                <input type="text" value="${comm.code}"
                                                                        class="animated code${comm.commId}"
-                                                                       onclick="reviewCode('${order.id}',${comm.commId})"/>
+                                                                       onclick="reviewCode('${order.id}',${comm.commId})" style="width: 100px;"/>
+                                                                <i class="fa fa-plus-square"  onclick="reviewCode('${order.id}',${comm.commId})" style="font-size: 20px"></i>
                                                             </td>
                                                             <td>
                                                                 <div class="animated btn btn-info"

@@ -16,7 +16,7 @@
     <link href="<%=path%>/css/gm.css" rel="stylesheet">
     <link href="<%=path%>/css/grid.css" rel="stylesheet">
     <link rel="stylesheet" href="css/datepicker.css">
-
+    <link rel="stylesheet" media="screen, projection" href="/css/fancySelect.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="<%=path%>/js/html5shiv.js"></script>
@@ -27,10 +27,17 @@
     .se-con {
         width: 140px;
     }
+    .fancy-select{
+        top: 15px;
+    }
 
     .search-wrapper{
         display: inline-block;
         vertical-align: middle;
+        border: 1px solid;
+        border-radius: 30px;
+        background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+        color: #FFF;
     }
     .search-wrapper.active {}
 
@@ -61,7 +68,7 @@
         position: absolute;
         top:0px;
         left:0px;
-        background: #efa8c0;
+        background: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
@@ -88,13 +95,16 @@
         -webkit-transform: translate(0, 10px);
         -moz-transform: translate(0, 10px);
         transform: translate(0, 10px);
+        color: white;
     }
-
+    .search-wrapper input::-webkit-input-placeholder {
+        color: white;
+    }
     .search-wrapper .input-holder .search-icon {
         width:70px;
         height:35px;
-        border:none;
-        border-radius:6px;
+        border: 1px solid #ccc;
+        border-radius: 30px;
         background: #FFF;
         padding:0px;
         outline:none;
@@ -141,7 +151,7 @@
         left: 9px;
         top: 15px;
         border-radius: 2px;
-        background: #974BE0;
+        background: #FE007F;
     }
     .search-wrapper .input-holder .search-icon span::after {
         width: 14px;
@@ -149,7 +159,7 @@
         left: 3px;
         top: 3px;
         border-radius: 16px;
-        border: 4px solid #974BE0;
+        border: 4px solid #FE007F;
     }
 
 
@@ -200,33 +210,37 @@
         <!--body wrapper start-->
         <div class="wrapper">
 
-            <section class="search-area panel">
+            <section class="search-area panel" style="padding: 0px 20px 10px 20px;">
                 <div class="sa-ele">
-                    <label class="se-title">订单状态:</label>
-                    <select class="se-con" name="status">
-                        <option value="">请选择</option>
-                        <!--通过js增加-->
+                    <select id="basic-usage-demo" name="status">
+                        <option value="-1">请选择订单状态</option>
+
+
                     </select>
                 </div>
                 <div class="search-wrapper">
-                    <label style="float: left;margin-top: 7px;" onclick="searchToggle(this, event);">输入你的值</label>
+                    <label style="float: left;margin: 7px 2px 0px 10px;" onclick="searchToggle(this, event);">订单编号</label>
                     <div class="input-holder">
-                        <input type="text" class="search-input" placeholder="输入你的值" />
+                        <input type="text" class="search-input" placeholder="输入订单编号" name="orderId"/>
                         <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
                     </div>
                     <span class="close" onclick="searchToggle(this, event);"></span>
                 </div>
-                <div class="sa-ele">
-                    <label class="se-title">订单编号:</label>
-                    <input class="se-con" name="orderId"/>
+                <div class="search-wrapper">
+                    <label style="float: left;margin: 7px 2px 0px 10px;" onclick="searchToggle(this, event);">收货人姓名</label>
+                    <div class="input-holder">
+                        <input type="text" class="search-input" placeholder="输入收货人姓名" name="name"/>
+                        <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+                    </div>
+                    <span class="close" onclick="searchToggle(this, event);"></span>
                 </div>
-                <div class="sa-ele">
-                    <label class="se-title">收货人姓名:</label>
-                    <input class="se-con" name="name"/>
-                </div>
-                <div class="sa-ele">
-                    <label class="se-title">收货人电话:</label>
-                    <input class="se-con" name="phone"/>
+                <div class="search-wrapper">
+                    <label style="float: left;margin: 7px 2px 0px 10px;" onclick="searchToggle(this, event);">收货人电话</label>
+                    <div class="input-holder">
+                        <input type="text" class="search-input" placeholder="输入收货人电话" name="phone"/>
+                        <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+                    </div>
+                    <span class="close" onclick="searchToggle(this, event);"></span>
                 </div>
                 <div class="c-datepicker-date-editor  J-datepicker-range-day mt10"
                      style="height: 28px;display: inline-block;vertical-align: middle;">
@@ -236,11 +250,11 @@
                     <input placeholder="结束日期" name="" class="c-datepicker-data-input only-date end" value="">
                 </div>
                 <div class="sa-ele">
-                    <button class="search-action">搜索</button>
-                    <button class="reset-action">重置</button>
+                    <button class="search-action" style=" background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);">搜索</button>
+                    <button class="reset-action" style=" background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);">重置</button>
                 </div>
                 <div class="btn-group" style="float:right;">
-                    <button id="share" class="btn btn-primary" style="font-size: 12px;padding: 4px 4px;">
+                    <button id="share" class="btn btn-primary" style="font-size: 12px;padding: 4px 4px;margin-top: 3px;">
                         导出 <i class="fa fa-share-square-o"></i>
                     </button>
                 </div>
@@ -284,6 +298,8 @@
 
 <script src="js/date/moment.min.js"></script>
 <script src="js/date/datepicker.all.js"></script>
+
+<script src="js/fancySelect.js"></script>
 </body>
 </html>
 <script type="text/javascript">
@@ -485,7 +501,7 @@
             option.innerText = TYPE_MAP[key];
             typeSelect2.appendChild(option);
         }
-
+        $('#basic-usage-demo').fancySelect();
         // 绑定搜索事件
         document.querySelector('.search-action').addEventListener('click', function () {
             if ($('.start').val() != null && $('.start').val() != '') {
@@ -659,12 +675,11 @@
 
 <script type="text/javascript">
     function searchToggle(obj, evt){
-        var container = $('.search-wrapper');
-
+        var container = $(obj).closest('.search-wrapper');
         if(!container.hasClass('active')){
             container.addClass('active');
             evt.preventDefault();
-            $('.search-wrapper label').hide();
+            container.find('label').hide();
         }
         else if(container.hasClass('active') && $('search-input').length == 0){
             container.removeClass('active');
@@ -672,7 +687,7 @@
             container.find('.search-input').val('');
             // clear and hide result container when we press close
             container.find('.result-container').fadeOut(100, function(){$(this).empty();});
-            $('label').show();
+            container.find('label').show();
         }
     }
 
