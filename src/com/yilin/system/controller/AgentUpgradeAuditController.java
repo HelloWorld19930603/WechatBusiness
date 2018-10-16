@@ -1,7 +1,9 @@
 package com.yilin.system.controller;
 
 import com.yilin.app.domain.AgentUpgrade;
+import com.yilin.app.domain.SystemLog;
 import com.yilin.app.domain.SystemUser;
+import com.yilin.app.service.ISystemLogService;
 import com.yilin.app.utils.PhotoUtil;
 import com.yilin.app.utils.StringUtil;
 import com.yilin.system.common.SystemPage;
@@ -28,6 +30,8 @@ public class AgentUpgradeAuditController {
 
     @Autowired
     IAgentUpgradeService agentUpgradeService;
+    @Autowired
+    ISystemLogService systemLogService;
 
     @RequestMapping("/agentUpgrade")
     public String agentAudit(Model model) {
@@ -63,6 +67,9 @@ public class AgentUpgradeAuditController {
                 return 2;
             }
             agentUpgradeService.audit(id, status, userId, level, serise,user.getId(),remark);
+            systemLogService.log(new SystemLog("用户" + user.getName() + "对编号为"+userId+
+                    "的用户进行了升级审核，其中审核结果为"+(status==2?"通过":"拒绝")+
+                    ",系列为:"+serise+",申请等级为:"+level, 9, user.getLoginName()));
         } catch (Exception e) {
             e.printStackTrace();
             return 1;

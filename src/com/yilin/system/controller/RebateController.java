@@ -2,7 +2,9 @@ package com.yilin.system.controller;
 
 import com.yilin.app.domain.Rebate;
 import com.yilin.app.domain.RebateRule;
+import com.yilin.app.domain.SystemLog;
 import com.yilin.app.domain.SystemUser;
+import com.yilin.app.service.ISystemLogService;
 import com.yilin.system.common.SystemPage;
 import com.yilin.system.service.IRebateRuleService;
 import com.yilin.system.service.IRebateService;
@@ -25,6 +27,8 @@ public class RebateController {
     IRebateRuleService rebateRuleService;
     @Autowired
     IRebateService rebateService;
+    @Autowired
+    ISystemLogService systemLogService;
 
     @RequestMapping("rebate1")
     public String rebate1(Model model) {
@@ -61,6 +65,8 @@ public class RebateController {
             SystemUser user = (SystemUser) req.getSession().getAttribute("user");
             rebate.setOperator(user.getId());
             rebateService.addOne(rebate);
+            systemLogService.log(new SystemLog("用户" + user.getName() + "对编号为"+
+                    rebate.getUserId()+"的用户进行了返利，其中返利金额为"+rebate.getMoney(), 11, user.getLoginName()));
         } catch (Exception e) {
             e.printStackTrace();
             return 1;

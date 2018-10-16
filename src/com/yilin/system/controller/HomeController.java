@@ -1,7 +1,9 @@
 package com.yilin.system.controller;
 
 import com.yilin.app.common.ResultJson;
+import com.yilin.app.domain.SystemLog;
 import com.yilin.app.domain.SystemUser;
+import com.yilin.app.service.ISystemLogService;
 import com.yilin.app.utils.MD5Util;
 import com.yilin.system.service.IHomeService;
 import com.yilin.system.service.ISystemUserService;
@@ -26,32 +28,38 @@ public class HomeController {
     ISystemUserService systemUserService;
     @Autowired
     IHomeService homeService;
+    @Autowired
+    ISystemLogService systemLogService;
 
     @RequestMapping("index")
-    public String index(Model model){
-        model.addAttribute("active","index");
+    public String index(Model model) {
+        model.addAttribute("active", "index");
         return "index";
     }
 
     @RequestMapping("loginout")
-    public String loginout(HttpServletRequest req){
+    public String loginout(HttpServletRequest req) {
+        SystemUser user = (SystemUser) req.getSession().getAttribute("user");
         req.getSession().invalidate();
+        if (user != null)
+            systemLogService.log(new SystemLog("用户" + user.getName() + "退出了管理系统", 2, user.getLoginName()));
         return "redirect:/login.html";
     }
 
     @RequestMapping("modifyPwd")
-    public String modifyPwd(HttpServletRequest req){
+    public String modifyPwd() {
         return "modifyPwd";
     }
 
     @RequestMapping("toModifyPwd")
     @ResponseBody
-    public Integer toModifyPwd(HttpServletRequest req,String newPwd){
+    public Integer toModifyPwd(HttpServletRequest req, String newPwd) {
 
         SystemUser user = (SystemUser) req.getSession().getAttribute("user");
         try {
             user.setLoginPwd(MD5Util.encrypt(newPwd));
             systemUserService.editOne(user);
+            systemLogService.log(new SystemLog("用户" + user.getName() + "修改了管理系统登录密码", 3, user.getLoginName()));
         } catch (Exception e) {
             e.printStackTrace();
             return 1;
@@ -60,23 +68,24 @@ public class HomeController {
     }
 
     @RequestMapping("login")
-    public String login(){
+    public String login() {
         return "redirect:/login.html";
     }
 
     @RequestMapping("toLogin")
     @ResponseBody
-    public Object toLogin(String loginName, String loginPwd, HttpServletRequest req){
+    public Object toLogin(String loginName, String loginPwd, HttpServletRequest req) {
 /*        if(loginName == null || "".equals(loginName.trim())){
             req.getSession().setAttribute("user", new SystemUser());
             return 0;
         }*/
         try {
-            SystemUser user = systemUserService.selectForLogin(loginName,loginPwd);
-            if(user != null) {
+            SystemUser user = systemUserService.selectForLogin(loginName, loginPwd);
+            if (user != null) {
                 user.setLoginTime(new Date());
                 systemUserService.editOne(user);
                 req.getSession().setAttribute("user", user);
+                systemLogService.log(new SystemLog("用户" + user.getName() + "登录管理系统", 1, user.getLoginName()));
                 return 0;
             }
 
@@ -88,50 +97,50 @@ public class HomeController {
 
 
     @RequestMapping("table")
-    public String table(Model model){
-        model.addAttribute("active","test");
+    public String table(Model model) {
+        model.addAttribute("active", "test");
         return "table";
     }
 
     @RequestMapping("form")
-    public String form(Model model){
-        model.addAttribute("active","test2");
+    public String form(Model model) {
+        model.addAttribute("active", "test2");
         return "form";
     }
 
 
     @RequestMapping("invitingAgent")
-    public String invitingAgent(int inviting,String invitationName,String applyName,byte serise,int level,Model model){
-        model.addAttribute("inviting",inviting);
-        model.addAttribute("invitationName",invitationName);
-        model.addAttribute("applyName",applyName);
-        model.addAttribute("serise",serise);
-        model.addAttribute("level",level);
+    public String invitingAgent(int inviting, String invitationName, String applyName, byte serise, int level, Model model) {
+        model.addAttribute("inviting", inviting);
+        model.addAttribute("invitationName", invitationName);
+        model.addAttribute("applyName", applyName);
+        model.addAttribute("serise", serise);
+        model.addAttribute("level", level);
         return "invitingAgent";
     }
 
 
     @RequestMapping("selectAll")
     @ResponseBody
-    public ResultJson selectAll(String start,String end){
-        Integer[] obj = homeService.selectAll(start,end);
-        ResultJson result = new ResultJson(true,"success",obj);
+    public ResultJson selectAll(String start, String end) {
+        Integer[] obj = homeService.selectAll(start, end);
+        ResultJson result = new ResultJson(true, "success", obj);
         return result;
     }
 
     @RequestMapping("selectForSale")
     @ResponseBody
-    public ResultJson selectForSale(String start,String end){
-        List<Map<String,Object>> obj = homeService.selectForSale(start,end);
-        ResultJson result = new ResultJson(true,"success",obj);
+    public ResultJson selectForSale(String start, String end) {
+        List<Map<String, Object>> obj = homeService.selectForSale(start, end);
+        ResultJson result = new ResultJson(true, "success", obj);
         return result;
     }
 
     @RequestMapping("selectForDealer")
     @ResponseBody
-    public ResultJson selectForDealer(String start,String end){
-        List<Map<String,Object>> obj = homeService.selectForDealer(start,end);
-        ResultJson result = new ResultJson(true,"success",obj);
+    public ResultJson selectForDealer(String start, String end) {
+        List<Map<String, Object>> obj = homeService.selectForDealer(start, end);
+        ResultJson result = new ResultJson(true, "success", obj);
         return result;
     }
 }

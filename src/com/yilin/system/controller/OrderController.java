@@ -5,6 +5,7 @@ import com.yilin.app.domain.*;
 import com.yilin.app.service.IAddressService;
 import com.yilin.app.service.IOrderService;
 import com.yilin.app.service.IRoleService;
+import com.yilin.app.service.ISystemLogService;
 import com.yilin.app.utils.WriteExcel;
 import com.yilin.system.common.SystemPage;
 import com.yilin.system.service.ILogisticsService;
@@ -37,6 +38,8 @@ public class OrderController {
     ILogisticsService logisticsService;
     @Autowired
     IRoleService roleService;
+    @Autowired
+    ISystemLogService systemLogService;
 
     //解决设置名称时的乱码
     public static String processFileName(HttpServletRequest request, String fileNames) {
@@ -119,7 +122,7 @@ public class OrderController {
 
     @RequestMapping("deliverGoods2")
     @ResponseBody
-    public Object deliverGoods2(String orderId, String com, String no, String name) {
+    public Object deliverGoods2(String orderId, String com, String no, String name,HttpServletRequest req) {
         Logistics logistics = new Logistics();
         logistics.setId(no);
         logistics.setCom(com);
@@ -130,6 +133,8 @@ public class OrderController {
             logisticsService.removeByOrder(orderId);
             logisticsService.addOne(logistics);
             orderService.updateStatus(orderId, null, 3, 2);
+            SystemUser user = (SystemUser) req.getSession().getAttribute("user");
+            systemLogService.log(new SystemLog("用户" + user.getName() + "对编号为"+orderId+"的订单进行了发货操作，物流单号为"+no, 4, user.getLoginName()));
             return 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -140,9 +145,11 @@ public class OrderController {
 
     @RequestMapping("editOrder2")
     @ResponseBody
-    public Object editOrder2(Orders orders) {
+    public Object editOrder2(Orders order,HttpServletRequest req) {
         try {
-            orderService.editOrder(orders);
+            orderService.editOrder(order);
+            SystemUser user = (SystemUser) req.getSession().getAttribute("user");
+            systemLogService.log(new SystemLog("用户" + user.getName() + "对编号为"+order.getId()+"的订单信息进行了修改", 5, user.getLoginName()));
             return 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -152,9 +159,11 @@ public class OrderController {
 
     @RequestMapping("editAddress")
     @ResponseBody
-    public Object editAddress(Orders order) {
+    public Object editAddress(Orders order,HttpServletRequest req) {
         try {
             orderService.editOrder(order);
+            SystemUser user = (SystemUser) req.getSession().getAttribute("user");
+            systemLogService.log(new SystemLog("用户" + user.getName() + "对编号为"+order.getId()+"的订单收货地址进行了修改", 6, user.getLoginName()));
             return 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -189,9 +198,11 @@ public class OrderController {
 
     @RequestMapping("reviewCode")
     @ResponseBody
-    public Object reviewCode(OrderComm orderComm) {
+    public Object reviewCode(OrderComm orderComm,HttpServletRequest req) {
         try {
             orderService.editOrderComm(orderComm);
+            SystemUser user = (SystemUser) req.getSession().getAttribute("user");
+            systemLogService.log(new SystemLog("用户" + user.getName() + "对编号为"+orderComm.getOrderId()+"的订单追溯码进行了修改", 7, user.getLoginName()));
             return 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -208,7 +219,7 @@ public class OrderController {
 
     @RequestMapping("traceability2")
     @ResponseBody
-    public Object traceability2(String code) {
+    public Object traceability2(String code,HttpServletRequest req) {
         try {
             Map commMap = orderService.selectByCode(code);
             JSONObject jsonObject = JSONObject.fromObject(commMap);

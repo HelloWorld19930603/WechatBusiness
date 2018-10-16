@@ -52,4 +52,11 @@ public class SystemLog {
     public void setTime(Date time) {
         this.time = time;
     }
+
+    public SystemLog(String log, Integer type, String user) {
+        this.log = log;
+        this.type = type;
+        this.user = user;
+        this.time = new Date();
+    }
 }

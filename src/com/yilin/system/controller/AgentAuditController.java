@@ -1,11 +1,9 @@
 package com.yilin.system.controller;
 
 import com.yilin.app.common.Configuration;
-import com.yilin.app.domain.Agent;
-import com.yilin.app.domain.SystemUser;
-import com.yilin.app.domain.User;
-import com.yilin.app.domain.Wallet;
+import com.yilin.app.domain.*;
 import com.yilin.app.exception.RequestException;
+import com.yilin.app.service.ISystemLogService;
 import com.yilin.app.service.IUserService;
 import com.yilin.app.service.IWalletService;
 import com.yilin.app.utils.PhotoUtil;
@@ -38,6 +36,8 @@ public class AgentAuditController {
     IUserService userService;
     @Autowired
     IWalletService walletService;
+    @Autowired
+    ISystemLogService systemLogService;
 
     @RequestMapping("/agent")
     public String agentAudit(Model model) {
@@ -72,6 +72,8 @@ public class AgentAuditController {
                 return 2;
             }
             agentAuditService.audit(id, status, userId,user.getId(),remark);
+            systemLogService.log(new SystemLog("用户" + user.getName() + "对编号为"+userId+
+                    "的用户进行了代理审核，其中审核结果为"+(status==2?"通过":"拒绝"), 8, user.getLoginName()));
         }catch (RequestException re){
             re.printStackTrace();
             return 2;

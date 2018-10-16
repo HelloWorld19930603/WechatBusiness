@@ -1,8 +1,10 @@
 package com.yilin.system.controller;
 
 import com.yilin.app.domain.Recharge;
+import com.yilin.app.domain.SystemLog;
 import com.yilin.app.domain.SystemUser;
 import com.yilin.app.domain.Wallet;
+import com.yilin.app.service.ISystemLogService;
 import com.yilin.app.service.IWalletService;
 import com.yilin.system.common.SystemPage;
 import com.yilin.system.service.IRechargeAuditService;
@@ -27,25 +29,27 @@ public class RechargeAuditController {
     IRechargeAuditService rechargeAuditService;
     @Autowired
     IWalletService walletService;
+    @Autowired
+    ISystemLogService systemLogService;
 
     @RequestMapping("rechargeAudit")
-    public String recharge(Model model){
-        model.addAttribute("active","rechargeAudit");
+    public String recharge(Model model) {
+        model.addAttribute("active", "rechargeAudit");
         return "rechargeAudit";
     }
 
 
     @RequestMapping("getRechargeAudits")
     @ResponseBody
-    public SystemPage getRechargeAudits(Byte status,Byte serise,String phone,String userId,int start,int pageSize){
+    public SystemPage getRechargeAudits(Byte status, Byte serise, String phone, String userId, int start, int pageSize) {
         int totals = 0;
         SystemPage systemPage = null;
         try {
-            if(serise == -1){
+            if (serise == -1) {
                 serise = null;
             }
-            totals = rechargeAuditService.getCount(status,serise,phone,userId);
-            List<Map<String, Object>> data = rechargeAuditService.selectList(status,serise,phone,userId,start,pageSize);
+            totals = rechargeAuditService.getCount(status, serise, phone, userId);
+            List<Map<String, Object>> data = rechargeAuditService.selectList(status, serise, phone, userId, start, pageSize);
             systemPage = new SystemPage(totals, data);
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,7 +59,7 @@ public class RechargeAuditController {
 
     @RequestMapping("decideRecharge")
     @ResponseBody
-    public Object decideRecharge(int id, Byte status,String remark, HttpServletRequest req)  {
+    public Object decideRecharge(int id, Byte status, String remark, HttpServletRequest req) {
         Recharge recharge = new Recharge();
         recharge.setId(id);
         recharge.setStatus(status);
@@ -64,20 +68,22 @@ public class RechargeAuditController {
         recharge.setsTime(new Date());
         recharge.setRemark(remark);
         try {
-        if(status == 2){
-            Recharge recharge2  = rechargeAuditService.selectOne(id);
-            Float money = walletService.getMoney(recharge2.getUserId(),recharge2.getSerise());
-            if(money == null){
-                Wallet wallet = new Wallet();
-                wallet.setSerise(recharge2.getSerise());
-                wallet.setUserId(recharge2.getUserId());
-                wallet.setMoney(recharge2.getMoney());
-                walletService.addWallet(wallet);
-            }else{
-                walletService.addMoney(recharge2.getSerise(),recharge2.getUserId(),recharge2.getMoney());
+            if (status == 2) {
+                Recharge recharge2 = rechargeAuditService.selectOne(id);
+                Float money = walletService.getMoney(recharge2.getUserId(), recharge2.getSerise());
+                if (money == null) {
+                    Wallet wallet = new Wallet();
+                    wallet.setSerise(recharge2.getSerise());
+                    wallet.setUserId(recharge2.getUserId());
+                    wallet.setMoney(recharge2.getMoney());
+                    walletService.addWallet(wallet);
+                } else {
+                    walletService.addMoney(recharge2.getSerise(), recharge2.getUserId(), recharge2.getMoney());
+                }
             }
-        }
-        rechargeAuditService.editOne(recharge);
+            rechargeAuditService.editOne(recharge);
+            systemLogService.log(new SystemLog("用户" + user.getName() + "对编号为" +
+                    id + "的充值单号进行了充值审核，其中审核结果为" + (status == 2 ? "通过" : "拒绝"), 10, user.getLoginName()));
         } catch (Exception e) {
             e.printStackTrace();
             return false;
