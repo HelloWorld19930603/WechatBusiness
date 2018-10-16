@@ -82,6 +82,7 @@ public class HomeController {
         try {
             SystemUser user = systemUserService.selectForLogin(loginName, loginPwd);
             if (user != null) {
+                req.getSession().setAttribute("lastTime", user.getLoginTime());
                 user.setLoginTime(new Date());
                 systemUserService.editOne(user);
                 req.getSession().setAttribute("user", user);
