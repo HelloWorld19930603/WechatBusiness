@@ -185,8 +185,8 @@
                                                             <td>
                                                                 <input type="text" value="${comm.code}"
                                                                        class="animated code${comm.commId}"
-                                                                       onclick="reviewCode('${order.id}',${comm.commId})" style="width: 100px;"/>
-                                                                <i class="fa fa-plus-square"  onclick="reviewCode('${order.id}',${comm.commId})" style="font-size: 20px"></i>
+                                                                       onclick="reviewCode('${order.id}',${comm.commId})" style="width: 100px;display: none;"/>
+                                                                <i class="fa fa-plus-square"  onclick="showCodeInput()" style="font-size: 20px"></i>
                                                             </td>
                                                             <td>
                                                                 <div class="animated btn btn-info"
@@ -555,6 +555,10 @@
                 })
 
         })
+    }
+
+    function showCodeInput(){
+        $(this).prev().show();
     }
 
     function reviewCode(orderId, commId) {
