@@ -183,10 +183,17 @@
                                                                 <c:if test="${userRole.roleId != 1 && userRole.roleId != 2}">(盒）</c:if></td>
                                                             <td>${comm.aPrice}</td>
                                                             <td>
+                                                                <c:if test="${comm.code == null}">
                                                                 <input type="text" value="${comm.code}"
                                                                        class="animated code${comm.commId}"
                                                                        onclick="reviewCode('${order.id}',${comm.commId})" style="width: 100px;display: none;"/>
                                                                 <i class="fa fa-plus-square"  onclick="showCodeInput()" style="font-size: 20px"></i>
+                                                                </c:if>
+                                                                <c:if test="${comm.code != null}">
+                                                                    <input type="text" value="${comm.code}"
+                                                                           class="animated code${comm.commId}"
+                                                                           onclick="reviewCode('${order.id}',${comm.commId})" style="width: 100px;display: none;"/>
+                                                                </c:if>
                                                             </td>
                                                             <td>
                                                                 <div class="animated btn btn-info"
@@ -559,6 +566,7 @@
 
     function showCodeInput(){
         $(this).prev().show();
+        $(this).hide();
     }
 
     function reviewCode(orderId, commId) {
