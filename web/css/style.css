@@ -1108,6 +1108,7 @@ footer {
     bottom: 0;
     width: 100%;
     border-top: 1px solid #eff0f4;
+    text-align: center;
 }
 
 footer.sticky-footer {

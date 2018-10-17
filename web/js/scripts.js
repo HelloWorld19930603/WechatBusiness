@@ -194,7 +194,23 @@ const ROLE_MAP = [{
 
 
 
-
+    function t(){
+        if(h < document.body.clientHeight){
+            $("footer").css({position:"fixed",left:"240px",bottom:"0px"});
+            return;
+        }
+        var a = $(document).scrollTop()+document.documentElement.clientHeight;
+        if(a >= h){
+            $("footer").css({position:"fixed",left:"240px",bottom:"0px"});
+        }else{
+            $("footer").removeAttr("style");
+        }
+    }
+    var e = $("footer");
+    var h = e.offset().top + e.height() ;
+    t();
+    $(document).resize(t);
+    $(document).scroll(t);
 
 
 
