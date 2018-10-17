@@ -195,25 +195,25 @@ const ROLE_MAP = [{
 
 
     function t(){
+        var e = $("footer");
+        var h = e.offset().top + e.height() ;
         if(h < document.body.clientHeight){
             $("footer").css({position:"fixed",left:"240px",bottom:"0px"});
             return;
         }
+        function t2(){
         var a = $(document).scrollTop()+document.documentElement.clientHeight;
         if(a >= h){
             $("footer").css({position:"fixed",left:"240px",bottom:"0px"});
         }else{
             $("footer").removeAttr("style");
         }
+        }
+        t2();
+        $(document).resize(t2);
+        $(document).scroll(t2);
     }
-    var e = $("footer");
-    var h = e.offset().top + e.height() ;
     t();
-    $(document).resize(t);
-    $(document).scroll(t);
-
-
-
 
 })(jQuery);
 
