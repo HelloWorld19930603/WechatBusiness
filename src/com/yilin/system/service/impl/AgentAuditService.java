@@ -3,11 +3,13 @@ package com.yilin.system.service.impl;
 import com.yilin.app.common.Configuration;
 import com.yilin.app.common.JuHeMessage;
 import com.yilin.app.domain.Agent;
+import com.yilin.app.domain.DataTmp;
 import com.yilin.app.domain.User;
 import com.yilin.app.exception.RequestException;
 import com.yilin.app.mapper.AgentMapper;
 import com.yilin.app.mapper.UserMapper;
 import com.yilin.system.service.IAgentAuditService;
+import com.yilin.system.service.IDataTmpService;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,8 @@ public class AgentAuditService implements IAgentAuditService {
     AgentMapper agentMapper;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    IDataTmpService dataTmpService;
 
     @Override
     public void updateStatus(byte status) throws Exception {
@@ -65,10 +69,11 @@ public class AgentAuditService implements IAgentAuditService {
     }
 
     @Override
-    public void audit(int id, byte status,int userId, int auditor,String remark) throws Exception {
+    public void audit(int id, byte status,int userId, int auditor,String remark,int serise) throws Exception {
         if(status == 2){
             userMapper.updateStatus(userId,(byte)1);
             User user = userMapper.selectByPrimaryKey(userId);
+            dataTmpService.addOne(new DataTmp(serise,1,String.valueOf(userId),1));
             try {
                 JuHeMessage.getRequest2(user.getPhone(),user.getLoginName(), Configuration.MESSAGE_MODEL_3);
             } catch (Exception e) {

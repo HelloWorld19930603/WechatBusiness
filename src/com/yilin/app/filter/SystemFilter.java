@@ -1,16 +1,21 @@
 package com.yilin.app.filter;
 
 
+import org.apache.commons.collections.map.HashedMap;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Created by cc on 2018/7/12.
  */
 public class SystemFilter implements Filter {
 
+
+    public Map<String,String> urlMap;
 
     public void destroy() {
         // TODO Auto-generated method stub
@@ -25,7 +30,7 @@ public class SystemFilter implements Filter {
         response.setCharacterEncoding("utf-8");
         String url = request.getRequestURI();
         System.out.println("doFilter2 : " +url);
-        if(url.indexOf("login") != -1 || url.indexOf("toLogin") != -1 || url.indexOf("invitingAgent") != -1|| url.indexOf("applyAgent") != -1|| url.indexOf("showCollege") != -1){
+        if(urlMap.containsKey(url)){
             arg2.doFilter(arg0, arg1);
             return;
         }
@@ -39,6 +44,13 @@ public class SystemFilter implements Filter {
 
     public void init(FilterConfig arg0) throws ServletException {
         // TODO Auto-generated method stub
+        urlMap = new HashedMap();
+        urlMap.put("/login.do","");
+        urlMap.put("/toLogin.do","");
+        urlMap.put("/invitingAgent.do","");
+        urlMap.put("/applyAgent.do","");
+        urlMap.put("/showCollege.do","");
+        urlMap.put("//getUsers.do.do","");
         System.out.println("SystemFilter init");
     }
 

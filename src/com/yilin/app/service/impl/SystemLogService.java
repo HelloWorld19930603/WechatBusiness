@@ -4,10 +4,12 @@ import com.yilin.app.domain.SystemLog;
 import com.yilin.app.mapper.SystemLogMapper;
 import com.yilin.app.service.ISystemLogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by cc on 2018/10/16.
  */
+@Service
 public class SystemLogService implements ISystemLogService {
 
     @Autowired

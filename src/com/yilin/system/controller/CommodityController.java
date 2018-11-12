@@ -2,6 +2,7 @@ package com.yilin.system.controller;
 
 import com.yilin.app.domain.CommDetail;
 import com.yilin.app.domain.Commodity;
+import com.yilin.app.domain.DataTmp;
 import com.yilin.app.domain.Price;
 import com.yilin.app.exception.FileException;
 import com.yilin.app.service.ICommodityService;
@@ -9,6 +10,7 @@ import com.yilin.app.service.IPriceService;
 import com.yilin.app.utils.PhotoUtil;
 import com.yilin.app.utils.StringUtil;
 import com.yilin.system.common.SystemPage;
+import com.yilin.system.service.IDataTmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +35,8 @@ public class CommodityController {
     ICommodityService commodityService;
     @Autowired
     IPriceService priceService;
+    @Autowired
+    IDataTmpService dataTmpService;
 
     @RequestMapping("commodity")
     public String commodity(Model model) {
@@ -214,6 +218,7 @@ public class CommodityController {
                 commodity.setImg(imgPath);
             }
             commodityService.updateOne(commodity);
+            dataTmpService.addOne(new DataTmp((int)commodity.getSerise(),1,String.valueOf(commodity.getId()),2));
             return 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -263,6 +268,7 @@ public class CommodityController {
             if (img3 != null) {
                 commodityService.addCommDetail(new CommDetail(commodity.getId(), img3));
             }
+            dataTmpService.addOne(new DataTmp((int)commodity.getSerise(),2,String.valueOf(commodity.getId()),1));
             return 0;
         } catch (IOException e) {
             e.printStackTrace();

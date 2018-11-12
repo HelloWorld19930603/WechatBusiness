@@ -1,10 +1,12 @@
 package com.yilin.system.controller;
 
 import com.yilin.app.common.ResultJson;
+import com.yilin.app.domain.DataTmp;
 import com.yilin.app.domain.SystemLog;
 import com.yilin.app.domain.SystemUser;
 import com.yilin.app.service.ISystemLogService;
 import com.yilin.app.utils.MD5Util;
+import com.yilin.system.service.IDataTmpService;
 import com.yilin.system.service.IHomeService;
 import com.yilin.system.service.ISystemUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ public class HomeController {
     IHomeService homeService;
     @Autowired
     ISystemLogService systemLogService;
+    @Autowired
+    IDataTmpService dataTmpService;
 
     @RequestMapping("index")
     public String index(Model model) {
@@ -142,6 +146,20 @@ public class HomeController {
     public ResultJson selectForDealer(String start, String end) {
         List<Map<String, Object>> obj = homeService.selectForDealer(start, end);
         ResultJson result = new ResultJson(true, "success", obj);
+        return result;
+    }
+
+
+
+    @RequestMapping("dataTmp")
+    @ResponseBody
+    public ResultJson dataTmp(Long time) throws Exception {
+        List<DataTmp> obj = dataTmpService.selectList(1,time);
+        ResultJson result = new ResultJson(true, "success", obj);
+        for(DataTmp tmp : obj){
+            tmp.setStatus(0);
+            dataTmpService.updateOne(tmp);
+        }
         return result;
     }
 }

@@ -8,6 +8,7 @@ import com.yilin.app.service.IRoleService;
 import com.yilin.app.service.ISystemLogService;
 import com.yilin.app.utils.WriteExcel;
 import com.yilin.system.common.SystemPage;
+import com.yilin.system.service.IDataTmpService;
 import com.yilin.system.service.ILogisticsService;
 import net.sf.json.JSONObject;
 import org.apache.commons.collections.map.HashedMap;
@@ -40,6 +41,8 @@ public class OrderController {
     IRoleService roleService;
     @Autowired
     ISystemLogService systemLogService;
+    @Autowired
+    IDataTmpService dataTmpService;
 
     //解决设置名称时的乱码
     public static String processFileName(HttpServletRequest request, String fileNames) {
@@ -150,6 +153,7 @@ public class OrderController {
             orderService.editOrder(order);
             SystemUser user = (SystemUser) req.getSession().getAttribute("user");
             systemLogService.log(new SystemLog("用户" + user.getName() + "对编号为"+order.getId()+"的订单信息进行了修改", 5, user.getLoginName()));
+            dataTmpService.addOne(new DataTmp((int)order.getSerise(),3,order.getId(),2));
             return 0;
         } catch (Exception e) {
             e.printStackTrace();

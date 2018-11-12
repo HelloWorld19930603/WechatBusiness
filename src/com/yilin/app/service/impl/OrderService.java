@@ -6,6 +6,7 @@ import com.yilin.app.exception.StatusException;
 import com.yilin.app.mapper.*;
 import com.yilin.app.service.IOrderService;
 import com.yilin.app.utils.OrderNumberBuilder;
+import com.yilin.system.service.IDataTmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,8 @@ public class OrderService implements IOrderService {
     CommodityMapper commodityMapper;
     @Autowired
     AddressMapper addressMapper;
+    @Autowired
+    IDataTmpService dataTmpService;
 
     @Override
     public List selectList(Integer userId, int start, int pageSize, Byte status) throws Exception {
@@ -154,6 +157,7 @@ public class OrderService implements IOrderService {
             orderCommMapper.insert(orderComm);
         }
         ordersMapper.insert(order);
+        dataTmpService.addOne(new DataTmp(serise,3,orderId,1));
         return orderId;
     }
 

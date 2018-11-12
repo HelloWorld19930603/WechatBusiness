@@ -1,5 +1,6 @@
 package com.yilin.system.controller;
 
+import com.yilin.app.domain.DataTmp;
 import com.yilin.app.domain.User;
 import com.yilin.app.domain.UserRole;
 import com.yilin.app.domain.Wallet;
@@ -8,6 +9,7 @@ import com.yilin.app.service.IUserService;
 import com.yilin.app.service.IWalletService;
 import com.yilin.app.utils.StringUtil;
 import com.yilin.system.common.SystemPage;
+import com.yilin.system.service.IDataTmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +33,8 @@ public class DealerController {
     IRoleService roleService;
     @Autowired
     IWalletService walletService;
+    @Autowired
+    IDataTmpService dataTmpService;
 
 
     @RequestMapping("dealer1")
@@ -121,6 +125,7 @@ public class DealerController {
             wallet.setMoney(0f);
             try {
                 walletService.addWallet(wallet);
+                dataTmpService.addOne(new DataTmp(serise,1,String.valueOf(userId),1));
             } catch (Exception e) {
                 e.printStackTrace();
             }

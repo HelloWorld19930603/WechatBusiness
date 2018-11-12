@@ -1,9 +1,11 @@
 package com.yilin.system.service.impl;
 
 import com.yilin.app.domain.AgentUpgrade;
+import com.yilin.app.domain.DataTmp;
 import com.yilin.app.mapper.AgentUpgradeMapper;
 import com.yilin.app.mapper.UserRoleMapper;
 import com.yilin.system.service.IAgentUpgradeService;
+import com.yilin.system.service.IDataTmpService;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ public class AgetnUpgradeAutidService implements IAgentUpgradeService {
     AgentUpgradeMapper agentUpgradeMapper;
     @Autowired
     UserRoleMapper userRoleMapper;
+    @Autowired
+    IDataTmpService dataTmpService;
 
     @Override
     public void updateStatus(byte status) throws Exception {
@@ -64,6 +68,7 @@ public class AgetnUpgradeAutidService implements IAgentUpgradeService {
     public void audit(int id, byte status, int userId, int level, int serise, int auditor,String remark) throws Exception {
         if(status == 2){
             userRoleMapper.updateLevel(userId,serise,level);
+            dataTmpService.addOne(new DataTmp(serise,1,String.valueOf(userId),2));
         }
         AgentUpgrade agentUpgrade = new AgentUpgrade();
         agentUpgrade.setAuditor(auditor);

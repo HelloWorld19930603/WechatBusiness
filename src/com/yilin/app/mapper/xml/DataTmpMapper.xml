@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yilin.app.mapper.DataTmpMapper">
+    <resultMap id="BaseResultMap" type="com.yilin.app.domain.DataTmp">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="serise" jdbcType="INTEGER" property="serise"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="temp_id" jdbcType="VARCHAR" property="tempId"/>
+        <result column="mode" jdbcType="INTEGER" property="mode"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="time" jdbcType="TIMESTAMP" property="time"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, serise, type, temp_id, mode, status, time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from data_tmp
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from data_tmp
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.yilin.app.domain.DataTmp">
+        insert into data_tmp (id, serise, type,
+        temp_id, mode, status,
+        time)
+        values (#{id,jdbcType=INTEGER}, #{serise,jdbcType=INTEGER}, #{type,jdbcType=INTEGER},
+        #{tempId,jdbcType=VARCHAR}, #{mode,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},
+        #{time,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.yilin.app.domain.DataTmp">
+        insert into data_tmp
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="serise != null">
+                serise,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="tempId != null">
+                temp_id,
+            </if>
+            <if test="mode != null">
+                mode,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="serise != null">
+                #{serise,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="tempId != null">
+                #{tempId,jdbcType=VARCHAR},
+            </if>
+            <if test="mode != null">
+                #{mode,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yilin.app.domain.DataTmp">
+        update data_tmp
+        <set>
+            <if test="serise != null">
+                serise = #{serise,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="tempId != null">
+                temp_id = #{tempId,jdbcType=VARCHAR},
+            </if>
+            <if test="mode != null">
+                mode = #{mode,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.yilin.app.domain.DataTmp">
+    update data_tmp
+    set serise = #{serise,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      temp_id = #{tempId,jdbcType=VARCHAR},
+      mode = #{mode,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectAll" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from data_tmp
+        where 1=1
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        <if test="time != null">
+            and time > #{time}
+        </if>
+    </select>
+</mapper>

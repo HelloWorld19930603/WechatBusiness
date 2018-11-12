@@ -65,13 +65,13 @@ public class AgentAuditController {
 
     @RequestMapping("decideAgent")
     @ResponseBody
-    public Integer decideAgent(int id, byte status, int userId,String remark, HttpServletRequest req) {
+    public Integer decideAgent(int id, byte status, int userId,String remark,int serise, HttpServletRequest req) {
         try {
             SystemUser user = (SystemUser) req.getSession().getAttribute("user");
             if(user == null){
                 return 2;
             }
-            agentAuditService.audit(id, status, userId,user.getId(),remark);
+            agentAuditService.audit(id, status, userId,user.getId(),remark,serise);
             systemLogService.log(new SystemLog("用户" + user.getName() + "对编号为"+userId+
                     "的用户进行了代理审核，其中审核结果为"+(status==2?"通过":"拒绝"), 8, user.getLoginName()));
         }catch (RequestException re){
