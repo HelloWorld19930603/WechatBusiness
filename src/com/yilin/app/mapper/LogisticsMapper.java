@@ -8,5 +8,5 @@ public interface LogisticsMapper extends IBaseMapper<Logistics> {
 
      Logistics selectByPrimaryKey(@Param(value = "id") String id);
 
-    void deleteByOrder(@Param(value = "orderId")String orderId);
+    void deleteByOrder(@Param(value = "orderId") String orderId);
 }

@@ -6,5 +6,5 @@ import org.apache.ibatis.annotations.Param;
 
 public interface AgentMapper extends IBaseMapper<Agent>{
 
-    void updateStatus(@Param(value = "id") int id,@Param(value = "status") int status);
+    void updateStatus(@Param(value = "id") int id, @Param(value = "status") int status);
 }

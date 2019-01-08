@@ -232,7 +232,7 @@ public class OrderService implements IOrderService {
     @Override
     public void refund(String orderId, int userId, byte status) throws Exception {
         Map<String,Object> order = ordersMapper.selectById(orderId);
-        if(order.get("status") != 2){
+        if((Integer)order.get("status") != 2){
             throw new StatusException("订单状态异常");
         }
         Map<String, Object> map = new HashMap<>();

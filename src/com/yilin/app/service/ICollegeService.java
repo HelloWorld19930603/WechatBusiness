@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface ICollegeService {
 
-    Page findPage(Byte type,int start, int pageSize) throws Exception;
+    Page findPage(Byte type, int start, int pageSize) throws Exception;
 
     List findList(Byte type, String title, int start, int pageSize) throws Exception;
 

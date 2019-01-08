@@ -10,5 +10,5 @@ public interface AddressMapper extends IBaseMapper<Address>{
 
     void updateByUserId(@Param("userId") int userId);
 
-    void deleteOne(@Param("id")int id,@Param("userId")int userId);
+    void deleteOne(@Param("id") int id, @Param("userId") int userId);
 }

@@ -12,9 +12,9 @@ public interface IRechargeAuditService {
 
     void updateStatus(byte status) throws Exception;
 
-    int getCount(Byte status,Byte serise,String phone,String userId)throws Exception;
+    int getCount(Byte status, Byte serise, String phone, String userId)throws Exception;
 
-    List selectList(Byte status, Byte serise, String phone, String userId,int start,int pageSize)throws Exception;
+    List selectList(Byte status, Byte serise, String phone, String userId, int start, int pageSize)throws Exception;
 
     Recharge selectOne(int id)throws Exception;
 
@@ -22,5 +22,5 @@ public interface IRechargeAuditService {
 
     void removeOne(int id)throws Exception;
 
-    void audit(int id,byte status)throws Exception;
+    void audit(int id, byte status)throws Exception;
 }

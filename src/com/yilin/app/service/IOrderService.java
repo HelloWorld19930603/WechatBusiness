@@ -24,7 +24,7 @@ public interface IOrderService {
 
     Map<String,Object> findOrder(String id) throws Exception;
 
-    String createOrder(int userId,Map<String,Object> orders) throws Exception;
+    String createOrder(int userId, Map<String, Object> orders) throws Exception;
 
 
     List<Map<String,Integer>> getAllCount(Integer userId) throws Exception;
@@ -40,7 +40,7 @@ public interface IOrderService {
 
     Map selectByCode(String code)throws Exception;
 
-    int getCount(String orderId,String addrName, String phone, Byte status, Byte serise,String startDate,String endDate) throws Exception;
+    int getCount(String orderId, String addrName, String phone, Byte status, Byte serise, String startDate, String endDate) throws Exception;
 
-    List selectList2(String orderId,String addrName, String phone, Byte status, Byte serise,String startDate,String endDate, int start, int pageSize) throws Exception;
+    List selectList2(String orderId, String addrName, String phone, Byte status, Byte serise, String startDate, String endDate, int start, int pageSize) throws Exception;
 }

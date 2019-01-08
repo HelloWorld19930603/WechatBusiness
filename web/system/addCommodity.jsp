@@ -88,6 +88,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-2 col-sm-2 control-label">库存</label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <input type="text" placeholder="" class="form-control" id="stock">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-md-2 control-label span3"></label>
                                         <div class="col-md-6">
                                             <img  id="img" src="/images/default.png" width="100px" height="100px">
@@ -298,6 +304,7 @@
         var eName = $("#eName").val().trim();
         var serise = $("#serise").val().trim();
         var scale = $("#scale").val().trim();
+        var stock = $("#stock").val();
         var file = document.getElementById("file").files[0];
         var file2 = document.getElementById("file2").files[0];
         var file3 = document.getElementById("file3").files[0];
@@ -306,6 +313,7 @@
         formData.append('eName', eName);
         formData.append('serise', serise);
         formData.append('scale', scale);
+        formData.append('stock', stock);
         if(file){
             formData.append('file', file);
         }else{

@@ -26,6 +26,8 @@ import java.util.Map;
 @Controller
 public class HomeController {
 
+    long timestamp = new Date().getTime();
+
     @Autowired
     ISystemUserService systemUserService;
     @Autowired
@@ -150,13 +152,19 @@ public class HomeController {
     }
 
 
-
     @RequestMapping("dataTmp")
     @ResponseBody
-    public ResultJson dataTmp(Long time) throws Exception {
-        List<DataTmp> obj = dataTmpService.selectList(1,time);
+    public ResultJson dataTmp(Long time, Long timestamp) throws Exception {
+        if (timestamp != null) {
+            if(timestamp <= this.timestamp){
+                return null;
+            }else{
+                this.timestamp = timestamp;
+            }
+        }
+        List<DataTmp> obj = dataTmpService.selectList(1, time);
         ResultJson result = new ResultJson(true, "success", obj);
-        for(DataTmp tmp : obj){
+        for (DataTmp tmp : obj) {
             tmp.setStatus(0);
             dataTmpService.updateOne(tmp);
         }

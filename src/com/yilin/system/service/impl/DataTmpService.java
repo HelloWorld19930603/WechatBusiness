@@ -7,6 +7,8 @@ import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +35,7 @@ public class DataTmpService implements IDataTmpService{
     public List<DataTmp> selectList(Integer status, Long time) throws Exception {
         Map<String,Object> map = new HashedMap();
         if(time != null){
-            map.put("time",time);
+            map.put("time",new Date(time));
         }else {
             map.put("status", status);
         }

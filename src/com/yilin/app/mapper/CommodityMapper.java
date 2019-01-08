@@ -15,5 +15,5 @@ public interface CommodityMapper  extends IBaseMapper<Commodity> {
 
     int selectByType(@Param("type") int type);
 
-    void updateByType(@Param("type")byte type);
+    void updateByType(@Param("type") byte type);
 }

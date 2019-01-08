@@ -22,5 +22,5 @@ public interface IAddressService {
 
     void addAddress(Address address) throws Exception;
 
-    void removeAddress(int id,int userId) throws Exception;
+    void removeAddress(int id, int userId) throws Exception;
 }

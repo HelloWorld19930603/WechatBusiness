@@ -294,11 +294,11 @@
     }
 
     // 上下架
-    function updateShelf(commId,status){
+    function updateShelf(commId,name,status){
         if(status == 1){
             swal({
                 title: '你确定吗?',
-                text: '你将会下架这件商品!',
+                text: '你将会下架'+name+'这件商品!',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -329,7 +329,7 @@
         }else{
             swal({
                 title: '你确定吗?',
-                text: '你将会上架这件商品!',
+                text: '你将会上架'+name+'这件商品!',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

@@ -22,7 +22,7 @@ public class SystemUserService implements ISystemUserService {
     SystemUserMapper systemUserMapper;
 
     @Override
-    public List<com.yilin.app.domain.SystemUser> selectPage(String name, String phone, String loginName, int start, int pageSize) throws Exception {
+    public List<SystemUser> selectPage(String name, String phone, String loginName, int start, int pageSize) throws Exception {
         Map<String,Object> map = new HashMap<>();
         map.put("start",(start-1)*pageSize);
         map.put("pageSize",pageSize);

@@ -6,5 +6,5 @@ import org.apache.ibatis.annotations.Param;
 
 public interface UserRoleMapper extends IBaseMapper<UserRole>{
 
-    void updateLevel(@Param("userId") int userId, @Param("serise") int serise,@Param("level") int level);
+    void updateLevel(@Param("userId") int userId, @Param("serise") int serise, @Param("level") int level);
 }

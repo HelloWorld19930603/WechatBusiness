@@ -285,9 +285,9 @@
 
 </body>
 </html>
-<script src="js/date/moment.min.js"></script>
+<script src="/js/date/moment.min.js"></script>
 
-<script src="js/date/datepicker.all.js"></script>
+<script src="/js/date/datepicker.all.js"></script>
 <script type="text/javascript">
     $(".${active}").addClass("active animated rubberBand");
     $(".${active}").parents("li").addClass("nav-active animated pulse");

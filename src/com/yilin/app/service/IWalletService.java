@@ -28,7 +28,7 @@ public interface IWalletService {
 
     List<Map<String, Object>> getAllMoney(int userId, byte serise) throws Exception;
 
-    List<Map<String, Object>> getRebate(int userId,Byte serise) throws Exception;
+    List<Map<String, Object>> getRebate(int userId, Byte serise) throws Exception;
 
     Page findRecords(int userId, int start, int pageSize) throws Exception;
 }
