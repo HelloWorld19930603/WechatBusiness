@@ -228,13 +228,16 @@ public class CommodityController {
 
     @RequestMapping("removeCommodity")
     @ResponseBody
-    public String removeCommodity(int commId) {
+    public Object removeCommodity(int commId) {
         try {
-            commodityService.deleteOne(commId);
-            return "删除成功";
+            Commodity commodity = new Commodity();
+            commodity.setId(commId);
+            commodity.setStatus((byte)2);
+            commodityService.updateOne(commodity);
+            return 0;
         } catch (Exception e) {
             e.printStackTrace();
-            return "删除失败";
+            return 1;
         }
     }
 

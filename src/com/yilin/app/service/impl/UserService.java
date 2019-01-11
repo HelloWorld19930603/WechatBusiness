@@ -5,7 +5,6 @@ import com.yilin.app.mapper.UserMapper;
 import com.yilin.app.service.IUserService;
 import com.yilin.app.utils.MD5Util;
 import com.yilin.app.utils.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -99,8 +98,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<Map<String, Object>> selectBySerise(Byte serise,String phone,String name, Byte status,int start, int pageSize) {
+    public List<Map<String, Object>> selectBySerise(String code, Byte serise, String phone, String name, Byte status, int start, int pageSize) {
         Map<String,Object> map = new HashMap<>();
+        map.put("code",code);
         map.put("serise",serise);
         map.put("phone",phone);
         map.put("name",name);
@@ -111,8 +111,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public int selectNumBySerise(Byte serise,String phone,String name, Byte status) {
+    public int selectNumBySerise(String code, Byte serise, String phone, String name, Byte status) {
         Map<String,Object> map = new HashMap<>();
+        map.put("code",code);
         map.put("serise",serise);
         map.put("phone",phone);
         map.put("name",name);

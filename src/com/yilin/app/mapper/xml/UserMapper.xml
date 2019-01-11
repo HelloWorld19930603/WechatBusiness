@@ -246,6 +246,9 @@
         <if test="status != null">
             and status = #{status}
         </if>
+        <if test="code != null">
+            and status = #{status}
+        </if>
         limit #{start},#{pageSize}
     </select>
 
@@ -299,6 +302,9 @@
             and phone = #{phone}
         </if>
         <if test="status != null">
+            and status = #{status}
+        </if>
+        <if test="code != null">
             and status = #{status}
         </if>
     </select>

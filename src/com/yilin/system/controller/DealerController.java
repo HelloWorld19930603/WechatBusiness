@@ -139,9 +139,9 @@ public class DealerController {
 
     @RequestMapping("getUsers")
     @ResponseBody
-    public Object getUsers(Byte serise,String phone,String name,Byte status, int start,int pageSize) throws Exception {
-        int totals = userService.selectNumBySerise(serise,phone,name,status);
-        List<Map<String,Object>> data = userService.selectBySerise(serise,phone, name,status,start,pageSize);
+    public Object getUsers(String code,Byte serise,String phone,String name,Byte status, int start,int pageSize) throws Exception {
+        int totals = userService.selectNumBySerise(code,serise,phone,name,status);
+        List<Map<String,Object>> data = userService.selectBySerise(code,serise,phone, name,status,start,pageSize);
         SystemPage page = new SystemPage(totals,data);
         return page;
     }

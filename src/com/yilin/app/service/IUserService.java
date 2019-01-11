@@ -29,9 +29,9 @@ public interface IUserService {
 
     boolean checkPayPwd(int userId, String payPwd) throws Exception;
 
-    List<Map<String, Object>> selectBySerise(Byte serise, String phone, String name, Byte status, int start, int pageSize);
+    List<Map<String, Object>> selectBySerise(String code, Byte serise, String phone, String name, Byte status, int start, int pageSize);
 
-    int selectNumBySerise(Byte serise, String phone, String name, Byte status)throws Exception;
+    int selectNumBySerise(String code, Byte serise, String phone, String name, Byte status)throws Exception;
 
     User selectByLoginName(String loginName)throws Exception;
 
