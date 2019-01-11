@@ -9,7 +9,7 @@
           content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3">
     <meta name="description" content="">
     <meta name="author" content="ThemeBucket">
-    <link rel="shortcut icon" href="#" type="image/png">
+
     <link href="<%=path%>/css/animate.min.css" rel="stylesheet">
     <link href="<%=path%>/css/hover-min.css" rel="stylesheet" media="all">
     <title><%=title%>

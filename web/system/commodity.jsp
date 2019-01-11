@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="">
-    <link rel="shortcut icon" href="#" type="image/png">
+
     <title><%=title%></title>
 
     <!--common-->
@@ -275,7 +275,7 @@
                         var htmlString = '<span class="plugin-action" gm-click="editRowData">编辑</span>';
                          htmlString += '<span class="plugin-action" gm-click="activities" style="color:#f0ad4e">活动</span>';
                         if(rowObjct.status == 1){
-                            htmlString += '<span class="plugin-action" style="color:#d9534f" onclick="updateShelf('+rowObjct.id+',\''+rowObjct.name+'\','+rowObjct.status+')">下架</span>';
+                            htmlString += '<span class="plugin-action" style="color:#d9534f" onclick="updateShelf('+rowObjct.id+',\''+rowObjct.name+'\','+rowObjct.status+')">删除</span>';
                         }else{
                             htmlString += '<span class="plugin-action" style="color:#5bc0de" onclick="updateShelf('+rowObjct.id+',\''+rowObjct.name+'\','+rowObjct.status+')">上架</span>';
                         }
@@ -298,28 +298,28 @@
         if(status == 1){
             swal({
                 title: '你确定吗?',
-                text: '你将会下架'+name+'这件商品!',
+                text: '你将会删除'+name+'这件商品!',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: '确认下架',
+                confirmButtonText: '确认删除',
                 cancelButtonText:'点错了'
             }).then(function(isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "/updateShelf.do?commId="+commId+"&status=0",
+                        url: "/removeCommodity.do?commId="+commId+"&status=0",
                         type: "get",
                         success: function (data) {
                             if(data == 0){
                               swal('大功告成!', '好的，以后你将不会再商品列表中看到它了!', 'success');
                             }else{
-                                swal('Oh no...', '商品下架异常!', 'error');
+                                swal('Oh no...', '商品删除异常!', 'error');
                             }
                             console.log(data);
                         },
                         error: function (data) {
-                            swal('Oh no...', '商品下架失败!', 'error');
+                            swal('Oh no...', '商品删除失败!', 'error');
                             console.log(data);
                         }
                     });
