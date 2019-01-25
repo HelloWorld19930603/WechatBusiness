@@ -243,11 +243,11 @@
         <if test="phone != null and phone != ''">
             and phone = #{phone}
         </if>
-        <if test="status != null">
+        <if test="status != null and status != ''">
             and status = #{status}
         </if>
-        <if test="code != null">
-            and status = #{status}
+        <if test="code != null and code != ''">
+            and code = #{code}
         </if>
         limit #{start},#{pageSize}
     </select>

@@ -137,8 +137,8 @@ public class ReadExcel {
        // domain( "D:\\weishang\\格丽缇\\工作簿1.xls");
       //  commoDetail();
         //inserExpress();
-            insertWallet();
-            //    domain("e:\\agent.xls");
+            domain("d:\\app(2).xls");
+            //insertWallet();
 
     }
 
@@ -153,6 +153,9 @@ public class ReadExcel {
             // price(excelAllList.get(n), n);
             user(excelAllList.get(n), n);
         }
+        for(String s : list){
+            System.out.println(s);
+        }
     }
 /*        '1': '股东',
                 '2': '联创',
@@ -163,6 +166,7 @@ public class ReadExcel {
                 '7': '二级代理',
                 '8': '特约'*/
 
+    static List<String> list = new ArrayList<>();
     private static void user(List<List> excelList, int n) {
         if (n != 0) {
             return;
@@ -211,7 +215,7 @@ public class ReadExcel {
         //E10ADC3949BA59ABBE56E057F20F883E
         StringBuilder sql2 ;
         int num = 0;
-        for (int i = 1; i < 2234; i++) {
+        for (int i = 1; i < excelList.size(); i++) {
 
             StringBuilder sql = new StringBuilder(" insert into user (`name`, `login_name`, `login_pwd`, `pay_pwd`, `sex`, `sup_id`, `phone`, `wx_num`, `id_num`, `status`) values(  ");
             List l = excelList.get(i);
@@ -219,27 +223,35 @@ public class ReadExcel {
             Integer role1 = map1.get(((String) l.get(0)).trim());
             Integer role2 = map2.get(((String) l.get(1)).trim());
             Integer role3 = map2.get(((String) l.get(2)).trim());
-            if (role1 != null && role1 < 3) {
+            if (role1 != null ) {
                 flag = true;
             }
-            if (role2 != null && role2 < 3) {
+            if (role2 != null) {
                 flag = true;
             }
-            if (role2 != null && role2 < 3) {
+            if (role2 != null ) {
                 flag = true;
             }
             Integer supId = null;
-
-/*            JSONArray array = SqlUtils.getInstance().search("(select id from user where name = '"+((String)l.get(6)).trim()+"')");
+            if(l.get(3)==null || "".equals(l.get(3))){
+                continue;
+            }
+            JSONArray jarray = SqlUtils.getInstance().search("(select id from user where phone = '"+((String)l.get(5)).trim()+"')");
+            if(jarray.size() !=0 ){
+                System.out.println("重复的名字"+l.get(3));
+                continue;
+            }
+            list.add(l.get(3).toString());
+            JSONArray array = SqlUtils.getInstance().search("(select id from user where name = '"+((String)l.get(6)).trim()+"')");
             if(array != null && array.size() > 0) {
                 supId = (Integer) ((JSONObject) array.get(0)).get("id");
-            }*/
+            }
             sql.append("'").append(((String) l.get(3)).trim()).append("'").append(",");
             sql.append("'").append(l.get(5)).append("'").append(",");
             sql.append("'").append("E10ADC3949BA59ABBE56E057F20F883E").append("'").append(",");
             sql.append("'").append("E10ADC3949BA59ABBE56E057F20F883E").append("'").append(",");
             sql.append("'").append("女").append("'").append(",");
-            sql.append("").append(supId).append(",");
+            sql.append(supId).append(",");
             sql.append("'").append(l.get(5)).append("'").append(",");
             sql.append("'").append(l.get(4)).append("'").append(",");
             sql.append("'").append(l.get(7)).append("'").append(",");
@@ -248,14 +260,14 @@ public class ReadExcel {
             } else {
                 sql.append("'").append(0).append("'").append(")");
             }
-            // SqlUtils.getInstance().insert(sql.toString());
+             SqlUtils.getInstance().insert(sql.toString());
             sql2 = new StringBuilder("insert into user_role(user_id,role_id,serise) values(");
             StringBuilder sql3 = new StringBuilder("insert into wallet(user_id,serise) values(");
             if (role1 != null) {
                 sql2.append("(").append(sql1).append("),");
                 sql2.append(role1).append(",");
                 sql2.append(1).append(")");
-                //  SqlUtils.getInstance().insert(sql2.toString());
+                  SqlUtils.getInstance().insert(sql2.toString());
                 sql3.append("(select id from user where login_name = '" + l.get(5)).append("'),").append(1).append(")");
                 SqlUtils.getInstance().insert(sql3.toString());
             }
@@ -265,7 +277,7 @@ public class ReadExcel {
                 sql2.append("(").append(sql1).append("),");
                 sql2.append(role2).append(",");
                 sql2.append(2).append(")");
-                //  SqlUtils.getInstance().insert(sql2.toString());
+                  SqlUtils.getInstance().insert(sql2.toString());
                 sql3.append("(select id from user where login_name = '" + l.get(5)).append("'),").append(2).append(")");
                 SqlUtils.getInstance().insert(sql3.toString());
             }
@@ -275,7 +287,7 @@ public class ReadExcel {
                 sql2.append("(").append(sql1).append("),");
                 sql2.append(role3).append(",");
                 sql2.append(3).append(")");
-                // SqlUtils.getInstance().insert(sql2.toString());
+                 SqlUtils.getInstance().insert(sql2.toString());
                 sql3.append("(select id from user where login_name = '" + l.get(5)).append("'),").append(3).append(")");
                 SqlUtils.getInstance().insert(sql3.toString());
             }
