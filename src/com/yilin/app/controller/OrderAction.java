@@ -170,7 +170,7 @@ public class OrderAction {
         ResultJson result;
         try {
             int userId = Permission.getUserId(token);
-            orderService.refund(orderId, userId, (byte) 5);
+            orderService.refund(orderId, userId, (byte) 6);
             result = new ResultJson(true, "订单退款成功");
         }catch (StatusException se){
             result = new ResultJson(false, se.getMsg());

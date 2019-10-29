@@ -18,6 +18,7 @@
         <mapper resource="com/yilin/app/mapper/xml/RechargeMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/RoleMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/UserMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/UserRoleMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/OrdersMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/WalletMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/CartMapper.xml"/>
@@ -25,5 +26,16 @@
         <mapper resource="com/yilin/app/mapper/xml/RebateMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/AuthorityMapper.xml"/>
         <mapper resource="com/yilin/app/mapper/xml/PaymentMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/CommDetailMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/PosterMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/ExpressMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/LogisticsMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/OrderCommMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/SystemUserMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/AgentMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/RebateRuleMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/HomeMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/DataTmpMapper.xml"/>
+        <mapper resource="com/yilin/app/mapper/xml/SystemLogMapper.xml"/>
     </mappers>
 </configuration>

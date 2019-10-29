@@ -247,7 +247,7 @@
             and status = #{status}
         </if>
         <if test="code != null and code != ''">
-            and code = #{code}
+            and id = #{code}
         </if>
         limit #{start},#{pageSize}
     </select>

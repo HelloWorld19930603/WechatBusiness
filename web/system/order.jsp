@@ -24,12 +24,6 @@
     <![endif]-->
 </head>
 <style>
-    .se-con {
-        width: 140px;
-    }
-    .fancy-select{
-        top: 15px;
-    }
 
     .search-wrapper{
         display: inline-block;

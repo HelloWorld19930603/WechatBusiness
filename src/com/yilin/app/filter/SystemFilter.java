@@ -37,8 +37,10 @@ public class SystemFilter implements Filter {
         Object object = request.getSession().getAttribute("user");
         if (object != null) {
             arg2.doFilter(arg0, arg1);
-        }else {
+        }else if(url.contains("login")){
             request.getRequestDispatcher("/login.html").forward(request, response);
+        }else {
+            request.getRequestDispatcher("/index.html").forward(request, response);
         }
     }
 
@@ -50,7 +52,7 @@ public class SystemFilter implements Filter {
         urlMap.put("/invitingAgent.do","");
         urlMap.put("/applyAgent.do","");
         urlMap.put("/showCollege.do","");
-        urlMap.put("//getUsers.do.do","");
+        urlMap.put("/getUsers.do.do","");
         System.out.println("SystemFilter init");
     }
 
